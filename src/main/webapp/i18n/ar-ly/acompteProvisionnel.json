@@ -1,0 +1,30 @@
+{
+    "comptaDecisionApp": {
+        "acompteProvisionnel": {
+            "home": {
+                "title": "Acompte Provisionnels",
+                "createLabel": "Create a new Acompte Provisionnel",
+                "createOrEditLabel": "Create or edit a Acompte Provisionnel"
+            },
+            "created": "A new Acompte Provisionnel is created with identifier {{ param }}",
+            "updated": "A Acompte Provisionnel is updated with identifier {{ param }}",
+            "deleted": "A Acompte Provisionnel is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Acompte Provisionnel {{ id }}?"
+            },
+            "detail": {
+                "title": "Acompte Provisionnel"
+            },
+            "annee": "Annee",
+            "numero": "Numero",
+            "date": "Date",
+            "numeroQuittance": "Numero Quittance",
+            "montantBase": "Montant Base",
+            "montantAcompteProvisionnel": "Montant Acompte Provisionnel",
+            "montantReportAnterieur": "Montant Report Anterieur",
+            "montantRetenueSource": "Montant Retenue Source",
+            "montantNet": "Montant Net",
+            "ficheClient": "Fiche Client"
+        }
+    }
+}

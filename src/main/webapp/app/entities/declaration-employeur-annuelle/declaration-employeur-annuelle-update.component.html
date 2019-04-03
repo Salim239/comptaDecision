@@ -1,0 +1,107 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-declaration-employeur-annuelle-heading" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.home.createOrEditLabel">Create or edit a Declaration Employeur Annuelle</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!declarationEmployeurAnnuelle.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="declarationEmployeurAnnuelle.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.ficheClient" for="field_ficheClient">Fiche Client</label>
+                    <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="declarationEmployeurAnnuelle.ficheClientId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="ficheClientOption.id" *ngFor="let ficheClientOption of ficheclients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.annee" for="field_annee">Annee</label>
+                    <input type="number" class="form-control" name="annee" id="field_annee"
+                        [(ngModel)]="declarationEmployeurAnnuelle.annee" required/>
+                    <div [hidden]="!(editForm.controls.annee?.dirty && editForm.controls.annee?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.annee?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.annee?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe1" for="field_montantAnnexe1">Montant Annexe 1</label>
+                    <input type="number" class="form-control" name="montantAnnexe1" id="field_montantAnnexe1"
+                        [(ngModel)]="declarationEmployeurAnnuelle.montantAnnexe1" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe2" for="field_montantAnnexe2">Montant Annexe 2</label>
+                    <input type="number" class="form-control" name="montantAnnexe2" id="field_montantAnnexe2"
+                        [(ngModel)]="declarationEmployeurAnnuelle.montantAnnexe2" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe3" for="field_montantAnnexe3">Montant Annexe 3</label>
+                    <input type="number" class="form-control" name="montantAnnexe3" id="field_montantAnnexe3"
+                        [(ngModel)]="declarationEmployeurAnnuelle.montantAnnexe3" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe4" for="field_montantAnnexe4">Montant Annexe 4</label>
+                    <input type="number" class="form-control" name="montantAnnexe4" id="field_montantAnnexe4"
+                        [(ngModel)]="declarationEmployeurAnnuelle.montantAnnexe4" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe5" for="field_montantAnnexe5">Montant Annexe 5</label>
+                    <input type="number" class="form-control" name="montantAnnexe5" id="field_montantAnnexe5"
+                        [(ngModel)]="declarationEmployeurAnnuelle.montantAnnexe5" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe6" for="field_montantAnnexe6">Montant Annexe 6</label>
+                    <input type="number" class="form-control" name="montantAnnexe6" id="field_montantAnnexe6"
+                        [(ngModel)]="declarationEmployeurAnnuelle.montantAnnexe6" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe7" for="field_montantAnnexe7">Montant Annexe 7</label>
+                    <input type="number" class="form-control" name="montantAnnexe7" id="field_montantAnnexe7"
+                        [(ngModel)]="declarationEmployeurAnnuelle.montantAnnexe7" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe8" for="field_montantAnnexe8">Montant Annexe 8</label>
+                    <input type="number" class="form-control" name="montantAnnexe8" id="field_montantAnnexe8"
+                        [(ngModel)]="declarationEmployeurAnnuelle.montantAnnexe8" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe9" for="field_montantAnnexe9">Montant Annexe 9</label>
+                    <input type="number" class="form-control" name="montantAnnexe9" id="field_montantAnnexe9"
+                        [(ngModel)]="declarationEmployeurAnnuelle.montantAnnexe9" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe10" for="field_montantAnnexe10">Montant Annexe 10</label>
+                    <input type="number" class="form-control" name="montantAnnexe10" id="field_montantAnnexe10"
+                        [(ngModel)]="declarationEmployeurAnnuelle.montantAnnexe10" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe11" for="field_montantAnnexe11">Montant Annexe 11</label>
+                    <input type="number" class="form-control" name="montantAnnexe11" id="field_montantAnnexe11"
+                        [(ngModel)]="declarationEmployeurAnnuelle.montantAnnexe11" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe12" for="field_montantAnnexe12">Montant Annexe 12</label>
+                    <input type="number" class="form-control" name="montantAnnexe12" id="field_montantAnnexe12"
+                        [(ngModel)]="declarationEmployeurAnnuelle.montantAnnexe12" />
+                </div>
+
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

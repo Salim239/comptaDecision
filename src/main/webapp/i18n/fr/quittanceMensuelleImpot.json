@@ -1,0 +1,26 @@
+{
+    "comptaDecisionApp": {
+        "quittanceMensuelleImpot": {
+            "home": {
+                "title": "QuittanceMensuelleImpots",
+                "createLabel": "Créer un nouveau Quittance Mensuelle Impot",
+                "createOrEditLabel": "Créer ou éditer un Quittance Mensuelle Impot"
+            },
+            "created": "Un nouveau Quittance Mensuelle Impot a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Quittance Mensuelle Impot avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Quittance Mensuelle Impot avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Quittance Mensuelle Impot {{ id }} ?"
+            },
+            "detail": {
+                "title": "Quittance Mensuelle Impot"
+            },
+            "annee": "Annee",
+            "mois": "Mois",
+            "numeroQuittance": "Numero Quittance",
+            "datePaiement": "Date Paiement",
+            "montantPaye": "Montant Paye",
+            "ficheClient": "Fiche Client"
+        }
+    }
+}

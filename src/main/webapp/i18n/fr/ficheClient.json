@@ -1,0 +1,39 @@
+{
+    "comptaDecisionApp": {
+        "ficheClient": {
+            "home": {
+                "title": "FicheClients",
+                "createLabel": "Créer un nouveau Fiche Client",
+                "createOrEditLabel": "Créer ou éditer un Fiche Client"
+            },
+            "created": "Un nouveau Fiche Client a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Fiche Client avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Fiche Client avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Fiche Client {{ id }} ?"
+            },
+            "detail": {
+                "title": "Fiche Client"
+            },
+            "categorieClient": "Categorie Client",
+            "designation": "Designation",
+            "logo": "Logo",
+            "adresse": "Adresse",
+            "codePostal": "Code Postal",
+            "telephone": "Telephone",
+            "fax": "Fax",
+            "email": "Email",
+            "matriculeFiscale": "Matricule Fiscale",
+            "registreCommerce": "Registre Commerce",
+            "dateCreation": "Date Creation",
+            "cnssEmployeur": "Cnss Employeur",
+            "cnssGerant": "Cnss Gerant",
+            "fichierPatente": "Fichier Patente",
+            "secteurActivite": "Secteur Activite",
+            "activite": "Activite",
+            "activiteSecondaire": "Activite Scondaire",
+            "region": "Region",
+            "ville": "Ville"
+        }
+    }
+}

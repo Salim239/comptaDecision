@@ -1,0 +1,23 @@
+{
+    "comptaDecisionApp": {
+        "impotMensuel": {
+            "home": {
+                "title": "ImpotMensuels",
+                "createLabel": "Créer un nouveau Impot Mensuel",
+                "createOrEditLabel": "Créer ou éditer un Impot Mensuel"
+            },
+            "created": "Un nouveau Impot Mensuel a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Impot Mensuel avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Impot Mensuel avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Impot Mensuel {{ id }} ?"
+            },
+            "detail": {
+                "title": "Impot Mensuel"
+            },
+            "code": "Code",
+            "libelle": "Libelle",
+            "description": "Description"
+        }
+    }
+}

@@ -1,0 +1,93 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.home.title">Declaration Employeur Annuelles</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-declaration-employeur-annuelle" [routerLink]="['/declaration-employeur-annuelle/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.home.createLabel">
+            Create new Declaration Employeur Annuelle
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="declarationEmployeurAnnuelles">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="ficheClientDesignation"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.ficheClient">Fiche Client</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="annee"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.annee">Annee</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAnnexe1"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe1">Montant Annexe 1</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAnnexe2"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe2">Montant Annexe 2</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAnnexe3"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe3">Montant Annexe 3</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAnnexe4"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe4">Montant Annexe 4</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAnnexe5"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe5">Montant Annexe 5</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAnnexe6"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe6">Montant Annexe 6</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAnnexe7"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe7">Montant Annexe 7</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAnnexe8"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe8">Montant Annexe 8</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAnnexe9"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe9">Montant Annexe 9</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAnnexe10"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe10">Montant Annexe 10</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAnnexe11"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe11">Montant Annexe 11</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAnnexe12"><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe12">Montant Annexe 12</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let declarationEmployeurAnnuelle of declarationEmployeurAnnuelles ;trackBy: trackId">
+                <td><a [routerLink]="['/declaration-employeur-annuelle', declarationEmployeurAnnuelle.id, 'view' ]">{{declarationEmployeurAnnuelle.id}}</a></td>
+                <td>
+                    <div *ngIf="declarationEmployeurAnnuelle.ficheClientId">
+                        <a [routerLink]="['../fiche-client', declarationEmployeurAnnuelle.ficheClientId , 'view' ]" >{{declarationEmployeurAnnuelle.ficheClientDesignation}}</a>
+                    </div>
+                </td>
+                <td>{{declarationEmployeurAnnuelle.annee}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe1}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe2}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe3}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe4}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe5}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe6}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe7}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe8}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe9}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe10}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe11}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe12}}</td>
+
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/declaration-employeur-annuelle', declarationEmployeurAnnuelle.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/declaration-employeur-annuelle', declarationEmployeurAnnuelle.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'declaration-employeur-annuelle', { outlets: { popup: declarationEmployeurAnnuelle.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="declarationEmployeurAnnuelles && declarationEmployeurAnnuelles.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

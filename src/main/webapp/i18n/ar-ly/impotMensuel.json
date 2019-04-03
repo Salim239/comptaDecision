@@ -1,0 +1,23 @@
+{
+    "comptaDecisionApp": {
+        "impotMensuel": {
+            "home": {
+                "title": "Impot Mensuels",
+                "createLabel": "Create a new Impot Mensuel",
+                "createOrEditLabel": "Create or edit a Impot Mensuel"
+            },
+            "created": "A new Impot Mensuel is created with identifier {{ param }}",
+            "updated": "A Impot Mensuel is updated with identifier {{ param }}",
+            "deleted": "A Impot Mensuel is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Impot Mensuel {{ id }}?"
+            },
+            "detail": {
+                "title": "Impot Mensuel"
+            },
+            "code": "Code",
+            "libelle": "Libelle",
+            "description": "Description"
+        }
+    }
+}

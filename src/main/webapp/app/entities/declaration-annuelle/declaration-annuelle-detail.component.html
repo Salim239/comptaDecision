@@ -1,0 +1,89 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="declarationAnnuelle">
+            <h2><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.detail.title">Declaration Annuelle</span> {{declarationAnnuelle.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.ficheClient">Fiche Client</span></dt>
+                <dd>
+                    <div *ngIf="declarationAnnuelle.ficheClientId">
+                        <a [routerLink]="['/fiche-client', declarationAnnuelle.ficheClientId, 'view']">{{declarationAnnuelle.ficheClientDesignation}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.annee">Annee</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.annee}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.datePaiement">Date Paiement</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.datePaiement}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.numeroQuittance">Numero Quittance</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.numeroQuittance}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireHT">Montant Chiffre Affaire HT</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantChiffreAffaireHT}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireExport">Montant Chiffre Affaire Export</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantChiffreAffaireExport}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireImpot">Montant Chiffre Affaire Impot</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantChiffreAffaireImpot}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireTTC">Montant Chiffre Affaire TTC</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantChiffreAffaireTTC}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantResultatComptable">Montant Resultat Comptable</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantResultatComptable}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantDeductionCommune">Montant Deduction Commune</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantDeductionCommune}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantAutreDeduction">Montant Autre Deduction</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantAutreDeduction}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantBaseImposable">Montant Base Imposable</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantBaseImposable}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantImpotLiquide">Montant Impot Liquide</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantImpotLiquide}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantAcompteProvisionnel">Montant Acompte Provisionnel</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantAcompteProvisionnel}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantRetenueSource">Montant Retenue Source</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantRetenueSource}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantNetAPaye">Montant Net A Paye</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantNetAPaye}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/declaration-annuelle', declarationAnnuelle.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

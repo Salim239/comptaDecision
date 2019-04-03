@@ -1,0 +1,85 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="comptaDecisionApp.acompteProvisionnel.home.title">Acompte Provisionnels</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-acompte-provisionnel" [routerLink]="['/acompte-provisionnel/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="comptaDecisionApp.acompteProvisionnel.home.createLabel">
+            Create new Acompte Provisionnel
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="acompteProvisionnels">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="ficheClientDesignation"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.ficheClient">Fiche Client</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="annee"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.annee">Annee</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="numero"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.numero">Numero</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="date"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="numeroQuittance"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.numeroQuittance">Numero Quittance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantBase"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantBase">Montant Base</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantAcompteProvisionnel"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantAcompteProvisionnel">Montant Acompte Provisionnel</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantReportAnterieur"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantReportAnterieur">Montant Report Anterieur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantRetenueSource"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantRetenueSource">Montant Retenue Source</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantNet"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantNet">Montant Net</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let acompteProvisionnel of acompteProvisionnels ;trackBy: trackId">
+                <td><a [routerLink]="['/acompte-provisionnel', acompteProvisionnel.id, 'view' ]">{{acompteProvisionnel.id}}</a></td>
+                <td>
+                    <div *ngIf="acompteProvisionnel.ficheClientId">
+                        <a [routerLink]="['../fiche-client', acompteProvisionnel.ficheClientId , 'view' ]" >{{acompteProvisionnel.ficheClientDesignation}}</a>
+                    </div>
+                </td>
+                <td>{{acompteProvisionnel.annee}}</td>
+                <td>{{acompteProvisionnel.numero}}</td>
+                <td>{{acompteProvisionnel.date | date:'mediumDate'}}</td>
+                <td>{{acompteProvisionnel.numeroQuittance}}</td>
+                <td>{{acompteProvisionnel.montantBase}}</td>
+                <td>{{acompteProvisionnel.montantAcompteProvisionnel}}</td>
+                <td>{{acompteProvisionnel.montantReportAnterieur}}</td>
+                <td>{{acompteProvisionnel.montantRetenueSource}}</td>
+                <td>{{acompteProvisionnel.montantNet}}</td>
+
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/acompte-provisionnel', acompteProvisionnel.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/acompte-provisionnel', acompteProvisionnel.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'acompte-provisionnel', { outlets: { popup: acompteProvisionnel.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="acompteProvisionnels && acompteProvisionnels.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

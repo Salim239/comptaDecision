@@ -1,0 +1,33 @@
+{
+    "name": "QuittanceMensuelleImpotLine",
+    "fields": [
+        {
+            "fieldName": "montantPaye",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "impotMensuelClient",
+            "otherEntityRelationshipName": "quittanceMensuelleImpotLine",
+            "relationshipName": "impotMensuelClient"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "quittanceMensuelleImpot",
+            "otherEntityRelationshipName": "quittanceMensuelleImpotLine",
+            "relationshipName": "quittanceMensuelleImpot",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190403192327",
+    "entityTableName": "quittance_mensuelle_impot_line",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

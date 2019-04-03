@@ -1,0 +1,148 @@
+package com.growup.comptadecision.service.dto;
+import java.time.LocalDate;
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Objects;
+
+/**
+ * A DTO for the QuittanceMensuelleImpot entity.
+ */
+public class QuittanceMensuelleImpotDTO implements Serializable {
+
+    private Long id;
+
+    @NotNull
+    private Integer annee;
+
+    @NotNull
+    private Integer mois;
+
+    private String numeroQuittance;
+
+    private LocalDate datePaiement;
+
+    private BigDecimal montantPaye;
+
+
+    private Long ficheClientId;
+
+    private String ficheClientDesignation;
+    private String ficheClientMatriculeFiscale;
+    private String ficheClientRegistreCommerce;
+
+    public String getFicheClientDesignation() {
+        return ficheClientDesignation;
+    }
+
+    public void setFicheClientDesignation(String ficheClientDesignation) {
+        this.ficheClientDesignation = ficheClientDesignation;
+    }
+
+    public String getFicheClientMatriculeFiscale() {
+        return ficheClientMatriculeFiscale;
+    }
+
+    public void setFicheClientMatriculeFiscale(String ficheClientMatriculeFiscale) {
+        this.ficheClientMatriculeFiscale = ficheClientMatriculeFiscale;
+    }
+
+    public String getFicheClientRegistreCommerce() {
+        return ficheClientRegistreCommerce;
+    }
+
+    public void setFicheClientRegistreCommerce(String ficheClientRegistreCommerce) {
+        this.ficheClientRegistreCommerce = ficheClientRegistreCommerce;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(Integer annee) {
+        this.annee = annee;
+    }
+
+    public Integer getMois() {
+        return mois;
+    }
+
+    public void setMois(Integer mois) {
+        this.mois = mois;
+    }
+
+    public String getNumeroQuittance() {
+        return numeroQuittance;
+    }
+
+    public void setNumeroQuittance(String numeroQuittance) {
+        this.numeroQuittance = numeroQuittance;
+    }
+
+    public LocalDate getDatePaiement() {
+        return datePaiement;
+    }
+
+    public void setDatePaiement(LocalDate datePaiement) {
+        this.datePaiement = datePaiement;
+    }
+
+    public BigDecimal getMontantPaye() {
+        return montantPaye;
+    }
+
+    public void setMontantPaye(BigDecimal montantPaye) {
+        this.montantPaye = montantPaye;
+    }
+
+    public Long getFicheClientId() {
+        return ficheClientId;
+    }
+
+    public void setFicheClientId(Long ficheClientId) {
+        this.ficheClientId = ficheClientId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = (QuittanceMensuelleImpotDTO) o;
+        if (quittanceMensuelleImpotDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), quittanceMensuelleImpotDTO.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "QuittanceMensuelleImpotDTO{" +
+            "id=" + getId() +
+            ", annee=" + getAnnee() +
+            ", mois=" + getMois() +
+            ", numeroQuittance='" + getNumeroQuittance() + "'" +
+            ", datePaiement='" + getDatePaiement() + "'" +
+            ", montantPaye=" + getMontantPaye() +
+            ", ficheClient=" + getFicheClientId() +
+            "}";
+    }
+}

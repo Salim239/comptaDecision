@@ -1,0 +1,86 @@
+{
+    "name": "DeclarationAnnuelle",
+    "fields": [
+        {
+            "fieldName": "annee",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "datePaiement",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "numeroQuittance",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "montantChiffreAffaireHT",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantChiffreAffaireExport",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantChiffreAffaireImpot",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantChiffreAffaireTTC",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantResultatComptable",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantDeductionCommune",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAutreDeduction",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantBaseImposable",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantImpotLiquide",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAcompteProvisionnel",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantRetenueSource",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantNetAPaye",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "ficheClient",
+            "otherEntityRelationshipName": "declarationAnnuelle",
+            "relationshipName": "ficheClient",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190403192328",
+    "entityTableName": "declaration_annuelle",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

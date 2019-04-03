@@ -1,0 +1,66 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="acompteProvisionnel">
+            <h2><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.detail.title">Acompte Provisionnel</span> {{acompteProvisionnel.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.ficheClient">Fiche Client</span></dt>
+                <dd>
+                    <div *ngIf="acompteProvisionnel.ficheClientId">
+                        <a [routerLink]="['/fiche-client', acompteProvisionnel.ficheClientId, 'view']">{{acompteProvisionnel.ficheClientDesignation}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.annee">Annee</span></dt>
+                <dd>
+                    <span>{{acompteProvisionnel.annee}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.numero">Numero</span></dt>
+                <dd>
+                    <span>{{acompteProvisionnel.numero}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.date">Date</span></dt>
+                <dd>
+                    <span>{{acompteProvisionnel.date}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.numeroQuittance">Numero Quittance</span></dt>
+                <dd>
+                    <span>{{acompteProvisionnel.numeroQuittance}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantBase">Montant Base</span></dt>
+                <dd>
+                    <span>{{acompteProvisionnel.montantBase}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantAcompteProvisionnel">Montant Acompte Provisionnel</span></dt>
+                <dd>
+                    <span>{{acompteProvisionnel.montantAcompteProvisionnel}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantReportAnterieur">Montant Report Anterieur</span></dt>
+                <dd>
+                    <span>{{acompteProvisionnel.montantReportAnterieur}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantRetenueSource">Montant Retenue Source</span></dt>
+                <dd>
+                    <span>{{acompteProvisionnel.montantRetenueSource}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantNet">Montant Net</span></dt>
+                <dd>
+                    <span>{{acompteProvisionnel.montantNet}}</span>
+                </dd>
+
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/acompte-provisionnel', acompteProvisionnel.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

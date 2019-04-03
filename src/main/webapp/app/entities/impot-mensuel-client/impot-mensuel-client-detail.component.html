@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="impotMensuelClient">
+            <h2><span jhiTranslate="comptaDecisionApp.impotMensuelClient.detail.title">Impot Mensuel Client</span> {{impotMensuelClient.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.impotMensuelClient.mois">Mois</span></dt>
+                <dd>
+                    <span>{{impotMensuelClient.mois}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.impotMensuelClient.applicable">Applicable</span></dt>
+                <dd>
+                    <span>{{impotMensuelClient.applicable}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.impotMensuelClient.ficheClient">Fiche Client</span></dt>
+                <dd>
+                    <div *ngIf="impotMensuelClient.ficheClientId">
+                        <a [routerLink]="['/fiche-client', impotMensuelClient.ficheClientId, 'view']">{{impotMensuelClient.ficheClientId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.impotMensuelClient.impotMensuel">Impot Mensuel</span></dt>
+                <dd>
+                    <div *ngIf="impotMensuelClient.impotMensuelId">
+                        <a [routerLink]="['/impot-mensuel', impotMensuelClient.impotMensuelId, 'view']">{{impotMensuelClient.impotMensuelId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.impotMensuelClient.quittanceMensuelleImpotLine">Quittance Mensuelle Impot Line</span></dt>
+                <dd>
+                    <div *ngIf="impotMensuelClient.quittanceMensuelleImpotLineId">
+                        <a [routerLink]="['/quittance-mensuelle-impot-line', impotMensuelClient.quittanceMensuelleImpotLineId, 'view']">{{impotMensuelClient.quittanceMensuelleImpotLineId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/impot-mensuel-client', impotMensuelClient.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

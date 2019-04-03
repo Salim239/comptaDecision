@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cnss">
+            <h2><span jhiTranslate="comptaDecisionApp.cnss.detail.title">Cnss</span> {{cnss.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.ficheClient">Fiche Client</span></dt>
+                <dd>
+                    <div *ngIf="cnss.ficheClientId">
+                        <a [routerLink]="['/fiche-client', cnss.ficheClientId, 'view']">{{cnss.ficheClientDesignation}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.annee">Annee</span></dt>
+                <dd>
+                    <span>{{cnss.annee}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.trimestre">Trimestre</span></dt>
+                <dd>
+                    <span>{{cnss.trimestre}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.date">Date</span></dt>
+                <dd>
+                    <span>{{cnss.date}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.numeroQuittance">Numero Quittance</span></dt>
+                <dd>
+                    <span>{{cnss.numeroQuittance}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutNormal">Montant Salaire Brut Normal</span></dt>
+                <dd>
+                    <span>{{cnss.montantSalaireBrutNormal}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutKarama">Montant Salaire Brut Karama</span></dt>
+                <dd>
+                    <span>{{cnss.montantSalaireBrutKarama}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutAutre">Montant Salaire Brut Autre</span></dt>
+                <dd>
+                    <span>{{cnss.montantSalaireBrutAutre}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.montantChiffreAffaireTTC">Montant Chiffre Affaire TTC</span></dt>
+                <dd>
+                    <span>{{cnss.montantChiffreAffaireTTC}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.tot">Tot</span></dt>
+                <dd>
+                    <span>{{cnss.tot}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.cnss">Cnss</span></dt>
+                <dd>
+                    <span>{{cnss.cnss}}</span>
+                </dd>
+
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/cnss', cnss.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

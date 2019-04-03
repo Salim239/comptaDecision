@@ -1,0 +1,36 @@
+{
+    "comptaDecisionApp": {
+        "declarationAnnuelle": {
+            "home": {
+                "title": "Declaration Annuelles",
+                "createLabel": "Create a new Declaration Annuelle",
+                "createOrEditLabel": "Create or edit a Declaration Annuelle"
+            },
+            "created": "A new Declaration Annuelle is created with identifier {{ param }}",
+            "updated": "A Declaration Annuelle is updated with identifier {{ param }}",
+            "deleted": "A Declaration Annuelle is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Declaration Annuelle {{ id }}?"
+            },
+            "detail": {
+                "title": "Declaration Annuelle"
+            },
+            "annee": "Annee",
+            "datePaiement": "Date Paiement",
+            "numeroQuittance": "Numero Quittance",
+            "montantChiffreAffaireHT": "Montant Chiffre Affaire HT",
+            "montantChiffreAffaireExport": "Montant Chiffre Affaire Export",
+            "montantChiffreAffaireImpot": "Montant Chiffre Affaire Impot",
+            "montantChiffreAffaireTTC": "Montant Chiffre Affaire TTC",
+            "montantResultatComptable": "Montant Resultat Comptable",
+            "montantDeductionCommune": "Montant Deduction Commune",
+            "montantAutreDeduction": "Montant Autre Deduction",
+            "montantBaseImposable": "Montant Base Imposable",
+            "montantImpotLiquide": "Montant Impot Liquide",
+            "montantAcompteProvisionnel": "Montant Acompte Provisionnel",
+            "montantRetenueSource": "Montant Retenue Source",
+            "montantNetAPaye": "Montant Net A Paye",
+            "ficheClient": "Fiche Client"
+        }
+    }
+}

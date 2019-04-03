@@ -1,0 +1,69 @@
+{
+    "name": "Cnss",
+    "fields": [
+        {
+            "fieldName": "annee",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "trimestre",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "numeroQuittance",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "montantSalaireBrutNormal",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantSalaireBrutKarama",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantSalaireBrutAutre",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantChiffreAffaireTTC",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "tot",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "cnss",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "ficheClient",
+            "otherEntityRelationshipName": "cnss",
+            "relationshipName": "ficheClient",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190403192324",
+    "entityTableName": "cnss",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,31 @@
+{
+    "comptaDecisionApp": {
+        "cnss": {
+            "home": {
+                "title": "Cnsses",
+                "createLabel": "Create a new Cnss",
+                "createOrEditLabel": "Create or edit a Cnss"
+            },
+            "created": "A new Cnss is created with identifier {{ param }}",
+            "updated": "A Cnss is updated with identifier {{ param }}",
+            "deleted": "A Cnss is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Cnss {{ id }}?"
+            },
+            "detail": {
+                "title": "Cnss"
+            },
+            "annee": "Annee",
+            "trimestre": "Trimestre",
+            "date": "Date",
+            "numeroQuittance": "Numero Quittance",
+            "montantSalaireBrutNormal": "Montant Salaire Brut Normal",
+            "montantSalaireBrutKarama": "Montant Salaire Brut Karama",
+            "montantSalaireBrutAutre": "Montant Salaire Brut Autre",
+            "montantChiffreAffaireTTC": "Montant Chiffre Affaire TTC",
+            "tot": "Tot",
+            "cnss": "Cnss",
+            "ficheClient": "Fiche Client"
+        }
+    }
+}

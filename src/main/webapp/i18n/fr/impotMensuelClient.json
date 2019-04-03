@@ -1,0 +1,25 @@
+{
+    "comptaDecisionApp": {
+        "impotMensuelClient": {
+            "home": {
+                "title": "ImpotMensuelClients",
+                "createLabel": "Créer un nouveau Impot Mensuel Client",
+                "createOrEditLabel": "Créer ou éditer un Impot Mensuel Client"
+            },
+            "created": "Un nouveau Impot Mensuel Client a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Impot Mensuel Client avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Impot Mensuel Client avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Impot Mensuel Client {{ id }} ?"
+            },
+            "detail": {
+                "title": "Impot Mensuel Client"
+            },
+            "mois": "Mois",
+            "applicable": "Applicable",
+            "ficheClient": "Fiche Client",
+            "impotMensuel": "Impot Mensuel",
+            "quittanceMensuelleImpotLine": "Quittance Mensuelle Impot Line"
+        }
+    }
+}

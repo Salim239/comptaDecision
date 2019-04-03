@@ -1,0 +1,121 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-declaration-annuelle-heading" jhiTranslate="comptaDecisionApp.declarationAnnuelle.home.createOrEditLabel">Create or edit a Declaration Annuelle</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!declarationAnnuelle.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="declarationAnnuelle.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.ficheClient" for="field_ficheClient">Fiche Client</label>
+                    <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="declarationAnnuelle.ficheClientId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="ficheClientOption.id" *ngFor="let ficheClientOption of ficheclients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.annee" for="field_annee">Annee</label>
+                    <input type="number" class="form-control" name="annee" id="field_annee"
+                        [(ngModel)]="declarationAnnuelle.annee" required/>
+                    <div [hidden]="!(editForm.controls.annee?.dirty && editForm.controls.annee?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.annee?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.annee?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.datePaiement" for="field_datePaiement">Date Paiement</label>
+                    <div class="input-group">
+                        <input id="field_datePaiement" type="text" class="form-control" name="datePaiement" ngbDatepicker  #datePaiementDp="ngbDatepicker" [(ngModel)]="declarationAnnuelle.datePaiement"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="datePaiementDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.numeroQuittance" for="field_numeroQuittance">Numero Quittance</label>
+                    <input type="text" class="form-control" name="numeroQuittance" id="field_numeroQuittance"
+                        [(ngModel)]="declarationAnnuelle.numeroQuittance" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireHT" for="field_montantChiffreAffaireHT">Montant Chiffre Affaire HT</label>
+                    <input type="number" class="form-control" name="montantChiffreAffaireHT" id="field_montantChiffreAffaireHT"
+                        [(ngModel)]="declarationAnnuelle.montantChiffreAffaireHT" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireExport" for="field_montantChiffreAffaireExport">Montant Chiffre Affaire Export</label>
+                    <input type="number" class="form-control" name="montantChiffreAffaireExport" id="field_montantChiffreAffaireExport"
+                        [(ngModel)]="declarationAnnuelle.montantChiffreAffaireExport" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireImpot" for="field_montantChiffreAffaireImpot">Montant Chiffre Affaire Impot</label>
+                    <input type="number" class="form-control" name="montantChiffreAffaireImpot" id="field_montantChiffreAffaireImpot"
+                        [(ngModel)]="declarationAnnuelle.montantChiffreAffaireImpot" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireTTC" for="field_montantChiffreAffaireTTC">Montant Chiffre Affaire TTC</label>
+                    <input type="number" class="form-control" name="montantChiffreAffaireTTC" id="field_montantChiffreAffaireTTC"
+                        [(ngModel)]="declarationAnnuelle.montantChiffreAffaireTTC" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantResultatComptable" for="field_montantResultatComptable">Montant Resultat Comptable</label>
+                    <input type="number" class="form-control" name="montantResultatComptable" id="field_montantResultatComptable"
+                        [(ngModel)]="declarationAnnuelle.montantResultatComptable" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantDeductionCommune" for="field_montantDeductionCommune">Montant Deduction Commune</label>
+                    <input type="number" class="form-control" name="montantDeductionCommune" id="field_montantDeductionCommune"
+                        [(ngModel)]="declarationAnnuelle.montantDeductionCommune" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantAutreDeduction" for="field_montantAutreDeduction">Montant Autre Deduction</label>
+                    <input type="number" class="form-control" name="montantAutreDeduction" id="field_montantAutreDeduction"
+                        [(ngModel)]="declarationAnnuelle.montantAutreDeduction" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantBaseImposable" for="field_montantBaseImposable">Montant Base Imposable</label>
+                    <input type="number" class="form-control" name="montantBaseImposable" id="field_montantBaseImposable"
+                        [(ngModel)]="declarationAnnuelle.montantBaseImposable" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantImpotLiquide" for="field_montantImpotLiquide">Montant Impot Liquide</label>
+                    <input type="number" class="form-control" name="montantImpotLiquide" id="field_montantImpotLiquide"
+                        [(ngModel)]="declarationAnnuelle.montantImpotLiquide" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantAcompteProvisionnel" for="field_montantAcompteProvisionnel">Montant Acompte Provisionnel</label>
+                    <input type="number" class="form-control" name="montantAcompteProvisionnel" id="field_montantAcompteProvisionnel"
+                        [(ngModel)]="declarationAnnuelle.montantAcompteProvisionnel" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantRetenueSource" for="field_montantRetenueSource">Montant Retenue Source</label>
+                    <input type="number" class="form-control" name="montantRetenueSource" id="field_montantRetenueSource"
+                        [(ngModel)]="declarationAnnuelle.montantRetenueSource" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantNetAPaye" for="field_montantNetAPaye">Montant Net A Paye</label>
+                    <input type="number" class="form-control" name="montantNetAPaye" id="field_montantNetAPaye"
+                        [(ngModel)]="declarationAnnuelle.montantNetAPaye" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
