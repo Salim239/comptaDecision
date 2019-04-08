@@ -75,7 +75,7 @@ entity FicheClient {
 relationship ManyToOne {
 	FicheClient{secteurActivite(id)} to SecteurActivite,
     FicheClient{activite(id)} to Activite,
-    FicheClient{activiteSecondaire(id)} to Activite,
+    FicheClient{activiteScondaire(id)} to Activite,
     FicheClient{region(id)} to Region,
     FicheClient{ville(id)} to Ville
 }

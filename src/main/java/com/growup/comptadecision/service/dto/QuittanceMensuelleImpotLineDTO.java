@@ -12,8 +12,13 @@ public class QuittanceMensuelleImpotLineDTO implements Serializable {
 
     private BigDecimal montantPaye;
 
-
     private Long quittanceMensuelleImpotId;
+
+    private String quittanceMensuelleImpotMois;
+
+    private String quittanceMensuelleImpotAnnee;
+
+    private ImpotMensuelClientDTO impotMensuelClient;
 
     public Long getId() {
         return id;
@@ -40,6 +45,42 @@ public class QuittanceMensuelleImpotLineDTO implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "QuittanceMensuelleImpotLineDTO{" +
+                "id=" + id +
+                ", montantPaye=" + montantPaye +
+                ", quittanceMensuelleImpotId=" + quittanceMensuelleImpotId +
+                ", quittanceMensuelleImpotMois='" + quittanceMensuelleImpotMois + '\'' +
+                ", quittanceMensuelleImpotAnnee='" + quittanceMensuelleImpotAnnee + '\'' +
+                ", impotMensuelClient=" + impotMensuelClient +
+                '}';
+    }
+
+    public String getQuittanceMensuelleImpotMois() {
+        return quittanceMensuelleImpotMois;
+    }
+
+    public void setQuittanceMensuelleImpotMois(String quittanceMensuelleImpotMois) {
+        this.quittanceMensuelleImpotMois = quittanceMensuelleImpotMois;
+    }
+
+    public String getQuittanceMensuelleImpotAnnee() {
+        return quittanceMensuelleImpotAnnee;
+    }
+
+    public void setQuittanceMensuelleImpotAnnee(String quittanceMensuelleImpotAnnee) {
+        this.quittanceMensuelleImpotAnnee = quittanceMensuelleImpotAnnee;
+    }
+
+    public ImpotMensuelClientDTO getImpotMensuelClient() {
+        return impotMensuelClient;
+    }
+
+    public void setImpotMensuelClient(ImpotMensuelClientDTO impotMensuelClient) {
+        this.impotMensuelClient = impotMensuelClient;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -60,12 +101,4 @@ public class QuittanceMensuelleImpotLineDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "QuittanceMensuelleImpotLineDTO{" +
-            "id=" + getId() +
-            ", montantPaye=" + getMontantPaye() +
-            ", quittanceMensuelleImpot=" + getQuittanceMensuelleImpotId() +
-            "}";
-    }
 }

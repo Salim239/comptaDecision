@@ -34,7 +34,7 @@
             <th jhiSortBy="fichierPatente"><span jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente">Fichier Patente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="secteurActiviteLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.secteurActivite">Secteur Activite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="activiteLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.activite">Activite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="activiteSecondaireLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.activiteSecondaire">Activite Scondaire</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="activiteScondaireLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.activiteScondaire">Activite Scondaire</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -84,8 +84,8 @@
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="ficheClient.activiteSecondaireId">
-                        <a [routerLink]="['../activite', ficheClient.activiteSecondaireId , 'view' ]" >{{ficheClient.activiteSecondaireLibelle}}</a>
+                    <div *ngIf="ficheClient.activiteScondaireId">
+                        <a [routerLink]="['../activite', ficheClient.activiteScondaireId , 'view' ]" >{{ficheClient.activiteScondaireLibelle}}</a>
                     </div>
                 </td>
 

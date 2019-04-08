@@ -8,13 +8,15 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity QuittanceMensuelleImpotLine and its DTO QuittanceMensuelleImpotLineDTO.
  */
-@Mapper(componentModel = "spring", uses = {QuittanceMensuelleImpotMapper.class})
+@Mapper(componentModel = "spring", uses = {QuittanceMensuelleImpotMapper.class, ImpotMensuelMapper.class})
 public interface QuittanceMensuelleImpotLineMapper extends EntityMapper<QuittanceMensuelleImpotLineDTO, QuittanceMensuelleImpotLine> {
 
     @Mapping(source = "quittanceMensuelleImpot.id", target = "quittanceMensuelleImpotId")
+    @Mapping(source = "quittanceMensuelleImpot.mois", target = "quittanceMensuelleImpotMois")
+    @Mapping(source = "quittanceMensuelleImpot.annee", target = "quittanceMensuelleImpotAnnee")
     QuittanceMensuelleImpotLineDTO toDto(QuittanceMensuelleImpotLine quittanceMensuelleImpotLine);
 
-    @Mapping(target = "impotMensuelClients", ignore = true)
+
     @Mapping(source = "quittanceMensuelleImpotId", target = "quittanceMensuelleImpot")
     QuittanceMensuelleImpotLine toEntity(QuittanceMensuelleImpotLineDTO quittanceMensuelleImpotLineDTO);
 

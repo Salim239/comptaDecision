@@ -167,8 +167,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.activiteSecondaire" for="field_activiteSecondaire">Activite Scondaire</label>
-                    <select class="form-control" id="field_activiteSecondaire" name="activiteSecondaire" [(ngModel)]="ficheClient.activiteSecondaireId" >
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.activiteScondaire" for="field_activiteScondaire">Activite Scondaire</label>
+                    <select class="form-control" id="field_activiteScondaire" name="activiteScondaire" [(ngModel)]="ficheClient.activiteScondaireId" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="activiteOption.id" *ngFor="let activiteOption of activites; trackBy: trackActiviteById">{{activiteOption.libelle}}</option>
                     </select>

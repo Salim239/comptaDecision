@@ -11,6 +11,8 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -48,6 +50,10 @@ public class QuittanceMensuelleImpot implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("quittanceMensuelleImpots")
     private FicheClient ficheClient;
+
+    @OneToMany(mappedBy = "quittanceMensuelleImpot", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private List<QuittanceMensuelleImpotLine> quittanceMensuelleImpotLines = new ArrayList<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -135,6 +141,38 @@ public class QuittanceMensuelleImpot implements Serializable {
     public void setFicheClient(FicheClient ficheClient) {
         this.ficheClient = ficheClient;
     }
+
+    @Override
+    public String toString() {
+        return "QuittanceMensuelleImpot{" +
+                "id=" + id +
+                ", annee=" + annee +
+                ", mois=" + mois +
+                ", numeroQuittance='" + numeroQuittance + '\'' +
+                ", datePaiement=" + datePaiement +
+                ", montantPaye=" + montantPaye +
+                ", ficheClient=" + ficheClient +
+                ", quittanceMensuelleImpotLines=" + quittanceMensuelleImpotLines +
+                '}';
+    }
+
+    public List<QuittanceMensuelleImpotLine> getQuittanceMensuelleImpotLines() {
+        return quittanceMensuelleImpotLines;
+    }
+
+    public void setQuittanceMensuelleImpotLines(List<QuittanceMensuelleImpotLine> quittanceMensuelleImpotLines) {
+        this.quittanceMensuelleImpotLines = quittanceMensuelleImpotLines;
+    }
+
+    public void addQuittanceMensuelleImpotLine(QuittanceMensuelleImpotLine quittanceMensuelleImpotLine) {
+        quittanceMensuelleImpotLines.add(quittanceMensuelleImpotLine);
+        quittanceMensuelleImpotLine.setQuittanceMensuelleImpot(this);
+    }
+
+    public void removeQuittanceMensuelleImpotLine(QuittanceMensuelleImpotLine quittanceMensuelleImpotLine) {
+        quittanceMensuelleImpotLines.remove(quittanceMensuelleImpotLine);
+        quittanceMensuelleImpotLine.setQuittanceMensuelleImpot(null);
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -157,15 +195,4 @@ public class QuittanceMensuelleImpot implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "QuittanceMensuelleImpot{" +
-            "id=" + getId() +
-            ", annee=" + getAnnee() +
-            ", mois=" + getMois() +
-            ", numeroQuittance='" + getNumeroQuittance() + "'" +
-            ", datePaiement='" + getDatePaiement() + "'" +
-            ", montantPaye=" + getMontantPaye() +
-            "}";
-    }
 }

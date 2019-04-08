@@ -15,8 +15,8 @@ public interface FicheClientMapper extends EntityMapper<FicheClientDTO, FicheCli
     @Mapping(source = "secteurActivite.libelle", target = "secteurActiviteLibelle")
     @Mapping(source = "activite.id", target = "activiteId")
     @Mapping(source = "activite.libelle", target = "activiteLibelle")
-    @Mapping(source = "activiteSecondaire.id", target = "activiteSecondaireId")
-    @Mapping(source = "activiteSecondaire.libelle", target = "activiteSecondaireLibelle")
+    @Mapping(source = "activiteScondaire.id", target = "activiteScondaireId")
+    @Mapping(source = "activiteScondaire.libelle", target = "activiteScondaireLibelle")
     @Mapping(source = "impotMensuelClients", target = "impotMensuelClients")
     @Mapping(source = "region.id", target = "regionId")
     @Mapping(source = "region.libelle", target = "regionLibelle")
@@ -26,7 +26,7 @@ public interface FicheClientMapper extends EntityMapper<FicheClientDTO, FicheCli
 
     @Mapping(source = "secteurActiviteId", target = "secteurActivite")
     @Mapping(source = "activiteId", target = "activite")
-    @Mapping(source = "activiteSecondaireId", target = "activiteSecondaire")
+    @Mapping(source = "activiteScondaireId", target = "activiteScondaire")
     @Mapping(source = "regionId", target = "region")
     @Mapping(source = "villeId", target = "ville")
     FicheClient toEntity(FicheClientDTO ficheClientDTO);

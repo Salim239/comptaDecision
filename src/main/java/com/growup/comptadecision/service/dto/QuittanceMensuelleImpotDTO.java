@@ -3,6 +3,8 @@ import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -23,6 +25,8 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
     private LocalDate datePaiement;
 
     private BigDecimal montantPaye;
+
+    private List<QuittanceMensuelleImpotLineDTO> quittanceMensuelleImpotLines = new ArrayList<QuittanceMensuelleImpotLineDTO>();
 
 
     private Long ficheClientId;
@@ -112,6 +116,31 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
         this.ficheClientId = ficheClientId;
     }
 
+    public List<QuittanceMensuelleImpotLineDTO> getQuittanceMensuelleImpotLines() {
+        return quittanceMensuelleImpotLines;
+    }
+
+    public void setQuittanceMensuelleImpotLines(List<QuittanceMensuelleImpotLineDTO> quittanceMensuelleImpotLines) {
+        this.quittanceMensuelleImpotLines = quittanceMensuelleImpotLines;
+    }
+
+    @Override
+    public String toString() {
+        return "QuittanceMensuelleImpotDTO{" +
+                "id=" + id +
+                ", annee=" + annee +
+                ", mois=" + mois +
+                ", numeroQuittance='" + numeroQuittance + '\'' +
+                ", datePaiement=" + datePaiement +
+                ", montantPaye=" + montantPaye +
+                ", quittanceMensuelleImpotLines=" + quittanceMensuelleImpotLines +
+                ", ficheClientId=" + ficheClientId +
+                ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
+                ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +
+                ", ficheClientRegistreCommerce='" + ficheClientRegistreCommerce + '\'' +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -133,16 +162,4 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "QuittanceMensuelleImpotDTO{" +
-            "id=" + getId() +
-            ", annee=" + getAnnee() +
-            ", mois=" + getMois() +
-            ", numeroQuittance='" + getNumeroQuittance() + "'" +
-            ", datePaiement='" + getDatePaiement() + "'" +
-            ", montantPaye=" + getMontantPaye() +
-            ", ficheClient=" + getFicheClientId() +
-            "}";
-    }
 }

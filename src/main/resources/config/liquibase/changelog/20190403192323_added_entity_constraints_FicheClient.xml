@@ -20,9 +20,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="activite"/>
 
-        <addForeignKeyConstraint baseColumnNames="activite_secondaire_id"
+        <addForeignKeyConstraint baseColumnNames="activite_scondaire_id"
                                  baseTableName="fiche_client"
-                                 constraintName="fk_fiche_client_activite_secondaire_id"
+                                 constraintName="fk_fiche_client_activite_scondaire_id"
                                  referencedColumnNames="id"
                                  referencedTableName="activite"/>
 

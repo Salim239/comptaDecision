@@ -1,4 +1,5 @@
 package com.growup.comptadecision.web.rest;
+import com.growup.comptadecision.domain.QuittanceMensuelleImpot;
 import com.growup.comptadecision.service.QuittanceMensuelleImpotService;
 import com.growup.comptadecision.web.rest.errors.BadRequestAlertException;
 import com.growup.comptadecision.web.rest.util.HeaderUtil;
@@ -103,6 +104,20 @@ public class QuittanceMensuelleImpotResource {
         log.debug("REST request to get QuittanceMensuelleImpot : {}", id);
         Optional<QuittanceMensuelleImpotDTO> quittanceMensuelleImpotDTO = quittanceMensuelleImpotService.findOne(id);
         return ResponseUtil.wrapOrNotFound(quittanceMensuelleImpotDTO);
+    }
+
+    /**
+     * POST  /quittance-mensuelle-impots/init
+     *
+     * @param quittanceMensuelleImpotDTO the quittanceMensuelleImpotDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new quittanceMensuelleImpotDTO, or with status 400 (Bad Request) if the quittanceMensuelleImpot has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/quittance-mensuelle-impots/init")
+    public ResponseEntity<QuittanceMensuelleImpotDTO> initEmptyQuittanceMensuelleImpot(@RequestBody QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO) {
+        log.debug("REST request to get QuittanceMensuelleImpot de la fiche client : {}, pour le mois {}", quittanceMensuelleImpotDTO.getFicheClientId(), quittanceMensuelleImpotDTO.getMois());
+        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTOUpdated = quittanceMensuelleImpotService.initEmptyQuittanceMensuelleImpot(quittanceMensuelleImpotDTO);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTOUpdated);
     }
 
     /**

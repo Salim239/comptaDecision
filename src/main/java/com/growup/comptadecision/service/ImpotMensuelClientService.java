@@ -105,6 +105,20 @@ public class ImpotMensuelClientService {
     }
 
     /**
+     * find impotMensuelClient by ficheClientId and mois.
+     *
+     * @param ficheClientId the id of the ficheClient
+     * @param mois the mois
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public List<ImpotMensuelClientDTO> findByFicheClientIdAndMois(Long ficheClientId, Integer mois) {
+        log.debug("Request to get ImpotMensuelClient by ficheClientId {} and mois {}", ficheClientId, mois);
+        List<ImpotMensuelClient> impotMensuelClients =  impotMensuelClientRepository.findByFicheClientIdAndMois(ficheClientId, mois);
+        return impotMensuelClientMapper.toDto(impotMensuelClients);
+    }
+
+    /**
      * Delete the impotMensuelClient by id.
      *
      * @param id the id of the entity

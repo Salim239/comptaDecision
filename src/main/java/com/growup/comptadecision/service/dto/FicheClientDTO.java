@@ -80,8 +80,8 @@ public class FicheClientDTO implements Serializable {
                 ", secteurActiviteLibelle='" + secteurActiviteLibelle + '\'' +
                 ", activiteId=" + activiteId +
                 ", activiteLibelle='" + activiteLibelle + '\'' +
-                ", activiteSecondaireId=" + activiteSecondaireId +
-                ", activiteSecondaireLibelle='" + activiteSecondaireLibelle + '\'' +
+                ", activiteScondaireId=" + activiteScondaireId +
+                ", activiteScondaireLibelle='" + activiteScondaireLibelle + '\'' +
                 ", regionId=" + regionId +
                 ", regionLibelle='" + regionLibelle + '\'' +
                 ", villeId=" + villeId +
@@ -95,9 +95,9 @@ public class FicheClientDTO implements Serializable {
 
     private String activiteLibelle;
 
-    private Long activiteSecondaireId;
+    private Long activiteScondaireId;
 
-    private String activiteSecondaireLibelle;
+    private String activiteScondaireLibelle;
 
     private Long regionId;
 
@@ -124,11 +124,11 @@ public class FicheClientDTO implements Serializable {
     }
 
     public String getActiviteScondaireLibelle() {
-        return activiteSecondaireLibelle;
+        return activiteScondaireLibelle;
     }
 
-    public void setActiviteScondaireLibelle(String activiteSecondaireLibelle) {
-        this.activiteSecondaireLibelle = activiteSecondaireLibelle;
+    public void setActiviteScondaireLibelle(String activiteScondaireLibelle) {
+        this.activiteScondaireLibelle = activiteScondaireLibelle;
     }
 
     public String getRegionLibelle() {
@@ -307,20 +307,12 @@ public class FicheClientDTO implements Serializable {
         this.activiteId = activiteId;
     }
 
-    public Long getActiviteSecondaireId() {
-        return activiteSecondaireId;
+    public Long getActiviteScondaireId() {
+        return activiteScondaireId;
     }
 
-    public void setActiviteSecondaireId(Long activiteSecondaireId) {
-        this.activiteSecondaireId = activiteSecondaireId;
-    }
-
-    public String getActiviteSecondaireLibelle() {
-        return activiteSecondaireLibelle;
-    }
-
-    public void setActiviteSecondaireLibelle(String activiteSecondaireLibelle) {
-        this.activiteSecondaireLibelle = activiteSecondaireLibelle;
+    public void setActiviteScondaireId(Long activiteScondaireId) {
+        this.activiteScondaireId = activiteScondaireId;
     }
 
     public Long getRegionId() {

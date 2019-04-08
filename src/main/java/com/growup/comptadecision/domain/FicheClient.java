@@ -96,7 +96,7 @@ public class FicheClient implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("ficheClients")
-    private Activite activiteSecondaire;
+    private Activite activiteScondaire;
 
     @ManyToOne
     @JsonIgnoreProperties("ficheClients")
@@ -109,12 +109,12 @@ public class FicheClient implements Serializable {
     @OneToMany(mappedBy = "ficheClient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImpotMensuelClient> impotMensuelClients = new ArrayList<>();
 
-    public Activite getActiviteSecondaire() {
-        return activiteSecondaire;
+    public Activite getActiviteScondaire() {
+        return activiteScondaire;
     }
 
-    public void setActiviteSecondaire(Activite activiteSecondaire) {
-        this.activiteSecondaire = activiteSecondaire;
+    public void setActiviteScondaire(Activite activiteScondaire) {
+        this.activiteScondaire = activiteScondaire;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -370,17 +370,9 @@ public class FicheClient implements Serializable {
         this.activite = activite;
     }
 
-    public Activite getActiviteScondaire() {
-        return activiteSecondaire;
-    }
-
-    public FicheClient activiteSecondaire(Activite activite) {
-        this.activiteSecondaire = activite;
+    public FicheClient activiteScondaire(Activite activite) {
+        this.activiteScondaire = activite;
         return this;
-    }
-
-    public void setActiviteScondaire(Activite activite) {
-        this.activiteSecondaire = activite;
     }
 
     public List<ImpotMensuelClient> getImpotMensuelClients() {

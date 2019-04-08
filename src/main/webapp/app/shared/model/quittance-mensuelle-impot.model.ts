@@ -11,6 +11,7 @@ export interface IQuittanceMensuelleImpot {
     ficheClientDesignation?: string;
     ficheClientMatriculeFiscale?: string;
     ficheClientRegistreCommerce?: string;
+    quittanceMensuelleImpots?: IQuittanceMensuelleImpot[];
 }
 
 export class QuittanceMensuelleImpot implements IQuittanceMensuelleImpot {
@@ -24,7 +25,8 @@ export class QuittanceMensuelleImpot implements IQuittanceMensuelleImpot {
         public ficheClientId?: number,
         public ficheClientDesignation?: string,
         public ficheClientMatriculeFiscale?: string,
-        public ficheClientRegistreCommerce?: string
+        public ficheClientRegistreCommerce?: string,
+        public quittanceMensuelleImpots?: IQuittanceMensuelleImpot[]
     ) {
     }
 }

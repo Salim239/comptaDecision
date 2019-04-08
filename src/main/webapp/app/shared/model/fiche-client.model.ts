@@ -30,8 +30,8 @@ export interface IFicheClient {
     secteurActiviteLibelle?: string;
     activiteId?: number;
     activiteLibelle?: string;
-    activiteSecondaireId?: number;
-    activiteSecondaireLibelle?: string;
+    activiteScondaireId?: number;
+    activiteScondaireLibelle?: string;
     impotMensuelClients?: IImpotMensuelClient[];
     impotMensuelClientsGroupedByMois?: Map<string, IImpotMensuelClient[]>;
 }
@@ -61,8 +61,8 @@ export class FicheClient implements IFicheClient {
         public secteurActiviteLibelle?: string,
         public activiteId?: number,
         public activiteLibelle?: string,
-        public activiteSecondaireId?: number,
-        public activiteSecondaireLibelle?: string,
+        public activiteScondaireId?: number,
+        public activiteScondaireLibelle?: string,
         public impotMensuelClients?: IImpotMensuelClient[],
         public impotMensuelClientsGroupedByMois?: Map<string, IImpotMensuelClient[]>
     ) {}

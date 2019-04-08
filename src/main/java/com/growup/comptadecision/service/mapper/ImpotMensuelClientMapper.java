@@ -18,12 +18,10 @@ public interface ImpotMensuelClientMapper extends EntityMapper<ImpotMensuelClien
     @Mapping(source = "impotMensuel.id", target = "impotMensuelId")
     @Mapping(source = "impotMensuel.libelle", target = "impotMensuelLibelle")
     @Mapping(source = "impotMensuel.description", target = "impotMensuelDescription")
-    @Mapping(source = "quittanceMensuelleImpotLine.id", target = "quittanceMensuelleImpotLineId")
     ImpotMensuelClientDTO toDto(ImpotMensuelClient impotMensuelClient);
 
     @Mapping(source = "ficheClientId", target = "ficheClient")
     @Mapping(source = "impotMensuelId", target = "impotMensuel")
-    @Mapping(source = "quittanceMensuelleImpotLineId", target = "quittanceMensuelleImpotLine")
     ImpotMensuelClient toEntity(ImpotMensuelClientDTO impotMensuelClientDTO);
 
     default ImpotMensuelClient fromId(Long id) {

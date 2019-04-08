@@ -92,7 +92,7 @@
             "relationshipType": "many-to-one",
             "otherEntityName": "activite",
             "otherEntityRelationshipName": "ficheClient",
-            "relationshipName": "activiteSecondaire",
+            "relationshipName": "activiteScondaire",
             "otherEntityField": "id"
         },
         {

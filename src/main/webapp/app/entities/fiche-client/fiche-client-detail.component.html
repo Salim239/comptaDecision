@@ -93,10 +93,10 @@
                         <a [routerLink]="['/activite', ficheClient.activiteId, 'view']">{{ficheClient.activiteLibelle}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.activiteSecondaire">Activite Scondaire</span></dt>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.activiteScondaire">Activite Scondaire</span></dt>
                 <dd>
-                    <div *ngIf="ficheClient.activiteSecondaireId">
-                        <a [routerLink]="['/activite', ficheClient.activiteSecondaireId, 'view']">{{ficheClient.activiteSecondaireLibelle}}</a>
+                    <div *ngIf="ficheClient.activiteScondaireId">
+                        <a [routerLink]="['/activite', ficheClient.activiteScondaireId, 'view']">{{ficheClient.activiteScondaireLibelle}}</a>
                     </div>
                 </dd>
             </dl>

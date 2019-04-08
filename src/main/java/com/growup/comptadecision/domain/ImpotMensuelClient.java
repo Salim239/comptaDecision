@@ -41,10 +41,6 @@ public class ImpotMensuelClient implements Serializable {
     @JsonIgnoreProperties("impotMensuelClients")
     private ImpotMensuel impotMensuel;
 
-    @ManyToOne
-    @JsonIgnoreProperties("impotMensuelClients")
-    private QuittanceMensuelleImpotLine quittanceMensuelleImpotLine;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -106,19 +102,18 @@ public class ImpotMensuelClient implements Serializable {
         this.impotMensuel = impotMensuel;
     }
 
-    public QuittanceMensuelleImpotLine getQuittanceMensuelleImpotLine() {
-        return quittanceMensuelleImpotLine;
-    }
-
-    public ImpotMensuelClient quittanceMensuelleImpotLine(QuittanceMensuelleImpotLine quittanceMensuelleImpotLine) {
-        this.quittanceMensuelleImpotLine = quittanceMensuelleImpotLine;
-        return this;
-    }
-
-    public void setQuittanceMensuelleImpotLine(QuittanceMensuelleImpotLine quittanceMensuelleImpotLine) {
-        this.quittanceMensuelleImpotLine = quittanceMensuelleImpotLine;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    @Override
+    public String toString() {
+        return "ImpotMensuelClient{" +
+                "id=" + id +
+                ", mois=" + mois +
+                ", applicable=" + applicable +
+                ", ficheClient=" + ficheClient +
+                ", impotMensuel=" + impotMensuel +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -140,12 +135,4 @@ public class ImpotMensuelClient implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "ImpotMensuelClient{" +
-            "id=" + getId() +
-            ", mois=" + getMois() +
-            ", applicable='" + isApplicable() + "'" +
-            "}";
-    }
 }

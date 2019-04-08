@@ -32,12 +32,12 @@ public class QuittanceMensuelleImpotLine implements Serializable {
     @Column(name = "montant_paye", precision = 10, scale = 2)
     private BigDecimal montantPaye;
 
-    @OneToMany(mappedBy = "quittanceMensuelleImpotLine")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ImpotMensuelClient> impotMensuelClients = new HashSet<>();
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("quittanceMensuelleImpotLines")
     private QuittanceMensuelleImpot quittanceMensuelleImpot;
+
+    @ManyToOne
+    private ImpotMensuelClient impotMensuelClient;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -61,31 +61,6 @@ public class QuittanceMensuelleImpotLine implements Serializable {
         this.montantPaye = montantPaye;
     }
 
-    public Set<ImpotMensuelClient> getImpotMensuelClients() {
-        return impotMensuelClients;
-    }
-
-    public QuittanceMensuelleImpotLine impotMensuelClients(Set<ImpotMensuelClient> impotMensuelClients) {
-        this.impotMensuelClients = impotMensuelClients;
-        return this;
-    }
-
-    public QuittanceMensuelleImpotLine addImpotMensuelClient(ImpotMensuelClient impotMensuelClient) {
-        this.impotMensuelClients.add(impotMensuelClient);
-        impotMensuelClient.setQuittanceMensuelleImpotLine(this);
-        return this;
-    }
-
-    public QuittanceMensuelleImpotLine removeImpotMensuelClient(ImpotMensuelClient impotMensuelClient) {
-        this.impotMensuelClients.remove(impotMensuelClient);
-        impotMensuelClient.setQuittanceMensuelleImpotLine(null);
-        return this;
-    }
-
-    public void setImpotMensuelClients(Set<ImpotMensuelClient> impotMensuelClients) {
-        this.impotMensuelClients = impotMensuelClients;
-    }
-
     public QuittanceMensuelleImpot getQuittanceMensuelleImpot() {
         return quittanceMensuelleImpot;
     }
@@ -98,6 +73,15 @@ public class QuittanceMensuelleImpotLine implements Serializable {
     public void setQuittanceMensuelleImpot(QuittanceMensuelleImpot quittanceMensuelleImpot) {
         this.quittanceMensuelleImpot = quittanceMensuelleImpot;
     }
+
+    public ImpotMensuelClient getImpotMensuelClient() {
+        return impotMensuelClient;
+    }
+
+    public void setImpotMensuelClient(ImpotMensuelClient impotMensuelClient) {
+        this.impotMensuelClient = impotMensuelClient;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
