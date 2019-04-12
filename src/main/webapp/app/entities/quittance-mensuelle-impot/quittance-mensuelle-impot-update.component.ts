@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
 import * as moment from 'moment';
-import { JhiAlertService } from 'ng-jhipster';
-import { IQuittanceMensuelleImpot } from 'app/shared/model/quittance-mensuelle-impot.model';
-import { QuittanceMensuelleImpotService } from './quittance-mensuelle-impot.service';
-import { IFicheClient } from 'app/shared/model/fiche-client.model';
-import { FicheClientService } from 'app/entities/fiche-client';
+import {JhiAlertService} from 'ng-jhipster';
+import {IQuittanceMensuelleImpot, QuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
+import {QuittanceMensuelleImpotService} from './quittance-mensuelle-impot.service';
+import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import {FicheClientService} from 'app/entities/fiche-client';
 
 @Component({
     selector: 'jhi-quittance-mensuelle-impot-update',
@@ -26,11 +26,12 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         protected quittanceMensuelleImpotService: QuittanceMensuelleImpotService,
         protected ficheClientService: FicheClientService,
         protected activatedRoute: ActivatedRoute
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ quittanceMensuelleImpot }) => {
+        this.activatedRoute.data.subscribe(({quittanceMensuelleImpot}) => {
             this.quittanceMensuelleImpot = quittanceMensuelleImpot;
         });
         this.ficheClientService
@@ -54,6 +55,20 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
             this.subscribeToSaveResponse(this.quittanceMensuelleImpotService.create(this.quittanceMensuelleImpot));
         }
     }
+
+    initByParams() {
+        if(this.quittanceMensuelleImpot.ficheClientId !== undefined && this.quittanceMensuelleImpot.mois !== undefined &&
+            this.quittanceMensuelleImpot.ficheClientId !== null && this.quittanceMensuelleImpot.mois !== null) {
+            this.quittanceMensuelleImpotService.initByParams(this.quittanceMensuelleImpot.ficheClientId, this.quittanceMensuelleImpot.mois)
+                .pipe(
+                    filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
+                    map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
+                )
+                .subscribe((res: QuittanceMensuelleImpot) => (this.quittanceMensuelleImpot = res), (res: HttpErrorResponse) => this.onError(res.message));
+        }
+    }
+
+
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<IQuittanceMensuelleImpot>>) {
         result.subscribe(

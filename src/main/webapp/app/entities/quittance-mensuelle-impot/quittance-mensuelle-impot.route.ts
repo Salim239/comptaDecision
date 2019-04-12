@@ -25,7 +25,11 @@ export class QuittanceMensuelleImpotResolve implements Resolve<IQuittanceMensuel
                 map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
             );
         }
-        return of(new QuittanceMensuelleImpot());
+        return this.service.initEmpty()
+            .pipe(
+                filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
+                map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
+            );
     }
 }
 

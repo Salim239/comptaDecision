@@ -11,7 +11,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.ficheClient" for="field_ficheClient">Fiche Client</label>
-                    <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="quittanceMensuelleImpot.ficheClientId" >
+                    <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="quittanceMensuelleImpot.ficheClientId" (change)="initByParams()" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="ficheClientOption.id" *ngFor="let ficheClientOption of ficheclients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
                     </select>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.mois" for="field_mois">Mois</label>
-                    <input type="number" class="form-control" name="mois" id="field_mois"
+                    <input type="number" class="form-control" name="mois" id="field_mois" (change)="initByParams()"
                         [(ngModel)]="quittanceMensuelleImpot.mois" required/>
                     <div [hidden]="!(editForm.controls.mois?.dirty && editForm.controls.mois?.invalid)">
                         <small class="form-text text-danger"
@@ -61,6 +61,13 @@
                         </span>
                     </div>
                 </div>
+
+                <div class="form-group" *ngFor="let quittanceMensuelleImpotLine of quittanceMensuelleImpot.quittanceMensuelleImpotLines">
+                    <label class="form-control-label">{{quittanceMensuelleImpotLine.impotMensuelClient.impotMensuelLibelle}}</label>
+                    <input type="number" class="form-control" name="quittanceMensuelleImpotLine.montantPaye" [disabled]="!quittanceMensuelleImpotLine.impotMensuelClient.applicable"
+                           [(ngModel)]="quittanceMensuelleImpotLine.montantPaye" />
+                </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.montantPaye" for="field_montantPaye">Montant Paye</label>
                     <input type="number" class="form-control" name="montantPaye" id="field_montantPaye"
@@ -68,6 +75,7 @@
                 </div>
 
             </div>
+
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>

@@ -33,5 +33,31 @@
         </createTable>
         
     </changeSet>
+
+    <changeSet author="salim" id="20190403192327-10">
+        <addColumn tableName="quittance_mensuelle_impot_line">
+            <column name="impot_mensuel_cient_id" type="bigint"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="salim" id="20190403192327-11">
+        <addColumn tableName="quittance_mensuelle_impot_line">
+            <column name="impot_mensuel_client_id" type="bigint"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="salim" id="20190403192327-12">
+        <dropColumn tableName="quittance_mensuelle_impot_line">
+            <column name="impot_mensuel_cient_id" type="bigint"/>
+        </dropColumn>
+    </changeSet>
+
+
+
+    <!--<changeSet author="salim" id="20190403192327-10">-->
+        <!--<addColumn tableName="quittance_mensuelle_impot_line">-->
+            <!--<column name="impot_mensuel_cient_id" type="bigint"/>-->
+        <!--</addColumn>-->
+    <!--</changeSet>-->
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

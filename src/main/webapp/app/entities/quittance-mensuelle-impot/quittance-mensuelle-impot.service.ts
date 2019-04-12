@@ -18,6 +18,18 @@ export class QuittanceMensuelleImpotService {
 
     constructor(protected http: HttpClient) {}
 
+    initEmpty(): Observable<EntityResponseType> {
+        return this.http
+            .get<IQuittanceMensuelleImpot>(this.resourceUrl + '/init', { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
+    initByParams(ficheClientId: number, mois: number): Observable<EntityResponseType> {
+        return this.http
+            .get<IQuittanceMensuelleImpot>(`${this.resourceUrl}/initByParams/ficheClient/${ficheClientId}/mois/${mois}`, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
     create(quittanceMensuelleImpot: IQuittanceMensuelleImpot): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(quittanceMensuelleImpot);
         return this.http
@@ -32,7 +44,7 @@ export class QuittanceMensuelleImpotService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    find(id: number): Observable<EntityResponseType> {
+        find(id: number): Observable<EntityResponseType> {
         return this.http
             .get<IQuittanceMensuelleImpot>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));

@@ -1,5 +1,4 @@
 package com.growup.comptadecision.web.rest;
-import com.growup.comptadecision.domain.QuittanceMensuelleImpot;
 import com.growup.comptadecision.service.QuittanceMensuelleImpotService;
 import com.growup.comptadecision.web.rest.errors.BadRequestAlertException;
 import com.growup.comptadecision.web.rest.util.HeaderUtil;
@@ -11,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -113,10 +111,18 @@ public class QuittanceMensuelleImpotResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new quittanceMensuelleImpotDTO, or with status 400 (Bad Request) if the quittanceMensuelleImpot has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/quittance-mensuelle-impots/init")
-    public ResponseEntity<QuittanceMensuelleImpotDTO> initEmptyQuittanceMensuelleImpot(@RequestBody QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO) {
-        log.debug("REST request to get QuittanceMensuelleImpot de la fiche client : {}, pour le mois {}", quittanceMensuelleImpotDTO.getFicheClientId(), quittanceMensuelleImpotDTO.getMois());
-        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTOUpdated = quittanceMensuelleImpotService.initEmptyQuittanceMensuelleImpot(quittanceMensuelleImpotDTO);
+    @GetMapping("/quittance-mensuelle-impots/init")
+    public ResponseEntity<QuittanceMensuelleImpotDTO> init() {
+        log.debug("REST request to init empty QuittanceMensuelleImpot");
+        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotService.init();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
+    }
+
+//    quittance-mensuelle-impots/initByParams/ficheClient/1251/mois/3
+    @GetMapping("/quittance-mensuelle-impots/initByParams/ficheClient/{ficheClientId}/mois/{mois}")
+    public ResponseEntity<QuittanceMensuelleImpotDTO> initByParams(@PathVariable("ficheClientId") Long ficheClientId, @PathVariable("mois") Integer mois) {
+        log.debug("REST request to get QuittanceMensuelleImpot de la fiche client : {}, pour le mois {}", ficheClientId, mois);
+        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTOUpdated = quittanceMensuelleImpotService.initByParams(ficheClientId, mois);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTOUpdated);
     }
 

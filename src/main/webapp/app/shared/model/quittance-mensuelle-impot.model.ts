@@ -1,4 +1,5 @@
 import {Moment} from 'moment';
+import {IQuittanceMensuelleImpotLine} from "app/shared/model/quittance-mensuelle-impot-line.model";
 
 export interface IQuittanceMensuelleImpot {
     id?: number;
@@ -11,7 +12,7 @@ export interface IQuittanceMensuelleImpot {
     ficheClientDesignation?: string;
     ficheClientMatriculeFiscale?: string;
     ficheClientRegistreCommerce?: string;
-    quittanceMensuelleImpots?: IQuittanceMensuelleImpot[];
+    quittanceMensuelleImpotLines?: IQuittanceMensuelleImpotLine[];
 }
 
 export class QuittanceMensuelleImpot implements IQuittanceMensuelleImpot {
@@ -26,7 +27,7 @@ export class QuittanceMensuelleImpot implements IQuittanceMensuelleImpot {
         public ficheClientDesignation?: string,
         public ficheClientMatriculeFiscale?: string,
         public ficheClientRegistreCommerce?: string,
-        public quittanceMensuelleImpots?: IQuittanceMensuelleImpot[]
+        public quittanceMensuelleImpotLines?: IQuittanceMensuelleImpotLine[]
     ) {
     }
 }
