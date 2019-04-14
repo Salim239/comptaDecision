@@ -28,5 +28,6 @@
     <include file="config/liquibase/changelog/20190403192328_added_entity_constraints_DeclarationAnnuelle.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190403192329_added_entity_constraints_DeclarationEmployeurAnnuelle.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190403192330_added_entity_constraints_AcompteProvisionnel.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403192331_added_auditing_colums.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -19,7 +19,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "acompte_provisionnel")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class AcompteProvisionnel implements Serializable {
+public class AcompteProvisionnel extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
     

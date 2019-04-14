@@ -22,7 +22,7 @@ import com.growup.comptadecision.domain.enumeration.CategorieClient;
 @Entity
 @Table(name = "fiche_client")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class FicheClient implements Serializable {
+public class FicheClient extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
     

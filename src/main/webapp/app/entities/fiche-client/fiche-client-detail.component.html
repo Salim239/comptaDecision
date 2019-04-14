@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="ficheClient">
-            <h2><span jhiTranslate="comptaDecisionApp.ficheClient.detail.title">Fiche Client</span> {{ficheClient.id}}</h2>
+            <h2><span jhiTranslate="comptaDecisionApp.ficheClient.detail.title">Fiche Client</span> <span title="MF: {{ficheClient.matriculeFiscale}}">{{ficheClient.designation}}</span></h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
@@ -13,35 +13,33 @@
                 <dd>
                     <span>{{ficheClient.designation}}</span>
                 </dd>
-                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.logo">Logo</span></dt>
-                <dd>
-                    <div *ngIf="ficheClient.logo">
-                        <a (click)="openFile(ficheClient.logoContentType, ficheClient.logo)">
-                            <img [src]="'data:' + ficheClient.logoContentType + ';base64,' + ficheClient.logo" style="max-width: 100%;" alt="ficheClient image"/>
-                        </a>
-                        {{ficheClient.logoContentType}}, {{byteSize(ficheClient.logo)}}
-                    </div>
-                </dd>
+                <!--<dt><span jhiTranslate="comptaDecisionApp.ficheClient.logo">Logo</span></dt>-->
+                <!--<dd>-->
+                    <!--<div *ngIf="ficheClient.logo">-->
+                        <!--<a (click)="openFile(ficheClient.logoContentType, ficheClient.logo)">-->
+                            <!--<img [src]="'data:' + ficheClient.logoContentType + ';base64,' + ficheClient.logo" style="max-width: 100%;" alt="ficheClient image"/>-->
+                        <!--</a>-->
+                        <!--{{ficheClient.logoContentType}}, {{byteSize(ficheClient.logo)}}-->
+                    <!--</div>-->
+                <!--</dd>-->
                 <dt><span jhiTranslate="comptaDecisionApp.ficheClient.adresse">Adresse</span></dt>
                 <dd>
-                    <span>{{ficheClient.adresse}}</span>
+                    <span>{{ficheClient.adresse}}</span> {{ficheClient.regionLibelle}}, {{ficheClient.codePostal}} {{ficheClient.villeLibelle}}
                 </dd>
-                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.region">Region</span></dt>
-                <dd>
-                    <div *ngIf="ficheClient.regionId">
-                        <a [routerLink]="['/region', ficheClient.regionId, 'view']">{{ficheClient.regionLibelle}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.ville">Ville</span></dt>
-                <dd>
-                    <div *ngIf="ficheClient.villeId">
-                        <a [routerLink]="['/ville', ficheClient.villeId, 'view']">{{ficheClient.villeLibelle}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.codePostal">Code Postal</span></dt>
-                <dd>
-                    <span>{{ficheClient.codePostal}}</span>
-                </dd>
+                <!--<dt><span jhiTranslate="comptaDecisionApp.ficheClient.region">Region</span></dt>-->
+                <!--<dd>-->
+                    <!--<span>-->
+                        <!--{{ficheClient.regionLibelle}}   -->
+                    <!--</span>-->
+                <!--</dd>-->
+                <!--<dt><span jhiTranslate="comptaDecisionApp.ficheClient.ville">Ville</span></dt>-->
+                <!--<dd>-->
+                    <!--<span>{{ficheClient.villeLibelle}}</span>-->
+                <!--</dd>                -->
+                <!--<dt><span jhiTranslate="comptaDecisionApp.ficheClient.codePostal">Code Postal</span></dt>-->
+                <!--<dd>-->
+                    <!--<span>{{ficheClient.codePostal}}</span>-->
+                <!--</dd>-->
                 <dt><span jhiTranslate="comptaDecisionApp.ficheClient.telephone">Telephone</span></dt>
                 <dd>
                     <span>{{ficheClient.telephone}}</span>
@@ -74,35 +72,35 @@
                 <dd>
                     <span>{{ficheClient.cnssGerant}}</span>
                 </dd>
-                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente">Fichier Patente</span></dt>
-                <dd>
-                    <div *ngIf="ficheClient.fichierPatente">
-                        <a (click)="openFile(ficheClient.fichierPatenteContentType, ficheClient.fichierPatente)" jhiTranslate="entity.action.open">open</a>
-                        {{ficheClient.fichierPatenteContentType}}, {{byteSize(ficheClient.fichierPatente)}}
-                    </div>
-                </dd>
+                <!--<dt><span jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente">Fichier Patente</span></dt>-->
+                <!--<dd>-->
+                    <!--<div *ngIf="ficheClient.fichierPatente">-->
+                        <!--<a (click)="openFile(ficheClient.fichierPatenteContentType, ficheClient.fichierPatente)" jhiTranslate="entity.action.open">open</a>-->
+                        <!--{{ficheClient.fichierPatenteContentType}}, {{byteSize(ficheClient.fichierPatente)}}-->
+                    <!--</div>-->
+                <!--</dd>-->
                 <dt><span jhiTranslate="comptaDecisionApp.ficheClient.secteurActivite">Secteur Activite</span></dt>
                 <dd>
-                    <div *ngIf="ficheClient.secteurActiviteId">
-                        <a [routerLink]="['/secteur-activite', ficheClient.secteurActiviteId, 'view']">{{ficheClient.secteurActiviteId}}</a>
-                    </div>
+                    <span>
+                        {{ficheClient.secteurActiviteLibelle}}
+                    </span>
                 </dd>
                 <dt><span jhiTranslate="comptaDecisionApp.ficheClient.activite">Activite</span></dt>
                 <dd>
-                    <div *ngIf="ficheClient.activiteId">
-                        <a [routerLink]="['/activite', ficheClient.activiteId, 'view']">{{ficheClient.activiteLibelle}}</a>
-                    </div>
+                    <span>
+                       {{ficheClient.activiteLibelle}}
+                    </span>
                 </dd>
                 <dt><span jhiTranslate="comptaDecisionApp.ficheClient.activiteScondaire">Activite Scondaire</span></dt>
                 <dd>
-                    <div *ngIf="ficheClient.activiteScondaireId">
-                        <a [routerLink]="['/activite', ficheClient.activiteScondaireId, 'view']">{{ficheClient.activiteScondaireLibelle}}</a>
-                    </div>
+                    <span>
+                        {{ficheClient.activiteScondaireLibelle}}
+                    </span>
                 </dd>
             </dl>
             <br/>
             <h2><span jhiTranslate="comptaDecisionApp.impotMensuelClient.detail.title">Paramétrage impôts mensuels client </span> {{ficheClient.designation}}</h2>
-            <jhi-alert></jhi-alert>
+
             <div class="table-responsive" *ngIf="ficheClient.impotMensuelClients.length > 0">
                 <table class="table table-striped">
                     <thead>
@@ -122,7 +120,7 @@
                     </tbody>
                 </table>
             </div>
-
+            <jhi-alert></jhi-alert>
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">

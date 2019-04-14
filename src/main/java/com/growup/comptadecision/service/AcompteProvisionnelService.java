@@ -2,6 +2,7 @@ package com.growup.comptadecision.service;
 
 import com.growup.comptadecision.domain.AcompteProvisionnel;
 import com.growup.comptadecision.repository.AcompteProvisionnelRepository;
+import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.AcompteProvisionnelDTO;
 import com.growup.comptadecision.service.mapper.AcompteProvisionnelMapper;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,7 +56,8 @@ public class AcompteProvisionnelService {
     @Transactional(readOnly = true)
     public Page<AcompteProvisionnelDTO> findAll(Pageable pageable) {
         log.debug("Request to get all AcompteProvisionnels");
-        return acompteProvisionnelRepository.findAll(pageable)
+        String creator = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new UsernameNotFoundException("Only loggued user can access"));
+        return acompteProvisionnelRepository.findAllByCreatedBy(creator, pageable)
             .map(acompteProvisionnelMapper::toDto);
     }
 

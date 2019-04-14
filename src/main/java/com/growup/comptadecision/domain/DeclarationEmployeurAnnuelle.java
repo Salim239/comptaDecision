@@ -18,7 +18,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "declaration_employeur_annuelle")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class DeclarationEmployeurAnnuelle implements Serializable {
+public class DeclarationEmployeurAnnuelle extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
     

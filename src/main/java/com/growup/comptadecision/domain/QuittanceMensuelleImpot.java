@@ -23,7 +23,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "quittance_mensuelle_impot")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class QuittanceMensuelleImpot implements Serializable {
+public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
     

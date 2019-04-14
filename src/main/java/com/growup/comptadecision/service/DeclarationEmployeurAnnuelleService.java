@@ -2,6 +2,7 @@ package com.growup.comptadecision.service;
 
 import com.growup.comptadecision.domain.DeclarationEmployeurAnnuelle;
 import com.growup.comptadecision.repository.DeclarationEmployeurAnnuelleRepository;
+import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.DeclarationEmployeurAnnuelleDTO;
 import com.growup.comptadecision.service.mapper.DeclarationEmployeurAnnuelleMapper;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,7 +56,8 @@ public class DeclarationEmployeurAnnuelleService {
     @Transactional(readOnly = true)
     public Page<DeclarationEmployeurAnnuelleDTO> findAll(Pageable pageable) {
         log.debug("Request to get all DeclarationEmployeurAnnuelles");
-        return declarationEmployeurAnnuelleRepository.findAll(pageable)
+        String creator = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new UsernameNotFoundException("Only loggued user can access"));
+        return declarationEmployeurAnnuelleRepository.findAllByCreatedBy(creator, pageable)
             .map(declarationEmployeurAnnuelleMapper::toDto);
     }
 

@@ -19,6 +19,7 @@ export class CnssUpdateComponent implements OnInit {
     isSaving: boolean;
 
     ficheclients: IFicheClient[];
+    trimestres:any[];
     dateDp: any;
 
     constructor(
@@ -33,6 +34,12 @@ export class CnssUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ cnss }) => {
             this.cnss = cnss;
         });
+        this.trimestres = [
+            {id: 1, libelle: 'Trimestre 1 (janvier/février/mars)'},
+            {id: 2, libelle: 'Trimestre 2 (avril/mai/juin'},
+            {id: 3, libelle: 'Trimestre 3 (juillet/août/septembre)'},
+            {id: 4, libelle: 'Trimestre 4 (otobre/novembre/décembre)'}
+        ];
         this.ficheClientService
             .query()
             .pipe(

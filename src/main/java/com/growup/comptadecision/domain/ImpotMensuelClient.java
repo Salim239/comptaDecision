@@ -17,7 +17,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "impot_mensuel_client")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ImpotMensuelClient implements Serializable {
+public class ImpotMensuelClient extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
     
@@ -31,7 +31,7 @@ public class ImpotMensuelClient implements Serializable {
     private Integer mois;
 
     @Column(name = "applicable")
-    private Boolean applicable;
+    private Boolean applicable = Boolean.TRUE;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("impotMensuelClients")

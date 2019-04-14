@@ -2,6 +2,7 @@ package com.growup.comptadecision.service;
 
 import com.growup.comptadecision.domain.Cnss;
 import com.growup.comptadecision.repository.CnssRepository;
+import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.CnssDTO;
 import com.growup.comptadecision.service.mapper.CnssMapper;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,7 +56,8 @@ public class CnssService {
     @Transactional(readOnly = true)
     public Page<CnssDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Cnsses");
-        return cnssRepository.findAll(pageable)
+        String creator = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new UsernameNotFoundException("Only loggued user can access"));
+        return cnssRepository.findAllByCreatedBy(creator, pageable)
             .map(cnssMapper::toDto);
     }
 

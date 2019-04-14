@@ -22,7 +22,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "quittance_mensuelle_impot_line")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class QuittanceMensuelleImpotLine implements Serializable {
+public class QuittanceMensuelleImpotLine extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
     

@@ -19,7 +19,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "cnss")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Cnss implements Serializable {
+public class Cnss extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
     

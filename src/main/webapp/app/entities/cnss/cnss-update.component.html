@@ -33,8 +33,12 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.trimestre" for="field_trimestre">Trimestre</label>
-                    <input type="number" class="form-control" name="trimestre" id="field_trimestre"
-                        [(ngModel)]="cnss.trimestre" required/>
+                    <!--<input type="number" class="form-control" name="trimestre" id="field_trimestre"-->
+                        <!--[(ngModel)]="cnss.trimestre" required/>-->
+                    <select class="form-control" id="field_trimestre" name="trimestre" [(ngModel)]="cnss.trimestre" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="trimestreOption.id" *ngFor="let trimestreOption of trimestres;">{{trimestreOption.libelle}}</option>
+                    </select>
                     <div [hidden]="!(editForm.controls.trimestre?.dirty && editForm.controls.trimestre?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.trimestre?.errors?.required" jhiTranslate="entity.validation.required">
@@ -82,14 +86,14 @@
                         [(ngModel)]="cnss.montantChiffreAffaireTTC" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.tot" for="field_tot">Tot</label>
-                    <input type="number" class="form-control" name="tot" id="field_tot"
-                        [(ngModel)]="cnss.tot" />
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.cnss" for="field_cnss">Cnss</label>
                     <input type="number" class="form-control" name="cnss" id="field_cnss"
                         [(ngModel)]="cnss.cnss" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.tot" for="field_tot">Tot</label>
+                    <input type="number" class="form-control" name="tot" id="field_tot"
+                           [(ngModel)]="cnss.tot" />
                 </div>
 
             </div>

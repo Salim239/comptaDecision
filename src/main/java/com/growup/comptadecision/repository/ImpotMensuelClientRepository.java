@@ -1,7 +1,10 @@
 package com.growup.comptadecision.repository;
 
 import com.growup.comptadecision.domain.ImpotMensuelClient;
+import com.growup.comptadecision.domain.Ville;
 import com.growup.comptadecision.service.dto.ImpotMensuelClientDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +20,7 @@ import java.util.Optional;
 public interface ImpotMensuelClientRepository extends JpaRepository<ImpotMensuelClient, Long> {
 
     List<ImpotMensuelClient> findByFicheClientIdAndMois(Long ficheClientId, Integer mois);
+
+    Page<ImpotMensuelClient> findAllByCreatedBy(String creator, Pageable pageable);
 
 }

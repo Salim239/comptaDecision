@@ -2,13 +2,13 @@
     "comptaDecisionApp": {
         "ficheClient": {
             "home": {
-                "title": "FicheClients",
-                "createLabel": "Créer un nouveau Fiche Client",
-                "createOrEditLabel": "Créer ou éditer un Fiche Client"
+                "title": "Fiches Clients",
+                "createLabel": "Créer une nouvelle fiche Client",
+                "createOrEditLabel": "Créer ou éditer une fiche Client"
             },
-            "created": "Un nouveau Fiche Client a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Fiche Client avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Fiche Client avec l'identifiant {{ param }} a été supprimé",
+            "created": "Un nouvelle Fiche Client a été créée avec l'identifiant {{ param }}",
+            "updated": "La fiche Client avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "La fiche Client avec l'identifiant {{ param }} a été supprimée",
             "delete": {
                 "question": "Etes-vous certain de vouloir supprimer le Fiche Client {{ id }} ?"
             },

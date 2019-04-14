@@ -5,6 +5,7 @@ import com.growup.comptadecision.domain.QuittanceMensuelleImpot;
 import com.growup.comptadecision.domain.QuittanceMensuelleImpotLine;
 import com.growup.comptadecision.repository.ImpotMensuelClientRepository;
 import com.growup.comptadecision.repository.QuittanceMensuelleImpotRepository;
+import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.ImpotMensuelClientDTO;
 import com.growup.comptadecision.service.dto.ImpotMensuelDTO;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,7 +87,8 @@ public class QuittanceMensuelleImpotService {
     @Transactional(readOnly = true)
     public Page<QuittanceMensuelleImpotDTO> findAll(Pageable pageable) {
         log.debug("Request to get all QuittanceMensuelleImpots");
-        return quittanceMensuelleImpotRepository.findAll(pageable)
+        String creator = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new UsernameNotFoundException("Only loggued user can access"));
+        return quittanceMensuelleImpotRepository.findAllByCreatedBy(creator, pageable)
             .map(quittanceMensuelleImpotMapper::toDto);
     }
 

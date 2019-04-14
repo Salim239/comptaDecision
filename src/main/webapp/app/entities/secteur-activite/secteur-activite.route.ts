@@ -33,7 +33,7 @@ export const secteurActiviteRoute: Routes = [
         path: '',
         component: SecteurActiviteComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.secteurActivite.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -45,7 +45,7 @@ export const secteurActiviteRoute: Routes = [
             secteurActivite: SecteurActiviteResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.secteurActivite.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const secteurActiviteRoute: Routes = [
             secteurActivite: SecteurActiviteResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.secteurActivite.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const secteurActiviteRoute: Routes = [
             secteurActivite: SecteurActiviteResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.secteurActivite.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -84,7 +84,7 @@ export const secteurActivitePopupRoute: Routes = [
             secteurActivite: SecteurActiviteResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.secteurActivite.home.title'
         },
         canActivate: [UserRouteAccessService],

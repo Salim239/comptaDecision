@@ -33,7 +33,7 @@ export const impotMensuelRoute: Routes = [
         path: '',
         component: ImpotMensuelComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.impotMensuel.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -45,7 +45,7 @@ export const impotMensuelRoute: Routes = [
             impotMensuel: ImpotMensuelResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.impotMensuel.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const impotMensuelRoute: Routes = [
             impotMensuel: ImpotMensuelResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.impotMensuel.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const impotMensuelRoute: Routes = [
             impotMensuel: ImpotMensuelResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.impotMensuel.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -84,7 +84,7 @@ export const impotMensuelPopupRoute: Routes = [
             impotMensuel: ImpotMensuelResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.impotMensuel.home.title'
         },
         canActivate: [UserRouteAccessService],

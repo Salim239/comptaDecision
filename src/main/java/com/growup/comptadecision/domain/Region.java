@@ -16,7 +16,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "region")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Region implements Serializable {
+public class Region extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
     

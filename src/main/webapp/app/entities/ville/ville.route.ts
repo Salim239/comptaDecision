@@ -33,7 +33,7 @@ export const villeRoute: Routes = [
         path: '',
         component: VilleComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.ville.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -45,7 +45,7 @@ export const villeRoute: Routes = [
             ville: VilleResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.ville.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const villeRoute: Routes = [
             ville: VilleResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.ville.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const villeRoute: Routes = [
             ville: VilleResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.ville.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -84,7 +84,7 @@ export const villePopupRoute: Routes = [
             ville: VilleResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'comptaDecisionApp.ville.home.title'
         },
         canActivate: [UserRouteAccessService],
