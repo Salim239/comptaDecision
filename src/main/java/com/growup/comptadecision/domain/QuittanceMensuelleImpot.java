@@ -2,6 +2,8 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -51,9 +53,45 @@ public class QuittanceMensuelleImpot implements Serializable {
     @JsonIgnoreProperties("quittanceMensuelleImpots")
     private FicheClient ficheClient;
 
-    @OneToMany(mappedBy = "quittanceMensuelleImpot", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        QuittanceMensuelleImpot that = (QuittanceMensuelleImpot) o;
+
+        return new EqualsBuilder()
+                .append(id, that.id)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "QuittanceMensuelleImpot{" +
+                "id=" + id +
+                ", annee=" + annee +
+                ", mois=" + mois +
+                ", numeroQuittance='" + numeroQuittance + '\'' +
+                ", datePaiement=" + datePaiement +
+                ", montantPaye=" + montantPaye +
+                ", ficheClient=" + ficheClient +
+                ", quittanceMensuelleImpotLines=" + quittanceMensuelleImpotLines +
+                '}';
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "quittanceMensuelleImpot", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<QuittanceMensuelleImpotLine> quittanceMensuelleImpotLines = new ArrayList<>();
+
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -142,20 +180,6 @@ public class QuittanceMensuelleImpot implements Serializable {
         this.ficheClient = ficheClient;
     }
 
-    @Override
-    public String toString() {
-        return "QuittanceMensuelleImpot{" +
-                "id=" + id +
-                ", annee=" + annee +
-                ", mois=" + mois +
-                ", numeroQuittance='" + numeroQuittance + '\'' +
-                ", datePaiement=" + datePaiement +
-                ", montantPaye=" + montantPaye +
-                ", ficheClient=" + ficheClient +
-                ", quittanceMensuelleImpotLines=" + quittanceMensuelleImpotLines +
-                '}';
-    }
-
     public List<QuittanceMensuelleImpotLine> getQuittanceMensuelleImpotLines() {
         return quittanceMensuelleImpotLines;
     }
@@ -174,25 +198,5 @@ public class QuittanceMensuelleImpot implements Serializable {
         quittanceMensuelleImpotLine.setQuittanceMensuelleImpot(null);
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        QuittanceMensuelleImpot quittanceMensuelleImpot = (QuittanceMensuelleImpot) o;
-        if (quittanceMensuelleImpot.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), quittanceMensuelleImpot.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
 
 }

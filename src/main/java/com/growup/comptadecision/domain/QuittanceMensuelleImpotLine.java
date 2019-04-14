@@ -3,6 +3,8 @@ package com.growup.comptadecision.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,8 +34,9 @@ public class QuittanceMensuelleImpotLine implements Serializable {
     @Column(name = "montant_paye", precision = 10, scale = 2)
     private BigDecimal montantPaye;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("quittanceMensuelleImpotLines")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "quittance_mensuelle_impot_id", nullable = false)
+//    @JsonIgnoreProperties("quittanceMensuelleImpotLines")
     private QuittanceMensuelleImpot quittanceMensuelleImpot;
 
     @ManyToOne
@@ -82,33 +85,38 @@ public class QuittanceMensuelleImpotLine implements Serializable {
         this.impotMensuelClient = impotMensuelClient;
     }
 
+
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        QuittanceMensuelleImpotLine quittanceMensuelleImpotLine = (QuittanceMensuelleImpotLine) o;
-        if (quittanceMensuelleImpotLine.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), quittanceMensuelleImpotLine.getId());
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        QuittanceMensuelleImpotLine that = (QuittanceMensuelleImpotLine) o;
+
+        return new EqualsBuilder()
+                .append(id, that.id)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .toHashCode();
     }
 
     @Override
     public String toString() {
         return "QuittanceMensuelleImpotLine{" +
-            "id=" + getId() +
-            ", montantPaye=" + getMontantPaye() +
-            "}";
+                "id=" + id +
+                ", montantPaye=" + montantPaye +
+                ", quittanceMensuelleImpot=" + quittanceMensuelleImpot +
+                ", impotMensuelClient=" + impotMensuelClient +
+                '}';
     }
+
 }

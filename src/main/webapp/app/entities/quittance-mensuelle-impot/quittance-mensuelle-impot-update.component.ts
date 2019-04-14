@@ -40,7 +40,22 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
                 filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IFicheClient[]>) => response.body)
             )
-            .subscribe((res: IFicheClient[]) => (this.ficheclients = res), (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: IFicheClient[]) => {
+                this.ficheclients = res;
+                this.calculateSumMontantPaye();
+                }, (res: HttpErrorResponse) => this.onError(res.message));
+    }
+
+    getSum(total, num) {
+        return total + num;
+    }
+
+    /**
+     * Recalculer la somme du montant de la quittance à chaque fois que le montant qu'un impot change
+     */
+    calculateSumMontantPaye() {
+        this.quittanceMensuelleImpot.montantPaye = this.quittanceMensuelleImpot.quittanceMensuelleImpotLines
+            .map(quittanceMensuelleImpotLine => quittanceMensuelleImpotLine.montantPaye).reduce(this.getSum);
     }
 
     previousState() {
@@ -49,7 +64,8 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        if (this.quittanceMensuelleImpot.id !== undefined) {
+        this.calculateSumMontantPaye();
+        if (this.quittanceMensuelleImpot.id !== undefined && this.quittanceMensuelleImpot.id !== null) {
             this.subscribeToSaveResponse(this.quittanceMensuelleImpotService.update(this.quittanceMensuelleImpot));
         } else {
             this.subscribeToSaveResponse(this.quittanceMensuelleImpotService.create(this.quittanceMensuelleImpot));

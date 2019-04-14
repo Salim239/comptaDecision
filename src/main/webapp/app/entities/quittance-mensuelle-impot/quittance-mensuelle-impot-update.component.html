@@ -17,6 +17,21 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.mois" for="field_mois">Mois</label>
+                    <input type="number" class="form-control" name="mois" id="field_mois" (change)="initByParams()"
+                           [(ngModel)]="quittanceMensuelleImpot.mois" required/>
+                    <div [hidden]="!(editForm.controls.mois?.dirty && editForm.controls.mois?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.mois?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.mois?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.annee" for="field_annee">Annee</label>
                     <input type="number" class="form-control" name="annee" id="field_annee"
                         [(ngModel)]="quittanceMensuelleImpot.annee" required/>
@@ -27,21 +42,6 @@
                         </small>
                         <small class="form-text text-danger"
                             [hidden]="!editForm.controls.annee?.errors?.number" jhiTranslate="entity.validation.number">
-                            This field should be a number.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.mois" for="field_mois">Mois</label>
-                    <input type="number" class="form-control" name="mois" id="field_mois" (change)="initByParams()"
-                        [(ngModel)]="quittanceMensuelleImpot.mois" required/>
-                    <div [hidden]="!(editForm.controls.mois?.dirty && editForm.controls.mois?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.mois?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.mois?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -64,13 +64,13 @@
 
                 <div class="form-group" *ngFor="let quittanceMensuelleImpotLine of quittanceMensuelleImpot.quittanceMensuelleImpotLines">
                     <label class="form-control-label">{{quittanceMensuelleImpotLine.impotMensuelClient.impotMensuelLibelle}}</label>
-                    <input type="number" class="form-control" name="quittanceMensuelleImpotLine.montantPaye" [disabled]="!quittanceMensuelleImpotLine.impotMensuelClient.applicable"
+                    <input (change)="calculateSumMontantPaye()" type="number" class="form-control" id="field_{{quittanceMensuelleImpotLine.impotMensuelClient.impotMensuelId}}_montantPaye" name="{{quittanceMensuelleImpotLine.impotMensuelClient.impotMensuelId}}_montantPaye" [readOnly]="!quittanceMensuelleImpotLine.impotMensuelClient.applicable"
                            [(ngModel)]="quittanceMensuelleImpotLine.montantPaye" />
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.montantPaye" for="field_montantPaye">Montant Paye</label>
-                    <input type="number" class="form-control" name="montantPaye" id="field_montantPaye"
+                    <input type="number" class="form-control" name="montantPaye" id="field_montantPaye" [readOnly]="true"
                         [(ngModel)]="quittanceMensuelleImpot.montantPaye" />
                 </div>
 

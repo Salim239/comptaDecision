@@ -16,16 +16,6 @@
 
     </changeSet>
 
-    <changeSet id="20190403192327-20" author="salim">
-
-        <addForeignKeyConstraint baseColumnNames="impot_mensuel_cient_id"
-                                 baseTableName="quittance_mensuelle_impot_line"
-                                 constraintName="fk_quittance_mensuelle_impot_line_impot_mensuel_cient_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="impot_mensuel_client"/>
-    </changeSet>
-
-
     <changeSet id="20190403192327-21" author="salim">
 
         <addForeignKeyConstraint baseColumnNames="impot_mensuel_client_id"
@@ -36,14 +26,5 @@
 
 
     </changeSet>
-
-    <changeSet id="20190403192327-22" author="salim">
-
-        <dropForeignKeyConstraint baseTableName="quittance_mensuelle_impot_line"
-                                 constraintName="fk_quittance_mensuelle_impot_line_impot_mensuel_cient_id"/>
-
-
-    </changeSet>
-
 
 </databaseChangeLog>

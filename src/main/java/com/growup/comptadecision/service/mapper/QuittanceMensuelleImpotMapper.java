@@ -8,13 +8,14 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity QuittanceMensuelleImpot and its DTO QuittanceMensuelleImpotDTO.
  */
-@Mapper(componentModel = "spring", uses = {FicheClientMapper.class})
+@Mapper(componentModel = "spring", uses = {FicheClientMapper.class, QuittanceMensuelleImpotLineMapper.class})
 public interface QuittanceMensuelleImpotMapper extends EntityMapper<QuittanceMensuelleImpotDTO, QuittanceMensuelleImpot> {
 
     @Mapping(source = "ficheClient.id", target = "ficheClientId")
     @Mapping(source = "ficheClient.designation", target = "ficheClientDesignation")
     @Mapping(source = "ficheClient.matriculeFiscale", target = "ficheClientMatriculeFiscale")
     @Mapping(source = "ficheClient.registreCommerce", target = "ficheClientRegistreCommerce")
+    @Mapping(source = "quittanceMensuelleImpotLines", target = "quittanceMensuelleImpotLines")
     QuittanceMensuelleImpotDTO toDto(QuittanceMensuelleImpot quittanceMensuelleImpot);
 
     @Mapping(source = "ficheClientId", target = "ficheClient")
