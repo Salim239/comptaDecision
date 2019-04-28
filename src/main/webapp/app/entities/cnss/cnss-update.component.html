@@ -17,20 +17,18 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.annee" for="field_annee">Annee</label>
-                    <input type="number" class="form-control" name="annee" id="field_annee"
-                        [(ngModel)]="cnss.annee" required/>
-                    <div [hidden]="!(editForm.controls.annee?.dirty && editForm.controls.annee?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.annee?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.annee?.errors?.number" jhiTranslate="entity.validation.number">
-                            This field should be a number.
-                        </small>
-                    </div>
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.typeCnss" for="field_typeCnss">Type CNSS</label>
+                    <select required class="form-control" id="field_typeCnss" name="typeCnss" [(ngModel)]="cnss.typeCnss" >
+                        <option value="CNSS_GENERALE">{{'comptaDecisionApp.typeCnss.CNSS_GENERALE' | translate}}</option>
+                        <option value="CNSS_EMPLOYEUR">{{'comptaDecisionApp.typeCnss.CNSS_EMPLOYEUR' | translate}}</option>
+                    </select>
                 </div>
+
+                <app-annee [currentFichClientDateCreation]="cnss.ficheClientDateCreation"
+                           [ficheClients]="ficheclients" [form]="editForm"
+                           [currentFicheClientId]="cnss.ficheClientId"
+                           [model]="cnss"></app-annee>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.trimestre" for="field_trimestre">Trimestre</label>
                     <!--<input type="number" class="form-control" name="trimestre" id="field_trimestre"-->

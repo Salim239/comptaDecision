@@ -2,13 +2,13 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -29,6 +29,10 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
     private Long id;
 
     @NotNull
+    @Column(name = "type_declaration", nullable = false)
+    private TypeDeclaration typeDeclaration;
+
+    @NotNull
     @Column(name = "annee", nullable = false)
     private Integer annee;
 
@@ -44,8 +48,8 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
     @Column(name = "montant_chiffre_affaire_export", precision = 10, scale = 2)
     private BigDecimal montantChiffreAffaireExport;
 
-    @Column(name = "montant_chiffre_affaire_impot", precision = 10, scale = 2)
-    private BigDecimal montantChiffreAffaireImpot;
+    @Column(name = "montant_chiffre_affaire_local", precision = 10, scale = 2)
+    private BigDecimal montantChiffreAffaireLocal;
 
     @Column(name = "montant_chiffre_affaire_ttc", precision = 10, scale = 2)
     private BigDecimal montantChiffreAffaireTTC;
@@ -53,8 +57,8 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
     @Column(name = "montant_resultat_comptable", precision = 10, scale = 2)
     private BigDecimal montantResultatComptable;
 
-    @Column(name = "montant_deduction_commune", precision = 10, scale = 2)
-    private BigDecimal montantDeductionCommune;
+    @Column(name = "montant_resultat_fiscal", precision = 10, scale = 2)
+    private BigDecimal montantResultatFiscal;
 
     @Column(name = "montant_autre_deduction", precision = 10, scale = 2)
     private BigDecimal montantAutreDeduction;
@@ -152,17 +156,17 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
         this.montantChiffreAffaireExport = montantChiffreAffaireExport;
     }
 
-    public BigDecimal getMontantChiffreAffaireImpot() {
-        return montantChiffreAffaireImpot;
+    public BigDecimal getMontantChiffreAffaireLocal() {
+        return montantChiffreAffaireLocal;
     }
 
     public DeclarationAnnuelle montantChiffreAffaireImpot(BigDecimal montantChiffreAffaireImpot) {
-        this.montantChiffreAffaireImpot = montantChiffreAffaireImpot;
+        this.montantChiffreAffaireLocal = montantChiffreAffaireImpot;
         return this;
     }
 
-    public void setMontantChiffreAffaireImpot(BigDecimal montantChiffreAffaireImpot) {
-        this.montantChiffreAffaireImpot = montantChiffreAffaireImpot;
+    public void setMontantChiffreAffaireLocal(BigDecimal montantChiffreAffaireLocal) {
+        this.montantChiffreAffaireLocal = montantChiffreAffaireLocal;
     }
 
     public BigDecimal getMontantChiffreAffaireTTC() {
@@ -191,17 +195,17 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
         this.montantResultatComptable = montantResultatComptable;
     }
 
-    public BigDecimal getMontantDeductionCommune() {
-        return montantDeductionCommune;
+    public BigDecimal getMontantResultatFiscal() {
+        return montantResultatFiscal;
     }
 
     public DeclarationAnnuelle montantDeductionCommune(BigDecimal montantDeductionCommune) {
-        this.montantDeductionCommune = montantDeductionCommune;
+        this.montantResultatFiscal = montantDeductionCommune;
         return this;
     }
 
-    public void setMontantDeductionCommune(BigDecimal montantDeductionCommune) {
-        this.montantDeductionCommune = montantDeductionCommune;
+    public void setMontantResultatFiscal(BigDecimal montantResultatFiscal) {
+        this.montantResultatFiscal = montantResultatFiscal;
     }
 
     public BigDecimal getMontantAutreDeduction() {
@@ -278,6 +282,30 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return "DeclarationAnnuelle{" +
+                "id=" + id +
+                ", typeDeclaration=" + typeDeclaration +
+                ", annee=" + annee +
+                ", datePaiement=" + datePaiement +
+                ", numeroQuittance='" + numeroQuittance + '\'' +
+                ", montantChiffreAffaireHT=" + montantChiffreAffaireHT +
+                ", montantChiffreAffaireExport=" + montantChiffreAffaireExport +
+                ", montantChiffreAffaireLocal=" + montantChiffreAffaireLocal +
+                ", montantChiffreAffaireTTC=" + montantChiffreAffaireTTC +
+                ", montantResultatComptable=" + montantResultatComptable +
+                ", montantResultatFiscal=" + montantResultatFiscal +
+                ", montantAutreDeduction=" + montantAutreDeduction +
+                ", montantBaseImposable=" + montantBaseImposable +
+                ", montantImpotLiquide=" + montantImpotLiquide +
+                ", montantAcompteProvisionnel=" + montantAcompteProvisionnel +
+                ", montantRetenueSource=" + montantRetenueSource +
+                ", montantNetAPaye=" + montantNetAPaye +
+                ", ficheClient=" + ficheClient +
+                '}';
+    }
+
     public void setMontantNetAPaye(BigDecimal montantNetAPaye) {
         this.montantNetAPaye = montantNetAPaye;
     }
@@ -289,6 +317,14 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
     public DeclarationAnnuelle ficheClient(FicheClient ficheClient) {
         this.ficheClient = ficheClient;
         return this;
+    }
+
+    public TypeDeclaration getTypeDeclaration() {
+        return typeDeclaration;
+    }
+
+    public void setTypeDeclaration(TypeDeclaration typeDeclaration) {
+        this.typeDeclaration = typeDeclaration;
     }
 
     public void setFicheClient(FicheClient ficheClient) {
@@ -316,25 +352,4 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "DeclarationAnnuelle{" +
-            "id=" + getId() +
-            ", annee=" + getAnnee() +
-            ", datePaiement='" + getDatePaiement() + "'" +
-            ", numeroQuittance='" + getNumeroQuittance() + "'" +
-            ", montantChiffreAffaireHT=" + getMontantChiffreAffaireHT() +
-            ", montantChiffreAffaireExport=" + getMontantChiffreAffaireExport() +
-            ", montantChiffreAffaireImpot=" + getMontantChiffreAffaireImpot() +
-            ", montantChiffreAffaireTTC=" + getMontantChiffreAffaireTTC() +
-            ", montantResultatComptable=" + getMontantResultatComptable() +
-            ", montantDeductionCommune=" + getMontantDeductionCommune() +
-            ", montantAutreDeduction=" + getMontantAutreDeduction() +
-            ", montantBaseImposable=" + getMontantBaseImposable() +
-            ", montantImpotLiquide=" + getMontantImpotLiquide() +
-            ", montantAcompteProvisionnel=" + getMontantAcompteProvisionnel() +
-            ", montantRetenueSource=" + getMontantRetenueSource() +
-            ", montantNetAPaye=" + getMontantNetAPaye() +
-            "}";
-    }
 }

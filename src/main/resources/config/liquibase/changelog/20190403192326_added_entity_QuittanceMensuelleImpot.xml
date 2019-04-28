@@ -49,5 +49,13 @@
         </createTable>
         
     </changeSet>
+
+    <changeSet id="20190403192326-2" author="salim">
+        <addColumn tableName="quittance_mensuelle_impot">
+            <column name="type_declaration" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

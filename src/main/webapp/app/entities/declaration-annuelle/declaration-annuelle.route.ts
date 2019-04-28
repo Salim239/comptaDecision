@@ -12,6 +12,8 @@ import { DeclarationAnnuelleDetailComponent } from './declaration-annuelle-detai
 import { DeclarationAnnuelleUpdateComponent } from './declaration-annuelle-update.component';
 import { DeclarationAnnuelleDeletePopupComponent } from './declaration-annuelle-delete-dialog.component';
 import { IDeclarationAnnuelle } from 'app/shared/model/declaration-annuelle.model';
+import {IFicheClient} from "app/shared/model/fiche-client.model";
+import {FicheClientService} from "app/entities/fiche-client";
 
 @Injectable({ providedIn: 'root' })
 export class DeclarationAnnuelleResolve implements Resolve<IDeclarationAnnuelle> {
@@ -26,6 +28,21 @@ export class DeclarationAnnuelleResolve implements Resolve<IDeclarationAnnuelle>
             );
         }
         return of(new DeclarationAnnuelle());
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class FicheClientResolve implements Resolve<IFicheClient[]> {
+    constructor(private service: FicheClientService) {}
+
+    resolve(): Observable<IFicheClient[]> {
+
+        return this.service
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IFicheClient[]>) => response.body)
+            );
     }
 }
 
@@ -59,7 +76,8 @@ export const declarationAnnuelleRoute: Routes = [
         path: 'new',
         component: DeclarationAnnuelleUpdateComponent,
         resolve: {
-            declarationAnnuelle: DeclarationAnnuelleResolve
+            declarationAnnuelle: DeclarationAnnuelleResolve,
+            ficheClients: FicheClientResolve
         },
         data: {
             authorities: ['ROLE_USER'],
@@ -71,7 +89,8 @@ export const declarationAnnuelleRoute: Routes = [
         path: ':id/edit',
         component: DeclarationAnnuelleUpdateComponent,
         resolve: {
-            declarationAnnuelle: DeclarationAnnuelleResolve
+            declarationAnnuelle: DeclarationAnnuelleResolve,
+            ficheClients: FicheClientResolve
         },
         data: {
             authorities: ['ROLE_USER'],

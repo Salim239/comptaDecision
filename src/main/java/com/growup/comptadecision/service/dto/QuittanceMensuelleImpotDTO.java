@@ -1,9 +1,12 @@
 package com.growup.comptadecision.service.dto;
+import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
+
 import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +23,9 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
     @NotNull
     private Integer mois;
 
+    @NotNull
+    private TypeDeclaration typeDeclaration;
+
     private String numeroQuittance;
 
     private LocalDate datePaiement;
@@ -34,6 +40,7 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
     private String ficheClientDesignation;
     private String ficheClientMatriculeFiscale;
     private String ficheClientRegistreCommerce;
+    private LocalDate ficheClientDateCreation;
 
     public String getFicheClientDesignation() {
         return ficheClientDesignation;
@@ -124,12 +131,17 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
         this.quittanceMensuelleImpotLines = quittanceMensuelleImpotLines;
     }
 
+    public TypeDeclaration getTypeDeclaration() {
+        return typeDeclaration;
+    }
+
     @Override
     public String toString() {
         return "QuittanceMensuelleImpotDTO{" +
                 "id=" + id +
                 ", annee=" + annee +
                 ", mois=" + mois +
+                ", typeDeclaration=" + typeDeclaration +
                 ", numeroQuittance='" + numeroQuittance + '\'' +
                 ", datePaiement=" + datePaiement +
                 ", montantPaye=" + montantPaye +
@@ -138,7 +150,20 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
                 ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
                 ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +
                 ", ficheClientRegistreCommerce='" + ficheClientRegistreCommerce + '\'' +
+                ", ficheClientDateCreation=" + ficheClientDateCreation +
                 '}';
+    }
+
+    public void setTypeDeclaration(TypeDeclaration typeDeclaration) {
+        this.typeDeclaration = typeDeclaration;
+    }
+
+    public LocalDate getFicheClientDateCreation() {
+        return ficheClientDateCreation;
+    }
+
+    public void setFicheClientDateCreation(LocalDate ficheClientDateCreation) {
+        this.ficheClientDateCreation = ficheClientDateCreation;
     }
 
     @Override

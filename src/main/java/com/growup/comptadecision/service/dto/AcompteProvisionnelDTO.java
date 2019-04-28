@@ -37,6 +37,7 @@ public class AcompteProvisionnelDTO implements Serializable {
     private String ficheClientDesignation;
     private String ficheClientMatriculeFiscale;
     private String ficheClientRegistreCommerce;
+    private LocalDate ficheClientDateCreation;
 
     public String getFicheClientDesignation() {
         return ficheClientDesignation;
@@ -151,6 +152,35 @@ public class AcompteProvisionnelDTO implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "AcompteProvisionnelDTO{" +
+                "id=" + id +
+                ", annee=" + annee +
+                ", numero=" + numero +
+                ", date=" + date +
+                ", numeroQuittance='" + numeroQuittance + '\'' +
+                ", montantBase=" + montantBase +
+                ", montantAcompteProvisionnel=" + montantAcompteProvisionnel +
+                ", montantReportAnterieur=" + montantReportAnterieur +
+                ", montantRetenueSource=" + montantRetenueSource +
+                ", montantNet=" + montantNet +
+                ", ficheClientId=" + ficheClientId +
+                ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
+                ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +
+                ", ficheClientRegistreCommerce='" + ficheClientRegistreCommerce + '\'' +
+                ", ficheClientDateCreation=" + ficheClientDateCreation +
+                '}';
+    }
+
+    public LocalDate getFicheClientDateCreation() {
+        return ficheClientDateCreation;
+    }
+
+    public void setFicheClientDateCreation(LocalDate ficheClientDateCreation) {
+        this.ficheClientDateCreation = ficheClientDateCreation;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -171,20 +201,4 @@ public class AcompteProvisionnelDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "AcompteProvisionnelDTO{" +
-            "id=" + getId() +
-            ", annee=" + getAnnee() +
-            ", numero=" + getNumero() +
-            ", date='" + getDate() + "'" +
-            ", numeroQuittance='" + getNumeroQuittance() + "'" +
-            ", montantBase=" + getMontantBase() +
-            ", montantAcompteProvisionnel=" + getMontantAcompteProvisionnel() +
-            ", montantReportAnterieur=" + getMontantReportAnterieur() +
-            ", montantRetenueSource=" + getMontantRetenueSource() +
-            ", montantNet=" + getMontantNet() +
-            ", ficheClient=" + getFicheClientId() +
-            "}";
-    }
 }

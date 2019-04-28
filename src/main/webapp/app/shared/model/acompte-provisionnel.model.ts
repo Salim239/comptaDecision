@@ -15,6 +15,7 @@ export interface IAcompteProvisionnel {
     ficheClientDesignation?: string;
     ficheClientMatriculeFiscale?: string;
     ficheClientRegistreCommerce?: string;
+    ficheClientDateCreation?: Moment;
 }
 
 export class AcompteProvisionnel implements IAcompteProvisionnel {
@@ -32,6 +33,7 @@ export class AcompteProvisionnel implements IAcompteProvisionnel {
         public ficheClientId?: number,
         public ficheClientDesignation?: string,
     public ficheClientMatriculeFiscale?: string,
-    public ficheClientRegistreCommerce?: string
+    public ficheClientRegistreCommerce?: string,
+    public ficheClientDateCreation?: Moment
     ) {}
 }

@@ -89,5 +89,23 @@
         </createTable>
         
     </changeSet>
+
+    <changeSet id="20190403192328-2" author="salim">
+        <addColumn tableName="declaration_annuelle">
+            <column name="type_declaration" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20190403192328-3" author="salim">
+        <renameColumn tableName="declaration_annuelle"
+                      oldColumnName="montant_chiffre_affaire_impot"
+                      newColumnName="montant_chiffre_affaire_local"/>
+
+        <renameColumn tableName="declaration_annuelle"
+                      oldColumnName="montant_deduction_commune"
+                      newColumnName="montant_resultat_fiscal"/>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

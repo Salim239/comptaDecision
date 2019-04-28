@@ -44,14 +44,7 @@
                         <option [ngValue]="impotMensuelOption.id" *ngFor="let impotMensuelOption of impotmensuels; trackBy: trackImpotMensuelById">{{impotMensuelOption.id}}</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuelClient.quittanceMensuelleImpotLine" for="field_quittanceMensuelleImpotLine">Quittance Mensuelle Impot Line</label>
-                    <select class="form-control" id="field_quittanceMensuelleImpotLine" name="quittanceMensuelleImpotLine" [(ngModel)]="impotMensuelClient.quittanceMensuelleImpotLineId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="quittanceMensuelleImpotLineOption.id" *ngFor="let quittanceMensuelleImpotLineOption of quittancemensuelleimpotlines; trackBy: trackQuittanceMensuelleImpotLineById">{{quittanceMensuelleImpotLineOption.id}}</option>
-                    </select>
-                </div>
-            </div>
+                 </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>

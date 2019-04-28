@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="cnss">
-            <h2><span jhiTranslate="comptaDecisionApp.cnss.detail.title">Cnss</span> {{cnss.id}}</h2>
+            <h2><span jhiTranslate="comptaDecisionApp.cnss.detail.title">Cnss</span> {{cnss.ficheClientDesignation}} / Annee {{cnss.annee}} / Trimestre {{cnss.trimestre}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
@@ -10,6 +10,10 @@
                     <div *ngIf="cnss.ficheClientId">
                         <a [routerLink]="['/fiche-client', cnss.ficheClientId, 'view']">{{cnss.ficheClientDesignation}}</a>
                     </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.typeCnss">Type CNSS</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'comptaDecisionApp.typeCnss.' + cnss.typeCnss}}">{{cnss.typeCnss}}></span>
                 </dd>
                 <dt><span jhiTranslate="comptaDecisionApp.cnss.annee">Annee</span></dt>
                 <dd>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from 'app/core';
@@ -12,6 +12,8 @@ import { QuittanceMensuelleImpotDetailComponent } from './quittance-mensuelle-im
 import { QuittanceMensuelleImpotUpdateComponent } from './quittance-mensuelle-impot-update.component';
 import { QuittanceMensuelleImpotDeletePopupComponent } from './quittance-mensuelle-impot-delete-dialog.component';
 import { IQuittanceMensuelleImpot } from 'app/shared/model/quittance-mensuelle-impot.model';
+import {IFicheClient} from "app/shared/model/fiche-client.model";
+import {FicheClientService} from "app/entities/fiche-client";
 
 @Injectable({ providedIn: 'root' })
 export class QuittanceMensuelleImpotResolve implements Resolve<IQuittanceMensuelleImpot> {
@@ -29,6 +31,21 @@ export class QuittanceMensuelleImpotResolve implements Resolve<IQuittanceMensuel
             .pipe(
                 filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
                 map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
+            );
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class FicheClientResolve implements Resolve<IFicheClient[]> {
+    constructor(private service: FicheClientService) {}
+
+    resolve(): Observable<IFicheClient[]> {
+
+        return this.service
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IFicheClient[]>) => response.body)
             );
     }
 }
@@ -51,7 +68,7 @@ export const quittanceMensuelleImpotRoute: Routes = [
         path: ':id/view',
         component: QuittanceMensuelleImpotDetailComponent,
         resolve: {
-            quittanceMensuelleImpot: QuittanceMensuelleImpotResolve
+            quittanceMensuelleImpot: QuittanceMensuelleImpotResolve,
         },
         data: {
             authorities: ['ROLE_USER'],
@@ -63,7 +80,9 @@ export const quittanceMensuelleImpotRoute: Routes = [
         path: 'new',
         component: QuittanceMensuelleImpotUpdateComponent,
         resolve: {
-            quittanceMensuelleImpot: QuittanceMensuelleImpotResolve
+            quittanceMensuelleImpot: QuittanceMensuelleImpotResolve,
+            ficheClients: FicheClientResolve
+
         },
         data: {
             authorities: ['ROLE_USER'],
@@ -75,7 +94,8 @@ export const quittanceMensuelleImpotRoute: Routes = [
         path: ':id/edit',
         component: QuittanceMensuelleImpotUpdateComponent,
         resolve: {
-            quittanceMensuelleImpot: QuittanceMensuelleImpotResolve
+            quittanceMensuelleImpot: QuittanceMensuelleImpotResolve,
+            ficheClients: FicheClientResolve
         },
         data: {
             authorities: ['ROLE_USER'],

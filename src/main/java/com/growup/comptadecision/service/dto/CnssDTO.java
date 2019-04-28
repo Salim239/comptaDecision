@@ -1,4 +1,6 @@
 package com.growup.comptadecision.service.dto;
+import com.growup.comptadecision.domain.enumeration.TypeCnss;
+
 import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -11,6 +13,9 @@ import java.util.Objects;
 public class CnssDTO implements Serializable {
 
     private Long id;
+
+    @NotNull
+    private TypeCnss typeCnss;
 
     @NotNull
     private Integer annee;
@@ -40,6 +45,7 @@ public class CnssDTO implements Serializable {
     private String ficheClientDesignation;
     private String ficheClientMatriculeFiscale;
     private String ficheClientRegistreCommerce;
+    private LocalDate ficheClientDateCreation;
 
     public String getFicheClientDesignation() {
         return ficheClientDesignation;
@@ -149,6 +155,29 @@ public class CnssDTO implements Serializable {
         return cnss;
     }
 
+    @Override
+    public String toString() {
+        return "CnssDTO{" +
+                "id=" + id +
+                ", typeCnss=" + typeCnss +
+                ", annee=" + annee +
+                ", trimestre=" + trimestre +
+                ", date=" + date +
+                ", numeroQuittance='" + numeroQuittance + '\'' +
+                ", montantSalaireBrutNormal=" + montantSalaireBrutNormal +
+                ", montantSalaireBrutKarama=" + montantSalaireBrutKarama +
+                ", montantSalaireBrutAutre=" + montantSalaireBrutAutre +
+                ", montantChiffreAffaireTTC=" + montantChiffreAffaireTTC +
+                ", tot=" + tot +
+                ", cnss=" + cnss +
+                ", ficheClientId=" + ficheClientId +
+                ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
+                ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +
+                ", ficheClientRegistreCommerce='" + ficheClientRegistreCommerce + '\'' +
+                ", ficheClientDateCreation=" + ficheClientDateCreation +
+                '}';
+    }
+
     public void setCnss(BigDecimal cnss) {
         this.cnss = cnss;
     }
@@ -157,8 +186,24 @@ public class CnssDTO implements Serializable {
         return ficheClientId;
     }
 
+    public LocalDate getFicheClientDateCreation() {
+        return ficheClientDateCreation;
+    }
+
+    public void setFicheClientDateCreation(LocalDate ficheClientDateCreation) {
+        this.ficheClientDateCreation = ficheClientDateCreation;
+    }
+
     public void setFicheClientId(Long ficheClientId) {
         this.ficheClientId = ficheClientId;
+    }
+
+    public TypeCnss getTypeCnss() {
+        return typeCnss;
+    }
+
+    public void setTypeCnss(TypeCnss typeCnss) {
+        this.typeCnss = typeCnss;
     }
 
     @Override
@@ -182,21 +227,4 @@ public class CnssDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "CnssDTO{" +
-            "id=" + getId() +
-            ", annee=" + getAnnee() +
-            ", trimestre=" + getTrimestre() +
-            ", date='" + getDate() + "'" +
-            ", numeroQuittance='" + getNumeroQuittance() + "'" +
-            ", montantSalaireBrutNormal=" + getMontantSalaireBrutNormal() +
-            ", montantSalaireBrutKarama=" + getMontantSalaireBrutKarama() +
-            ", montantSalaireBrutAutre=" + getMontantSalaireBrutAutre() +
-            ", montantChiffreAffaireTTC=" + getMontantChiffreAffaireTTC() +
-            ", tot=" + getTot() +
-            ", cnss=" + getCnss() +
-            ", ficheClient=" + getFicheClientId() +
-            "}";
-    }
 }

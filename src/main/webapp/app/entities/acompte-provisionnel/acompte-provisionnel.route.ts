@@ -12,6 +12,8 @@ import { AcompteProvisionnelDetailComponent } from './acompte-provisionnel-detai
 import { AcompteProvisionnelUpdateComponent } from './acompte-provisionnel-update.component';
 import { AcompteProvisionnelDeletePopupComponent } from './acompte-provisionnel-delete-dialog.component';
 import { IAcompteProvisionnel } from 'app/shared/model/acompte-provisionnel.model';
+import {IFicheClient} from "app/shared/model/fiche-client.model";
+import {FicheClientService} from "app/entities/fiche-client";
 
 @Injectable({ providedIn: 'root' })
 export class AcompteProvisionnelResolve implements Resolve<IAcompteProvisionnel> {
@@ -26,6 +28,21 @@ export class AcompteProvisionnelResolve implements Resolve<IAcompteProvisionnel>
             );
         }
         return of(new AcompteProvisionnel());
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class FicheClientResolve implements Resolve<IFicheClient[]> {
+    constructor(private service: FicheClientService) {}
+
+    resolve(): Observable<IFicheClient[]> {
+
+        return this.service
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IFicheClient[]>) => response.body)
+            );
     }
 }
 
@@ -59,7 +76,8 @@ export const acompteProvisionnelRoute: Routes = [
         path: 'new',
         component: AcompteProvisionnelUpdateComponent,
         resolve: {
-            acompteProvisionnel: AcompteProvisionnelResolve
+            acompteProvisionnel: AcompteProvisionnelResolve,
+            ficheClients: FicheClientResolve
         },
         data: {
             authorities: ['ROLE_USER'],
@@ -71,7 +89,8 @@ export const acompteProvisionnelRoute: Routes = [
         path: ':id/edit',
         component: AcompteProvisionnelUpdateComponent,
         resolve: {
-            acompteProvisionnel: AcompteProvisionnelResolve
+            acompteProvisionnel: AcompteProvisionnelResolve,
+            ficheClients: FicheClientResolve
         },
         data: {
             authorities: ['ROLE_USER'],

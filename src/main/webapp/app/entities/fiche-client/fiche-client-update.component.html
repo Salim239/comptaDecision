@@ -11,10 +11,16 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.categorieClient" for="field_categorieClient">Categorie Client</label>
-                    <select class="form-control" name="categorieClient" [(ngModel)]="ficheClient.categorieClient" id="field_categorieClient" >
+                    <select required class="form-control" name="categorieClient" [(ngModel)]="ficheClient.categorieClient" id="field_categorieClient" >
                         <option value="PERSONNE_PHYSIQUE">{{'comptaDecisionApp.CategorieClient.PERSONNE_PHYSIQUE' | translate}}</option>
                         <option value="PERSONNE_MORALE">{{'comptaDecisionApp.CategorieClient.PERSONNE_MORALE' | translate}}</option>
                     </select>
+                    <div [hidden]="!(editForm.controls.categorieClient?.dirty && editForm.controls.categorieClient?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.categorieClient?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.designation" for="field_designation">Designation</label>
@@ -154,17 +160,29 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.secteurActivite" for="field_secteurActivite">Secteur Activite</label>
-                    <select class="form-control" id="field_secteurActivite" name="secteurActivite" [(ngModel)]="ficheClient.secteurActiviteId" >
+                    <select required class="form-control" id="field_secteurActivite" name="secteurActivite" [(ngModel)]="ficheClient.secteurActiviteId" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="secteurActiviteOption.id" *ngFor="let secteurActiviteOption of secteuractivites; trackBy: trackSecteurActiviteById">{{secteurActiviteOption.libelle}}</option>
                     </select>
+                    <div [hidden]="!(editForm.controls.secteurActivite?.dirty && editForm.controls.secteurActivite?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.secteurActivite?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.activite" for="field_activite">Activite</label>
-                    <select class="form-control" id="field_activite" name="activite" [(ngModel)]="ficheClient.activiteId" >
+                    <select required class="form-control" id="field_activite" name="activite" [(ngModel)]="ficheClient.activiteId" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="activiteOption.id" *ngFor="let activiteOption of activites; trackBy: trackActiviteById">{{activiteOption.libelle}}</option>
                     </select>
+                    <div [hidden]="!(editForm.controls.activite?.dirty && editForm.controls.activite?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.activite?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.activiteScondaire" for="field_activiteScondaire">Activite Scondaire</label>

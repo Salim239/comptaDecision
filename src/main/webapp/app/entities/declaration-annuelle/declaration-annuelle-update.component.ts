@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
 import * as moment from 'moment';
-import { JhiAlertService } from 'ng-jhipster';
-import { IDeclarationAnnuelle } from 'app/shared/model/declaration-annuelle.model';
-import { DeclarationAnnuelleService } from './declaration-annuelle.service';
-import { IFicheClient } from 'app/shared/model/fiche-client.model';
-import { FicheClientService } from 'app/entities/fiche-client';
+import {JhiAlertService} from 'ng-jhipster';
+import {IDeclarationAnnuelle, TypeDeclaration} from 'app/shared/model/declaration-annuelle.model';
+import {DeclarationAnnuelleService} from './declaration-annuelle.service';
+import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import {FicheClientService} from 'app/entities/fiche-client';
 
 @Component({
     selector: 'jhi-declaration-annuelle-update',
@@ -20,6 +20,7 @@ export class DeclarationAnnuelleUpdateComponent implements OnInit {
 
     ficheclients: IFicheClient[];
     datePaiementDp: any;
+    currentYear: number;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -30,9 +31,23 @@ export class DeclarationAnnuelleUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ declarationAnnuelle }) => {
+        this.currentYear = moment().year();
+        this.activatedRoute.data.subscribe(({ declarationAnnuelle, ficheClients }) => {
+            this.ficheclients = ficheClients;
             this.declarationAnnuelle = declarationAnnuelle;
+            if (!this.declarationAnnuelle.id) {
+                if (this.ficheclients.length > 0) {
+                    this.declarationAnnuelle.typeDeclaration = TypeDeclaration.DECLARATION_INITIALE;
+                    this.declarationAnnuelle.ficheClientId = this.ficheclients[0].id;
+                    this.declarationAnnuelle.ficheClientDateCreation = this.ficheclients[0].dateCreation;
+                    this.declarationAnnuelle.ficheClientDesignation = this.ficheclients[0].designation;
+                    this.declarationAnnuelle.ficheClientMatriculeFiscale = this.ficheclients[0].matriculeFiscale;
+                    this.declarationAnnuelle.ficheClientRegistreCommerce = this.ficheclients[0].registreCommerce;
+                }
+                this.declarationAnnuelle.annee = this.currentYear;
+            }
         });
+        this.currentYear = moment().year();
         this.ficheClientService
             .query()
             .pipe(

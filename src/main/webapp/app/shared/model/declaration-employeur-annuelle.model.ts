@@ -1,3 +1,5 @@
+import {Moment} from "moment";
+
 export interface IDeclarationEmployeurAnnuelle {
     id?: number;
     annee?: number;
@@ -17,6 +19,7 @@ export interface IDeclarationEmployeurAnnuelle {
     ficheClientDesignation?: string;
     ficheClientMatriculeFiscale?: string;
     ficheClientRegistreCommerce?: string;
+    ficheClientDateCreation?: Moment;
 }
 
 export class DeclarationEmployeurAnnuelle implements IDeclarationEmployeurAnnuelle {
@@ -38,6 +41,7 @@ export class DeclarationEmployeurAnnuelle implements IDeclarationEmployeurAnnuel
         public ficheClientId?: number,
         public ficheClientDesignation?: string,
     public ficheClientMatriculeFiscale?: string,
-    public ficheClientRegistreCommerce?: string
+    public ficheClientRegistreCommerce?: string,
+    public ficheClientDateCreation?: Moment
     ) {}
 }

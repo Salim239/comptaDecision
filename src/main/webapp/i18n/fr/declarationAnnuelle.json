@@ -15,15 +15,16 @@
             "detail": {
                 "title": "Declaration Annuelle"
             },
+            "typeDeclaration": "Type déclaration",
             "annee": "Annee",
             "datePaiement": "Date Paiement",
             "numeroQuittance": "Numero Quittance",
             "montantChiffreAffaireHT": "Montant Chiffre Affaire HT",
             "montantChiffreAffaireExport": "Montant Chiffre Affaire Export",
-            "montantChiffreAffaireImpot": "Montant Chiffre Affaire Impot",
+            "montantChiffreAffaireLocal": "Montant Chiffre Affaire Local",
             "montantChiffreAffaireTTC": "Montant Chiffre Affaire TTC",
             "montantResultatComptable": "Montant Resultat Comptable",
-            "montantDeductionCommune": "Montant Deduction Commune",
+            "montantResultatFiscal": "Montant Résulat Fiscal",
             "montantAutreDeduction": "Montant Autre Deduction",
             "montantBaseImposable": "Montant Base Imposable",
             "montantImpotLiquide": "Montant Impot Liquide",

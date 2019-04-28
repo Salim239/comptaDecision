@@ -15,6 +15,7 @@
             "detail": {
                 "title": "Cnss"
             },
+            "typeCnss": "Type déclaration CNSS",
             "annee": "Annee",
             "trimestre": "Trimestre",
             "date": "Date",

@@ -1,13 +1,15 @@
 /* tslint:disable max-line-length */
-import { TestBed, getTestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { of } from 'rxjs';
-import { take, map } from 'rxjs/operators';
+import {getTestBed, TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {map, take} from 'rxjs/operators';
 import * as moment from 'moment';
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
-import { QuittanceMensuelleImpotService } from 'app/entities/quittance-mensuelle-impot/quittance-mensuelle-impot.service';
-import { IQuittanceMensuelleImpot, QuittanceMensuelleImpot } from 'app/shared/model/quittance-mensuelle-impot.model';
+import {DATE_FORMAT} from 'app/shared/constants/input.constants';
+import {QuittanceMensuelleImpotService} from 'app/entities/quittance-mensuelle-impot/quittance-mensuelle-impot.service';
+import {
+    IQuittanceMensuelleImpot,
+    QuittanceMensuelleImpot,
+    TypeDeclaration
+} from 'app/shared/model/quittance-mensuelle-impot.model';
 
 describe('Service Tests', () => {
     describe('QuittanceMensuelleImpot Service', () => {
@@ -25,7 +27,7 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new QuittanceMensuelleImpot(0, 0, 0, 'AAAAAAA', currentDate, 0);
+            elemDefault = new QuittanceMensuelleImpot(0, 0, 0, TypeDeclaration.DECLARATION_INITIALE, 'AAAAAAA', currentDate, 0);
         });
 
         describe('Service methods', async () => {

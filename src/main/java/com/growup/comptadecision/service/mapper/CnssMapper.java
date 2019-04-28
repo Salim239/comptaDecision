@@ -15,6 +15,7 @@ public interface CnssMapper extends EntityMapper<CnssDTO, Cnss> {
     @Mapping(source = "ficheClient.designation", target = "ficheClientDesignation")
     @Mapping(source = "ficheClient.matriculeFiscale", target = "ficheClientMatriculeFiscale")
     @Mapping(source = "ficheClient.registreCommerce", target = "ficheClientRegistreCommerce")
+    @Mapping(source = "ficheClient.dateCreation", target = "ficheClientDateCreation")
     CnssDTO toDto(Cnss cnss);
 
     @Mapping(source = "ficheClientId", target = "ficheClient")

@@ -15,6 +15,7 @@ public interface DeclarationEmployeurAnnuelleMapper extends EntityMapper<Declara
     @Mapping(source = "ficheClient.designation", target = "ficheClientDesignation")
     @Mapping(source = "ficheClient.matriculeFiscale", target = "ficheClientMatriculeFiscale")
     @Mapping(source = "ficheClient.registreCommerce", target = "ficheClientRegistreCommerce")
+    @Mapping(source = "ficheClient.dateCreation", target = "ficheClientDateCreation")
     DeclarationEmployeurAnnuelleDTO toDto(DeclarationEmployeurAnnuelle declarationEmployeurAnnuelle);
 
     @Mapping(source = "ficheClientId", target = "ficheClient")

@@ -1,4 +1,6 @@
 package com.growup.comptadecision.service.dto;
+import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
+
 import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -13,6 +15,9 @@ public class DeclarationAnnuelleDTO implements Serializable {
     private Long id;
 
     @NotNull
+    private TypeDeclaration typeDeclaration;
+
+    @NotNull
     private Integer annee;
 
     private LocalDate datePaiement;
@@ -23,13 +28,13 @@ public class DeclarationAnnuelleDTO implements Serializable {
 
     private BigDecimal montantChiffreAffaireExport;
 
-    private BigDecimal montantChiffreAffaireImpot;
+    private BigDecimal montantChiffreAffaireLocal;
 
     private BigDecimal montantChiffreAffaireTTC;
 
     private BigDecimal montantResultatComptable;
 
-    private BigDecimal montantDeductionCommune;
+    private BigDecimal montantResultatFiscal;
 
     private BigDecimal montantAutreDeduction;
 
@@ -42,6 +47,8 @@ public class DeclarationAnnuelleDTO implements Serializable {
     private BigDecimal montantRetenueSource;
 
     private BigDecimal montantNetAPaye;
+
+    private LocalDate ficheClientDateCreation;
 
 
     private Long ficheClientId;
@@ -123,12 +130,12 @@ public class DeclarationAnnuelleDTO implements Serializable {
         this.montantChiffreAffaireExport = montantChiffreAffaireExport;
     }
 
-    public BigDecimal getMontantChiffreAffaireImpot() {
-        return montantChiffreAffaireImpot;
+    public BigDecimal getMontantChiffreAffaireLocal() {
+        return montantChiffreAffaireLocal;
     }
 
-    public void setMontantChiffreAffaireImpot(BigDecimal montantChiffreAffaireImpot) {
-        this.montantChiffreAffaireImpot = montantChiffreAffaireImpot;
+    public void setMontantChiffreAffaireLocal(BigDecimal montantChiffreAffaireLocal) {
+        this.montantChiffreAffaireLocal = montantChiffreAffaireLocal;
     }
 
     public BigDecimal getMontantChiffreAffaireTTC() {
@@ -147,12 +154,12 @@ public class DeclarationAnnuelleDTO implements Serializable {
         this.montantResultatComptable = montantResultatComptable;
     }
 
-    public BigDecimal getMontantDeductionCommune() {
-        return montantDeductionCommune;
+    public BigDecimal getMontantResultatFiscal() {
+        return montantResultatFiscal;
     }
 
-    public void setMontantDeductionCommune(BigDecimal montantDeductionCommune) {
-        this.montantDeductionCommune = montantDeductionCommune;
+    public void setMontantResultatFiscal(BigDecimal montantResultatFiscal) {
+        this.montantResultatFiscal = montantResultatFiscal;
     }
 
     public BigDecimal getMontantAutreDeduction() {
@@ -211,6 +218,50 @@ public class DeclarationAnnuelleDTO implements Serializable {
         this.ficheClientId = ficheClientId;
     }
 
+    public TypeDeclaration getTypeDeclaration() {
+        return typeDeclaration;
+    }
+
+    public void setTypeDeclaration(TypeDeclaration typeDeclaration) {
+        this.typeDeclaration = typeDeclaration;
+    }
+
+    public LocalDate getFicheClientDateCreation() {
+        return ficheClientDateCreation;
+    }
+
+    @Override
+    public String toString() {
+        return "DeclarationAnnuelleDTO{" +
+                "id=" + id +
+                ", typeDeclaration=" + typeDeclaration +
+                ", annee=" + annee +
+                ", datePaiement=" + datePaiement +
+                ", numeroQuittance='" + numeroQuittance + '\'' +
+                ", montantChiffreAffaireHT=" + montantChiffreAffaireHT +
+                ", montantChiffreAffaireExport=" + montantChiffreAffaireExport +
+                ", montantChiffreAffaireLocal=" + montantChiffreAffaireLocal +
+                ", montantChiffreAffaireTTC=" + montantChiffreAffaireTTC +
+                ", montantResultatComptable=" + montantResultatComptable +
+                ", montantResultatFiscal=" + montantResultatFiscal +
+                ", montantAutreDeduction=" + montantAutreDeduction +
+                ", montantBaseImposable=" + montantBaseImposable +
+                ", montantImpotLiquide=" + montantImpotLiquide +
+                ", montantAcompteProvisionnel=" + montantAcompteProvisionnel +
+                ", montantRetenueSource=" + montantRetenueSource +
+                ", montantNetAPaye=" + montantNetAPaye +
+                ", ficheClientDateCreation=" + ficheClientDateCreation +
+                ", ficheClientId=" + ficheClientId +
+                ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
+                ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +
+                ", ficheClientRegistreCommerce='" + ficheClientRegistreCommerce + '\'' +
+                '}';
+    }
+
+    public void setFicheClientDateCreation(LocalDate ficheClientDateCreation) {
+        this.ficheClientDateCreation = ficheClientDateCreation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -232,26 +283,4 @@ public class DeclarationAnnuelleDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "DeclarationAnnuelleDTO{" +
-            "id=" + getId() +
-            ", annee=" + getAnnee() +
-            ", datePaiement='" + getDatePaiement() + "'" +
-            ", numeroQuittance='" + getNumeroQuittance() + "'" +
-            ", montantChiffreAffaireHT=" + getMontantChiffreAffaireHT() +
-            ", montantChiffreAffaireExport=" + getMontantChiffreAffaireExport() +
-            ", montantChiffreAffaireImpot=" + getMontantChiffreAffaireImpot() +
-            ", montantChiffreAffaireTTC=" + getMontantChiffreAffaireTTC() +
-            ", montantResultatComptable=" + getMontantResultatComptable() +
-            ", montantDeductionCommune=" + getMontantDeductionCommune() +
-            ", montantAutreDeduction=" + getMontantAutreDeduction() +
-            ", montantBaseImposable=" + getMontantBaseImposable() +
-            ", montantImpotLiquide=" + getMontantImpotLiquide() +
-            ", montantAcompteProvisionnel=" + getMontantAcompteProvisionnel() +
-            ", montantRetenueSource=" + getMontantRetenueSource() +
-            ", montantNetAPaye=" + getMontantNetAPaye() +
-            ", ficheClient=" + getFicheClientId() +
-            "}";
-    }
 }

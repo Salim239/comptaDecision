@@ -19,7 +19,6 @@
             <th jhiSortBy="applicable"><span jhiTranslate="comptaDecisionApp.impotMensuelClient.applicable">Applicable</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="ficheClientId"><span jhiTranslate="comptaDecisionApp.impotMensuelClient.ficheClient">Fiche Client</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="impotMensuelId"><span jhiTranslate="comptaDecisionApp.impotMensuelClient.impotMensuel">Impot Mensuel</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="quittanceMensuelleImpotLineId"><span jhiTranslate="comptaDecisionApp.impotMensuelClient.quittanceMensuelleImpotLine">Quittance Mensuelle Impot Line</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -36,11 +35,6 @@
                 <td>
                     <div *ngIf="impotMensuelClient.impotMensuelId">
                         <a [routerLink]="['../impot-mensuel', impotMensuelClient.impotMensuelId , 'view' ]" >{{impotMensuelClient.impotMensuelId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="impotMensuelClient.quittanceMensuelleImpotLineId">
-                        <a [routerLink]="['../quittance-mensuelle-impot-line', impotMensuelClient.quittanceMensuelleImpotLineId , 'view' ]" >{{impotMensuelClient.quittanceMensuelleImpotLineId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

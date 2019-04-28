@@ -69,5 +69,13 @@
         </createTable>
         
     </changeSet>
+
+    <changeSet id="20190403192324-2" author="salim">
+        <addColumn tableName="cnss">
+            <column name="type_cnss" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

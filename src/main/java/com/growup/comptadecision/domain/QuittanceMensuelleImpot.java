@@ -2,6 +2,7 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.Cache;
@@ -39,6 +40,10 @@ public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
     @NotNull
     @Column(name = "mois", nullable = false)
     private Integer mois;
+
+    @NotNull
+    @Column(name = "type_declaration", nullable = false)
+    private TypeDeclaration typeDeclaration;
 
     @Column(name = "numero_quittance")
     private String numeroQuittance;
@@ -197,6 +202,15 @@ public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
         quittanceMensuelleImpotLines.remove(quittanceMensuelleImpotLine);
         quittanceMensuelleImpotLine.setQuittanceMensuelleImpot(null);
     }
+
+    public TypeDeclaration getTypeDeclaration() {
+        return typeDeclaration;
+    }
+
+    public void setTypeDeclaration(TypeDeclaration typeDeclaration) {
+        this.typeDeclaration = typeDeclaration;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
 }

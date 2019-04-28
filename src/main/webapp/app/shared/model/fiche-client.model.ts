@@ -25,7 +25,9 @@ export interface IFicheClient {
     fichierPatenteContentType?: string;
     fichierPatente?: any;
     regionId?: number;
+    regionLibelle?: string;
     villeId?: number;
+    villeLibelle?: string;
     secteurActiviteId?: number;
     secteurActiviteLibelle?: string;
     activiteId?: number;
@@ -56,7 +58,9 @@ export class FicheClient implements IFicheClient {
         public fichierPatenteContentType?: string,
         public fichierPatente?: any,
         public regionId?: number,
+        public regionLibelle?: string,
         public villeId?: number,
+        public villeLibelle?: string,
         public secteurActiviteId?: number,
         public secteurActiviteLibelle?: string,
         public activiteId?: number,

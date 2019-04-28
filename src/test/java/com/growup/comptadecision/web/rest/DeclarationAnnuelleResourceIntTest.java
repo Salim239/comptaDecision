@@ -183,10 +183,10 @@ public class DeclarationAnnuelleResourceIntTest {
         assertThat(testDeclarationAnnuelle.getNumeroQuittance()).isEqualTo(DEFAULT_NUMERO_QUITTANCE);
         assertThat(testDeclarationAnnuelle.getMontantChiffreAffaireHT()).isEqualTo(DEFAULT_MONTANT_CHIFFRE_AFFAIRE_HT);
         assertThat(testDeclarationAnnuelle.getMontantChiffreAffaireExport()).isEqualTo(DEFAULT_MONTANT_CHIFFRE_AFFAIRE_EXPORT);
-        assertThat(testDeclarationAnnuelle.getMontantChiffreAffaireImpot()).isEqualTo(DEFAULT_MONTANT_CHIFFRE_AFFAIRE_IMPOT);
+        assertThat(testDeclarationAnnuelle.getMontantChiffreAffaireLocal()).isEqualTo(DEFAULT_MONTANT_CHIFFRE_AFFAIRE_IMPOT);
         assertThat(testDeclarationAnnuelle.getMontantChiffreAffaireTTC()).isEqualTo(DEFAULT_MONTANT_CHIFFRE_AFFAIRE_TTC);
         assertThat(testDeclarationAnnuelle.getMontantResultatComptable()).isEqualTo(DEFAULT_MONTANT_RESULTAT_COMPTABLE);
-        assertThat(testDeclarationAnnuelle.getMontantDeductionCommune()).isEqualTo(DEFAULT_MONTANT_DEDUCTION_COMMUNE);
+        assertThat(testDeclarationAnnuelle.getMontantResultatFiscal()).isEqualTo(DEFAULT_MONTANT_DEDUCTION_COMMUNE);
         assertThat(testDeclarationAnnuelle.getMontantAutreDeduction()).isEqualTo(DEFAULT_MONTANT_AUTRE_DEDUCTION);
         assertThat(testDeclarationAnnuelle.getMontantBaseImposable()).isEqualTo(DEFAULT_MONTANT_BASE_IMPOSABLE);
         assertThat(testDeclarationAnnuelle.getMontantImpotLiquide()).isEqualTo(DEFAULT_MONTANT_IMPOT_LIQUIDE);
@@ -342,10 +342,10 @@ public class DeclarationAnnuelleResourceIntTest {
         assertThat(testDeclarationAnnuelle.getNumeroQuittance()).isEqualTo(UPDATED_NUMERO_QUITTANCE);
         assertThat(testDeclarationAnnuelle.getMontantChiffreAffaireHT()).isEqualTo(UPDATED_MONTANT_CHIFFRE_AFFAIRE_HT);
         assertThat(testDeclarationAnnuelle.getMontantChiffreAffaireExport()).isEqualTo(UPDATED_MONTANT_CHIFFRE_AFFAIRE_EXPORT);
-        assertThat(testDeclarationAnnuelle.getMontantChiffreAffaireImpot()).isEqualTo(UPDATED_MONTANT_CHIFFRE_AFFAIRE_IMPOT);
+        assertThat(testDeclarationAnnuelle.getMontantChiffreAffaireLocal()).isEqualTo(UPDATED_MONTANT_CHIFFRE_AFFAIRE_IMPOT);
         assertThat(testDeclarationAnnuelle.getMontantChiffreAffaireTTC()).isEqualTo(UPDATED_MONTANT_CHIFFRE_AFFAIRE_TTC);
         assertThat(testDeclarationAnnuelle.getMontantResultatComptable()).isEqualTo(UPDATED_MONTANT_RESULTAT_COMPTABLE);
-        assertThat(testDeclarationAnnuelle.getMontantDeductionCommune()).isEqualTo(UPDATED_MONTANT_DEDUCTION_COMMUNE);
+        assertThat(testDeclarationAnnuelle.getMontantResultatFiscal()).isEqualTo(UPDATED_MONTANT_DEDUCTION_COMMUNE);
         assertThat(testDeclarationAnnuelle.getMontantAutreDeduction()).isEqualTo(UPDATED_MONTANT_AUTRE_DEDUCTION);
         assertThat(testDeclarationAnnuelle.getMontantBaseImposable()).isEqualTo(UPDATED_MONTANT_BASE_IMPOSABLE);
         assertThat(testDeclarationAnnuelle.getMontantImpotLiquide()).isEqualTo(UPDATED_MONTANT_IMPOT_LIQUIDE);

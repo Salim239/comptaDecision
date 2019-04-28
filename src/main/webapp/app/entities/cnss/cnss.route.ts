@@ -12,6 +12,8 @@ import { CnssDetailComponent } from './cnss-detail.component';
 import { CnssUpdateComponent } from './cnss-update.component';
 import { CnssDeletePopupComponent } from './cnss-delete-dialog.component';
 import { ICnss } from 'app/shared/model/cnss.model';
+import {IFicheClient} from "app/shared/model/fiche-client.model";
+import {FicheClientService} from "app/entities/fiche-client";
 
 @Injectable({ providedIn: 'root' })
 export class CnssResolve implements Resolve<ICnss> {
@@ -26,6 +28,21 @@ export class CnssResolve implements Resolve<ICnss> {
             );
         }
         return of(new Cnss());
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class FicheClientResolve implements Resolve<IFicheClient[]> {
+    constructor(private service: FicheClientService) {}
+
+    resolve(): Observable<IFicheClient[]> {
+
+        return this.service
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IFicheClient[]>) => response.body)
+            );
     }
 }
 
@@ -59,7 +76,8 @@ export const cnssRoute: Routes = [
         path: 'new',
         component: CnssUpdateComponent,
         resolve: {
-            cnss: CnssResolve
+            cnss: CnssResolve,
+            ficheClients: FicheClientResolve
         },
         data: {
             authorities: ['ROLE_USER'],
@@ -71,7 +89,8 @@ export const cnssRoute: Routes = [
         path: ':id/edit',
         component: CnssUpdateComponent,
         resolve: {
-            cnss: CnssResolve
+            cnss: CnssResolve,
+            ficheClients: FicheClientResolve
         },
         data: {
             authorities: ['ROLE_USER'],

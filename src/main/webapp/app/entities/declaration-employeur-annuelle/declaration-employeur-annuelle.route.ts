@@ -12,6 +12,8 @@ import { DeclarationEmployeurAnnuelleDetailComponent } from './declaration-emplo
 import { DeclarationEmployeurAnnuelleUpdateComponent } from './declaration-employeur-annuelle-update.component';
 import { DeclarationEmployeurAnnuelleDeletePopupComponent } from './declaration-employeur-annuelle-delete-dialog.component';
 import { IDeclarationEmployeurAnnuelle } from 'app/shared/model/declaration-employeur-annuelle.model';
+import {IFicheClient} from "app/shared/model/fiche-client.model";
+import {FicheClientService} from "app/entities/fiche-client";
 
 @Injectable({ providedIn: 'root' })
 export class DeclarationEmployeurAnnuelleResolve implements Resolve<IDeclarationEmployeurAnnuelle> {
@@ -26,6 +28,21 @@ export class DeclarationEmployeurAnnuelleResolve implements Resolve<IDeclaration
             );
         }
         return of(new DeclarationEmployeurAnnuelle());
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class FicheClientResolve implements Resolve<IFicheClient[]> {
+    constructor(private service: FicheClientService) {}
+
+    resolve(): Observable<IFicheClient[]> {
+
+        return this.service
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IFicheClient[]>) => response.body)
+            );
     }
 }
 
@@ -59,7 +76,8 @@ export const declarationEmployeurAnnuelleRoute: Routes = [
         path: 'new',
         component: DeclarationEmployeurAnnuelleUpdateComponent,
         resolve: {
-            declarationEmployeurAnnuelle: DeclarationEmployeurAnnuelleResolve
+            declarationEmployeurAnnuelle: DeclarationEmployeurAnnuelleResolve,
+            ficheClients: FicheClientResolve
         },
         data: {
             authorities: ['ROLE_USER'],
@@ -71,7 +89,8 @@ export const declarationEmployeurAnnuelleRoute: Routes = [
         path: ':id/edit',
         component: DeclarationEmployeurAnnuelleUpdateComponent,
         resolve: {
-            declarationEmployeurAnnuelle: DeclarationEmployeurAnnuelleResolve
+            declarationEmployeurAnnuelle: DeclarationEmployeurAnnuelleResolve,
+            ficheClients: FicheClientResolve
         },
         data: {
             authorities: ['ROLE_USER'],

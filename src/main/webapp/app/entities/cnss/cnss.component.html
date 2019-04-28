@@ -23,6 +23,9 @@
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
                     <fa-icon [icon]="'sort'"></fa-icon>
                 </th>
+                <th jhiSortBy="typeCnss"><span jhiTranslate="comptaDecisionApp.cnss.typeCnss">Type CNSS</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
                 <th jhiSortBy="annee"><span jhiTranslate="comptaDecisionApp.cnss.annee">Annee</span>
                     <fa-icon [icon]="'sort'"></fa-icon>
                 </th>
@@ -68,6 +71,7 @@
                         <a [routerLink]="['../fiche-client', cnss.ficheClientId , 'view' ]">{{cnss.ficheClientDesignation}}</a>
                     </div>
                 </td>
+                <td jhiTranslate="{{'comptaDecisionApp.typeCnss.' + cnss.typeCnss}}">{{cnss.typeCnss}}</td>
                 <td>{{cnss.annee}}</td>
                 <td>{{cnss.trimestre}}</td>
                 <td>{{cnss.date | date:'mediumDate'}}</td>

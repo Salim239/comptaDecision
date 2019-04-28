@@ -9,6 +9,7 @@ import { IAcompteProvisionnel } from 'app/shared/model/acompte-provisionnel.mode
 import { AcompteProvisionnelService } from './acompte-provisionnel.service';
 import { IFicheClient } from 'app/shared/model/fiche-client.model';
 import { FicheClientService } from 'app/entities/fiche-client';
+import {TypeCnss} from "app/shared/model/cnss.model";
 
 @Component({
     selector: 'jhi-acompte-provisionnel-update',
@@ -17,7 +18,7 @@ import { FicheClientService } from 'app/entities/fiche-client';
 export class AcompteProvisionnelUpdateComponent implements OnInit {
     acompteProvisionnel: IAcompteProvisionnel;
     isSaving: boolean;
-
+    currentYear: number;
     ficheclients: IFicheClient[];
     dateDp: any;
 
@@ -30,8 +31,20 @@ export class AcompteProvisionnelUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ acompteProvisionnel }) => {
+        this.currentYear = moment().year();
+        this.activatedRoute.data.subscribe(({ acompteProvisionnel, ficheClients }) => {
             this.acompteProvisionnel = acompteProvisionnel;
+            this.ficheclients = ficheClients;
+            if (!this.acompteProvisionnel.id) {
+                if (this.ficheclients.length > 0) {
+                    this.acompteProvisionnel.ficheClientId = this.ficheclients[0].id;
+                    this.acompteProvisionnel.ficheClientDateCreation = this.ficheclients[0].dateCreation;
+                    this.acompteProvisionnel.ficheClientDesignation = this.ficheclients[0].designation;
+                    this.acompteProvisionnel.ficheClientMatriculeFiscale = this.ficheclients[0].matriculeFiscale;
+                    this.acompteProvisionnel.ficheClientRegistreCommerce = this.ficheclients[0].registreCommerce;
+                }
+                this.acompteProvisionnel.annee = this.currentYear;
+            }
         });
         this.ficheClientService
             .query()

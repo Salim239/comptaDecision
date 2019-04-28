@@ -11,6 +11,10 @@
                         <a [routerLink]="['/fiche-client', declarationAnnuelle.ficheClientId, 'view']">{{declarationAnnuelle.ficheClientDesignation}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.typeDeclaration">Type déclaration</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'comptaDecisionApp.typeDeclaration.' + declarationAnnuelle.typeDeclaration}}">{{declarationAnnuelle.typeDeclaration}}></span>
+                </dd>
                 <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.annee">Annee</span></dt>
                 <dd>
                     <span>{{declarationAnnuelle.annee}}</span>
@@ -27,25 +31,25 @@
                 <dd>
                     <span>{{declarationAnnuelle.montantChiffreAffaireHT}}</span>
                 </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireTTC">Montant Chiffre Affaire TTC</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montantChiffreAffaireTTC}}</span>
+                </dd>
                 <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireExport">Montant Chiffre Affaire Export</span></dt>
                 <dd>
                     <span>{{declarationAnnuelle.montantChiffreAffaireExport}}</span>
                 </dd>
-                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireImpot">Montant Chiffre Affaire Impot</span></dt>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireLocal">Montant Chiffre Affaire Impot</span></dt>
                 <dd>
-                    <span>{{declarationAnnuelle.montantChiffreAffaireImpot}}</span>
-                </dd>
-                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireTTC">Montant Chiffre Affaire TTC</span></dt>
-                <dd>
-                    <span>{{declarationAnnuelle.montantChiffreAffaireTTC}}</span>
+                    <span>{{declarationAnnuelle.montantChiffreAffaireLocal}}</span>
                 </dd>
                 <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantResultatComptable">Montant Resultat Comptable</span></dt>
                 <dd>
                     <span>{{declarationAnnuelle.montantResultatComptable}}</span>
                 </dd>
-                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantDeductionCommune">Montant Deduction Commune</span></dt>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantResultatFiscal">Montant Deduction Commune</span></dt>
                 <dd>
-                    <span>{{declarationAnnuelle.montantDeductionCommune}}</span>
+                    <span>{{declarationAnnuelle.montantResultatFiscal}}</span>
                 </dd>
                 <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantAutreDeduction">Montant Autre Deduction</span></dt>
                 <dd>

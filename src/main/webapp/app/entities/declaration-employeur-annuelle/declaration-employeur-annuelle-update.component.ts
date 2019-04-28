@@ -8,6 +8,8 @@ import { IDeclarationEmployeurAnnuelle } from 'app/shared/model/declaration-empl
 import { DeclarationEmployeurAnnuelleService } from './declaration-employeur-annuelle.service';
 import { IFicheClient } from 'app/shared/model/fiche-client.model';
 import { FicheClientService } from 'app/entities/fiche-client';
+import moment = require("moment");
+import {TypeDeclaration} from "app/shared/model/quittance-mensuelle-impot.model";
 
 @Component({
     selector: 'jhi-declaration-employeur-annuelle-update',
@@ -16,7 +18,7 @@ import { FicheClientService } from 'app/entities/fiche-client';
 export class DeclarationEmployeurAnnuelleUpdateComponent implements OnInit {
     declarationEmployeurAnnuelle: IDeclarationEmployeurAnnuelle;
     isSaving: boolean;
-
+    currentYear: number;
     ficheclients: IFicheClient[];
 
     constructor(
@@ -28,8 +30,20 @@ export class DeclarationEmployeurAnnuelleUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ declarationEmployeurAnnuelle }) => {
+        this.currentYear = moment().year();
+        this.activatedRoute.data.subscribe(({ declarationEmployeurAnnuelle, ficheClients }) => {
+            this.ficheclients = ficheClients;
             this.declarationEmployeurAnnuelle = declarationEmployeurAnnuelle;
+            if (!this.declarationEmployeurAnnuelle.id) {
+                if (this.ficheclients.length > 0) {
+                    this.declarationEmployeurAnnuelle.ficheClientId = this.ficheclients[0].id;
+                    this.declarationEmployeurAnnuelle.ficheClientDateCreation = this.ficheclients[0].dateCreation;
+                    this.declarationEmployeurAnnuelle.ficheClientDesignation = this.ficheclients[0].designation;
+                    this.declarationEmployeurAnnuelle.ficheClientMatriculeFiscale = this.ficheclients[0].matriculeFiscale;
+                    this.declarationEmployeurAnnuelle.ficheClientRegistreCommerce = this.ficheclients[0].registreCommerce;
+                }
+                this.declarationEmployeurAnnuelle.annee = this.currentYear;
+            }
         });
         this.ficheClientService
             .query()

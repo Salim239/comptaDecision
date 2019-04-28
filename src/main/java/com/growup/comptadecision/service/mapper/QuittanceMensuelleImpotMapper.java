@@ -15,6 +15,7 @@ public interface QuittanceMensuelleImpotMapper extends EntityMapper<QuittanceMen
     @Mapping(source = "ficheClient.designation", target = "ficheClientDesignation")
     @Mapping(source = "ficheClient.matriculeFiscale", target = "ficheClientMatriculeFiscale")
     @Mapping(source = "ficheClient.registreCommerce", target = "ficheClientRegistreCommerce")
+    @Mapping(source = "ficheClient.dateCreation", target = "ficheClientDateCreation")
     @Mapping(source = "quittanceMensuelleImpotLines", target = "quittanceMensuelleImpotLines")
     QuittanceMensuelleImpotDTO toDto(QuittanceMensuelleImpot quittanceMensuelleImpot);
 

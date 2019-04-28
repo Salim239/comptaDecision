@@ -2,6 +2,7 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.growup.comptadecision.domain.enumeration.TypeCnss;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,6 +28,10 @@ public class Cnss extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
+
+    @NotNull
+    @Column(name = "type_cnss", nullable = false)
+    private TypeCnss typeCnss;
 
     @NotNull
     @Column(name = "annee", nullable = false)
@@ -215,7 +220,35 @@ public class Cnss extends AbstractAuditingEntity {
     public void setFicheClient(FicheClient ficheClient) {
         this.ficheClient = ficheClient;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    @Override
+    public String toString() {
+        return "Cnss{" +
+                "id=" + id +
+                ", typeCnss=" + typeCnss +
+                ", annee=" + annee +
+                ", trimestre=" + trimestre +
+                ", date=" + date +
+                ", numeroQuittance='" + numeroQuittance + '\'' +
+                ", montantSalaireBrutNormal=" + montantSalaireBrutNormal +
+                ", montantSalaireBrutKarama=" + montantSalaireBrutKarama +
+                ", montantSalaireBrutAutre=" + montantSalaireBrutAutre +
+                ", montantChiffreAffaireTTC=" + montantChiffreAffaireTTC +
+                ", tot=" + tot +
+                ", cnss=" + cnss +
+                ", ficheClient=" + ficheClient +
+                '}';
+    }
+// jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+
+    public TypeCnss getTypeCnss() {
+        return typeCnss;
+    }
+
+    public void setTypeCnss(TypeCnss typeCnss) {
+        this.typeCnss = typeCnss;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -237,20 +270,4 @@ public class Cnss extends AbstractAuditingEntity {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "Cnss{" +
-            "id=" + getId() +
-            ", annee=" + getAnnee() +
-            ", trimestre=" + getTrimestre() +
-            ", date='" + getDate() + "'" +
-            ", numeroQuittance='" + getNumeroQuittance() + "'" +
-            ", montantSalaireBrutNormal=" + getMontantSalaireBrutNormal() +
-            ", montantSalaireBrutKarama=" + getMontantSalaireBrutKarama() +
-            ", montantSalaireBrutAutre=" + getMontantSalaireBrutAutre() +
-            ", montantChiffreAffaireTTC=" + getMontantChiffreAffaireTTC() +
-            ", tot=" + getTot() +
-            ", cnss=" + getCnss() +
-            "}";
-    }
 }

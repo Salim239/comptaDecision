@@ -2,6 +2,7 @@ package com.growup.comptadecision.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -44,6 +45,7 @@ public class DeclarationEmployeurAnnuelleDTO implements Serializable {
     private String ficheClientDesignation;
     private String ficheClientMatriculeFiscale;
     private String ficheClientRegistreCommerce;
+    private LocalDate ficheClientDateCreation;
 
     public String getFicheClientDesignation() {
         return ficheClientDesignation;
@@ -182,12 +184,45 @@ public class DeclarationEmployeurAnnuelleDTO implements Serializable {
         this.montantAnnexe12 = montantAnnexe12;
     }
 
+    @Override
+    public String toString() {
+        return "DeclarationEmployeurAnnuelleDTO{" +
+                "id=" + id +
+                ", annee=" + annee +
+                ", montantAnnexe1=" + montantAnnexe1 +
+                ", montantAnnexe2=" + montantAnnexe2 +
+                ", montantAnnexe3=" + montantAnnexe3 +
+                ", montantAnnexe4=" + montantAnnexe4 +
+                ", montantAnnexe5=" + montantAnnexe5 +
+                ", montantAnnexe6=" + montantAnnexe6 +
+                ", montantAnnexe7=" + montantAnnexe7 +
+                ", montantAnnexe8=" + montantAnnexe8 +
+                ", montantAnnexe9=" + montantAnnexe9 +
+                ", montantAnnexe10=" + montantAnnexe10 +
+                ", montantAnnexe11=" + montantAnnexe11 +
+                ", montantAnnexe12=" + montantAnnexe12 +
+                ", ficheClientId=" + ficheClientId +
+                ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
+                ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +
+                ", ficheClientRegistreCommerce='" + ficheClientRegistreCommerce + '\'' +
+                ", ficheClientDateCreation=" + ficheClientDateCreation +
+                '}';
+    }
+
     public Long getFicheClientId() {
         return ficheClientId;
     }
 
     public void setFicheClientId(Long ficheClientId) {
         this.ficheClientId = ficheClientId;
+    }
+
+    public LocalDate getFicheClientDateCreation() {
+        return ficheClientDateCreation;
+    }
+
+    public void setFicheClientDateCreation(LocalDate ficheClientDateCreation) {
+        this.ficheClientDateCreation = ficheClientDateCreation;
     }
 
     @Override
@@ -211,24 +246,4 @@ public class DeclarationEmployeurAnnuelleDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "DeclarationEmployeurAnnuelleDTO{" +
-            "id=" + getId() +
-            ", annee=" + getAnnee() +
-            ", montantAnnexe1=" + getMontantAnnexe1() +
-            ", montantAnnexe2=" + getMontantAnnexe2() +
-            ", montantAnnexe3=" + getMontantAnnexe3() +
-            ", montantAnnexe4=" + getMontantAnnexe4() +
-            ", montantAnnexe5=" + getMontantAnnexe5() +
-            ", montantAnnexe6=" + getMontantAnnexe6() +
-            ", montantAnnexe7=" + getMontantAnnexe7() +
-            ", montantAnnexe8=" + getMontantAnnexe8() +
-            ", montantAnnexe9=" + getMontantAnnexe9() +
-            ", montantAnnexe10=" + getMontantAnnexe10() +
-            ", montantAnnexe11=" + getMontantAnnexe11() +
-            ", montantAnnexe12=" + getMontantAnnexe12() +
-            ", ficheClient=" + getFicheClientId() +
-            "}";
-    }
 }

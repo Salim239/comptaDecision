@@ -15,6 +15,7 @@ public interface AcompteProvisionnelMapper extends EntityMapper<AcompteProvision
     @Mapping(source = "ficheClient.designation", target = "ficheClientDesignation")
     @Mapping(source = "ficheClient.matriculeFiscale", target = "ficheClientMatriculeFiscale")
     @Mapping(source = "ficheClient.registreCommerce", target = "ficheClientRegistreCommerce")
+    @Mapping(source = "ficheClient.dateCreation", target = "ficheClientDateCreation")
     AcompteProvisionnelDTO toDto(AcompteProvisionnel acompteProvisionnel);
 
     @Mapping(source = "ficheClientId", target = "ficheClient")

@@ -1,0 +1,27 @@
+<div class="form-group">
+    <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.mois" for="field_mois">Mois</label>
+    <select required class="form-control" name="mois" [(ngModel)]="model.mois" id="field_mois" (change)="onChange()">
+        <option value="1">{{'comptaDecisionApp.mois.1' | translate}}</option>
+        <option value="2">{{'comptaDecisionApp.mois.2' | translate}}</option>
+        <option value="3">{{'comptaDecisionApp.mois.3' | translate}}</option>
+        <option value="4">{{'comptaDecisionApp.mois.4' | translate}}</option>
+        <option value="5">{{'comptaDecisionApp.mois.5' | translate}}</option>
+        <option value="6">{{'comptaDecisionApp.mois.6' | translate}}</option>
+        <option value="7">{{'comptaDecisionApp.mois.7' | translate}}</option>
+        <option value="8">{{'comptaDecisionApp.mois.8' | translate}}</option>
+        <option value="9">{{'comptaDecisionApp.mois.9' | translate}}</option>
+        <option value="10">{{'comptaDecisionApp.mois.10' | translate}}</option>
+        <option value="11">{{'comptaDecisionApp.mois.11' | translate}}</option>
+        <option value="12">{{'comptaDecisionApp.mois.12' | translate}}</option>
+    </select>
+    <div [hidden]="!(form.controls.mois?.dirty && form.controls.mois?.invalid)">
+        <small class="form-text text-danger"
+               [hidden]="!form.controls.mois?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+        </small>
+        <small class="form-text text-danger"
+               [hidden]="!form.controls.mois?.errors?.number" jhiTranslate="entity.validation.number">
+            This field should be a number.
+        </small>
+    </div>
+</div>

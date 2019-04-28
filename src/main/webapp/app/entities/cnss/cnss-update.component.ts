@@ -5,10 +5,11 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
-import { ICnss } from 'app/shared/model/cnss.model';
+import {ICnss, TypeCnss} from 'app/shared/model/cnss.model';
 import { CnssService } from './cnss.service';
 import { IFicheClient } from 'app/shared/model/fiche-client.model';
 import { FicheClientService } from 'app/entities/fiche-client';
+import {TypeDeclaration} from "app/shared/model/declaration-annuelle.model";
 
 @Component({
     selector: 'jhi-cnss-update',
@@ -17,7 +18,7 @@ import { FicheClientService } from 'app/entities/fiche-client';
 export class CnssUpdateComponent implements OnInit {
     cnss: ICnss;
     isSaving: boolean;
-
+    currentYear: number;
     ficheclients: IFicheClient[];
     trimestres:any[];
     dateDp: any;
@@ -31,12 +32,25 @@ export class CnssUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ cnss }) => {
+        this.currentYear = moment().year();
+        this.activatedRoute.data.subscribe(({ cnss, ficheClients }) => {
             this.cnss = cnss;
+            this.ficheclients = ficheClients;
+            if (!this.cnss.id) {
+                if (this.ficheclients.length > 0) {
+                    this.cnss.typeCnss = TypeCnss.CNSS_GENERALE;
+                    this.cnss.ficheClientId = this.ficheclients[0].id;
+                    this.cnss.ficheClientDateCreation = this.ficheclients[0].dateCreation;
+                    this.cnss.ficheClientDesignation = this.ficheclients[0].designation;
+                    this.cnss.ficheClientMatriculeFiscale = this.ficheclients[0].matriculeFiscale;
+                    this.cnss.ficheClientRegistreCommerce = this.ficheclients[0].registreCommerce;
+                }
+                this.cnss.annee = this.currentYear;
+            }
         });
         this.trimestres = [
             {id: 1, libelle: 'Trimestre 1 (janvier/février/mars)'},
-            {id: 2, libelle: 'Trimestre 2 (avril/mai/juin'},
+            {id: 2, libelle: 'Trimestre 2 (avril/mai/juin)'},
             {id: 3, libelle: 'Trimestre 3 (juillet/août/septembre)'},
             {id: 4, libelle: 'Trimestre 4 (otobre/novembre/décembre)'}
         ];

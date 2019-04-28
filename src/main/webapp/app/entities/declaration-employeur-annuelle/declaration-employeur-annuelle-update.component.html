@@ -16,21 +16,26 @@
                         <option [ngValue]="ficheClientOption.id" *ngFor="let ficheClientOption of ficheclients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.annee" for="field_annee">Annee</label>
-                    <input type="number" class="form-control" name="annee" id="field_annee"
-                        [(ngModel)]="declarationEmployeurAnnuelle.annee" required/>
-                    <div [hidden]="!(editForm.controls.annee?.dirty && editForm.controls.annee?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.annee?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.annee?.errors?.number" jhiTranslate="entity.validation.number">
-                            This field should be a number.
-                        </small>
-                    </div>
-                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.annee" for="field_annee">Annee</label>-->
+                    <!--<input type="number" class="form-control" name="annee" id="field_annee"-->
+                        <!--[(ngModel)]="declarationEmployeurAnnuelle.annee" required/>-->
+                    <!--<div [hidden]="!(editForm.controls.annee?.dirty && editForm.controls.annee?.invalid)">-->
+                        <!--<small class="form-text text-danger"-->
+                        <!--[hidden]="!editForm.controls.annee?.errors?.required" jhiTranslate="entity.validation.required">-->
+                        <!--This field is required.-->
+                        <!--</small>-->
+                        <!--<small class="form-text text-danger"-->
+                            <!--[hidden]="!editForm.controls.annee?.errors?.number" jhiTranslate="entity.validation.number">-->
+                            <!--This field should be a number.-->
+                        <!--</small>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <app-annee [currentFichClientDateCreation]="declarationEmployeurAnnuelle.ficheClientDateCreation"
+                           [ficheClients]="ficheclients" [form]="editForm"
+                           [currentFicheClientId]="declarationEmployeurAnnuelle.ficheClientId"
+                           [model]="declarationEmployeurAnnuelle"></app-annee>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe1" for="field_montantAnnexe1">Montant Annexe 1</label>
                     <input type="number" class="form-control" name="montantAnnexe1" id="field_montantAnnexe1"

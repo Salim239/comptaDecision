@@ -17,6 +17,7 @@
             },
             "annee": "Annee",
             "mois": "Mois",
+            "typeDeclaration": "Type déclaration",
             "numeroQuittance": "Numero Quittance",
             "datePaiement": "Date Paiement",
             "montantPaye": "Montant Paye",
