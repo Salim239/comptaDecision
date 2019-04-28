@@ -8,8 +8,7 @@ import { IDeclarationEmployeurAnnuelle } from 'app/shared/model/declaration-empl
 import { DeclarationEmployeurAnnuelleService } from './declaration-employeur-annuelle.service';
 import { IFicheClient } from 'app/shared/model/fiche-client.model';
 import { FicheClientService } from 'app/entities/fiche-client';
-import moment = require("moment");
-import {TypeDeclaration} from "app/shared/model/quittance-mensuelle-impot.model";
+import * as moment from 'moment';
 
 @Component({
     selector: 'jhi-declaration-employeur-annuelle-update',

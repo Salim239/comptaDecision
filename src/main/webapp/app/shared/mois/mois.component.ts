@@ -1,9 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
-import {IFicheClient} from "app/shared/model/fiche-client.model";
-import {Moment} from "moment";
-import * as _ from 'lodash';
-import moment = require("moment");
 
 @Component({
     selector: 'app-mois',
