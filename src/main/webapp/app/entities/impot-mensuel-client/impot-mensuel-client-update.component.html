@@ -10,21 +10,6 @@
                         [(ngModel)]="impotMensuelClient.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuelClient.mois" for="field_mois">Mois</label>
-                    <input type="number" class="form-control" name="mois" id="field_mois"
-                        [(ngModel)]="impotMensuelClient.mois" required/>
-                    <div [hidden]="!(editForm.controls.mois?.dirty && editForm.controls.mois?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.mois?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.mois?.errors?.number" jhiTranslate="entity.validation.number">
-                            This field should be a number.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuelClient.applicable" for="field_applicable">Applicable</label>
                     <input type="checkbox" class="form-control" name="applicable" id="field_applicable"
                         [(ngModel)]="impotMensuelClient.applicable" />

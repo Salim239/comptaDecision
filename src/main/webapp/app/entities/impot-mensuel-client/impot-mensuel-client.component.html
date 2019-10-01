@@ -15,7 +15,6 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="mois"><span jhiTranslate="comptaDecisionApp.impotMensuelClient.mois">Mois</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="applicable"><span jhiTranslate="comptaDecisionApp.impotMensuelClient.applicable">Applicable</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="ficheClientId"><span jhiTranslate="comptaDecisionApp.impotMensuelClient.ficheClient">Fiche Client</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="impotMensuelId"><span jhiTranslate="comptaDecisionApp.impotMensuelClient.impotMensuel">Impot Mensuel</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -25,7 +24,6 @@
             <tbody>
             <tr *ngFor="let impotMensuelClient of impotMensuelClients ;trackBy: trackId">
                 <td><a [routerLink]="['/impot-mensuel-client', impotMensuelClient.id, 'view' ]">{{impotMensuelClient.id}}</a></td>
-                <td>{{impotMensuelClient.mois}}</td>
                 <td>{{impotMensuelClient.applicable}}</td>
                 <td>
                     <div *ngIf="impotMensuelClient.ficheClientId">

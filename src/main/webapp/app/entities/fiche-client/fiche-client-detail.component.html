@@ -105,22 +105,18 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th><span jhiTranslate="comptaDecisionApp.impotMensuelClient.mois">Mois</span></th>
-                        <th *ngFor="let impotMensuel of ficheClient.impotMensuelClientsGroupedByMois.get('1')" title="{{impotMensuel.impotMensuelDescription}}">{{impotMensuel.impotMensuelLibelle}}</th>
+                        <th *ngFor="let impotMensuelClient of ficheClient.impotMensuelClients" title="{{impotMensuelClient.impotMensuelDescription}}">{{impotMensuelClient.impotMensuelLibelle}}</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let i of ficheClient.impotMensuelClientsGroupedByMois | keyvalue">
-                        <td><strong>{{i.key}}</strong></td>
-                        <td *ngFor="let impotMensuelClient of i.value">
-                            <input title="Appliquer cet impot" type="checkbox"[(ngModel)]="impotMensuelClient.applicable"
-                                   (change)="saveImpotMensuel(impotMensuelClient)"/>
+                    <tr>
+                        <td *ngFor="let impotMensuelClient of ficheClient.impotMensuelClients">
+                            <input disabled="disabled" title="Appliquer cet impot" type="checkbox" [(ngModel)]="impotMensuelClient.applicable"/>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <jhi-alert></jhi-alert>
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">

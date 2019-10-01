@@ -1,21 +1,17 @@
 package com.growup.comptadecision.service;
 
-import com.growup.comptadecision.domain.ImpotMensuelClient;
 import com.growup.comptadecision.domain.QuittanceMensuelleImpot;
 import com.growup.comptadecision.domain.QuittanceMensuelleImpotLine;
-import com.growup.comptadecision.repository.ImpotMensuelClientRepository;
 import com.growup.comptadecision.repository.QuittanceMensuelleImpotRepository;
 import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.ImpotMensuelClientDTO;
 import com.growup.comptadecision.service.dto.ImpotMensuelDTO;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotLineDTO;
-import com.growup.comptadecision.service.mapper.ImpotMensuelClientMapper;
 import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotLineMapper;
 import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -106,23 +102,23 @@ public class QuittanceMensuelleImpotService {
             .map(quittanceMensuelleImpotMapper::toDto);
     }
 
-    public QuittanceMensuelleImpotDTO initByParams(Long ficheClientId, Integer mois) {
-
-        log.debug("REST to init QuittanceMensuelleImpot de la fiche client : {}, pour le mois {}", ficheClientId, mois);
-        List<ImpotMensuelClientDTO> impotMensuelClientDTOs = impotMensuelClientService.findByFicheClientIdAndMois(ficheClientId, mois);
-        List<QuittanceMensuelleImpotLineDTO> quittanceMensuelleImpotLineDTOs = impotMensuelClientDTOs.stream().map(impotMensuelClientDTO -> {
-            QuittanceMensuelleImpotLineDTO quittanceMensuelleImpotLineDTO = new QuittanceMensuelleImpotLineDTO();
-            quittanceMensuelleImpotLineDTO.setImpotMensuelClient(impotMensuelClientDTO);
-            quittanceMensuelleImpotLineDTO.setMontantPaye(BigDecimal.ZERO);
-            return quittanceMensuelleImpotLineDTO;
-        }).collect(Collectors.toList());
-
-        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = new QuittanceMensuelleImpotDTO();
-        quittanceMensuelleImpotDTO.setQuittanceMensuelleImpotLines(quittanceMensuelleImpotLineDTOs);
-        quittanceMensuelleImpotDTO.setMois(mois);
-        quittanceMensuelleImpotDTO.setFicheClientId(ficheClientId);
-        return quittanceMensuelleImpotDTO;
-    }
+//    public QuittanceMensuelleImpotDTO initByParams(Long ficheClientId, Integer mois) {
+//
+//        log.debug("REST to init QuittanceMensuelleImpot de la fiche client : {}, pour le mois {}", ficheClientId, mois);
+//        List<ImpotMensuelClientDTO> impotMensuelClientDTOs = impotMensuelClientService.findByFicheClientIdAndMois(ficheClientId, mois);
+//        List<QuittanceMensuelleImpotLineDTO> quittanceMensuelleImpotLineDTOs = impotMensuelClientDTOs.stream().map(impotMensuelClientDTO -> {
+//            QuittanceMensuelleImpotLineDTO quittanceMensuelleImpotLineDTO = new QuittanceMensuelleImpotLineDTO();
+//            quittanceMensuelleImpotLineDTO.setImpotMensuelClient(impotMensuelClientDTO);
+//            quittanceMensuelleImpotLineDTO.setMontantPaye(BigDecimal.ZERO);
+//            return quittanceMensuelleImpotLineDTO;
+//        }).collect(Collectors.toList());
+//
+//        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = new QuittanceMensuelleImpotDTO();
+//        quittanceMensuelleImpotDTO.setQuittanceMensuelleImpotLines(quittanceMensuelleImpotLineDTOs);
+//        quittanceMensuelleImpotDTO.setMois(mois);
+//        quittanceMensuelleImpotDTO.setFicheClientId(ficheClientId);
+//        return quittanceMensuelleImpotDTO;
+//    }
 
     public QuittanceMensuelleImpotDTO init() {
 

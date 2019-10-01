@@ -1,0 +1,86 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col" style="width: 40px">
+      <label  class="form-control-label"
+              jhiTranslate="comptaDecisionApp.impotMensuelDetail.triOrdre" for="field_impotMensuelDetailCode">Num</label>
+    </th>
+    <th scope="col">
+      <label  class="form-control-label"
+              jhiTranslate="comptaDecisionApp.impotMensuelDetail.code" for="field_impotMensuelDetailCode">Code</label>
+    </th>
+    <th scope="col">
+      <label  class="form-control-label"
+              jhiTranslate="comptaDecisionApp.impotMensuelDetail.libelle" for="field_impotMensuelDetailLibelle">Libellé</label>
+    </th>
+    <th scope="col">
+      <label  class="form-control-label"
+              jhiTranslate="comptaDecisionApp.impotMensuelDetail.taux" for="field_impotMensuelDetailTaux">Taux</label>
+    </th>
+    <th scope="col">
+      Actions
+    </th>
+  </tr>
+  </thead>
+  <tr>
+    <td>
+      <div class="form-group">
+        <input disabled="disabled" type="text" class="form-control" name="impotMensuelDetailTriOrdre"
+               id="field_impotMensuelDetailTriOrdre"
+               [(ngModel)]="impotMensuelDetailNew.triOrdre"/>
+      </div>
+    </td>
+    <td>
+      <div class="form-group">
+        <input type="text" class="form-control" name="impotMensuelDetailCode"
+               id="field_impotMensuelDetailCode"
+               [(ngModel)]="impotMensuelDetailNew.code"/>
+      </div>
+    </td>
+    <td>
+      <div class="form-group">
+        <input type="text" class="form-control" name="impotMensuelDetailLibelle"
+               id="field_impotMensuelDetailLibelle"
+               [(ngModel)]="impotMensuelDetailNew.libelle"/>
+      </div>
+    </td>
+    <td>
+      <div class="form-group">
+        <input type="text" class="form-control" name="impotMensuelDetailTaux"
+               id="field_impotMensuelDetailTaux"
+               [(ngModel)]="impotMensuelDetailNew.taux"/>
+      </div>
+    </td>
+    <td>
+      <button [title]="'entity.action.add'" type="button" id="add-impotMensuelDetail" [disabled]="!isValidImpotMensuelDetail(impotMensuelDetailNew)" class="btn btn-primary" (click)="addImpotMensuelDetail(impotMensuelDetailNew)">
+        <fa-icon [icon]="'plus'"></fa-icon>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="impotMensuel.impotMensuelDetails && impotMensuel.impotMensuelDetails.length === 0">
+    <td colspan="6" style="text-align: center;">Aucun détail défini</td>
+  </tr>
+  <tr *ngFor="let impotMensuelDetail of impotMensuel.impotMensuelDetails; let i = index">
+    <td>
+      {{impotMensuelDetail.triOrdre}}
+    </td>
+    <td>
+      {{impotMensuelDetail.code}}
+    </td>
+    <td>
+      {{impotMensuelDetail.libelle}}
+    </td>
+    <td>
+      {{impotMensuelDetail.taux ? impotMensuelDetail.taux + '%' : 'N/A'}}
+    </td>
+    <td>
+      <button [title]="'entity.action.edit'" type="button" class="btn btn-warning" (click)="editImpotMensuelDetail(impotMensuelDetail, i)">
+        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+      </button>
+      &nbsp;
+      <button [title]="'entity.action.delete'" type="button" class="btn btn-danger" (click)="deleteImpotMensuelDetail(i)">
+        <fa-icon [icon]="'times'"></fa-icon>
+      </button>
+    </td>
+  </tr>
+</table>

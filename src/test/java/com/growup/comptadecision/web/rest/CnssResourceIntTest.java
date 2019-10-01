@@ -1,14 +1,12 @@
 package com.growup.comptadecision.web.rest;
 
 import com.growup.comptadecision.ComptaDecisionApp;
-
 import com.growup.comptadecision.domain.Cnss;
 import com.growup.comptadecision.repository.CnssRepository;
 import com.growup.comptadecision.service.CnssService;
 import com.growup.comptadecision.service.dto.CnssDTO;
 import com.growup.comptadecision.service.mapper.CnssMapper;
 import com.growup.comptadecision.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +27,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
-
 
 import static com.growup.comptadecision.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -131,7 +128,6 @@ public class CnssResourceIntTest {
             .montantSalaireBrutNormal(DEFAULT_MONTANT_SALAIRE_BRUT_NORMAL)
             .montantSalaireBrutKarama(DEFAULT_MONTANT_SALAIRE_BRUT_KARAMA)
             .montantSalaireBrutAutre(DEFAULT_MONTANT_SALAIRE_BRUT_AUTRE)
-            .montantChiffreAffaireTTC(DEFAULT_MONTANT_CHIFFRE_AFFAIRE_TTC)
             .tot(DEFAULT_TOT)
             .cnss(DEFAULT_CNSS);
         return cnss;
@@ -165,8 +161,6 @@ public class CnssResourceIntTest {
         assertThat(testCnss.getMontantSalaireBrutNormal()).isEqualTo(DEFAULT_MONTANT_SALAIRE_BRUT_NORMAL);
         assertThat(testCnss.getMontantSalaireBrutKarama()).isEqualTo(DEFAULT_MONTANT_SALAIRE_BRUT_KARAMA);
         assertThat(testCnss.getMontantSalaireBrutAutre()).isEqualTo(DEFAULT_MONTANT_SALAIRE_BRUT_AUTRE);
-        assertThat(testCnss.getMontantChiffreAffaireTTC()).isEqualTo(DEFAULT_MONTANT_CHIFFRE_AFFAIRE_TTC);
-        assertThat(testCnss.getTot()).isEqualTo(DEFAULT_TOT);
         assertThat(testCnss.getCnss()).isEqualTo(DEFAULT_CNSS);
     }
 
@@ -302,7 +296,6 @@ public class CnssResourceIntTest {
             .montantSalaireBrutNormal(UPDATED_MONTANT_SALAIRE_BRUT_NORMAL)
             .montantSalaireBrutKarama(UPDATED_MONTANT_SALAIRE_BRUT_KARAMA)
             .montantSalaireBrutAutre(UPDATED_MONTANT_SALAIRE_BRUT_AUTRE)
-            .montantChiffreAffaireTTC(UPDATED_MONTANT_CHIFFRE_AFFAIRE_TTC)
             .tot(UPDATED_TOT)
             .cnss(UPDATED_CNSS);
         CnssDTO cnssDTO = cnssMapper.toDto(updatedCnss);
@@ -323,8 +316,6 @@ public class CnssResourceIntTest {
         assertThat(testCnss.getMontantSalaireBrutNormal()).isEqualTo(UPDATED_MONTANT_SALAIRE_BRUT_NORMAL);
         assertThat(testCnss.getMontantSalaireBrutKarama()).isEqualTo(UPDATED_MONTANT_SALAIRE_BRUT_KARAMA);
         assertThat(testCnss.getMontantSalaireBrutAutre()).isEqualTo(UPDATED_MONTANT_SALAIRE_BRUT_AUTRE);
-        assertThat(testCnss.getMontantChiffreAffaireTTC()).isEqualTo(UPDATED_MONTANT_CHIFFRE_AFFAIRE_TTC);
-        assertThat(testCnss.getTot()).isEqualTo(UPDATED_TOT);
         assertThat(testCnss.getCnss()).isEqualTo(UPDATED_CNSS);
     }
 

@@ -1,12 +1,15 @@
 package com.growup.comptadecision.service.dto;
-import java.time.LocalDate;
-import javax.validation.constraints.*;
-import java.io.Serializable;
-import java.util.*;
-import javax.persistence.Lob;
+
 import com.growup.comptadecision.domain.enumeration.CategorieClient;
 
-import static java.util.stream.Collectors.groupingBy;
+import javax.persistence.Lob;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * A DTO for the FicheClient entity.
@@ -55,41 +58,6 @@ public class FicheClientDTO implements Serializable {
     private Long secteurActiviteId;
 
     private String secteurActiviteLibelle;
-
-    @Override
-    public String toString() {
-        return "FicheClientDTO{" +
-                "id=" + id +
-                ", categorieClient=" + categorieClient +
-                ", designation='" + designation + '\'' +
-                ", logo=" + Arrays.toString(logo) +
-                ", logoContentType='" + logoContentType + '\'' +
-                ", adresse='" + adresse + '\'' +
-                ", codePostal='" + codePostal + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", fax='" + fax + '\'' +
-                ", email='" + email + '\'' +
-                ", matriculeFiscale='" + matriculeFiscale + '\'' +
-                ", registreCommerce='" + registreCommerce + '\'' +
-                ", dateCreation=" + dateCreation +
-                ", cnssEmployeur='" + cnssEmployeur + '\'' +
-                ", cnssGerant='" + cnssGerant + '\'' +
-                ", fichierPatente=" + Arrays.toString(fichierPatente) +
-                ", fichierPatenteContentType='" + fichierPatenteContentType + '\'' +
-                ", secteurActiviteId=" + secteurActiviteId +
-                ", secteurActiviteLibelle='" + secteurActiviteLibelle + '\'' +
-                ", activiteId=" + activiteId +
-                ", activiteLibelle='" + activiteLibelle + '\'' +
-                ", activiteScondaireId=" + activiteScondaireId +
-                ", activiteScondaireLibelle='" + activiteScondaireLibelle + '\'' +
-                ", regionId=" + regionId +
-                ", regionLibelle='" + regionLibelle + '\'' +
-                ", villeId=" + villeId +
-                ", villeLibelle='" + villeLibelle + '\'' +
-                ", impotMensuelClients=" + impotMensuelClients +
-                ", impotMensuelClientsGroupedByMois=" + impotMensuelClientsGroupedByMois +
-                '}';
-    }
 
     private Long activiteId;
 
@@ -147,13 +115,7 @@ public class FicheClientDTO implements Serializable {
         this.villeLibelle = villeLibelle;
     }
 
-    public void setImpotMensuelClientsGroupedByMois(Map<Integer, List<ImpotMensuelClientDTO>> impotMensuelClientsGroupedByMois) {
-        this.impotMensuelClientsGroupedByMois = impotMensuelClientsGroupedByMois;
-    }
-
     private List<ImpotMensuelClientDTO> impotMensuelClients = new ArrayList<>();
-
-    private Map<Integer, List<ImpotMensuelClientDTO>> impotMensuelClientsGroupedByMois = new HashMap<>();
 
     public Long getId() {
         return id;
@@ -339,12 +301,6 @@ public class FicheClientDTO implements Serializable {
         this.impotMensuelClients = impotMensuelClients;
     }
 
-    public Map<Integer, List<ImpotMensuelClientDTO>> getImpotMensuelClientsGroupedByMois() {
-        return getImpotMensuelClients().stream()
-                .sorted(Comparator.comparing(ImpotMensuelClientDTO::getImpotMensuelLibelle).reversed())
-                .collect(groupingBy(ImpotMensuelClientDTO::getMois));
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -364,6 +320,40 @@ public class FicheClientDTO implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "FicheClientDTO{" +
+                "id=" + id +
+                ", categorieClient=" + categorieClient +
+                ", designation='" + designation + '\'' +
+                ", logo=" + Arrays.toString(logo) +
+                ", logoContentType='" + logoContentType + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", codePostal='" + codePostal + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", fax='" + fax + '\'' +
+                ", email='" + email + '\'' +
+                ", matriculeFiscale='" + matriculeFiscale + '\'' +
+                ", registreCommerce='" + registreCommerce + '\'' +
+                ", dateCreation=" + dateCreation +
+                ", cnssEmployeur='" + cnssEmployeur + '\'' +
+                ", cnssGerant='" + cnssGerant + '\'' +
+                ", fichierPatente=" + Arrays.toString(fichierPatente) +
+                ", fichierPatenteContentType='" + fichierPatenteContentType + '\'' +
+                ", secteurActiviteId=" + secteurActiviteId +
+                ", secteurActiviteLibelle='" + secteurActiviteLibelle + '\'' +
+                ", activiteId=" + activiteId +
+                ", activiteLibelle='" + activiteLibelle + '\'' +
+                ", activiteScondaireId=" + activiteScondaireId +
+                ", activiteScondaireLibelle='" + activiteScondaireLibelle + '\'' +
+                ", regionId=" + regionId +
+                ", regionLibelle='" + regionLibelle + '\'' +
+                ", villeId=" + villeId +
+                ", villeLibelle='" + villeLibelle + '\'' +
+                ", impotMensuelClients=" + impotMensuelClients +
+                '}';
     }
 
 }

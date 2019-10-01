@@ -17,7 +17,11 @@
             },
             "code": "Code",
             "libelle": "Libelle",
-            "description": "Description"
+            "description": "Description",
+            "parent": "Est une catégorie parent?",
+            "child": "Est une sous catégorie",
+            "parentImpotMensuel": "Catégorie parent",
+            "suImpotMensuels": "sous catégories"
         }
     }
 }

@@ -1,9 +1,9 @@
 package com.growup.comptadecision.service.mapper;
 
-import com.growup.comptadecision.domain.*;
+import com.growup.comptadecision.domain.FicheClient;
 import com.growup.comptadecision.service.dto.FicheClientDTO;
-
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /**
  * Mapper for the entity FicheClient and its DTO FicheClientDTO.
@@ -29,6 +29,12 @@ public interface FicheClientMapper extends EntityMapper<FicheClientDTO, FicheCli
     @Mapping(source = "activiteScondaireId", target = "activiteScondaire")
     @Mapping(source = "regionId", target = "region")
     @Mapping(source = "villeId", target = "ville")
+    @Mapping(target = "impotMensuelClients", expression = "java(" +
+            "ficheClientDTO.getImpotMensuelClients().stream().map(impotMensuelClientDto ->  {" +
+            "com.growup.comptadecision.domain.ImpotMensuelClient impotMensuelClient = impotMensuelClientMapper.toEntity(impotMensuelClientDto);" +
+            "impotMensuelClient.setFicheClient(ficheClient);" +
+            "return impotMensuelClient;})" +
+            ".collect(java.util.stream.Collectors.toList()))")
     FicheClient toEntity(FicheClientDTO ficheClientDTO);
 
     default FicheClient fromId(Long id) {

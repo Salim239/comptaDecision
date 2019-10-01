@@ -1,11 +1,9 @@
 /* tslint:disable max-line-length */
-import { TestBed, getTestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { of } from 'rxjs';
-import { take, map } from 'rxjs/operators';
-import { ImpotMensuelService } from 'app/entities/impot-mensuel/impot-mensuel.service';
-import { IImpotMensuel, ImpotMensuel } from 'app/shared/model/impot-mensuel.model';
+import {getTestBed, TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {map, take} from 'rxjs/operators';
+import {ImpotMensuelService} from 'app/entities/impot-mensuel/impot-mensuel.service';
+import {IImpotMensuel, ImpotMensuel} from 'app/shared/model/impot-mensuel.model';
 
 describe('Service Tests', () => {
     describe('ImpotMensuel Service', () => {
@@ -21,7 +19,7 @@ describe('Service Tests', () => {
             service = injector.get(ImpotMensuelService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new ImpotMensuel(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new ImpotMensuel(0, 'AAAAAAA', 'AAAAAAA', false, false, undefined, undefined,  [],'AAAAAAA');
         });
 
         describe('Service methods', async () => {

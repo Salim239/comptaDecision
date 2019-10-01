@@ -6,7 +6,6 @@ import com.growup.comptadecision.service.dto.ImpotMensuelDTO;
 import com.growup.comptadecision.service.mapper.ImpotMensuelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,6 +56,19 @@ public class ImpotMensuelService {
         return impotMensuelRepository.findAll().stream()
             .map(impotMensuelMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    /**
+     * Get all the impotMensuels.
+     *
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<ImpotMensuelDTO> findParentsWithoutChildren() {
+        log.debug("Request to get all ImpotMensuels parent without children");
+        return impotMensuelRepository.findParents().stream()
+                .map(impotMensuelMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
 

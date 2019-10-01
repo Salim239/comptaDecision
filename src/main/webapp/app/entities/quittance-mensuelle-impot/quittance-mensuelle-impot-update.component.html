@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.ficheClient" for="field_ficheClient">Fiche Client</label>
                     <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="quittanceMensuelleImpot.ficheClientId" (change)="initByParams()" >
-                        <option [ngValue]="null"></option>
+                        <option [ngValue]=""></option>
                         <option [ngValue]="ficheClientOption.id" *ngFor="let ficheClientOption of ficheclients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
                     </select>
                 </div>

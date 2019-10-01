@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { IImpotMensuel } from 'app/shared/model/impot-mensuel.model';
-import { ImpotMensuelService } from './impot-mensuel.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {IImpotMensuel} from 'app/shared/model/impot-mensuel.model';
+import {ImpotMensuelService} from './impot-mensuel.service';
 
 @Component({
     selector: 'jhi-impot-mensuel-update',
@@ -12,20 +11,24 @@ import { ImpotMensuelService } from './impot-mensuel.service';
 })
 export class ImpotMensuelUpdateComponent implements OnInit {
     impotMensuel: IImpotMensuel;
+    parentImpotMensuels: IImpotMensuel[];
     isSaving: boolean;
 
     constructor(protected impotMensuelService: ImpotMensuelService, protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ impotMensuel }) => {
+        this.activatedRoute.data.subscribe(({ impotMensuel, parentImpotMensuels }) => {
             this.impotMensuel = impotMensuel;
+            this.parentImpotMensuels = parentImpotMensuels;
         });
     }
 
     previousState() {
         window.history.back();
     }
+
+
 
     save() {
         this.isSaving = true;

@@ -1,9 +1,10 @@
 package com.growup.comptadecision.web.rest;
+
 import com.growup.comptadecision.service.QuittanceMensuelleImpotService;
+import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
 import com.growup.comptadecision.web.rest.errors.BadRequestAlertException;
 import com.growup.comptadecision.web.rest.util.HeaderUtil;
 import com.growup.comptadecision.web.rest.util.PaginationUtil;
-import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -118,13 +118,13 @@ public class QuittanceMensuelleImpotResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
     }
 
-//    quittance-mensuelle-impots/initByParams/ficheClient/1251/mois/3
-    @GetMapping("/quittance-mensuelle-impots/initByParams/ficheClient/{ficheClientId}/mois/{mois}")
-    public ResponseEntity<QuittanceMensuelleImpotDTO> initByParams(@PathVariable("ficheClientId") Long ficheClientId, @PathVariable("mois") Integer mois) {
-        log.debug("REST request to get QuittanceMensuelleImpot de la fiche client : {}, pour le mois {}", ficheClientId, mois);
-        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTOUpdated = quittanceMensuelleImpotService.initByParams(ficheClientId, mois);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTOUpdated);
-    }
+////    quittance-mensuelle-impots/initByParams/ficheClient/1251/mois/3
+//    @GetMapping("/quittance-mensuelle-impots/initByParams/ficheClient/{ficheClientId}/mois/{mois}")
+//    public ResponseEntity<QuittanceMensuelleImpotDTO> initByParams(@PathVariable("ficheClientId") Long ficheClientId, @PathVariable("mois") Integer mois) {
+//        log.debug("REST request to get QuittanceMensuelleImpot de la fiche client : {}, pour le mois {}", ficheClientId, mois);
+//        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTOUpdated = quittanceMensuelleImpotService.initByParams(ficheClientId, mois);
+//        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTOUpdated);
+//    }
 
     /**
      * DELETE  /quittance-mensuelle-impots/:id : delete the "id" quittanceMensuelleImpot.

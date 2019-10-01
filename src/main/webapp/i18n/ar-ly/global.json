@@ -107,6 +107,7 @@
         "action": {
             "addblob": "اضف ملف",
             "addimage": "اضف صورة",
+            "add": "اضف",
             "back": "رجوع",
             "cancel": "الغاء",
             "delete": "حذف",

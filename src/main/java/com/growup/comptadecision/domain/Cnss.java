@@ -7,9 +7,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -56,11 +54,8 @@ public class Cnss extends AbstractAuditingEntity {
     @Column(name = "montant_salaire_brut_autre", precision = 10, scale = 2)
     private BigDecimal montantSalaireBrutAutre;
 
-    @Column(name = "montant_chiffre_affaire_ttc", precision = 10, scale = 2)
-    private BigDecimal montantChiffreAffaireTTC;
-
-    @Column(name = "tot", precision = 10, scale = 2)
-    private BigDecimal tot;
+    @Column(name = "montantTotal", precision = 10, scale = 2)
+    private BigDecimal montantTotal;
 
     @Column(name = "cnss", precision = 10, scale = 2)
     private BigDecimal cnss;
@@ -169,30 +164,17 @@ public class Cnss extends AbstractAuditingEntity {
         this.montantSalaireBrutAutre = montantSalaireBrutAutre;
     }
 
-    public BigDecimal getMontantChiffreAffaireTTC() {
-        return montantChiffreAffaireTTC;
-    }
-
-    public Cnss montantChiffreAffaireTTC(BigDecimal montantChiffreAffaireTTC) {
-        this.montantChiffreAffaireTTC = montantChiffreAffaireTTC;
-        return this;
-    }
-
-    public void setMontantChiffreAffaireTTC(BigDecimal montantChiffreAffaireTTC) {
-        this.montantChiffreAffaireTTC = montantChiffreAffaireTTC;
-    }
-
-    public BigDecimal getTot() {
-        return tot;
+    public BigDecimal getMontantTotal() {
+        return montantTotal;
     }
 
     public Cnss tot(BigDecimal tot) {
-        this.tot = tot;
+        this.montantTotal = tot;
         return this;
     }
 
-    public void setTot(BigDecimal tot) {
-        this.tot = tot;
+    public void setMontantTotal(BigDecimal montantTotal) {
+        this.montantTotal = montantTotal;
     }
 
     public BigDecimal getCnss() {
@@ -233,8 +215,7 @@ public class Cnss extends AbstractAuditingEntity {
                 ", montantSalaireBrutNormal=" + montantSalaireBrutNormal +
                 ", montantSalaireBrutKarama=" + montantSalaireBrutKarama +
                 ", montantSalaireBrutAutre=" + montantSalaireBrutAutre +
-                ", montantChiffreAffaireTTC=" + montantChiffreAffaireTTC +
-                ", tot=" + tot +
+                ", montantTotal=" + montantTotal +
                 ", cnss=" + cnss +
                 ", ficheClient=" + ficheClient +
                 '}';

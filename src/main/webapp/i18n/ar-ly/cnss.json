@@ -23,8 +23,7 @@
             "montantSalaireBrutNormal": "Montant Salaire Brut Normal",
             "montantSalaireBrutKarama": "Montant Salaire Brut Karama",
             "montantSalaireBrutAutre": "Montant Salaire Brut Autre",
-            "montantChiffreAffaireTTC": "Montant Chiffre Affaire TTC",
-            "tot": "Tot",
+            "montantTotal": "Montant total",
             "cnss": "Cnss",
             "ficheClient": "Fiche Client"
         }

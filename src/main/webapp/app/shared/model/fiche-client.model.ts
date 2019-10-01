@@ -1,4 +1,4 @@
-import { Moment } from 'moment';
+import {Moment} from 'moment';
 import {IImpotMensuelClient} from "app/shared/model/impot-mensuel-client.model";
 
 export const enum CategorieClient {
@@ -35,7 +35,6 @@ export interface IFicheClient {
     activiteScondaireId?: number;
     activiteScondaireLibelle?: string;
     impotMensuelClients?: IImpotMensuelClient[];
-    impotMensuelClientsGroupedByMois?: Map<string, IImpotMensuelClient[]>;
 }
 
 export class FicheClient implements IFicheClient {
@@ -67,7 +66,6 @@ export class FicheClient implements IFicheClient {
         public activiteLibelle?: string,
         public activiteScondaireId?: number,
         public activiteScondaireLibelle?: string,
-        public impotMensuelClients?: IImpotMensuelClient[],
-        public impotMensuelClientsGroupedByMois?: Map<string, IImpotMensuelClient[]>
+        public impotMensuelClients?: IImpotMensuelClient[]
     ) {}
 }

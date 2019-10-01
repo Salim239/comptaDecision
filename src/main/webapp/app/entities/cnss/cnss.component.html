@@ -50,11 +50,7 @@
                         jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutAutre">Montant Salaire Brut Autre</span>
                     <fa-icon [icon]="'sort'"></fa-icon>
                 </th>
-                <th jhiSortBy="montantChiffreAffaireTTC"><span
-                        jhiTranslate="comptaDecisionApp.cnss.montantChiffreAffaireTTC">Montant Chiffre Affaire TTC</span>
-                    <fa-icon [icon]="'sort'"></fa-icon>
-                </th>
-                <th jhiSortBy="tot"><span jhiTranslate="comptaDecisionApp.cnss.tot">Tot</span>
+                <th jhiSortBy="montantTotal"><span jhiTranslate="comptaDecisionApp.cnss.montantTotal">Montant total</span>
                     <fa-icon [icon]="'sort'"></fa-icon>
                 </th>
                 <th jhiSortBy="cnss"><span jhiTranslate="comptaDecisionApp.cnss.cnss">Cnss</span>
@@ -79,8 +75,7 @@
                 <td>{{cnss.montantSalaireBrutNormal}}</td>
                 <td>{{cnss.montantSalaireBrutKarama}}</td>
                 <td>{{cnss.montantSalaireBrutAutre}}</td>
-                <td>{{cnss.montantChiffreAffaireTTC}}</td>
-                <td>{{cnss.tot}}</td>
+                <td>{{cnss.montantTotal}}</td>
                 <td>{{cnss.cnss}}</td>
 
                 <td class="text-right">

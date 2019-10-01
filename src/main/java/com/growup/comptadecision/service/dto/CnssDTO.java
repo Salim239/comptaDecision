@@ -1,10 +1,11 @@
 package com.growup.comptadecision.service.dto;
+
 import com.growup.comptadecision.domain.enumeration.TypeCnss;
 
-import java.time.LocalDate;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -33,9 +34,7 @@ public class CnssDTO implements Serializable {
 
     private BigDecimal montantSalaireBrutAutre;
 
-    private BigDecimal montantChiffreAffaireTTC;
-
-    private BigDecimal tot;
+    private BigDecimal montantTotal;
 
     private BigDecimal cnss;
 
@@ -135,20 +134,12 @@ public class CnssDTO implements Serializable {
         this.montantSalaireBrutAutre = montantSalaireBrutAutre;
     }
 
-    public BigDecimal getMontantChiffreAffaireTTC() {
-        return montantChiffreAffaireTTC;
+    public BigDecimal getMontantTotal() {
+        return montantTotal;
     }
 
-    public void setMontantChiffreAffaireTTC(BigDecimal montantChiffreAffaireTTC) {
-        this.montantChiffreAffaireTTC = montantChiffreAffaireTTC;
-    }
-
-    public BigDecimal getTot() {
-        return tot;
-    }
-
-    public void setTot(BigDecimal tot) {
-        this.tot = tot;
+    public void setMontantTotal(BigDecimal montantTotal) {
+        this.montantTotal = montantTotal;
     }
 
     public BigDecimal getCnss() {
@@ -167,8 +158,7 @@ public class CnssDTO implements Serializable {
                 ", montantSalaireBrutNormal=" + montantSalaireBrutNormal +
                 ", montantSalaireBrutKarama=" + montantSalaireBrutKarama +
                 ", montantSalaireBrutAutre=" + montantSalaireBrutAutre +
-                ", montantChiffreAffaireTTC=" + montantChiffreAffaireTTC +
-                ", tot=" + tot +
+                ", montantTotal=" + montantTotal +
                 ", cnss=" + cnss +
                 ", ficheClientId=" + ficheClientId +
                 ", ficheClientDesignation='" + ficheClientDesignation + '\'' +

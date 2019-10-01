@@ -1,6 +1,9 @@
 package com.growup.comptadecision.service.dto;
-import javax.validation.constraints.*;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -18,6 +21,15 @@ public class ImpotMensuelDTO implements Serializable {
 
     private String description;
 
+    private Boolean parent;
+
+    private Boolean child;
+
+    private List<ImpotMensuelDetailDTO> impotMensuelDetails = new ArrayList<>();
+
+    private Long parentImpotMensuelId;
+
+    private String parentImpotMensuelLibelle;
 
     public Long getId() {
         return id;
@@ -51,6 +63,61 @@ public class ImpotMensuelDTO implements Serializable {
         this.description = description;
     }
 
+    public Boolean getChild() {
+        return child;
+    }
+
+    public void setChild(Boolean child) {
+        this.child = child;
+    }
+
+    public Boolean getParent() {
+        return parent;
+    }
+
+    public void setParent(Boolean parent) {
+        this.parent = parent;
+    }
+
+    public Long getParentImpotMensuelId() {
+        return parentImpotMensuelId;
+    }
+
+    @Override
+    public String toString() {
+        return "ImpotMensuelDTO{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", libelle='" + libelle + '\'' +
+                ", description='" + description + '\'' +
+                ", parent=" + parent +
+                ", child=" + child +
+                ", impotMensuelDetails=" + impotMensuelDetails +
+                ", parentImpotMensuelId=" + parentImpotMensuelId +
+                ", parentImpotMensuelLibelle='" + parentImpotMensuelLibelle + '\'' +
+                '}';
+    }
+
+    public void setParentImpotMensuelId(Long parentImpotMensuelId) {
+        this.parentImpotMensuelId = parentImpotMensuelId;
+    }
+
+    public String getParentImpotMensuelLibelle() {
+        return parentImpotMensuelLibelle;
+    }
+
+    public void setParentImpotMensuelLibelle(String parentImpotMensuelLibelle) {
+        this.parentImpotMensuelLibelle = parentImpotMensuelLibelle;
+    }
+
+    public List<ImpotMensuelDetailDTO> getImpotMensuelDetails() {
+        return impotMensuelDetails;
+    }
+
+    public void setImpotMensuelDetails(List<ImpotMensuelDetailDTO> impotMensuelDetails) {
+        this.impotMensuelDetails = impotMensuelDetails;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -72,13 +139,4 @@ public class ImpotMensuelDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "ImpotMensuelDTO{" +
-            "id=" + getId() +
-            ", code='" + getCode() + "'" +
-            ", libelle='" + getLibelle() + "'" +
-            ", description='" + getDescription() + "'" +
-            "}";
-    }
 }

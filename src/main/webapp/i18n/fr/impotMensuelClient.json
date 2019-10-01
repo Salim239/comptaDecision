@@ -15,7 +15,6 @@
             "detail": {
                 "title": "Impot Mensuel Client"
             },
-            "mois": "Mois",
             "applicable": "Applicable",
             "ficheClient": "Fiche Client",
             "impotMensuel": "Impot Mensuel",

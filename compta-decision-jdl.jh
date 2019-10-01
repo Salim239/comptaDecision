@@ -93,7 +93,7 @@ entity Cnss {
     montantSalaireBrutKarama BigDecimal,
     montantSalaireBrutAutre BigDecimal,
     montantChiffreAffaireTTC BigDecimal,
-    tot BigDecimal,
+    montantTotal BigDecimal,
     cnss BigDecimal
 }
 relationship ManyToOne {

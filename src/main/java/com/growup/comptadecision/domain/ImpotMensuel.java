@@ -1,14 +1,15 @@
 package com.growup.comptadecision.domain;
 
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
-import java.util.Objects;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A ImpotMensuel.
@@ -19,6 +20,14 @@ import java.util.Objects;
 public class ImpotMensuel extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
+
+    public ImpotMensuel() {
+
+    }
+
+    public ImpotMensuel(Long id) {
+        this.id = id;
+    }
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
@@ -36,7 +45,18 @@ public class ImpotMensuel extends AbstractAuditingEntity {
     @Column(name = "description")
     private String description;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    @Column(name = "parent")
+    private Boolean parent;
+
+    @Column(name = "child")
+    private Boolean child;
+
+    @OneToMany(mappedBy = "impotMensuel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ImpotMensuelDetail> impotMensuelDetails = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ImpotMensuel parentImpotMensuel;
+
     public Long getId() {
         return id;
     }
@@ -49,22 +69,42 @@ public class ImpotMensuel extends AbstractAuditingEntity {
         return code;
     }
 
-    public ImpotMensuel code(String code) {
-        this.code = code;
-        return this;
-    }
-
     public void setCode(String code) {
         this.code = code;
     }
 
-    public String getLibelle() {
-        return libelle;
+    public Boolean getParent() {
+        return parent;
     }
 
-    public ImpotMensuel libelle(String libelle) {
-        this.libelle = libelle;
-        return this;
+    public void setParent(Boolean parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public String toString() {
+        return "ImpotMensuel{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", libelle='" + libelle + '\'' +
+                ", description='" + description + '\'' +
+                ", parent=" + parent +
+                ", child=" + child +
+                ", impotMensuelDetails=" + impotMensuelDetails +
+                ", parentImpotMensuel=" + parentImpotMensuel +
+                '}';
+    }
+
+    public Boolean getChild() {
+        return child;
+    }
+
+    public void setChild(Boolean child) {
+        this.child = child;
+    }
+
+    public String getLibelle() {
+        return libelle;
     }
 
     public void setLibelle(String libelle) {
@@ -75,43 +115,68 @@ public class ImpotMensuel extends AbstractAuditingEntity {
         return description;
     }
 
-    public ImpotMensuel description(String description) {
-        this.description = description;
-        return this;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public List<ImpotMensuelDetail> getImpotMensuelDetails() {
+        return impotMensuelDetails;
+    }
+
+    public void setImpotMensuelDetails(List<ImpotMensuelDetail> impotMensuelDetails) {
+        this.impotMensuelDetails = impotMensuelDetails;
+    }
+
+    public ImpotMensuel code(String code) {
+        this.code = code;
+        return this;
+    }
+    public ImpotMensuel libelle(String libelle) {
+        this.libelle = libelle;
+        return this;
+    }
+
+    public ImpotMensuel description(String description) {
+        this.code = description;
+        return this;
+    }
+
+    public void addImpotMensuelDetail(ImpotMensuelDetail impotMensuelDetail) {
+        impotMensuelDetails.add(impotMensuelDetail);
+        impotMensuelDetail.setImpotMensuel(this);
+    }
+
+    public void removeImpotMensuelDetail(ImpotMensuelDetail impotMensuelDetail) {
+        impotMensuelDetails.remove(impotMensuelDetail);
+        impotMensuelDetail.setImpotMensuel(null);
+    }
+
+    public ImpotMensuel getParentImpotMensuel() {
+        return parentImpotMensuel;
+    }
+
+    public void setParentImpotMensuel(ImpotMensuel parentImpotMensuel) {
+        this.parentImpotMensuel = parentImpotMensuel;
+    }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ImpotMensuel impotMensuel = (ImpotMensuel) o;
-        if (impotMensuel.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), impotMensuel.getId());
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ImpotMensuel that = (ImpotMensuel) o;
+
+        return new EqualsBuilder()
+                .append(id, that.id)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .toHashCode();
     }
 
-    @Override
-    public String toString() {
-        return "ImpotMensuel{" +
-            "id=" + getId() +
-            ", code='" + getCode() + "'" +
-            ", libelle='" + getLibelle() + "'" +
-            ", description='" + getDescription() + "'" +
-            "}";
-    }
 }

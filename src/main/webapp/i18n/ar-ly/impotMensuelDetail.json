@@ -1,0 +1,25 @@
+{
+    "comptaDecisionApp": {
+        "impotMensuelDetail": {
+            "home": {
+                "title": "Impot Mensuel Details",
+                "createLabel": "Create a new Impot Detail",
+                "createOrEditLabel": "Create or edit a Impot Detail"
+            },
+            "created": "A new Detail detail is created with identifier {{ param }}",
+            "updated": "A Impot Detail is updated with identifier {{ param }}",
+            "deleted": "A Impot Detail is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Impot Detail {{ id }}?"
+            },
+            "detail": {
+                "title": "Impot Detail"
+            },
+            "code": "Code",
+            "triOrdre": "Num",
+            "libelle": "Libelle",
+            "taux": "Taux",
+            "description": "Description"
+        }
+    }
+}

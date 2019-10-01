@@ -107,6 +107,7 @@
         "action": {
             "addblob": "Ajouter blob",
             "addimage": "Ajouter image",
+            "add": "Ajouter",
             "back": "Retour",
             "cancel": "Annuler",
             "edit": "Editer",

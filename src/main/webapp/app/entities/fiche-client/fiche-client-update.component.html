@@ -192,6 +192,26 @@
                     </select>
                 </div>
             </div>
+            <br/>
+            <h2><span jhiTranslate="comptaDecisionApp.impotMensuelClient.detail.title">Paramétrage impôts mensuels client </span> {{ficheClient.designation}}</h2>
+
+            <div class="table-responsive" *ngIf="ficheClient.impotMensuelClients.length > 0">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th *ngFor="let impotMensuelClient of ficheClient.impotMensuelClients" title="{{impotMensuelClient.impotMensuelDescription}}">{{impotMensuelClient.impotMensuelLibelle}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td *ngFor="let impotMensuelClient of ficheClient.impotMensuelClients;let i=index">
+                            <input name="impotMensuelClients[{{i}}]" title="Appliquer cet impot" type="checkbox" [(ngModel)]="impotMensuelClient.applicable"/>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>

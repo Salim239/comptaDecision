@@ -1,5 +1,5 @@
 package com.growup.comptadecision.service.dto;
-import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -9,9 +9,6 @@ import java.util.Objects;
 public class ImpotMensuelClientDTO implements Serializable {
 
     private Long id;
-
-    @NotNull
-    private Integer mois;
 
     private Boolean applicable;
 
@@ -39,14 +36,6 @@ public class ImpotMensuelClientDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getMois() {
-        return mois;
-    }
-
-    public void setMois(Integer mois) {
-        this.mois = mois;
     }
 
     public Boolean isApplicable() {
@@ -146,7 +135,6 @@ public class ImpotMensuelClientDTO implements Serializable {
     public String toString() {
         return "ImpotMensuelClientDTO{" +
                 "id=" + id +
-                ", mois=" + mois +
                 ", applicable=" + applicable +
                 ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
                 ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +

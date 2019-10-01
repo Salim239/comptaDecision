@@ -36,7 +36,25 @@
                     <input type="text" class="form-control" name="description" id="field_description"
                         [(ngModel)]="impotMensuel.description" />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.parent" for="field_parent">Est une catégorie mère?</label>
+                    <input id="field_parent" name="parent" type="checkbox" [(ngModel)]="impotMensuel.parent">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.child" for="field_child">Est une sous catégorie?</label>
+                    <input id="field_child" name="child" type="checkbox" [(ngModel)]="impotMensuel.child">
+                </div>
+                <div class="form-group" *ngIf="impotMensuel.child">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.parentImpotMensuel" for="field_parentImpotMensuel">Catégorie parente</label>
+                    <select class="form-control" id="field_parentImpotMensuel" name="parentImpotMensuelId" [(ngModel)]="impotMensuel.parentImpotMensuelId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="parentImpotMensuelOption.id" *ngFor="let parentImpotMensuelOption of parentImpotMensuels">{{parentImpotMensuelOption.libelle}}</option>
+                    </select>
+                </div>
 
+                <h2 jhiTranslate="comptaDecisionApp.impotMensuelDetail.home.title">Détails impôt</h2>
+                <br>
+                <jhi-impot-mensuel-line [impotMensuel]="impotMensuel"></jhi-impot-mensuel-line>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

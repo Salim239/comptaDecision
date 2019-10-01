@@ -1,18 +1,20 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {JhiLanguageService} from 'ng-jhipster';
+import {JhiLanguageHelper} from 'app/core';
 
-import { ComptaDecisionSharedModule } from 'app/shared';
+import {ComptaDecisionSharedModule} from 'app/shared';
+import {ImpotMensuelLineComponent} from './impot-mensuel-line/impot-mensuel-line.component';
 import {
     ImpotMensuelComponent,
-    ImpotMensuelDetailComponent,
-    ImpotMensuelUpdateComponent,
-    ImpotMensuelDeletePopupComponent,
     ImpotMensuelDeleteDialogComponent,
+    ImpotMensuelDeletePopupComponent,
+    ImpotMensuelDetailComponent,
+    impotMensuelPopupRoute,
     impotMensuelRoute,
-    impotMensuelPopupRoute
+    ImpotMensuelUpdateComponent
 } from './';
+
 
 const ENTITY_STATES = [...impotMensuelRoute, ...impotMensuelPopupRoute];
 
@@ -23,13 +25,15 @@ const ENTITY_STATES = [...impotMensuelRoute, ...impotMensuelPopupRoute];
         ImpotMensuelDetailComponent,
         ImpotMensuelUpdateComponent,
         ImpotMensuelDeleteDialogComponent,
-        ImpotMensuelDeletePopupComponent
+        ImpotMensuelDeletePopupComponent,
+        ImpotMensuelLineComponent,
     ],
     entryComponents: [
         ImpotMensuelComponent,
         ImpotMensuelUpdateComponent,
         ImpotMensuelDeleteDialogComponent,
-        ImpotMensuelDeletePopupComponent
+        ImpotMensuelDeletePopupComponent,
+        ImpotMensuelLineComponent,
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

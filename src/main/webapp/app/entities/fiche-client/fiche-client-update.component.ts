@@ -1,20 +1,19 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import * as moment from 'moment';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { IFicheClient } from 'app/shared/model/fiche-client.model';
-import { FicheClientService } from './fiche-client.service';
-import { ISecteurActivite } from 'app/shared/model/secteur-activite.model';
-import { SecteurActiviteService } from 'app/entities/secteur-activite';
-import { IActivite } from 'app/shared/model/activite.model';
-import { ActiviteService } from 'app/entities/activite';
-import { IRegion } from 'app/shared/model/region.model';
-import { RegionService } from 'app/entities/region';
-import { IVille } from 'app/shared/model/ville.model';
-import { VilleService } from 'app/entities/ville';
+import {Component, ElementRef, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {JhiAlertService, JhiDataUtils} from 'ng-jhipster';
+import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import {FicheClientService} from './fiche-client.service';
+import {ISecteurActivite} from 'app/shared/model/secteur-activite.model';
+import {SecteurActiviteService} from 'app/entities/secteur-activite';
+import {IActivite} from 'app/shared/model/activite.model';
+import {ActiviteService} from 'app/entities/activite';
+import {IRegion} from 'app/shared/model/region.model';
+import {RegionService} from 'app/entities/region';
+import {IVille} from 'app/shared/model/ville.model';
+import {VilleService} from 'app/entities/ville';
 
 @Component({
     selector: 'jhi-fiche-client-update',
@@ -102,7 +101,7 @@ export class FicheClientUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        if (this.ficheClient.id !== undefined) {
+        if (this.ficheClient.id !== undefined && this.ficheClient.id !== null) {
             this.subscribeToSaveResponse(this.ficheClientService.update(this.ficheClient));
         } else {
             this.subscribeToSaveResponse(this.ficheClientService.create(this.ficheClient));

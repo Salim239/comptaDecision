@@ -6,9 +6,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -25,10 +22,6 @@ public class ImpotMensuelClient extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
-
-    @NotNull
-    @Column(name = "mois", nullable = false)
-    private Integer mois;
 
     @Column(name = "applicable")
     private Boolean applicable = Boolean.TRUE;
@@ -48,19 +41,6 @@ public class ImpotMensuelClient extends AbstractAuditingEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getMois() {
-        return mois;
-    }
-
-    public ImpotMensuelClient mois(Integer mois) {
-        this.mois = mois;
-        return this;
-    }
-
-    public void setMois(Integer mois) {
-        this.mois = mois;
     }
 
     public Boolean isApplicable() {
@@ -108,7 +88,6 @@ public class ImpotMensuelClient extends AbstractAuditingEntity {
     public String toString() {
         return "ImpotMensuelClient{" +
                 "id=" + id +
-                ", mois=" + mois +
                 ", applicable=" + applicable +
                 ", ficheClient=" + ficheClient +
                 ", impotMensuel=" + impotMensuel +

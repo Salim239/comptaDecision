@@ -1,14 +1,12 @@
 package com.growup.comptadecision.web.rest;
 
 import com.growup.comptadecision.ComptaDecisionApp;
-
 import com.growup.comptadecision.domain.ImpotMensuelClient;
 import com.growup.comptadecision.repository.ImpotMensuelClientRepository;
 import com.growup.comptadecision.service.ImpotMensuelClientService;
 import com.growup.comptadecision.service.dto.ImpotMensuelClientDTO;
 import com.growup.comptadecision.service.mapper.ImpotMensuelClientMapper;
 import com.growup.comptadecision.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +24,6 @@ import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-
 
 import static com.growup.comptadecision.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -97,7 +94,6 @@ public class ImpotMensuelClientResourceIntTest {
      */
     public static ImpotMensuelClient createEntity(EntityManager em) {
         ImpotMensuelClient impotMensuelClient = new ImpotMensuelClient()
-            .mois(DEFAULT_MOIS)
             .applicable(DEFAULT_APPLICABLE);
         return impotMensuelClient;
     }
@@ -123,7 +119,6 @@ public class ImpotMensuelClientResourceIntTest {
         List<ImpotMensuelClient> impotMensuelClientList = impotMensuelClientRepository.findAll();
         assertThat(impotMensuelClientList).hasSize(databaseSizeBeforeCreate + 1);
         ImpotMensuelClient testImpotMensuelClient = impotMensuelClientList.get(impotMensuelClientList.size() - 1);
-        assertThat(testImpotMensuelClient.getMois()).isEqualTo(DEFAULT_MOIS);
         assertThat(testImpotMensuelClient.isApplicable()).isEqualTo(DEFAULT_APPLICABLE);
     }
 
@@ -151,8 +146,6 @@ public class ImpotMensuelClientResourceIntTest {
     @Transactional
     public void checkMoisIsRequired() throws Exception {
         int databaseSizeBeforeTest = impotMensuelClientRepository.findAll().size();
-        // set the field null
-        impotMensuelClient.setMois(null);
 
         // Create the ImpotMensuelClient, which fails.
         ImpotMensuelClientDTO impotMensuelClientDTO = impotMensuelClientMapper.toDto(impotMensuelClient);
@@ -217,7 +210,6 @@ public class ImpotMensuelClientResourceIntTest {
         // Disconnect from session so that the updates on updatedImpotMensuelClient are not directly saved in db
         em.detach(updatedImpotMensuelClient);
         updatedImpotMensuelClient
-            .mois(UPDATED_MOIS)
             .applicable(UPDATED_APPLICABLE);
         ImpotMensuelClientDTO impotMensuelClientDTO = impotMensuelClientMapper.toDto(updatedImpotMensuelClient);
 
@@ -230,7 +222,6 @@ public class ImpotMensuelClientResourceIntTest {
         List<ImpotMensuelClient> impotMensuelClientList = impotMensuelClientRepository.findAll();
         assertThat(impotMensuelClientList).hasSize(databaseSizeBeforeUpdate);
         ImpotMensuelClient testImpotMensuelClient = impotMensuelClientList.get(impotMensuelClientList.size() - 1);
-        assertThat(testImpotMensuelClient.getMois()).isEqualTo(UPDATED_MOIS);
         assertThat(testImpotMensuelClient.isApplicable()).isEqualTo(UPDATED_APPLICABLE);
     }
 

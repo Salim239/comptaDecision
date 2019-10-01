@@ -10,7 +10,6 @@ import com.growup.comptadecision.service.dto.ImpotMensuelClientDTO;
 import com.growup.comptadecision.service.mapper.ImpotMensuelClientMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -56,7 +55,6 @@ public class ImpotMensuelClientService {
                     impotMensuelClient.setFicheClient(ficheClient);
                     impotMensuelClient.setImpotMensuel(impotMensuel);
                     impotMensuelClient.setApplicable(false);
-                    impotMensuelClient.setMois(mois);
                     impotMensuelClients.add(impotMensuelClient);
                 }
             });
@@ -111,13 +109,12 @@ public class ImpotMensuelClientService {
      * find impotMensuelClient by ficheClientId and mois.
      *
      * @param ficheClientId the id of the ficheClient
-     * @param mois the mois
      * @return the entity
      */
     @Transactional(readOnly = true)
-    public List<ImpotMensuelClientDTO> findByFicheClientIdAndMois(Long ficheClientId, Integer mois) {
-        log.debug("Request to get ImpotMensuelClient by ficheClientId {} and mois {}", ficheClientId, mois);
-        List<ImpotMensuelClient> impotMensuelClients =  impotMensuelClientRepository.findByFicheClientIdAndMois(ficheClientId, mois);
+    public List<ImpotMensuelClientDTO> findByFicheClientId(Long ficheClientId) {
+        log.debug("Request to get ImpotMensuelClient by ficheClientId {}", ficheClientId);
+        List<ImpotMensuelClient> impotMensuelClients =  impotMensuelClientRepository.findByFicheClientId(ficheClientId);
         return impotMensuelClientMapper.toDto(impotMensuelClients);
     }
 
