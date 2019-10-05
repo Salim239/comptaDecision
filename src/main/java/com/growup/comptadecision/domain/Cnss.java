@@ -3,6 +3,9 @@ package com.growup.comptadecision.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.growup.comptadecision.domain.enumeration.TypeCnss;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -10,7 +13,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * A Cnss.
@@ -18,6 +20,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "cnss")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@EqualsAndHashCode
+@Builder
+@ToString
 public class Cnss extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
@@ -203,52 +208,12 @@ public class Cnss extends AbstractAuditingEntity {
         this.ficheClient = ficheClient;
     }
 
-    @Override
-    public String toString() {
-        return "Cnss{" +
-                "id=" + id +
-                ", typeCnss=" + typeCnss +
-                ", annee=" + annee +
-                ", trimestre=" + trimestre +
-                ", date=" + date +
-                ", numeroQuittance='" + numeroQuittance + '\'' +
-                ", montantSalaireBrutNormal=" + montantSalaireBrutNormal +
-                ", montantSalaireBrutKarama=" + montantSalaireBrutKarama +
-                ", montantSalaireBrutAutre=" + montantSalaireBrutAutre +
-                ", montantTotal=" + montantTotal +
-                ", cnss=" + cnss +
-                ", ficheClient=" + ficheClient +
-                '}';
-    }
-// jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
-
-
     public TypeCnss getTypeCnss() {
         return typeCnss;
     }
 
     public void setTypeCnss(TypeCnss typeCnss) {
         this.typeCnss = typeCnss;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Cnss cnss = (Cnss) o;
-        if (cnss.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), cnss.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
     }
 
 }

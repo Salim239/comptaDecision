@@ -1,11 +1,14 @@
 package com.growup.comptadecision.domain;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Map;
 
 /**
@@ -15,6 +18,9 @@ import java.util.Map;
  */
 @Entity
 @Table(name = "jhi_persistent_audit_event")
+@EqualsAndHashCode
+@Builder
+@ToString
 public class PersistentAuditEvent implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -81,30 +87,4 @@ public class PersistentAuditEvent implements Serializable {
         this.data = data;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        PersistentAuditEvent persistentAuditEvent = (PersistentAuditEvent) o;
-        return !(persistentAuditEvent.getId() == null || getId() == null) && Objects.equals(getId(), persistentAuditEvent.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "PersistentAuditEvent{" +
-            "principal='" + principal + '\'' +
-            ", auditEventDate=" + auditEventDate +
-            ", auditEventType='" + auditEventType + '\'' +
-            '}';
-    }
 }

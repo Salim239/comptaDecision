@@ -1,14 +1,22 @@
 package com.growup.comptadecision.service.dto;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A DTO for the ImpotMensuel entity.
  */
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class ImpotMensuelDTO implements Serializable {
 
     private Long id;
@@ -18,6 +26,8 @@ public class ImpotMensuelDTO implements Serializable {
 
     @NotNull
     private String libelle;
+
+    private BigDecimal montant;
 
     private String description;
 
@@ -30,6 +40,12 @@ public class ImpotMensuelDTO implements Serializable {
     private Long parentImpotMensuelId;
 
     private String parentImpotMensuelLibelle;
+
+    private Float valeur;
+
+    private String typeValeur;
+
+    private Boolean valeurModifiable;
 
     public Long getId() {
         return id;
@@ -83,19 +99,28 @@ public class ImpotMensuelDTO implements Serializable {
         return parentImpotMensuelId;
     }
 
-    @Override
-    public String toString() {
-        return "ImpotMensuelDTO{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", libelle='" + libelle + '\'' +
-                ", description='" + description + '\'' +
-                ", parent=" + parent +
-                ", child=" + child +
-                ", impotMensuelDetails=" + impotMensuelDetails +
-                ", parentImpotMensuelId=" + parentImpotMensuelId +
-                ", parentImpotMensuelLibelle='" + parentImpotMensuelLibelle + '\'' +
-                '}';
+    public Float getValeur() {
+        return valeur;
+    }
+
+    public void setValeur(Float valeur) {
+        this.valeur = valeur;
+    }
+
+    public String getTypeValeur() {
+        return typeValeur;
+    }
+
+    public void setTypeValeur(String typeValeur) {
+        this.typeValeur = typeValeur;
+    }
+
+    public Boolean getValeurModifiable() {
+        return valeurModifiable;
+    }
+
+    public void setValeurModifiable(Boolean valeurModifiable) {
+        this.valeurModifiable = valeurModifiable;
     }
 
     public void setParentImpotMensuelId(Long parentImpotMensuelId) {
@@ -116,27 +141,6 @@ public class ImpotMensuelDTO implements Serializable {
 
     public void setImpotMensuelDetails(List<ImpotMensuelDetailDTO> impotMensuelDetails) {
         this.impotMensuelDetails = impotMensuelDetails;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        ImpotMensuelDTO impotMensuelDTO = (ImpotMensuelDTO) o;
-        if (impotMensuelDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), impotMensuelDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
     }
 
 }

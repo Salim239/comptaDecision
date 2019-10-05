@@ -1,13 +1,21 @@
 package com.growup.comptadecision.service.dto;
-import java.time.LocalDate;
-import javax.validation.constraints.*;
+
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
+import java.time.LocalDate;
 
 /**
  * A DTO for the AcompteProvisionnel entity.
  */
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class AcompteProvisionnelDTO implements Serializable {
 
     private Long id;
@@ -151,54 +159,12 @@ public class AcompteProvisionnelDTO implements Serializable {
         this.ficheClientId = ficheClientId;
     }
 
-    @Override
-    public String toString() {
-        return "AcompteProvisionnelDTO{" +
-                "id=" + id +
-                ", annee=" + annee +
-                ", numero=" + numero +
-                ", date=" + date +
-                ", numeroQuittance='" + numeroQuittance + '\'' +
-                ", montantBase=" + montantBase +
-                ", montantAcompteProvisionnel=" + montantAcompteProvisionnel +
-                ", montantReportAnterieur=" + montantReportAnterieur +
-                ", montantRetenueSource=" + montantRetenueSource +
-                ", montantNet=" + montantNet +
-                ", ficheClientId=" + ficheClientId +
-                ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
-                ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +
-                ", ficheClientRegistreCommerce='" + ficheClientRegistreCommerce + '\'' +
-                ", ficheClientDateCreation=" + ficheClientDateCreation +
-                '}';
-    }
-
-    public LocalDate getFicheClientDateCreation() {
+   public LocalDate getFicheClientDateCreation() {
         return ficheClientDateCreation;
     }
 
     public void setFicheClientDateCreation(LocalDate ficheClientDateCreation) {
         this.ficheClientDateCreation = ficheClientDateCreation;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        AcompteProvisionnelDTO acompteProvisionnelDTO = (AcompteProvisionnelDTO) o;
-        if (acompteProvisionnelDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), acompteProvisionnelDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
     }
 
 }

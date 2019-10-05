@@ -16,5 +16,6 @@ export class ImpotMensuel implements IImpotMensuel {
     constructor(public id?: number, public code?: string, public libelle?: string,
                 public parent?: boolean, public child?: boolean, public parentImpotMensuelId?: number,
         public parentImpotMensuelLibelle?: string, public impotMensuelDetails?: IImpotMensuelDetail[], public description?: string) {
+        this.impotMensuelDetails = [];
     }
 }

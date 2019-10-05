@@ -2,8 +2,10 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import com.growup.comptadecision.domain.enumeration.TypeValeur;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -16,6 +18,10 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "impot_mensuel_detail")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class ImpotMensuelDetail extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
@@ -37,8 +43,15 @@ public class ImpotMensuelDetail extends AbstractAuditingEntity {
     @Column(name = "libelle", nullable = false)
     private String libelle;
 
-    @Column(name = "taux")
-    private Float taux;
+    @Column(name = "valeur")
+    private Float valeur;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type_valeur")
+    private TypeValeur typeValeur = TypeValeur.TAUX;
+
+    @Column(name = "valeur_modifiable")
+    private Boolean valeurModifiable;
 
     @Column(name = "description")
     private String description;
@@ -79,12 +92,28 @@ public class ImpotMensuelDetail extends AbstractAuditingEntity {
         this.libelle = libelle;
     }
 
-    public Float getTaux() {
-        return taux;
+    public Float getValeur() {
+        return valeur;
     }
 
-    public void setTaux(Float taux) {
-        this.taux = taux;
+    public void setValeur(Float valeur) {
+        this.valeur = valeur;
+    }
+
+    public TypeValeur getTypeValeur() {
+        return typeValeur;
+    }
+
+    public void setTypeValeur(TypeValeur typeValeur) {
+        this.typeValeur = typeValeur;
+    }
+
+    public Boolean getValeurModifiable() {
+        return valeurModifiable;
+    }
+
+    public void setValeurModifiable(Boolean valeurModifiable) {
+        this.valeurModifiable = valeurModifiable;
     }
 
     public String getDescription() {
@@ -95,18 +124,6 @@ public class ImpotMensuelDetail extends AbstractAuditingEntity {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "ImpotMensuelDetail{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", triOrdre=" + triOrdre +
-                ", libelle='" + libelle + '\'' +
-                ", taux=" + taux +
-                ", description='" + description +
-                '}';
-    }
-
     public ImpotMensuel getImpotMensuel() {
         return impotMensuel;
     }
@@ -114,25 +131,4 @@ public class ImpotMensuelDetail extends AbstractAuditingEntity {
     public void setImpotMensuel(ImpotMensuel impotMensuel) {
         this.impotMensuel = impotMensuel;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ImpotMensuelDetail that = (ImpotMensuelDetail) o;
-
-        return new EqualsBuilder()
-                .append(id, that.id)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(id)
-                .toHashCode();
-    }
-
 }

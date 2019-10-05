@@ -1,50 +1,52 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotLine.home.title">Quittance Mensuelle Impot Lines</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-quittance-mensuelle-impot-line" [routerLink]="['/quittance-mensuelle-impot-line/new']">
+        <span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotDetail.home.title">Quittance Mensuelle Impot Lines</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-quittance-mensuelle-impot-detail" [routerLink]="['/quittance-mensuelle-impot-detail/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotLine.home.createLabel">
+            <span  jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotDetail.home.createLabel">
             Create new Quittance Mensuelle Impot Line
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="table-responsive" *ngIf="quittanceMensuelleImpotLines">
+    <div class="table-responsive" *ngIf="quittanceMensuelleImpotDetails">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantPaye"><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotLine.montantPaye">Montant Paye</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="quittanceMensuelleImpotId"><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotLine.quittanceMensuelleImpot">Quittance Mensuelle Impot</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantBase"><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotDetail.impotMensuelDetailLibelle">Libelle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantBase"><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotDetail.montantBase">Base</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="impotMensuelValeur"><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotDetail.impotMensuelValeur">Impot</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantTotal"><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotDetail.montantTotal">Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let quittanceMensuelleImpotLine of quittanceMensuelleImpotLines ;trackBy: trackId">
-                <td><a [routerLink]="['/quittance-mensuelle-impot-line', quittanceMensuelleImpotLine.id, 'view' ]">{{quittanceMensuelleImpotLine.id}}</a></td>
-                <td>{{quittanceMensuelleImpotLine.montantPaye}}</td>
+            <tr *ngFor="let quittanceMensuelleImpotDetail of quittanceMensuelleImpotDetails ;trackBy: trackId">
+                <td><a [routerLink]="['/quittance-mensuelle-impot-detail', quittanceMensuelleImpotDetail.id, 'view' ]">{{quittanceMensuelleImpotDetail.id}}</a></td>
+                <td>{{quittanceMensuelleImpotDetail.montantPaye}}</td>
                 <td>
-                    <div *ngIf="quittanceMensuelleImpotLine.quittanceMensuelleImpotId">
-                        <a [routerLink]="['../quittance-mensuelle-impot', quittanceMensuelleImpotLine.quittanceMensuelleImpotId , 'view' ]" >{{quittanceMensuelleImpotLine.quittanceMensuelleImpotId}}</a>
+                    <div *ngIf="quittanceMensuelleImpotDetail.quittanceMensuelleImpotId">
+                        <a [routerLink]="['../quittance-mensuelle-impot', quittanceMensuelleImpotDetail.quittanceMensuelleImpotId , 'view' ]" >{{quittanceMensuelleImpotDetail.quittanceMensuelleImpotId}}</a>
                     </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['/quittance-mensuelle-impot-line', quittanceMensuelleImpotLine.id, 'view' ]"
+                                [routerLink]="['/quittance-mensuelle-impot-detail', quittanceMensuelleImpotDetail.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/quittance-mensuelle-impot-line', quittanceMensuelleImpotLine.id, 'edit']"
+                                [routerLink]="['/quittance-mensuelle-impot-detail', quittanceMensuelleImpotDetail.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', 'quittance-mensuelle-impot-line', { outlets: { popup: quittanceMensuelleImpotLine.id + '/delete'} }]"
+                                [routerLink]="['/', 'quittance-mensuelle-impot-detail', { outlets: { popup: quittanceMensuelleImpotDetail.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
@@ -57,7 +59,7 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="quittanceMensuelleImpotLines && quittanceMensuelleImpotLines.length">
+    <div *ngIf="quittanceMensuelleImpotDetails && quittanceMensuelleImpotDetails.length">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>

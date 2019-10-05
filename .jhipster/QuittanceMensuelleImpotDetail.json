@@ -1,5 +1,5 @@
 {
-    "name": "QuittanceMensuelleImpotLine",
+    "name": "QuittanceMensuelleImpotDetail",
     "fields": [
         {
             "fieldName": "montantPaye",
@@ -10,13 +10,13 @@
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "impotMensuelClient",
-            "otherEntityRelationshipName": "quittanceMensuelleImpotLine",
+            "otherEntityRelationshipName": "quittanceMensuelleImpotDetail",
             "relationshipName": "impotMensuelClient"
         },
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "quittanceMensuelleImpot",
-            "otherEntityRelationshipName": "quittanceMensuelleImpotLine",
+            "otherEntityRelationshipName": "quittanceMensuelleImpotDetail",
             "relationshipName": "quittanceMensuelleImpot",
             "otherEntityField": "id"
         }

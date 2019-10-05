@@ -1,17 +1,16 @@
-import { Injectable } from '@angular/core';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
-import { UserRouteAccessService } from 'app/core';
-import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { QuittanceMensuelleImpot } from 'app/shared/model/quittance-mensuelle-impot.model';
-import { QuittanceMensuelleImpotService } from './quittance-mensuelle-impot.service';
-import { QuittanceMensuelleImpotComponent } from './quittance-mensuelle-impot.component';
-import { QuittanceMensuelleImpotDetailComponent } from './quittance-mensuelle-impot-detail.component';
-import { QuittanceMensuelleImpotUpdateComponent } from './quittance-mensuelle-impot-update.component';
-import { QuittanceMensuelleImpotDeletePopupComponent } from './quittance-mensuelle-impot-delete-dialog.component';
-import { IQuittanceMensuelleImpot } from 'app/shared/model/quittance-mensuelle-impot.model';
+import {Injectable} from '@angular/core';
+import {HttpResponse} from '@angular/common/http';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
+import {JhiResolvePagingParams} from 'ng-jhipster';
+import {UserRouteAccessService} from 'app/core';
+import {Observable, of} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {IQuittanceMensuelleImpot, QuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
+import {QuittanceMensuelleImpotService} from './quittance-mensuelle-impot.service';
+import {QuittanceMensuelleImpotComponent} from './quittance-mensuelle-impot.component';
+import {QuittanceMensuelleImpotDetailComponent} from './quittance-mensuelle-impot-detail.component';
+import {QuittanceMensuelleImpotUpdateComponent} from './quittance-mensuelle-impot-update.component';
+import {QuittanceMensuelleImpotDeletePopupComponent} from './quittance-mensuelle-impot-delete-dialog.component';
 import {IFicheClient} from "app/shared/model/fiche-client.model";
 import {FicheClientService} from "app/entities/fiche-client";
 
@@ -27,11 +26,7 @@ export class QuittanceMensuelleImpotResolve implements Resolve<IQuittanceMensuel
                 map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
             );
         }
-        return this.service.initEmpty()
-            .pipe(
-                filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
-                map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
-            );
+        return of(new QuittanceMensuelleImpot());
     }
 }
 

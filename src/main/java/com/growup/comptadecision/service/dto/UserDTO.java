@@ -1,14 +1,16 @@
 package com.growup.comptadecision.service.dto;
 
 import com.growup.comptadecision.config.Constants;
-
 import com.growup.comptadecision.domain.Authority;
 import com.growup.comptadecision.domain.User;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,6 +18,10 @@ import java.util.stream.Collectors;
 /**
  * A DTO representing a user, with his authorities.
  */
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class UserDTO {
 
     private Long id;
@@ -177,23 +183,5 @@ public class UserDTO {
 
     public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
-    }
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated=" + activated +
-            ", langKey='" + langKey + '\'' +
-            ", createdBy=" + createdBy +
-            ", createdDate=" + createdDate +
-            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-            ", lastModifiedDate=" + lastModifiedDate +
-            ", authorities=" + authorities +
-            "}";
     }
 }

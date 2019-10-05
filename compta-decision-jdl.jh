@@ -132,22 +132,22 @@ dto QuittanceMensuelleImpot with mapstruct
 service QuittanceMensuelleImpot with serviceClass
 paginate QuittanceMensuelleImpot with pagination
 
-entity QuittanceMensuelleImpotLine {
+entity QuittanceMensuelleImpotDetail {
 	id Long required,
     montantPaye BigDecimal    
 }
 
 relationship ManyToOne {
-    QuittanceMensuelleImpotLine{quittanceMensuelleImpot(id)} to QuittanceMensuelleImpot
+    QuittanceMensuelleImpotDetail{quittanceMensuelleImpot(id)} to QuittanceMensuelleImpot
 }
 
 relationship OneToMany {
-  QuittanceMensuelleImpotLine{impotMensuelClient} to ImpotMensuelClient
+  QuittanceMensuelleImpotDetail{impotMensuelClient} to ImpotMensuelClient
 }
 
-dto QuittanceMensuelleImpotLine with mapstruct
-service QuittanceMensuelleImpotLine with serviceClass
-paginate QuittanceMensuelleImpotLine with pagination
+dto QuittanceMensuelleImpotDetail with mapstruct
+service QuittanceMensuelleImpotDetail with serviceClass
+paginate QuittanceMensuelleImpotDetail with pagination
 
 
 entity DeclarationAnnuelle {

@@ -1,11 +1,18 @@
 package com.growup.comptadecision.service.dto;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A DTO for the ImpotMensuelClient entity.
  */
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class ImpotMensuelClientDTO implements Serializable {
 
     private Long id;
@@ -28,7 +35,7 @@ public class ImpotMensuelClientDTO implements Serializable {
 
 
 
-    private Long quittanceMensuelleImpotLineId;
+    private Long quittanceMensuelleImpotDetailId;
 
     public Long getId() {
         return id;
@@ -62,12 +69,12 @@ public class ImpotMensuelClientDTO implements Serializable {
         this.impotMensuelId = impotMensuelId;
     }
 
-    public Long getQuittanceMensuelleImpotLineId() {
-        return quittanceMensuelleImpotLineId;
+    public Long getQuittanceMensuelleImpotDetailId() {
+        return quittanceMensuelleImpotDetailId;
     }
 
-    public void setQuittanceMensuelleImpotLineId(Long quittanceMensuelleImpotLineId) {
-        this.quittanceMensuelleImpotLineId = quittanceMensuelleImpotLineId;
+    public void setQuittanceMensuelleImpotDetailId(Long quittanceMensuelleImpotDetailId) {
+        this.quittanceMensuelleImpotDetailId = quittanceMensuelleImpotDetailId;
     }
 
     public String getFicheClientDesignation() {
@@ -108,42 +115,5 @@ public class ImpotMensuelClientDTO implements Serializable {
 
     public void setImpotMensuelDescription(String impotMensuelDescription) {
         this.impotMensuelDescription = impotMensuelDescription;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        ImpotMensuelClientDTO impotMensuelClientDTO = (ImpotMensuelClientDTO) o;
-        if (impotMensuelClientDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), impotMensuelClientDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "ImpotMensuelClientDTO{" +
-                "id=" + id +
-                ", applicable=" + applicable +
-                ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
-                ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +
-                ", ficheClientRegistreCommerce='" + ficheClientRegistreCommerce + '\'' +
-                ", impotMensuelId=" + impotMensuelId +
-                ", impotMensuelLibelle='" + impotMensuelLibelle + '\'' +
-                ", impotMensuelDescription='" + impotMensuelDescription + '\'' +
-                ", ficheClientId=" + ficheClientId +
-                ", quittanceMensuelleImpotLineId=" + quittanceMensuelleImpotLineId +
-                '}';
     }
 }

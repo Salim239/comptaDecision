@@ -41,9 +41,9 @@ import {RouterModule} from '@angular/router';
                 loadChildren: './quittance-mensuelle-impot/quittance-mensuelle-impot.module#ComptaDecisionQuittanceMensuelleImpotModule'
             },
             {
-                path: 'quittance-mensuelle-impot-line',
+                path: 'quittance-mensuelle-impot-detail',
                 loadChildren:
-                    './quittance-mensuelle-impot-line/quittance-mensuelle-impot-line.module#ComptaDecisionQuittanceMensuelleImpotLineModule'
+                    './quittance-mensuelle-impot-detail/quittance-mensuelle-impot-detail.module#ComptaDecisionQuittanceMensuelleImpotDetailModule'
             },
             {
                 path: 'declaration-annuelle',

@@ -1,15 +1,22 @@
 package com.growup.comptadecision.service.dto;
-import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 
-import java.time.LocalDate;
-import javax.validation.constraints.*;
+import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
+import java.time.LocalDate;
 
 /**
  * A DTO for the DeclarationAnnuelle entity.
  */
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class DeclarationAnnuelleDTO implements Serializable {
 
     private Long id;
@@ -230,57 +237,8 @@ public class DeclarationAnnuelleDTO implements Serializable {
         return ficheClientDateCreation;
     }
 
-    @Override
-    public String toString() {
-        return "DeclarationAnnuelleDTO{" +
-                "id=" + id +
-                ", typeDeclaration=" + typeDeclaration +
-                ", annee=" + annee +
-                ", datePaiement=" + datePaiement +
-                ", numeroQuittance='" + numeroQuittance + '\'' +
-                ", montantChiffreAffaireHT=" + montantChiffreAffaireHT +
-                ", montantChiffreAffaireExport=" + montantChiffreAffaireExport +
-                ", montantChiffreAffaireLocal=" + montantChiffreAffaireLocal +
-                ", montantChiffreAffaireTTC=" + montantChiffreAffaireTTC +
-                ", montantResultatComptable=" + montantResultatComptable +
-                ", montantResultatFiscal=" + montantResultatFiscal +
-                ", montantAutreDeduction=" + montantAutreDeduction +
-                ", montantBaseImposable=" + montantBaseImposable +
-                ", montantImpotLiquide=" + montantImpotLiquide +
-                ", montantAcompteProvisionnel=" + montantAcompteProvisionnel +
-                ", montantRetenueSource=" + montantRetenueSource +
-                ", montantNetAPaye=" + montantNetAPaye +
-                ", ficheClientDateCreation=" + ficheClientDateCreation +
-                ", ficheClientId=" + ficheClientId +
-                ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
-                ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +
-                ", ficheClientRegistreCommerce='" + ficheClientRegistreCommerce + '\'' +
-                '}';
-    }
-
     public void setFicheClientDateCreation(LocalDate ficheClientDateCreation) {
         this.ficheClientDateCreation = ficheClientDateCreation;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        DeclarationAnnuelleDTO declarationAnnuelleDTO = (DeclarationAnnuelleDTO) o;
-        if (declarationAnnuelleDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), declarationAnnuelleDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
     }
 
 }

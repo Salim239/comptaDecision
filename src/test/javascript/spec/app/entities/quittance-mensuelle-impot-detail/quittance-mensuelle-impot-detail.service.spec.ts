@@ -1,27 +1,28 @@
 /* tslint:disable max-line-length */
-import { TestBed, getTestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { of } from 'rxjs';
-import { take, map } from 'rxjs/operators';
-import { QuittanceMensuelleImpotLineService } from 'app/entities/quittance-mensuelle-impot-line/quittance-mensuelle-impot-line.service';
-import { IQuittanceMensuelleImpotLine, QuittanceMensuelleImpotLine } from 'app/shared/model/quittance-mensuelle-impot-line.model';
+import {getTestBed, TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {map, take} from 'rxjs/operators';
+import {QuittanceMensuelleImpotDetailService} from 'app/entities/quittance-mensuelle-impot-detail/quittance-mensuelle-impot-detail.service';
+import {
+    IQuittanceMensuelleImpotDetail,
+    QuittanceMensuelleImpotDetail
+} from 'app/shared/model/quittance-mensuelle-impot-detail.model';
 
 describe('Service Tests', () => {
-    describe('QuittanceMensuelleImpotLine Service', () => {
+    describe('QuittanceMensuelleImpotDetail Service', () => {
         let injector: TestBed;
-        let service: QuittanceMensuelleImpotLineService;
+        let service: QuittanceMensuelleImpotDetailService;
         let httpMock: HttpTestingController;
-        let elemDefault: IQuittanceMensuelleImpotLine;
+        let elemDefault: IQuittanceMensuelleImpotDetail;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [HttpClientTestingModule]
             });
             injector = getTestBed();
-            service = injector.get(QuittanceMensuelleImpotLineService);
+            service = injector.get(QuittanceMensuelleImpotDetailService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new QuittanceMensuelleImpotLine(0, 0);
+            elemDefault = new QuittanceMensuelleImpotDetail(0, 0);
         });
 
         describe('Service methods', async () => {
@@ -36,7 +37,7 @@ describe('Service Tests', () => {
                 req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should create a QuittanceMensuelleImpotLine', async () => {
+            it('should create a QuittanceMensuelleImpotDetail', async () => {
                 const returnedFromService = Object.assign(
                     {
                         id: 0
@@ -45,14 +46,14 @@ describe('Service Tests', () => {
                 );
                 const expected = Object.assign({}, returnedFromService);
                 service
-                    .create(new QuittanceMensuelleImpotLine(null))
+                    .create(new QuittanceMensuelleImpotDetail(null))
                     .pipe(take(1))
                     .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
                 const req = httpMock.expectOne({ method: 'POST' });
                 req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should update a QuittanceMensuelleImpotLine', async () => {
+            it('should update a QuittanceMensuelleImpotDetail', async () => {
                 const returnedFromService = Object.assign(
                     {
                         montantPaye: 1
@@ -69,7 +70,7 @@ describe('Service Tests', () => {
                 req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should return a list of QuittanceMensuelleImpotLine', async () => {
+            it('should return a list of QuittanceMensuelleImpotDetail', async () => {
                 const returnedFromService = Object.assign(
                     {
                         montantPaye: 1
@@ -89,7 +90,7 @@ describe('Service Tests', () => {
                 httpMock.verify();
             });
 
-            it('should delete a QuittanceMensuelleImpotLine', async () => {
+            it('should delete a QuittanceMensuelleImpotDetail', async () => {
                 const rxPromise = service.delete(123).subscribe(resp => expect(resp.ok));
 
                 const req = httpMock.expectOne({ method: 'DELETE' });

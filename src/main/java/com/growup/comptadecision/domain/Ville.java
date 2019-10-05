@@ -2,14 +2,14 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
-import java.util.Objects;
+import javax.validation.constraints.NotNull;
 
 /**
  * A Ville.
@@ -17,6 +17,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "ville")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@EqualsAndHashCode
+@Builder
+@ToString
 public class Ville extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
@@ -117,36 +120,5 @@ public class Ville extends AbstractAuditingEntity {
     public void setRegion(Region region) {
         this.region = region;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Ville ville = (Ville) o;
-        if (ville.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), ville.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "Ville{" +
-            "id=" + getId() +
-            ", code='" + getCode() + "'" +
-            ", codePostal='" + getCodePostal() + "'" +
-            ", libelle='" + getLibelle() + "'" +
-            ", description='" + getDescription() + "'" +
-            "}";
-    }
 }

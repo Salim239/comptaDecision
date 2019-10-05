@@ -1,11 +1,19 @@
 package com.growup.comptadecision.service.dto;
-import javax.validation.constraints.*;
+
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A DTO for the Region entity.
  */
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class RegionDTO implements Serializable {
 
     private Long id;
@@ -51,34 +59,5 @@ public class RegionDTO implements Serializable {
         this.description = description;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
 
-        RegionDTO regionDTO = (RegionDTO) o;
-        if (regionDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), regionDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "RegionDTO{" +
-            "id=" + getId() +
-            ", code='" + getCode() + "'" +
-            ", libelle='" + getLibelle() + "'" +
-            ", description='" + getDescription() + "'" +
-            "}";
-    }
 }

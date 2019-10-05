@@ -2,16 +2,16 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * A AcompteProvisionnel.
@@ -19,6 +19,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "acompte_provisionnel")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@EqualsAndHashCode
+@Builder
+@ToString
 public class AcompteProvisionnel extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
@@ -201,39 +204,4 @@ public class AcompteProvisionnel extends AbstractAuditingEntity {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        AcompteProvisionnel acompteProvisionnel = (AcompteProvisionnel) o;
-        if (acompteProvisionnel.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), acompteProvisionnel.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "AcompteProvisionnel{" +
-            "id=" + getId() +
-            ", annee=" + getAnnee() +
-            ", numero=" + getNumero() +
-            ", date='" + getDate() + "'" +
-            ", numeroQuittance='" + getNumeroQuittance() + "'" +
-            ", montantBase=" + getMontantBase() +
-            ", montantAcompteProvisionnel=" + getMontantAcompteProvisionnel() +
-            ", montantReportAnterieur=" + getMontantReportAnterieur() +
-            ", montantRetenueSource=" + getMontantRetenueSource() +
-            ", montantNet=" + getMontantNet() +
-            "}";
-    }
 }

@@ -12,7 +12,7 @@ export class ImpotMensuelLineComponent implements OnInit {
   impotMensuelDetailNew: IImpotMensuelDetail;
 
   newImpotMensuelDetail() {
-    return new ImpotMensuelDetail(undefined, this.impotMensuel.impotMensuelDetails.length + 1, undefined, undefined, undefined, undefined);
+    return new ImpotMensuelDetail(undefined, this.impotMensuel.impotMensuelDetails.length === 0 ? 1 : this.impotMensuel.impotMensuelDetails.length + 1);
   }
 
   isValidImpotMensuelDetail(impotMensuelDetail) {
@@ -50,7 +50,9 @@ export class ImpotMensuelLineComponent implements OnInit {
     this.impotMensuelDetailNew = this.newImpotMensuelDetail();
   }
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
     this.impotMensuelDetailNew = this.newImpotMensuelDetail();

@@ -13,9 +13,17 @@
       <label  class="form-control-label"
               jhiTranslate="comptaDecisionApp.impotMensuelDetail.libelle" for="field_impotMensuelDetailLibelle">Libellé</label>
     </th>
+    <th scope="col"  style="width: 150px">
+      <label  class="form-control-label"
+              jhiTranslate="comptaDecisionApp.impotMensuelDetail.valeur" for="field_impotMensuelDetailValeur">Valeur</label>
+    </th>
     <th scope="col">
       <label  class="form-control-label"
-              jhiTranslate="comptaDecisionApp.impotMensuelDetail.taux" for="field_impotMensuelDetailTaux">Taux</label>
+              jhiTranslate="comptaDecisionApp.impotMensuelDetail.typeValeur" for="field_impotMensuelDetailTypeValeur">Type</label>
+    </th>
+    <th scope="col">
+      <label  class="form-control-label"
+              jhiTranslate="comptaDecisionApp.impotMensuelDetail.valeurModifiable" for="field_impotMensuelDetailTypeValeur">Modif.?</label>
     </th>
     <th scope="col">
       Actions
@@ -31,25 +39,38 @@
       </div>
     </td>
     <td>
-      <div class="form-group">
+      <div class="form-group"  style="width: 160px">
         <input type="text" class="form-control" name="impotMensuelDetailCode"
                id="field_impotMensuelDetailCode"
-               [(ngModel)]="impotMensuelDetailNew.code"/>
+               [(ngModel)]="impotMensuelDetailNew.code" [maxLength]="20"/>
       </div>
     </td>
     <td>
       <div class="form-group">
         <input type="text" class="form-control" name="impotMensuelDetailLibelle"
                id="field_impotMensuelDetailLibelle"
-               [(ngModel)]="impotMensuelDetailNew.libelle"/>
+               [(ngModel)]="impotMensuelDetailNew.libelle" [maxLength]="255"/>
       </div>
     </td>
     <td>
       <div class="form-group">
-        <input type="text" class="form-control" name="impotMensuelDetailTaux"
-               id="field_impotMensuelDetailTaux"
-               [(ngModel)]="impotMensuelDetailNew.taux"/>
+        <input type="text" class="form-control" name="impotMensuelDetailValeur"
+               id="field_impotMensuelDetailValeur"
+               [(ngModel)]="impotMensuelDetailNew.valeur" [maxLength]="11"/>
       </div>
+    </td>
+    <td>
+      <div class="form-group" style="width: 100px">
+        <select required class="form-control" name="impotMensuelDetailTypeValeur" [(ngModel)]="impotMensuelDetailNew.typeValeur" id="field_impotMensuelDetailTypeValeur" >
+          <option value=undefined></option>
+          <option value="TAUX">{{'comptaDecisionApp.impotMensuelDetail.typeValeurTaux' | translate}}</option>
+          <option value="MONTANT">{{'comptaDecisionApp.impotMensuelDetail.typeValeurMontant' | translate}}</option>
+        </select>
+      </div>
+      <td style="text-align: center">
+        <input  type="checkbox" name="impotMensuelDetailTypeValeurModifiable"
+               id="field_impotMensuelDetailValeurModifiable"
+               [(ngModel)]="impotMensuelDetailNew.valeurModifiable"/>
     </td>
     <td>
       <button [title]="'entity.action.add'" type="button" id="add-impotMensuelDetail" [disabled]="!isValidImpotMensuelDetail(impotMensuelDetailNew)" class="btn btn-primary" (click)="addImpotMensuelDetail(impotMensuelDetailNew)">
@@ -60,7 +81,7 @@
   <tr *ngIf="impotMensuel.impotMensuelDetails && impotMensuel.impotMensuelDetails.length === 0">
     <td colspan="6" style="text-align: center;">Aucun détail défini</td>
   </tr>
-  <tr *ngFor="let impotMensuelDetail of impotMensuel.impotMensuelDetails; let i = index">
+  <tr *ngFor="let impotMensuelDetail of impotMensuel.impotMensuelDetails | orderBy: 'triOrdre';   let i = index">
     <td>
       {{impotMensuelDetail.triOrdre}}
     </td>
@@ -71,7 +92,14 @@
       {{impotMensuelDetail.libelle}}
     </td>
     <td>
-      {{impotMensuelDetail.taux ? impotMensuelDetail.taux + '%' : 'N/A'}}
+      {{impotMensuelDetail.valeur}}
+      {{ impotMensuelDetail.typeValeur === 'TAUX' ? '%' : ''}}
+    </td>
+    <td>
+      {{impotMensuelDetail.typeValeur}}
+    </td>
+    <td>
+      {{impotMensuelDetail.valeurModifiable}}
     </td>
     <td>
       <button [title]="'entity.action.edit'" type="button" class="btn btn-warning" (click)="editImpotMensuelDetail(impotMensuelDetail, i)">

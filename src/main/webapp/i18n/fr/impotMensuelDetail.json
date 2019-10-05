@@ -18,7 +18,11 @@
             "code": "Code",
             "triOrdre": "Num",
             "libelle": "Libelle",
-            "taux": "Taux",
+            "valeur": "Valeur",
+            "typeValeur": "Type",
+            "typeValeurTaux": "Taux",
+            "typeValeurMontant": "Montant",
+            "valeurModifiable": "Modif.?",
             "description": "Description"
         }
     }

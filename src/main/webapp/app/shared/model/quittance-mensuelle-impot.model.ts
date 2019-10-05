@@ -1,5 +1,5 @@
 import {Moment} from 'moment';
-import {IQuittanceMensuelleImpotLine} from "app/shared/model/quittance-mensuelle-impot-line.model";
+import {IQuittanceMensuelleImpotDetail} from "app/shared/model/quittance-mensuelle-impot-detail.model";
 
 export const enum TypeDeclaration {
     DECLARATION_INITIALE = 'DECLARATION_INITIALE',
@@ -19,7 +19,7 @@ export interface IQuittanceMensuelleImpot {
     ficheClientMatriculeFiscale?: string;
     ficheClientRegistreCommerce?: string;
     ficheClientDateCreation?: Moment;
-    quittanceMensuelleImpotLines?: IQuittanceMensuelleImpotLine[];
+    quittanceMensuelleImpotDetails?: IQuittanceMensuelleImpotDetail[];
 }
 
 export class QuittanceMensuelleImpot implements IQuittanceMensuelleImpot {
@@ -36,7 +36,7 @@ export class QuittanceMensuelleImpot implements IQuittanceMensuelleImpot {
         public ficheClientMatriculeFiscale?: string,
         public ficheClientRegistreCommerce?: string,
         public ficheClientDateCreation?: Moment,
-        public quittanceMensuelleImpotLines?: IQuittanceMensuelleImpotLine[]
+        public quittanceMensuelleImpotDetails?: IQuittanceMensuelleImpotDetail[]
     ) {
     }
 }

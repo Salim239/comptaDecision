@@ -1,16 +1,22 @@
 package com.growup.comptadecision.service.dto;
 
 import com.growup.comptadecision.domain.enumeration.TypeCnss;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * A DTO for the Cnss entity.
  */
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class CnssDTO implements Serializable {
 
     private Long id;
@@ -146,28 +152,6 @@ public class CnssDTO implements Serializable {
         return cnss;
     }
 
-    @Override
-    public String toString() {
-        return "CnssDTO{" +
-                "id=" + id +
-                ", typeCnss=" + typeCnss +
-                ", annee=" + annee +
-                ", trimestre=" + trimestre +
-                ", date=" + date +
-                ", numeroQuittance='" + numeroQuittance + '\'' +
-                ", montantSalaireBrutNormal=" + montantSalaireBrutNormal +
-                ", montantSalaireBrutKarama=" + montantSalaireBrutKarama +
-                ", montantSalaireBrutAutre=" + montantSalaireBrutAutre +
-                ", montantTotal=" + montantTotal +
-                ", cnss=" + cnss +
-                ", ficheClientId=" + ficheClientId +
-                ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
-                ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +
-                ", ficheClientRegistreCommerce='" + ficheClientRegistreCommerce + '\'' +
-                ", ficheClientDateCreation=" + ficheClientDateCreation +
-                '}';
-    }
-
     public void setCnss(BigDecimal cnss) {
         this.cnss = cnss;
     }
@@ -194,27 +178,6 @@ public class CnssDTO implements Serializable {
 
     public void setTypeCnss(TypeCnss typeCnss) {
         this.typeCnss = typeCnss;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        CnssDTO cnssDTO = (CnssDTO) o;
-        if (cnssDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), cnssDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
     }
 
 }

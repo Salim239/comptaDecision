@@ -1,6 +1,6 @@
 {
     "comptaDecisionApp": {
-        "quittanceMensuelleImpotLine": {
+        "quittanceMensuelleImpotDetail": {
             "home": {
                 "title": "Quittance Mensuelle Impot Lines",
                 "createLabel": "Create a new Quittance Mensuelle Impot Line",
@@ -15,9 +15,17 @@
             "detail": {
                 "title": "Quittance Mensuelle Impot Line"
             },
-            "montantPaye": "Montant Paye",
-            "impotMensuelClient": "Impot Mensuel Client",
-            "quittanceMensuelleImpot": "Quittance Mensuelle Impot"
+            "id": "Id",
+            "quittanceMensuelleImpot": "Impot Mensuel Client",
+            "impotMensuelClient": "Quittance Mensuelle Impot",
+            "impotMensuelDetail": "Detail Impot Mensuel",
+            "impotMensuelDetailLibelle": "Impot",
+            "impotMensuelDetailValue": "Taux",
+            "impotMensuelDetailType": "Type Montant Impot",
+            "montantBase": "Base",
+            "impotMensuelValeur": "Impot",
+            "impotMensuelTypeValeur": "Type Montant Impot",
+            "montantTotal": "Total"
         }
     }
 }

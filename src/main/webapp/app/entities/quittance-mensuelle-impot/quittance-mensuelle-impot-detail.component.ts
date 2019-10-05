@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import { IQuittanceMensuelleImpot } from 'app/shared/model/quittance-mensuelle-impot.model';
-import {IQuittanceMensuelleImpotLine} from "app/shared/model/quittance-mensuelle-impot-line.model";
+import {IQuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
+import {IQuittanceMensuelleImpotDetail} from "app/shared/model/quittance-mensuelle-impot-detail.model";
 import * as _ from 'lodash';
 
 @Component({
@@ -11,7 +11,7 @@ import * as _ from 'lodash';
 })
 export class QuittanceMensuelleImpotDetailComponent implements OnInit {
     quittanceMensuelleImpot: IQuittanceMensuelleImpot;
-    quittanceMensuelleImpotApplicableLines: IQuittanceMensuelleImpotLine[];
+    quittanceMensuelleImpotApplicableLines: IQuittanceMensuelleImpotDetail[];
 
     constructor(protected activatedRoute: ActivatedRoute) {}
 
@@ -19,10 +19,10 @@ export class QuittanceMensuelleImpotDetailComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ quittanceMensuelleImpot }) => {
             this.quittanceMensuelleImpot = quittanceMensuelleImpot;
             this.quittanceMensuelleImpotApplicableLines =
-                _.filter(this.quittanceMensuelleImpot.quittanceMensuelleImpotLines, function (quittanceMensuelleImpotLine) {
-                    return quittanceMensuelleImpotLine.impotMensuelClient.applicable
+                _.filter(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function (quittanceMensuelleImpotDetail) {
+                    return quittanceMensuelleImpotDetail.impotMensuelClient.applicable
             });
-            this.quittanceMensuelleImpot.quittanceMensuelleImpotLines = this.quittanceMensuelleImpotApplicableLines;
+            this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails = this.quittanceMensuelleImpotApplicableLines;
         });
     }
 

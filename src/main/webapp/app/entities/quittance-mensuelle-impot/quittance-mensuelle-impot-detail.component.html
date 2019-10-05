@@ -42,13 +42,13 @@
             </dl>
 
             <br/>
-            <h3 jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotLine.detail.title">Quittance Mensuelle Impot Line</h3>
-            <div class="table-responsive" *ngIf="quittanceMensuelleImpot.quittanceMensuelleImpotLines.length > 0">
+            <h3 jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotDetail.detail.title">Quittance Mensuelle Impot Line</h3>
+            <div class="table-responsive" *ngIf="quittanceMensuelleImpot.quittanceMensuelleImpotDetails.length > 0">
                 <table class="table table-striped">
                     <tbody>
-                    <tr *ngFor="let quittanceMensuelleImpotLine of quittanceMensuelleImpot.quittanceMensuelleImpotLines">
-                        <td><span>{{quittanceMensuelleImpotLine.impotMensuelClient.impotMensuelLibelle}}</span></td>
-                        <td style="text-align: right"><span><strong>{{quittanceMensuelleImpotLine.montantPaye}}</strong></span></td>
+                    <tr *ngFor="let quittanceMensuelleImpotDetail of quittanceMensuelleImpot.quittanceMensuelleImpotDetails">
+                        <td><span>{{quittanceMensuelleImpotDetail.impotMensuelClient.impotMensuelLibelle}}</span></td>
+                        <td style="text-align: right"><span><strong>{{quittanceMensuelleImpotDetail.montantPaye}}</strong></span></td>
                     </tr>
                     </tbody>
                     <tfoot>

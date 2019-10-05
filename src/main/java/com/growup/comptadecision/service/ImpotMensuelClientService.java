@@ -1,7 +1,5 @@
 package com.growup.comptadecision.service;
 
-import com.growup.comptadecision.domain.FicheClient;
-import com.growup.comptadecision.domain.ImpotMensuel;
 import com.growup.comptadecision.domain.ImpotMensuelClient;
 import com.growup.comptadecision.repository.ImpotMensuelClientRepository;
 import com.growup.comptadecision.repository.ImpotMensuelRepository;
@@ -16,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,33 +32,10 @@ public class ImpotMensuelClientService {
 
     private final ImpotMensuelClientMapper impotMensuelClientMapper;
 
-    private final static Integer[] MOIS_EXERCICE_COMPTABLE = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-
     public ImpotMensuelClientService(ImpotMensuelClientRepository impotMensuelClientRepository, ImpotMensuelRepository impotMensuelRepository, ImpotMensuelClientMapper impotMensuelClientMapper) {
         this.impotMensuelClientRepository = impotMensuelClientRepository;
         this.impotMensuelRepository = impotMensuelRepository;
         this.impotMensuelClientMapper = impotMensuelClientMapper;
-    }
-
-    @Transactional(readOnly = true)
-    public List<ImpotMensuelClient> initAllByFicheClient(FicheClient ficheClient) {
-        log.debug("Request to init empty list impotMensuelClient for ficheClient {}", ficheClient);
-        List<ImpotMensuelClient> impotMensuelClients = new ArrayList<>();
-        if (ficheClient.getImpotMensuelClients().isEmpty()) {
-            List<ImpotMensuel> impotMensuels = impotMensuelRepository.findAll();
-            impotMensuels.forEach(impotMensuel -> {                ;
-                for (Integer mois : MOIS_EXERCICE_COMPTABLE) {
-                    ImpotMensuelClient impotMensuelClient = new ImpotMensuelClient();
-                    impotMensuelClient.setFicheClient(ficheClient);
-                    impotMensuelClient.setImpotMensuel(impotMensuel);
-                    impotMensuelClient.setApplicable(false);
-                    impotMensuelClients.add(impotMensuelClient);
-                }
-            });
-            return impotMensuelClients;
-        } else {
-            return ficheClient.getImpotMensuelClients();
-        }
     }
 
     /**

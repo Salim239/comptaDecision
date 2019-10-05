@@ -54,11 +54,11 @@
                     </div>
                 </div>
 
-                <div  class="form-group" *ngFor="let quittanceMensuelleImpotLine of quittanceMensuelleImpot.quittanceMensuelleImpotLines">
-                    <div *ngIf="quittanceMensuelleImpotLine.impotMensuelClient.applicable" class="form-group">
-                    <label class="form-control-label">{{quittanceMensuelleImpotLine.impotMensuelClient.impotMensuelLibelle}}</label>
-                    <input (change)="calculateSumMontantPaye()" type="number" class="form-control" id="field_{{quittanceMensuelleImpotLine.impotMensuelClient.impotMensuelId}}_montantPaye" name="{{quittanceMensuelleImpotLine.impotMensuelClient.impotMensuelId}}_montantPaye" [readOnly]="!quittanceMensuelleImpotLine.impotMensuelClient.applicable"
-                           [(ngModel)]="quittanceMensuelleImpotLine.montantPaye" />
+                <div  class="form-group" *ngFor="let quittanceMensuelleImpotDetail of quittanceMensuelleImpot.quittanceMensuelleImpotDetails">
+                    <div *ngIf="quittanceMensuelleImpotDetail.impotMensuelClient.applicable" class="form-group">
+                    <label class="form-control-label">{{quittanceMensuelleImpotDetail.impotMensuelClient.impotMensuelLibelle}}</label>
+                    <input (change)="calculateSumMontantPaye()" type="number" class="form-control" id="field_{{quittanceMensuelleImpotDetail.impotMensuelClient.impotMensuelId}}_montantPaye" name="{{quittanceMensuelleImpotDetail.impotMensuelClient.impotMensuelId}}_montantPaye" [readOnly]="!quittanceMensuelleImpotDetail.impotMensuelClient.applicable"
+                           [(ngModel)]="quittanceMensuelleImpotDetail.montantPaye" />
                     </div>
                 </div>
 

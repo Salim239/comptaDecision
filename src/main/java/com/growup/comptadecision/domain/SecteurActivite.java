@@ -1,14 +1,14 @@
 package com.growup.comptadecision.domain;
 
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
-import java.util.Objects;
+import javax.validation.constraints.NotNull;
 
 /**
  * A SecteurActivite.
@@ -16,6 +16,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "secteur_activite")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@EqualsAndHashCode
+@Builder
+@ToString
 public class SecteurActivite extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
@@ -83,35 +86,5 @@ public class SecteurActivite extends AbstractAuditingEntity {
     public void setDescription(String description) {
         this.description = description;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SecteurActivite secteurActivite = (SecteurActivite) o;
-        if (secteurActivite.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), secteurActivite.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "SecteurActivite{" +
-            "id=" + getId() +
-            ", code='" + getCode() + "'" +
-            ", libelle='" + getLibelle() + "'" +
-            ", description='" + getDescription() + "'" +
-            "}";
-    }
 }

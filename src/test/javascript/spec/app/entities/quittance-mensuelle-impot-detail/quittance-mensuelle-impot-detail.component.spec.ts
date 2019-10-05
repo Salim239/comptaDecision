@@ -1,24 +1,24 @@
 /* tslint:disable max-line-length */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable, of } from 'rxjs';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Data } from '@angular/router';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {of} from 'rxjs';
+import {HttpHeaders, HttpResponse} from '@angular/common/http';
+import {ActivatedRoute, Data} from '@angular/router';
 
-import { ComptaDecisionTestModule } from '../../../test.module';
-import { QuittanceMensuelleImpotLineComponent } from 'app/entities/quittance-mensuelle-impot-line/quittance-mensuelle-impot-line.component';
-import { QuittanceMensuelleImpotLineService } from 'app/entities/quittance-mensuelle-impot-line/quittance-mensuelle-impot-line.service';
-import { QuittanceMensuelleImpotLine } from 'app/shared/model/quittance-mensuelle-impot-line.model';
+import {ComptaDecisionTestModule} from '../../../test.module';
+import {QuittanceMensuelleImpotDetailComponent} from 'app/entities/quittance-mensuelle-impot-detail/quittance-mensuelle-impot-detail.component';
+import {QuittanceMensuelleImpotDetailService} from 'app/entities/quittance-mensuelle-impot-detail/quittance-mensuelle-impot-detail.service';
+import {QuittanceMensuelleImpotDetail} from 'app/shared/model/quittance-mensuelle-impot-detail.model';
 
 describe('Component Tests', () => {
-    describe('QuittanceMensuelleImpotLine Management Component', () => {
-        let comp: QuittanceMensuelleImpotLineComponent;
-        let fixture: ComponentFixture<QuittanceMensuelleImpotLineComponent>;
-        let service: QuittanceMensuelleImpotLineService;
+    describe('QuittanceMensuelleImpotDetail Management Component', () => {
+        let comp: QuittanceMensuelleImpotDetailComponent;
+        let fixture: ComponentFixture<QuittanceMensuelleImpotDetailComponent>;
+        let service: QuittanceMensuelleImpotDetailService;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [ComptaDecisionTestModule],
-                declarations: [QuittanceMensuelleImpotLineComponent],
+                declarations: [QuittanceMensuelleImpotDetailComponent],
                 providers: [
                     {
                         provide: ActivatedRoute,
@@ -37,12 +37,12 @@ describe('Component Tests', () => {
                     }
                 ]
             })
-                .overrideTemplate(QuittanceMensuelleImpotLineComponent, '')
+                .overrideTemplate(QuittanceMensuelleImpotDetailComponent, '')
                 .compileComponents();
 
-            fixture = TestBed.createComponent(QuittanceMensuelleImpotLineComponent);
+            fixture = TestBed.createComponent(QuittanceMensuelleImpotDetailComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(QuittanceMensuelleImpotLineService);
+            service = fixture.debugElement.injector.get(QuittanceMensuelleImpotDetailService);
         });
 
         it('Should call load all on init', () => {
@@ -51,7 +51,7 @@ describe('Component Tests', () => {
             spyOn(service, 'query').and.returnValue(
                 of(
                     new HttpResponse({
-                        body: [new QuittanceMensuelleImpotLine(123)],
+                        body: [new QuittanceMensuelleImpotDetail(123)],
                         headers
                     })
                 )
@@ -62,7 +62,7 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.query).toHaveBeenCalled();
-            expect(comp.quittanceMensuelleImpotLines[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+            expect(comp.quittanceMensuelleImpotDetails[0]).toEqual(jasmine.objectContaining({ id: 123 }));
         });
 
         it('should load a page', () => {
@@ -71,7 +71,7 @@ describe('Component Tests', () => {
             spyOn(service, 'query').and.returnValue(
                 of(
                     new HttpResponse({
-                        body: [new QuittanceMensuelleImpotLine(123)],
+                        body: [new QuittanceMensuelleImpotDetail(123)],
                         headers
                     })
                 )
@@ -82,7 +82,7 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.query).toHaveBeenCalled();
-            expect(comp.quittanceMensuelleImpotLines[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+            expect(comp.quittanceMensuelleImpotDetails[0]).toEqual(jasmine.objectContaining({ id: 123 }));
         });
 
         it('should not load a page is the page is the same as the previous page', () => {
@@ -101,7 +101,7 @@ describe('Component Tests', () => {
             spyOn(service, 'query').and.returnValue(
                 of(
                     new HttpResponse({
-                        body: [new QuittanceMensuelleImpotLine(123)],
+                        body: [new QuittanceMensuelleImpotDetail(123)],
                         headers
                     })
                 )
@@ -114,7 +114,7 @@ describe('Component Tests', () => {
             // THEN
             expect(comp.page).toEqual(0);
             expect(service.query).toHaveBeenCalledTimes(2);
-            expect(comp.quittanceMensuelleImpotLines[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+            expect(comp.quittanceMensuelleImpotDetails[0]).toEqual(jasmine.objectContaining({ id: 123 }));
         });
         it('should calculate the sort attribute for an id', () => {
             // WHEN

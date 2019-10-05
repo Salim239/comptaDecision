@@ -1,13 +1,21 @@
 package com.growup.comptadecision.service.dto;
-import javax.validation.constraints.*;
+
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * A DTO for the DeclarationEmployeurAnnuelle entity.
  */
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class DeclarationEmployeurAnnuelleDTO implements Serializable {
 
     private Long id;
@@ -184,31 +192,6 @@ public class DeclarationEmployeurAnnuelleDTO implements Serializable {
         this.montantAnnexe12 = montantAnnexe12;
     }
 
-    @Override
-    public String toString() {
-        return "DeclarationEmployeurAnnuelleDTO{" +
-                "id=" + id +
-                ", annee=" + annee +
-                ", montantAnnexe1=" + montantAnnexe1 +
-                ", montantAnnexe2=" + montantAnnexe2 +
-                ", montantAnnexe3=" + montantAnnexe3 +
-                ", montantAnnexe4=" + montantAnnexe4 +
-                ", montantAnnexe5=" + montantAnnexe5 +
-                ", montantAnnexe6=" + montantAnnexe6 +
-                ", montantAnnexe7=" + montantAnnexe7 +
-                ", montantAnnexe8=" + montantAnnexe8 +
-                ", montantAnnexe9=" + montantAnnexe9 +
-                ", montantAnnexe10=" + montantAnnexe10 +
-                ", montantAnnexe11=" + montantAnnexe11 +
-                ", montantAnnexe12=" + montantAnnexe12 +
-                ", ficheClientId=" + ficheClientId +
-                ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
-                ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +
-                ", ficheClientRegistreCommerce='" + ficheClientRegistreCommerce + '\'' +
-                ", ficheClientDateCreation=" + ficheClientDateCreation +
-                '}';
-    }
-
     public Long getFicheClientId() {
         return ficheClientId;
     }
@@ -223,27 +206,6 @@ public class DeclarationEmployeurAnnuelleDTO implements Serializable {
 
     public void setFicheClientDateCreation(LocalDate ficheClientDateCreation) {
         this.ficheClientDateCreation = ficheClientDateCreation;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        DeclarationEmployeurAnnuelleDTO declarationEmployeurAnnuelleDTO = (DeclarationEmployeurAnnuelleDTO) o;
-        if (declarationEmployeurAnnuelleDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), declarationEmployeurAnnuelleDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
     }
 
 }

@@ -1,8 +1,9 @@
 package com.growup.comptadecision.domain;
 
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,6 +18,9 @@ import java.util.List;
 @Entity
 @Table(name = "impot_mensuel")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@EqualsAndHashCode
+@Builder
+@ToString
 public class ImpotMensuel extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
@@ -79,20 +83,6 @@ public class ImpotMensuel extends AbstractAuditingEntity {
 
     public void setParent(Boolean parent) {
         this.parent = parent;
-    }
-
-    @Override
-    public String toString() {
-        return "ImpotMensuel{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", libelle='" + libelle + '\'' +
-                ", description='" + description + '\'' +
-                ", parent=" + parent +
-                ", child=" + child +
-                ", impotMensuelDetails=" + impotMensuelDetails +
-                ", parentImpotMensuel=" + parentImpotMensuel +
-                '}';
     }
 
     public Boolean getChild() {
@@ -158,25 +148,4 @@ public class ImpotMensuel extends AbstractAuditingEntity {
     public void setParentImpotMensuel(ImpotMensuel parentImpotMensuel) {
         this.parentImpotMensuel = parentImpotMensuel;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ImpotMensuel that = (ImpotMensuel) o;
-
-        return new EqualsBuilder()
-                .append(id, that.id)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(id)
-                .toHashCode();
-    }
-
 }

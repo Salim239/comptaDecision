@@ -3,15 +3,16 @@ package com.growup.comptadecision.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * A DeclarationAnnuelle.
@@ -19,6 +20,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "declaration_annuelle")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@EqualsAndHashCode
+@Builder
+@ToString
 public class DeclarationAnnuelle extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
@@ -282,29 +286,6 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "DeclarationAnnuelle{" +
-                "id=" + id +
-                ", typeDeclaration=" + typeDeclaration +
-                ", annee=" + annee +
-                ", datePaiement=" + datePaiement +
-                ", numeroQuittance='" + numeroQuittance + '\'' +
-                ", montantChiffreAffaireHT=" + montantChiffreAffaireHT +
-                ", montantChiffreAffaireExport=" + montantChiffreAffaireExport +
-                ", montantChiffreAffaireLocal=" + montantChiffreAffaireLocal +
-                ", montantChiffreAffaireTTC=" + montantChiffreAffaireTTC +
-                ", montantResultatComptable=" + montantResultatComptable +
-                ", montantResultatFiscal=" + montantResultatFiscal +
-                ", montantAutreDeduction=" + montantAutreDeduction +
-                ", montantBaseImposable=" + montantBaseImposable +
-                ", montantImpotLiquide=" + montantImpotLiquide +
-                ", montantAcompteProvisionnel=" + montantAcompteProvisionnel +
-                ", montantRetenueSource=" + montantRetenueSource +
-                ", montantNetAPaye=" + montantNetAPaye +
-                ", ficheClient=" + ficheClient +
-                '}';
-    }
 
     public void setMontantNetAPaye(BigDecimal montantNetAPaye) {
         this.montantNetAPaye = montantNetAPaye;
@@ -331,25 +312,5 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
         this.ficheClient = ficheClient;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        DeclarationAnnuelle declarationAnnuelle = (DeclarationAnnuelle) o;
-        if (declarationAnnuelle.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), declarationAnnuelle.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
 
 }

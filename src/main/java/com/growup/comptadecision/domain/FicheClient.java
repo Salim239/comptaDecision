@@ -2,19 +2,18 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.growup.comptadecision.domain.enumeration.CategorieClient;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import com.growup.comptadecision.domain.enumeration.CategorieClient;
 
 /**
  * A FicheClient.
@@ -22,6 +21,9 @@ import com.growup.comptadecision.domain.enumeration.CategorieClient;
 @Entity
 @Table(name = "fiche_client")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@EqualsAndHashCode
+@Builder
+@ToString
 public class FicheClient extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
@@ -410,46 +412,4 @@ public class FicheClient extends AbstractAuditingEntity {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        FicheClient ficheClient = (FicheClient) o;
-        if (ficheClient.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), ficheClient.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "FicheClient{" +
-            "id=" + getId() +
-            ", categorieClient='" + getCategorieClient() + "'" +
-            ", designation='" + getDesignation() + "'" +
-            ", logo='" + getLogo() + "'" +
-            ", logoContentType='" + getLogoContentType() + "'" +
-            ", adresse='" + getAdresse() + "'" +
-            ", codePostal='" + getCodePostal() + "'" +
-            ", telephone='" + getTelephone() + "'" +
-            ", fax='" + getFax() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", matriculeFiscale='" + getMatriculeFiscale() + "'" +
-            ", registreCommerce='" + getRegistreCommerce() + "'" +
-            ", dateCreation='" + getDateCreation() + "'" +
-            ", cnssEmployeur='" + getCnssEmployeur() + "'" +
-            ", cnssGerant='" + getCnssGerant() + "'" +
-            ", fichierPatente='" + getFichierPatente() + "'" +
-            ", fichierPatenteContentType='" + getFichierPatenteContentType() + "'" +
-            "}";
-    }
 }

@@ -2,14 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
 import * as moment from 'moment';
 import {JhiAlertService} from 'ng-jhipster';
-import {
-    IQuittanceMensuelleImpot,
-    QuittanceMensuelleImpot,
-    TypeDeclaration
-} from 'app/shared/model/quittance-mensuelle-impot.model';
+import {IQuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
 import {QuittanceMensuelleImpotService} from './quittance-mensuelle-impot.service';
 import {IFicheClient} from 'app/shared/model/fiche-client.model';
 import {FicheClientService} from 'app/entities/fiche-client';
@@ -42,28 +37,32 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         this.isSaving = false;
         this.currentYear = moment().year();
         this.currentMonth = moment().month();
-        this.activatedRoute.data.subscribe(({quittanceMensuelleImpot, ficheClients}) => {
-
+        this.activatedRoute.data.subscribe(({ quittanceMensuelleImpot, ficheClients }) => {
             this.quittanceMensuelleImpot = quittanceMensuelleImpot;
-            this.ficheclients = ficheClients;
-            if (!this.quittanceMensuelleImpot.id) {
-                if (this.ficheclients.length > 0) {
-                    this.quittanceMensuelleImpot.ficheClientId = this.ficheclients[0].id;
-                    this.quittanceMensuelleImpot.ficheClientDateCreation = this.ficheclients[0].dateCreation;
-                    this.quittanceMensuelleImpot.ficheClientDesignation = this.ficheclients[0].designation;
-                    this.quittanceMensuelleImpot.ficheClientMatriculeFiscale = this.ficheclients[0].matriculeFiscale;
-                    this.quittanceMensuelleImpot.ficheClientRegistreCommerce = this.ficheclients[0].registreCommerce;
-                }
-
-                this.quittanceMensuelleImpot.typeDeclaration = TypeDeclaration.DECLARATION_INITIALE;
-                this.quittanceMensuelleImpot.annee = this.currentYear;
-                this.quittanceMensuelleImpot.annee = this.currentYear;
-                this.quittanceMensuelleImpot.mois = this.currentMonth + 1;
-                this.initByParams();
-            }
-                this.calculateSumMontantPaye();
-            this.getAnnesDeclaration();
+                this.ficheclients = ficheClients;
         });
+        // this.activatedRoute.data.subscribe(({quittanceMensuelleImpot, ficheClients}) => {
+        //
+        //     this.quittanceMensuelleImpot = quittanceMensuelleImpot;
+        //     this.ficheclients = ficheClients;
+        //     if (!this.quittanceMensuelleImpot.id) {
+        //         if (this.ficheclients.length > 0) {
+        //             this.quittanceMensuelleImpot.ficheClientId = this.ficheclients[0].id;
+        //             this.quittanceMensuelleImpot.ficheClientDateCreation = this.ficheclients[0].dateCreation;
+        //             this.quittanceMensuelleImpot.ficheClientDesignation = this.ficheclients[0].designation;
+        //             this.quittanceMensuelleImpot.ficheClientMatriculeFiscale = this.ficheclients[0].matriculeFiscale;
+        //             this.quittanceMensuelleImpot.ficheClientRegistreCommerce = this.ficheclients[0].registreCommerce;
+        //         }
+        //
+        //         this.quittanceMensuelleImpot.typeDeclaration = TypeDeclaration.DECLARATION_INITIALE;
+        //         this.quittanceMensuelleImpot.annee = this.currentYear;
+        //         this.quittanceMensuelleImpot.annee = this.currentYear;
+        //         this.quittanceMensuelleImpot.mois = this.currentMonth + 1;
+        //         // this.initByParams();
+        //     }
+        //         this.calculateSumMontantPaye();
+        //     this.getAnnesDeclaration();
+        // });
     }
 
     private getAnnesDeclaration() {
@@ -88,8 +87,8 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
      * Recalculer la somme du montant de la quittance à chaque fois que le montant qu'un impot change
      */
     calculateSumMontantPaye() {
-        this.quittanceMensuelleImpot.montantPaye = this.quittanceMensuelleImpot.quittanceMensuelleImpotLines
-            .map(quittanceMensuelleImpotLine => quittanceMensuelleImpotLine.montantPaye).reduce(this.getSum);
+        this.quittanceMensuelleImpot.montantPaye = this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails
+            .map(quittanceMensuelleImpotDetail => quittanceMensuelleImpotDetail.montantTotal).reduce(this.getSum);
     }
 
     previousState() {
@@ -106,27 +105,27 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         }
     }
 
-    initByParams() {
-        let anneeSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.annee : undefined;
-        let moisSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.mois : undefined;
-        let typeDeclarationSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.typeDeclaration : undefined;
-        this.getAnnesDeclaration();
-        if(this.quittanceMensuelleImpot.ficheClientId !== undefined && this.quittanceMensuelleImpot.mois !== undefined &&
-            this.quittanceMensuelleImpot.ficheClientId !== null && this.quittanceMensuelleImpot.mois !== null) {
-            this.quittanceMensuelleImpotService.initByParams(this.quittanceMensuelleImpot.ficheClientId, this.quittanceMensuelleImpot.mois)
-                .pipe(
-                    filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
-                    map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
-                )
-                .subscribe((res: QuittanceMensuelleImpot) => {
-                    this.quittanceMensuelleImpot = res;
-                    this.quittanceMensuelleImpot.annee = anneeSelected;
-                    this.quittanceMensuelleImpot.mois = moisSelected;
-                    this.quittanceMensuelleImpot.typeDeclaration = typeDeclarationSelected;
-                    this.calculateSumMontantPaye();
-                    }, (res: HttpErrorResponse) => this.onError(res.message));
-        }
-    }
+    // initByParams() {
+    //     let anneeSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.annee : undefined;
+    //     let moisSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.mois : undefined;
+    //     let typeDeclarationSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.typeDeclaration : undefined;
+    //     this.getAnnesDeclaration();
+    //     if(this.quittanceMensuelleImpot.ficheClientId !== undefined && this.quittanceMensuelleImpot.mois !== undefined &&
+    //         this.quittanceMensuelleImpot.ficheClientId !== null && this.quittanceMensuelleImpot.mois !== null) {
+    //         this.quittanceMensuelleImpotService.initByParams(this.quittanceMensuelleImpot.ficheClientId, this.quittanceMensuelleImpot.mois)
+    //             .pipe(
+    //                 filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
+    //                 map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
+    //             )
+    //             .subscribe((res: QuittanceMensuelleImpot) => {
+    //                 this.quittanceMensuelleImpot = res;
+    //                 this.quittanceMensuelleImpot.annee = anneeSelected;
+    //                 this.quittanceMensuelleImpot.mois = moisSelected;
+    //                 this.quittanceMensuelleImpot.typeDeclaration = typeDeclarationSelected;
+    //                 this.calculateSumMontantPaye();
+    //                 }, (res: HttpErrorResponse) => this.onError(res.message));
+    //     }
+    // }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<IQuittanceMensuelleImpot>>) {
         result.subscribe(

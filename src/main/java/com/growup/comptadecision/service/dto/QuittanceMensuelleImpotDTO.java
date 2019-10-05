@@ -1,18 +1,24 @@
 package com.growup.comptadecision.service.dto;
-import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 
-import java.time.LocalDate;
-import javax.validation.constraints.*;
+import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A DTO for the QuittanceMensuelleImpot entity.
  */
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class QuittanceMensuelleImpotDTO implements Serializable {
 
     private Long id;
@@ -32,15 +38,25 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
 
     private BigDecimal montantPaye;
 
-    private List<QuittanceMensuelleImpotLineDTO> quittanceMensuelleImpotLines = new ArrayList<QuittanceMensuelleImpotLineDTO>();
-
-
     private Long ficheClientId;
 
     private String ficheClientDesignation;
     private String ficheClientMatriculeFiscale;
     private String ficheClientRegistreCommerce;
     private LocalDate ficheClientDateCreation;
+
+    private Float valeurImpot;
+
+    private List<QuittanceMensuelleImpotDetailDTO> quittanceMensuelleImpotDetails = new ArrayList<QuittanceMensuelleImpotDetailDTO>();
+
+    public Float getValeurImpot() {
+        return valeurImpot;
+    }
+
+    public void setValeurImpot(Float valeurImpot) {
+        this.valeurImpot = valeurImpot;
+    }
+
 
     public String getFicheClientDesignation() {
         return ficheClientDesignation;
@@ -123,35 +139,16 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
         this.ficheClientId = ficheClientId;
     }
 
-    public List<QuittanceMensuelleImpotLineDTO> getQuittanceMensuelleImpotLines() {
-        return quittanceMensuelleImpotLines;
+    public List<QuittanceMensuelleImpotDetailDTO> getQuittanceMensuelleImpotDetails() {
+        return quittanceMensuelleImpotDetails;
     }
 
-    public void setQuittanceMensuelleImpotLines(List<QuittanceMensuelleImpotLineDTO> quittanceMensuelleImpotLines) {
-        this.quittanceMensuelleImpotLines = quittanceMensuelleImpotLines;
+    public void setQuittanceMensuelleImpotDetails(List<QuittanceMensuelleImpotDetailDTO> quittanceMensuelleImpotDetails) {
+        this.quittanceMensuelleImpotDetails = quittanceMensuelleImpotDetails;
     }
 
     public TypeDeclaration getTypeDeclaration() {
         return typeDeclaration;
-    }
-
-    @Override
-    public String toString() {
-        return "QuittanceMensuelleImpotDTO{" +
-                "id=" + id +
-                ", annee=" + annee +
-                ", mois=" + mois +
-                ", typeDeclaration=" + typeDeclaration +
-                ", numeroQuittance='" + numeroQuittance + '\'' +
-                ", datePaiement=" + datePaiement +
-                ", montantPaye=" + montantPaye +
-                ", quittanceMensuelleImpotLines=" + quittanceMensuelleImpotLines +
-                ", ficheClientId=" + ficheClientId +
-                ", ficheClientDesignation='" + ficheClientDesignation + '\'' +
-                ", ficheClientMatriculeFiscale='" + ficheClientMatriculeFiscale + '\'' +
-                ", ficheClientRegistreCommerce='" + ficheClientRegistreCommerce + '\'' +
-                ", ficheClientDateCreation=" + ficheClientDateCreation +
-                '}';
     }
 
     public void setTypeDeclaration(TypeDeclaration typeDeclaration) {
@@ -164,27 +161,6 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
 
     public void setFicheClientDateCreation(LocalDate ficheClientDateCreation) {
         this.ficheClientDateCreation = ficheClientDateCreation;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = (QuittanceMensuelleImpotDTO) o;
-        if (quittanceMensuelleImpotDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), quittanceMensuelleImpotDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
     }
 
 }

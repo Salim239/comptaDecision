@@ -1,14 +1,14 @@
 package com.growup.comptadecision.service;
 
+import com.growup.comptadecision.domain.ImpotMensuelClient;
 import com.growup.comptadecision.domain.QuittanceMensuelleImpot;
-import com.growup.comptadecision.domain.QuittanceMensuelleImpotLine;
+import com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail;
+import com.growup.comptadecision.repository.ImpotMensuelClientRepository;
+import com.growup.comptadecision.repository.ImpotMensuelDetailRepository;
 import com.growup.comptadecision.repository.QuittanceMensuelleImpotRepository;
 import com.growup.comptadecision.security.SecurityUtils;
-import com.growup.comptadecision.service.dto.ImpotMensuelClientDTO;
-import com.growup.comptadecision.service.dto.ImpotMensuelDTO;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
-import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotLineDTO;
-import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotLineMapper;
+import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotDetailMapper;
 import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,24 +33,39 @@ public class QuittanceMensuelleImpotService {
 
     private final QuittanceMensuelleImpotRepository quittanceMensuelleImpotRepository;
 
-    private final ImpotMensuelClientService impotMensuelClientService;
+    private final ImpotMensuelClientRepository impotMensuelClientRepository;
 
     private final ImpotMensuelService impotMensuelService;
 
+    private final ImpotMensuelDetailRepository impotMensuelDetailRepository;
+
     private final QuittanceMensuelleImpotMapper quittanceMensuelleImpotMapper;
 
-    private final QuittanceMensuelleImpotLineMapper quittanceMensuelleImpotLineMapper;
+    private final QuittanceMensuelleImpotDetailMapper quittanceMensuelleImpotDetailMapper;
 
     public QuittanceMensuelleImpotService(QuittanceMensuelleImpotRepository quittanceMensuelleImpotRepository,
                                           QuittanceMensuelleImpotMapper quittanceMensuelleImpotMapper,
-                                          ImpotMensuelClientService impotMensuelClientService,
+                                          ImpotMensuelClientRepository impotMensuelClientRepository,
                                           ImpotMensuelService impotMensuelService,
-                                          QuittanceMensuelleImpotLineMapper quittanceMensuelleImpotLineMapper) {
+                                          QuittanceMensuelleImpotDetailMapper quittanceMensuelleImpotDetailMapper,
+                                          ImpotMensuelDetailRepository impotMensuelDetailRepository) {
         this.quittanceMensuelleImpotRepository = quittanceMensuelleImpotRepository;
         this.quittanceMensuelleImpotMapper = quittanceMensuelleImpotMapper;
-        this.quittanceMensuelleImpotLineMapper = quittanceMensuelleImpotLineMapper;
-        this.impotMensuelClientService = impotMensuelClientService;
+        this.quittanceMensuelleImpotDetailMapper = quittanceMensuelleImpotDetailMapper;
+        this.impotMensuelClientRepository = impotMensuelClientRepository;
+        this.impotMensuelDetailRepository = impotMensuelDetailRepository;
         this.impotMensuelService = impotMensuelService;
+    }
+
+    public QuittanceMensuelleImpotDTO getEmptyQuittanceMensuel(Long ficheClientId) {
+        QuittanceMensuelleImpot quittanceMensuelleImpot = new QuittanceMensuelleImpot();
+        List<ImpotMensuelClient> impotMensuelClients = impotMensuelClientRepository.findByFicheClientId(ficheClientId);
+        List<QuittanceMensuelleImpotDetail> quittanceMensuelleImpotDetails = impotMensuelClients.stream()
+                .flatMap(impotMensuelClient -> impotMensuelClient.getImpotMensuel().getImpotMensuelDetails().stream()
+                        .map(impotMensuelDetail -> new QuittanceMensuelleImpotDetail(quittanceMensuelleImpot, impotMensuelClient, impotMensuelDetail)))
+                .collect(Collectors.toList());
+        quittanceMensuelleImpot.setQuittanceMensuelleImpotDetails(quittanceMensuelleImpotDetails);
+        return quittanceMensuelleImpotMapper.toDto(quittanceMensuelleImpot);
     }
 
     /**
@@ -63,13 +77,6 @@ public class QuittanceMensuelleImpotService {
     public QuittanceMensuelleImpotDTO save(QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO) {
         log.debug("Request to save QuittanceMensuelleImpot : {}", quittanceMensuelleImpotDTO);
         QuittanceMensuelleImpot quittanceMensuelleImpot = quittanceMensuelleImpotMapper.toEntity(quittanceMensuelleImpotDTO);
-        quittanceMensuelleImpot.getQuittanceMensuelleImpotLines().clear();
-        for (QuittanceMensuelleImpotLineDTO quittanceMensuelleImpotLine : quittanceMensuelleImpotDTO.getQuittanceMensuelleImpotLines()) {
-            quittanceMensuelleImpot.addQuittanceMensuelleImpotLine( quittanceMensuelleImpotLineMapper.toEntity( quittanceMensuelleImpotLine ))  ;
-        }
-        quittanceMensuelleImpot.setMontantPaye(quittanceMensuelleImpot.getQuittanceMensuelleImpotLines()
-                .stream().map(QuittanceMensuelleImpotLine::getMontantPaye)
-                        .reduce(BigDecimal.ZERO, BigDecimal::add));
         quittanceMensuelleImpot = quittanceMensuelleImpotRepository.save(quittanceMensuelleImpot);
         return quittanceMensuelleImpotMapper.toDto(quittanceMensuelleImpot);
     }
@@ -100,46 +107,6 @@ public class QuittanceMensuelleImpotService {
         log.debug("Request to get QuittanceMensuelleImpot : {}", id);
         return quittanceMensuelleImpotRepository.findById(id)
             .map(quittanceMensuelleImpotMapper::toDto);
-    }
-
-//    public QuittanceMensuelleImpotDTO initByParams(Long ficheClientId, Integer mois) {
-//
-//        log.debug("REST to init QuittanceMensuelleImpot de la fiche client : {}, pour le mois {}", ficheClientId, mois);
-//        List<ImpotMensuelClientDTO> impotMensuelClientDTOs = impotMensuelClientService.findByFicheClientIdAndMois(ficheClientId, mois);
-//        List<QuittanceMensuelleImpotLineDTO> quittanceMensuelleImpotLineDTOs = impotMensuelClientDTOs.stream().map(impotMensuelClientDTO -> {
-//            QuittanceMensuelleImpotLineDTO quittanceMensuelleImpotLineDTO = new QuittanceMensuelleImpotLineDTO();
-//            quittanceMensuelleImpotLineDTO.setImpotMensuelClient(impotMensuelClientDTO);
-//            quittanceMensuelleImpotLineDTO.setMontantPaye(BigDecimal.ZERO);
-//            return quittanceMensuelleImpotLineDTO;
-//        }).collect(Collectors.toList());
-//
-//        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = new QuittanceMensuelleImpotDTO();
-//        quittanceMensuelleImpotDTO.setQuittanceMensuelleImpotLines(quittanceMensuelleImpotLineDTOs);
-//        quittanceMensuelleImpotDTO.setMois(mois);
-//        quittanceMensuelleImpotDTO.setFicheClientId(ficheClientId);
-//        return quittanceMensuelleImpotDTO;
-//    }
-
-    public QuittanceMensuelleImpotDTO init() {
-
-        log.debug("REST to init empty QuittanceMensuelleImpot");
-
-        List<ImpotMensuelDTO> impotMensuelDTOs = impotMensuelService.findAll();
-        List<QuittanceMensuelleImpotLineDTO> quittanceMensuelleImpotLineDTOs = impotMensuelDTOs.stream().map(impotMensuelDTO -> {
-            QuittanceMensuelleImpotLineDTO quittanceMensuelleImpotLineDTO = new QuittanceMensuelleImpotLineDTO();
-            ImpotMensuelClientDTO impotMensuelClientDTO = new ImpotMensuelClientDTO();
-            impotMensuelClientDTO.setApplicable(true);
-            impotMensuelClientDTO.setImpotMensuelId(impotMensuelDTO.getId());
-            impotMensuelClientDTO.setImpotMensuelDescription(impotMensuelDTO.getDescription());
-            impotMensuelClientDTO.setImpotMensuelLibelle(impotMensuelDTO.getLibelle());
-            quittanceMensuelleImpotLineDTO.setMontantPaye(BigDecimal.ZERO);
-            quittanceMensuelleImpotLineDTO.setImpotMensuelClient(impotMensuelClientDTO);
-            return quittanceMensuelleImpotLineDTO;
-        }).collect(Collectors.toList());
-
-        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = new QuittanceMensuelleImpotDTO();
-        quittanceMensuelleImpotDTO.setQuittanceMensuelleImpotLines(quittanceMensuelleImpotLineDTOs);
-        return quittanceMensuelleImpotDTO;
     }
 
     /**

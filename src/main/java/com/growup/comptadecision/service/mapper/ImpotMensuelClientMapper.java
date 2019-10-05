@@ -1,14 +1,14 @@
 package com.growup.comptadecision.service.mapper;
 
-import com.growup.comptadecision.domain.*;
+import com.growup.comptadecision.domain.ImpotMensuelClient;
 import com.growup.comptadecision.service.dto.ImpotMensuelClientDTO;
-
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /**
  * Mapper for the entity ImpotMensuelClient and its DTO ImpotMensuelClientDTO.
  */
-@Mapper(componentModel = "spring", uses = {FicheClientMapper.class, ImpotMensuelMapper.class, QuittanceMensuelleImpotLineMapper.class})
+@Mapper(componentModel = "spring", uses = {FicheClientMapper.class, ImpotMensuelMapper.class, QuittanceMensuelleImpotDetailMapper.class})
 public interface ImpotMensuelClientMapper extends EntityMapper<ImpotMensuelClientDTO, ImpotMensuelClient> {
 
     @Mapping(source = "ficheClient.id", target = "ficheClientId")

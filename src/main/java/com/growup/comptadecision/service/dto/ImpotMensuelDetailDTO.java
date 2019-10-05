@@ -1,12 +1,21 @@
 package com.growup.comptadecision.service.dto;
 
+import com.growup.comptadecision.domain.enumeration.TypeValeur;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A DTO for the ImpotMensuel entity.
  */
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class ImpotMensuelDetailDTO implements Serializable {
 
     private Long id;
@@ -17,7 +26,12 @@ public class ImpotMensuelDetailDTO implements Serializable {
     @NotNull
     private String code;
 
-    private Float taux;
+    private Float valeur;
+
+    @Null
+    private TypeValeur typeValeur;
+
+    private Boolean valeurModifiable;
 
     @NotNull
     private String libelle;
@@ -65,45 +79,27 @@ public class ImpotMensuelDetailDTO implements Serializable {
         this.triOrdre = triOrdre;
     }
 
-    public Float getTaux() {
-        return taux;
+    public Float getValeur() {
+        return valeur;
     }
 
-    public void setTaux(Float taux) {
-        this.taux = taux;
+    public void setValeur(Float valeur) {
+        this.valeur = valeur;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        ImpotMensuelDetailDTO impotMensuelDTO = (ImpotMensuelDetailDTO) o;
-        if (impotMensuelDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), impotMensuelDTO.getId());
+    public TypeValeur getTypeValeur() {
+        return typeValeur;
     }
 
-    @Override
-    public String toString() {
-        return "ImpotMensuelDetailDTO{" +
-                "id=" + id +
-                ", triOrdre=" + triOrdre +
-                ", code='" + code + '\'' +
-                ", taux=" + taux +
-                ", libelle='" + libelle + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+    public void setTypeValeur(TypeValeur typeValeur) {
+        this.typeValeur = typeValeur;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
+    public Boolean getValeurModifiable() {
+        return valeurModifiable;
     }
 
+    public void setValeurModifiable(Boolean valeurModifiable) {
+        this.valeurModifiable = valeurModifiable;
+    }
 }

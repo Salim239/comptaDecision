@@ -1,19 +1,24 @@
 package com.growup.comptadecision.service.dto;
 
 import com.growup.comptadecision.domain.enumeration.CategorieClient;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A DTO for the FicheClient entity.
  */
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class FicheClientDTO implements Serializable {
 
     private Long id;
@@ -301,59 +306,5 @@ public class FicheClientDTO implements Serializable {
         this.impotMensuelClients = impotMensuelClients;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        FicheClientDTO ficheClientDTO = (FicheClientDTO) o;
-        if (ficheClientDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), ficheClientDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "FicheClientDTO{" +
-                "id=" + id +
-                ", categorieClient=" + categorieClient +
-                ", designation='" + designation + '\'' +
-                ", logo=" + Arrays.toString(logo) +
-                ", logoContentType='" + logoContentType + '\'' +
-                ", adresse='" + adresse + '\'' +
-                ", codePostal='" + codePostal + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", fax='" + fax + '\'' +
-                ", email='" + email + '\'' +
-                ", matriculeFiscale='" + matriculeFiscale + '\'' +
-                ", registreCommerce='" + registreCommerce + '\'' +
-                ", dateCreation=" + dateCreation +
-                ", cnssEmployeur='" + cnssEmployeur + '\'' +
-                ", cnssGerant='" + cnssGerant + '\'' +
-                ", fichierPatente=" + Arrays.toString(fichierPatente) +
-                ", fichierPatenteContentType='" + fichierPatenteContentType + '\'' +
-                ", secteurActiviteId=" + secteurActiviteId +
-                ", secteurActiviteLibelle='" + secteurActiviteLibelle + '\'' +
-                ", activiteId=" + activiteId +
-                ", activiteLibelle='" + activiteLibelle + '\'' +
-                ", activiteScondaireId=" + activiteScondaireId +
-                ", activiteScondaireLibelle='" + activiteScondaireLibelle + '\'' +
-                ", regionId=" + regionId +
-                ", regionLibelle='" + regionLibelle + '\'' +
-                ", villeId=" + villeId +
-                ", villeLibelle='" + villeLibelle + '\'' +
-                ", impotMensuelClients=" + impotMensuelClients +
-                '}';
-    }
 
 }

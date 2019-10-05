@@ -2,15 +2,15 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  * A DeclarationEmployeurAnnuelle.
@@ -18,6 +18,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "declaration_employeur_annuelle")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@EqualsAndHashCode
+@Builder
+@ToString
 public class DeclarationEmployeurAnnuelle extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
@@ -263,43 +266,4 @@ public class DeclarationEmployeurAnnuelle extends AbstractAuditingEntity {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        DeclarationEmployeurAnnuelle declarationEmployeurAnnuelle = (DeclarationEmployeurAnnuelle) o;
-        if (declarationEmployeurAnnuelle.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), declarationEmployeurAnnuelle.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "DeclarationEmployeurAnnuelle{" +
-            "id=" + getId() +
-            ", annee=" + getAnnee() +
-            ", montantAnnexe1=" + getMontantAnnexe1() +
-            ", montantAnnexe2=" + getMontantAnnexe2() +
-            ", montantAnnexe3=" + getMontantAnnexe3() +
-            ", montantAnnexe4=" + getMontantAnnexe4() +
-            ", montantAnnexe5=" + getMontantAnnexe5() +
-            ", montantAnnexe6=" + getMontantAnnexe6() +
-            ", montantAnnexe7=" + getMontantAnnexe7() +
-            ", montantAnnexe8=" + getMontantAnnexe8() +
-            ", montantAnnexe9=" + getMontantAnnexe9() +
-            ", montantAnnexe10=" + getMontantAnnexe10() +
-            ", montantAnnexe11=" + getMontantAnnexe11() +
-            ", montantAnnexe12=" + getMontantAnnexe12() +
-            "}";
-    }
 }

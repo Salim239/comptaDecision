@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiAlertService } from 'ng-jhipster';
-import { IImpotMensuelClient } from 'app/shared/model/impot-mensuel-client.model';
-import { ImpotMensuelClientService } from './impot-mensuel-client.service';
-import { IFicheClient } from 'app/shared/model/fiche-client.model';
-import { FicheClientService } from 'app/entities/fiche-client';
-import { IImpotMensuel } from 'app/shared/model/impot-mensuel.model';
-import { ImpotMensuelService } from 'app/entities/impot-mensuel';
-import { IQuittanceMensuelleImpotLine } from 'app/shared/model/quittance-mensuelle-impot-line.model';
-import { QuittanceMensuelleImpotLineService } from 'app/entities/quittance-mensuelle-impot-line';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {JhiAlertService} from 'ng-jhipster';
+import {IImpotMensuelClient} from 'app/shared/model/impot-mensuel-client.model';
+import {ImpotMensuelClientService} from './impot-mensuel-client.service';
+import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import {FicheClientService} from 'app/entities/fiche-client';
+import {IImpotMensuel} from 'app/shared/model/impot-mensuel.model';
+import {ImpotMensuelService} from 'app/entities/impot-mensuel';
+import {IQuittanceMensuelleImpotDetail} from 'app/shared/model/quittance-mensuelle-impot-detail.model';
+import {QuittanceMensuelleImpotDetailService} from 'app/entities/quittance-mensuelle-impot-detail';
 
 @Component({
     selector: 'jhi-impot-mensuel-client-update',
@@ -25,14 +25,14 @@ export class ImpotMensuelClientUpdateComponent implements OnInit {
 
     impotmensuels: IImpotMensuel[];
 
-    quittancemensuelleimpotlines: IQuittanceMensuelleImpotLine[];
+    quittancemensuelleimpotlines: IQuittanceMensuelleImpotDetail[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected impotMensuelClientService: ImpotMensuelClientService,
         protected ficheClientService: FicheClientService,
         protected impotMensuelService: ImpotMensuelService,
-        protected quittanceMensuelleImpotLineService: QuittanceMensuelleImpotLineService,
+        protected quittanceMensuelleImpotDetailService: QuittanceMensuelleImpotDetailService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -55,14 +55,14 @@ export class ImpotMensuelClientUpdateComponent implements OnInit {
                 map((response: HttpResponse<IImpotMensuel[]>) => response.body)
             )
             .subscribe((res: IImpotMensuel[]) => (this.impotmensuels = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.quittanceMensuelleImpotLineService
+        this.quittanceMensuelleImpotDetailService
             .query()
             .pipe(
-                filter((mayBeOk: HttpResponse<IQuittanceMensuelleImpotLine[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IQuittanceMensuelleImpotLine[]>) => response.body)
+                filter((mayBeOk: HttpResponse<IQuittanceMensuelleImpotDetail[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IQuittanceMensuelleImpotDetail[]>) => response.body)
             )
             .subscribe(
-                (res: IQuittanceMensuelleImpotLine[]) => (this.quittancemensuelleimpotlines = res),
+                (res: IQuittanceMensuelleImpotDetail[]) => (this.quittancemensuelleimpotlines = res),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
@@ -105,7 +105,7 @@ export class ImpotMensuelClientUpdateComponent implements OnInit {
         return item.id;
     }
 
-    trackQuittanceMensuelleImpotLineById(index: number, item: IQuittanceMensuelleImpotLine) {
+    trackQuittanceMensuelleImpotDetailById(index: number, item: IQuittanceMensuelleImpotDetail) {
         return item.id;
     }
 }

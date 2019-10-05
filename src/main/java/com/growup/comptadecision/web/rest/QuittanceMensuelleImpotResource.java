@@ -111,20 +111,19 @@ public class QuittanceMensuelleImpotResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new quittanceMensuelleImpotDTO, or with status 400 (Bad Request) if the quittanceMensuelleImpot has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @GetMapping("/quittance-mensuelle-impots/init")
-    public ResponseEntity<QuittanceMensuelleImpotDTO> init() {
-        log.debug("REST request to init empty QuittanceMensuelleImpot");
-        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotService.init();
+//    @GetMapping("/quittance-mensuelle-impots/init")
+//    public ResponseEntity<QuittanceMensuelleImpotDTO> init() {
+//        log.debug("REST request to init empty QuittanceMensuelleImpot");
+//        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotService.init();
+//        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
+//    }
+
+    @GetMapping("/quittance-mensuelle-impots/ficheClient/{ficheClientId}")
+    public ResponseEntity<QuittanceMensuelleImpotDTO> getEmptyQuittanceMensuel(@PathVariable("ficheClientId") Long ficheClientId) {
+        log.debug("REST request to get QuittanceMensuelleImpot de la fiche client : {}", ficheClientId);
+        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotService.getEmptyQuittanceMensuel(ficheClientId);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
     }
-
-////    quittance-mensuelle-impots/initByParams/ficheClient/1251/mois/3
-//    @GetMapping("/quittance-mensuelle-impots/initByParams/ficheClient/{ficheClientId}/mois/{mois}")
-//    public ResponseEntity<QuittanceMensuelleImpotDTO> initByParams(@PathVariable("ficheClientId") Long ficheClientId, @PathVariable("mois") Integer mois) {
-//        log.debug("REST request to get QuittanceMensuelleImpot de la fiche client : {}, pour le mois {}", ficheClientId, mois);
-//        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTOUpdated = quittanceMensuelleImpotService.initByParams(ficheClientId, mois);
-//        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTOUpdated);
-//    }
 
     /**
      * DELETE  /quittance-mensuelle-impots/:id : delete the "id" quittanceMensuelleImpot.

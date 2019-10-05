@@ -1,23 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import { IQuittanceMensuelleImpotLine } from 'app/shared/model/quittance-mensuelle-impot-line.model';
-import { AccountService } from 'app/core';
+import {IQuittanceMensuelleImpotDetail} from 'app/shared/model/quittance-mensuelle-impot-detail.model';
+import {AccountService} from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
-import { QuittanceMensuelleImpotLineService } from './quittance-mensuelle-impot-line.service';
+import {ITEMS_PER_PAGE} from 'app/shared';
+import {QuittanceMensuelleImpotDetailService} from './quittance-mensuelle-impot-detail.service';
 
 @Component({
-    selector: 'jhi-quittance-mensuelle-impot-line',
-    templateUrl: './quittance-mensuelle-impot-line.component.html'
+    selector: 'jhi-quittance-mensuelle-impot-detail',
+    templateUrl: './quittance-mensuelle-impot-detail.component.html'
 })
-export class QuittanceMensuelleImpotLineComponent implements OnInit, OnDestroy {
+export class QuittanceMensuelleImpotDetailComponent implements OnInit, OnDestroy {
     currentAccount: any;
-    quittanceMensuelleImpotLines: IQuittanceMensuelleImpotLine[];
+    quittanceMensuelleImpotDetails: IQuittanceMensuelleImpotDetail[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -31,7 +30,7 @@ export class QuittanceMensuelleImpotLineComponent implements OnInit, OnDestroy {
     reverse: any;
 
     constructor(
-        protected quittanceMensuelleImpotLineService: QuittanceMensuelleImpotLineService,
+        protected quittanceMensuelleImpotDetailService: QuittanceMensuelleImpotDetailService,
         protected parseLinks: JhiParseLinks,
         protected jhiAlertService: JhiAlertService,
         protected accountService: AccountService,
@@ -49,14 +48,14 @@ export class QuittanceMensuelleImpotLineComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.quittanceMensuelleImpotLineService
+        this.quittanceMensuelleImpotDetailService
             .query({
                 page: this.page - 1,
                 size: this.itemsPerPage,
                 sort: this.sort()
             })
             .subscribe(
-                (res: HttpResponse<IQuittanceMensuelleImpotLine[]>) => this.paginateQuittanceMensuelleImpotLines(res.body, res.headers),
+                (res: HttpResponse<IQuittanceMensuelleImpotDetail[]>) => this.paginateQuittanceMensuelleImpotDetails(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
@@ -69,7 +68,7 @@ export class QuittanceMensuelleImpotLineComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/quittance-mensuelle-impot-line'], {
+        this.router.navigate(['/quittance-mensuelle-impot-detail'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -82,7 +81,7 @@ export class QuittanceMensuelleImpotLineComponent implements OnInit, OnDestroy {
     clear() {
         this.page = 0;
         this.router.navigate([
-            '/quittance-mensuelle-impot-line',
+            '/quittance-mensuelle-impot-detail',
             {
                 page: this.page,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -96,19 +95,19 @@ export class QuittanceMensuelleImpotLineComponent implements OnInit, OnDestroy {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
-        this.registerChangeInQuittanceMensuelleImpotLines();
+        this.registerChangeInQuittanceMensuelleImpotDetails();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: IQuittanceMensuelleImpotLine) {
+    trackId(index: number, item: IQuittanceMensuelleImpotDetail) {
         return item.id;
     }
 
-    registerChangeInQuittanceMensuelleImpotLines() {
-        this.eventSubscriber = this.eventManager.subscribe('quittanceMensuelleImpotLineListModification', response => this.loadAll());
+    registerChangeInQuittanceMensuelleImpotDetails() {
+        this.eventSubscriber = this.eventManager.subscribe('quittanceMensuelleImpotDetailListModification', response => this.loadAll());
     }
 
     sort() {
@@ -119,10 +118,10 @@ export class QuittanceMensuelleImpotLineComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    protected paginateQuittanceMensuelleImpotLines(data: IQuittanceMensuelleImpotLine[], headers: HttpHeaders) {
+    protected paginateQuittanceMensuelleImpotDetails(data: IQuittanceMensuelleImpotDetail[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-        this.quittanceMensuelleImpotLines = data;
+        this.quittanceMensuelleImpotDetails = data;
     }
 
     protected onError(errorMessage: string) {

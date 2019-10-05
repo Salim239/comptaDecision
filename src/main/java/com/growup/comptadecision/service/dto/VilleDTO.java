@@ -1,11 +1,19 @@
 package com.growup.comptadecision.service.dto;
-import javax.validation.constraints.*;
+
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A DTO for the Ville entity.
  */
+//@Data
+@EqualsAndHashCode
+@Builder
+@ToString
 public class VilleDTO implements Serializable {
 
     private Long id;
@@ -80,36 +88,4 @@ public class VilleDTO implements Serializable {
         this.regionId = regionId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        VilleDTO villeDTO = (VilleDTO) o;
-        if (villeDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), villeDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "VilleDTO{" +
-            "id=" + getId() +
-            ", code='" + getCode() + "'" +
-            ", codePostal='" + getCodePostal() + "'" +
-            ", libelle='" + getLibelle() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", region=" + getRegionId() +
-            "}";
-    }
 }

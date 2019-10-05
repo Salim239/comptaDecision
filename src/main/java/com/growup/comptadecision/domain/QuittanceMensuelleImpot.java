@@ -3,20 +3,18 @@ package com.growup.comptadecision.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A QuittanceMensuelleImpot.
@@ -24,6 +22,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "quittance_mensuelle_impot")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@EqualsAndHashCode
+@Builder
+@ToString
 public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
@@ -58,47 +59,10 @@ public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
     @JsonIgnoreProperties("quittanceMensuelleImpots")
     private FicheClient ficheClient;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        QuittanceMensuelleImpot that = (QuittanceMensuelleImpot) o;
-
-        return new EqualsBuilder()
-                .append(id, that.id)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(id)
-                .toHashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "QuittanceMensuelleImpot{" +
-                "id=" + id +
-                ", annee=" + annee +
-                ", mois=" + mois +
-                ", numeroQuittance='" + numeroQuittance + '\'' +
-                ", datePaiement=" + datePaiement +
-                ", montantPaye=" + montantPaye +
-                ", ficheClient=" + ficheClient +
-                ", quittanceMensuelleImpotLines=" + quittanceMensuelleImpotLines +
-                '}';
-    }
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "quittanceMensuelleImpot", cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<QuittanceMensuelleImpotLine> quittanceMensuelleImpotLines = new ArrayList<>();
+    private List<QuittanceMensuelleImpotDetail> quittanceMensuelleImpotDetails = new ArrayList<>();
 
-
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -185,22 +149,22 @@ public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
         this.ficheClient = ficheClient;
     }
 
-    public List<QuittanceMensuelleImpotLine> getQuittanceMensuelleImpotLines() {
-        return quittanceMensuelleImpotLines;
+    public List<QuittanceMensuelleImpotDetail> getQuittanceMensuelleImpotDetails() {
+        return quittanceMensuelleImpotDetails;
     }
 
-    public void setQuittanceMensuelleImpotLines(List<QuittanceMensuelleImpotLine> quittanceMensuelleImpotLines) {
-        this.quittanceMensuelleImpotLines = quittanceMensuelleImpotLines;
+    public void setQuittanceMensuelleImpotDetails(List<QuittanceMensuelleImpotDetail> quittanceMensuelleImpotDetails) {
+        this.quittanceMensuelleImpotDetails = quittanceMensuelleImpotDetails;
     }
 
-    public void addQuittanceMensuelleImpotLine(QuittanceMensuelleImpotLine quittanceMensuelleImpotLine) {
-        quittanceMensuelleImpotLines.add(quittanceMensuelleImpotLine);
-        quittanceMensuelleImpotLine.setQuittanceMensuelleImpot(this);
+    public void addQuittanceMensuelleImpotDetail(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail) {
+        quittanceMensuelleImpotDetails.add(quittanceMensuelleImpotDetail);
+        quittanceMensuelleImpotDetail.setQuittanceMensuelleImpot(this);
     }
 
-    public void removeQuittanceMensuelleImpotLine(QuittanceMensuelleImpotLine quittanceMensuelleImpotLine) {
-        quittanceMensuelleImpotLines.remove(quittanceMensuelleImpotLine);
-        quittanceMensuelleImpotLine.setQuittanceMensuelleImpot(null);
+    public void removeQuittanceMensuelleImpotDetail(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail) {
+        quittanceMensuelleImpotDetails.remove(quittanceMensuelleImpotDetail);
+        quittanceMensuelleImpotDetail.setQuittanceMensuelleImpot(null);
     }
 
     public TypeDeclaration getTypeDeclaration() {
@@ -211,6 +175,6 @@ public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
         this.typeDeclaration = typeDeclaration;
     }
 
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
 
 }
