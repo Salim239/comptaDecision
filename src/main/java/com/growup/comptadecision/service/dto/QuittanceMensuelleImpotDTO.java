@@ -21,6 +21,9 @@ import java.util.List;
 @ToString
 public class QuittanceMensuelleImpotDTO implements Serializable {
 
+    public QuittanceMensuelleImpotDTO() {
+    }
+
     private Long id;
 
     @NotNull

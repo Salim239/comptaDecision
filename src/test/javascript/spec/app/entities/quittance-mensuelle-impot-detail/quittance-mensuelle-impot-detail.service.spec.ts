@@ -22,7 +22,7 @@ describe('Service Tests', () => {
             service = injector.get(QuittanceMensuelleImpotDetailService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new QuittanceMensuelleImpotDetail(0, 0);
+            elemDefault = new QuittanceMensuelleImpotDetail(0, );
         });
 
         describe('Service methods', async () => {

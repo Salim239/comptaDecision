@@ -3,6 +3,7 @@ package com.growup.comptadecision.service.dto;
 import com.growup.comptadecision.domain.enumeration.TypeValeur;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import java.io.Serializable;
  */
 //@Data
 @EqualsAndHashCode
+@NoArgsConstructor
 @Builder
 @ToString
 public class ImpotMensuelDetailDTO implements Serializable {

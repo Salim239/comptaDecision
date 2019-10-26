@@ -4,12 +4,13 @@ import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import * as moment from 'moment';
 import {JhiAlertService} from 'ng-jhipster';
-import {IQuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
+import {IQuittanceMensuelleImpot, QuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
 import {QuittanceMensuelleImpotService} from './quittance-mensuelle-impot.service';
 import {IFicheClient} from 'app/shared/model/fiche-client.model';
 import {FicheClientService} from 'app/entities/fiche-client';
 import * as _ from 'lodash';
 import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
+import {filter, map} from "rxjs/operators";
 
 @Component({
     selector: 'jhi-quittance-mensuelle-impot-update',
@@ -105,27 +106,25 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         }
     }
 
-    // initByParams() {
-    //     let anneeSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.annee : undefined;
-    //     let moisSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.mois : undefined;
-    //     let typeDeclarationSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.typeDeclaration : undefined;
-    //     this.getAnnesDeclaration();
-    //     if(this.quittanceMensuelleImpot.ficheClientId !== undefined && this.quittanceMensuelleImpot.mois !== undefined &&
-    //         this.quittanceMensuelleImpot.ficheClientId !== null && this.quittanceMensuelleImpot.mois !== null) {
-    //         this.quittanceMensuelleImpotService.initByParams(this.quittanceMensuelleImpot.ficheClientId, this.quittanceMensuelleImpot.mois)
-    //             .pipe(
-    //                 filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
-    //                 map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
-    //             )
-    //             .subscribe((res: QuittanceMensuelleImpot) => {
-    //                 this.quittanceMensuelleImpot = res;
-    //                 this.quittanceMensuelleImpot.annee = anneeSelected;
-    //                 this.quittanceMensuelleImpot.mois = moisSelected;
-    //                 this.quittanceMensuelleImpot.typeDeclaration = typeDeclarationSelected;
-    //                 this.calculateSumMontantPaye();
-    //                 }, (res: HttpErrorResponse) => this.onError(res.message));
-    //     }
-    // }
+    initByParams() {
+        let anneeSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.annee : undefined;
+        let moisSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.mois : undefined;
+        let typeDeclarationSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.typeDeclaration : undefined;
+        this.getAnnesDeclaration();
+        if(this.quittanceMensuelleImpot.ficheClientId !== undefined &&
+            // this.quittanceMensuelleImpot.ficheClientId !== '' &&
+            this.quittanceMensuelleImpot.ficheClientId !== null) {
+            this.quittanceMensuelleImpotService.initByParams(this.quittanceMensuelleImpot.ficheClientId)
+                .pipe(
+                    filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
+                    map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
+                )
+                .subscribe((res: QuittanceMensuelleImpot) => {
+                    this.quittanceMensuelleImpot = res;
+                    this.calculateSumMontantPaye();
+                    }, (res: HttpErrorResponse) => this.onError(res.message));
+        }
+    }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<IQuittanceMensuelleImpot>>) {
         result.subscribe(

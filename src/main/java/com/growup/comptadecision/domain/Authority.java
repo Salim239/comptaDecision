@@ -2,6 +2,7 @@ package com.growup.comptadecision.domain;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -21,6 +22,7 @@ import java.io.Serializable;
 @Table(name = "jhi_authority")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @EqualsAndHashCode
+@NoArgsConstructor
 @Builder
 @ToString
 public class Authority implements Serializable {

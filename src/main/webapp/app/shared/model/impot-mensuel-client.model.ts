@@ -3,6 +3,9 @@ export interface IImpotMensuelClient {
     applicable?: boolean;
     ficheClientId?: number;
     impotMensuelId?: number;
+    impotMensuelParent?: boolean;
+    impotMensuelChild?: boolean;
+    impotMensuelParentId?: number;
 }
 
 export class ImpotMensuelClient implements IImpotMensuelClient {
@@ -10,7 +13,10 @@ export class ImpotMensuelClient implements IImpotMensuelClient {
         public id?: number,
         public applicable?: boolean,
         public ficheClientId?: number,
-        public impotMensuelId?: number
+        public impotMensuelId?: number,
+        impotMensuelParent?: boolean,
+    impotMensuelChild?: boolean,
+    impotMensuelParentId?: number
     ) {
         this.applicable = this.applicable || false;
     }

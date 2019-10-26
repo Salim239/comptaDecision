@@ -3,6 +3,7 @@ package com.growup.comptadecision.service.dto;
 import com.growup.comptadecision.domain.enumeration.CategorieClient;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Lob;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 //@Data
 @EqualsAndHashCode
+@NoArgsConstructor
 @Builder
 @ToString
 public class FicheClientDTO implements Serializable {

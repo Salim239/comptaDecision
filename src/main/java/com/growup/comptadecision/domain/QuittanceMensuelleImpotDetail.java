@@ -2,7 +2,6 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.growup.comptadecision.domain.enumeration.TypeValeur;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -11,6 +10,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A QuittanceMensuelleImpotDetail.
@@ -28,10 +29,9 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
     public QuittanceMensuelleImpotDetail() {
     }
 
-    public QuittanceMensuelleImpotDetail(QuittanceMensuelleImpot quittanceMensuelleImpot, ImpotMensuelClient impotMensuelClient, ImpotMensuelDetail impotMensuelDetail) {
+    public QuittanceMensuelleImpotDetail(QuittanceMensuelleImpot quittanceMensuelleImpot, ImpotMensuel impotMensuel) {
         this.quittanceMensuelleImpot = quittanceMensuelleImpot;
-        this.impotMensuelClient = impotMensuelClient;
-        this.impotMensuelDetail = impotMensuelDetail;
+        this.impotMensuel = impotMensuel;
     }
 
     @Id
@@ -39,16 +39,7 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "impot_mensuel_valeur")
-    private Float impotMensuelValeur;
-
-    @Column(name = "impot_mensuel_type_valeur")
-    private TypeValeur impotMensuelTypeValeur;
-
-    @Column(name = "montant_base")
-    private BigDecimal montantBase;
-
-    @Column(name = "montant_total")
+    @Column(name = "montant_paye")
     private BigDecimal montantTotal;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -56,20 +47,10 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
     private QuittanceMensuelleImpot quittanceMensuelleImpot;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("impotMensuelClientDetails")
-    private ImpotMensuelClient impotMensuelClient;
+    private ImpotMensuel impotMensuel;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("impotMensuelClientDetails")
-    private ImpotMensuelDetail impotMensuelDetail;
-
-    public ImpotMensuelDetail getImpotMensuelDetail() {
-        return impotMensuelDetail;
-    }
-
-    public void setImpotMensuelDetail(ImpotMensuelDetail impotMensuelDetail) {
-        this.impotMensuelDetail = impotMensuelDetail;
-    }
+    @OneToMany(mappedBy = "quittanceMensuelleImpotDetail", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QuittanceMensuelleImpotSousDetail> quittanceMensuelleImpotSousDetails = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -77,30 +58,6 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Float getImpotMensuelValeur() {
-        return impotMensuelValeur;
-    }
-
-    public void setImpotMensuelValeur(Float impotMensuelValeur) {
-        this.impotMensuelValeur = impotMensuelValeur;
-    }
-
-    public TypeValeur getImpotMensuelTypeValeur() {
-        return impotMensuelTypeValeur;
-    }
-
-    public void setImpotMensuelTypeValeur(TypeValeur impotMensuelTypeValeur) {
-        this.impotMensuelTypeValeur = impotMensuelTypeValeur;
-    }
-
-    public BigDecimal getMontantBase() {
-        return montantBase;
-    }
-
-    public void setMontantBase(BigDecimal montantBase) {
-        this.montantBase = montantBase;
     }
 
     public BigDecimal getMontantTotal() {
@@ -119,17 +76,20 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
         this.quittanceMensuelleImpot = quittanceMensuelleImpot;
     }
 
-    public ImpotMensuelClient getImpotMensuelClient() {
-        return impotMensuelClient;
+    public ImpotMensuel getImpotMensuel() {
+        return impotMensuel;
     }
 
-    public void setImpotMensuelClient(ImpotMensuelClient impotMensuelClient) {
-        this.impotMensuelClient = impotMensuelClient;
+    public void setImpotMensuel(ImpotMensuel impotMensuel) {
+        this.impotMensuel = impotMensuel;
     }
 
-    public QuittanceMensuelleImpotDetail montantTotal(BigDecimal montantTotal) {
-        this.setMontantTotal(montantTotal);
-        return this;
+    public List<QuittanceMensuelleImpotSousDetail> getQuittanceMensuelleImpotSousDetails() {
+        return quittanceMensuelleImpotSousDetails;
+    }
+
+    public void setQuittanceMensuelleImpotSousDetails(List<QuittanceMensuelleImpotSousDetail> quittanceMensuelleImpotSousDetails) {
+        this.quittanceMensuelleImpotSousDetails = quittanceMensuelleImpotSousDetails;
     }
 }
 

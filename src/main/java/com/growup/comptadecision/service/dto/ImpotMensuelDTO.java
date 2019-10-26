@@ -19,6 +19,9 @@ import java.util.List;
 @ToString
 public class ImpotMensuelDTO implements Serializable {
 
+    public ImpotMensuelDTO() {
+    }
+
     private Long id;
 
     @NotNull
@@ -36,6 +39,8 @@ public class ImpotMensuelDTO implements Serializable {
     private Boolean child;
 
     private List<ImpotMensuelDetailDTO> impotMensuelDetails = new ArrayList<>();
+
+    private List<ImpotMensuelDTO> childImpotMensuels = new ArrayList<>();
 
     private Long parentImpotMensuelId;
 
@@ -143,4 +148,19 @@ public class ImpotMensuelDTO implements Serializable {
         this.impotMensuelDetails = impotMensuelDetails;
     }
 
+    public BigDecimal getMontant() {
+        return montant;
+    }
+
+    public void setMontant(BigDecimal montant) {
+        this.montant = montant;
+    }
+
+    public List<ImpotMensuelDTO> getChildImpotMensuels() {
+        return childImpotMensuels;
+    }
+
+    public void setChildImpotMensuels(List<ImpotMensuelDTO> childImpotMensuels) {
+        this.childImpotMensuels = childImpotMensuels;
+    }
 }

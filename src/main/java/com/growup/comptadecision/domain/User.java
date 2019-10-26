@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.growup.comptadecision.config.Constants;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
@@ -28,6 +29,7 @@ import java.util.Set;
 @Table(name = "jhi_user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @EqualsAndHashCode
+@NoArgsConstructor
 @Builder
 @ToString
 public class User extends AbstractAuditingEntity implements Serializable {

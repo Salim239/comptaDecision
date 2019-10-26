@@ -27,7 +27,14 @@ import java.util.List;
 public class FicheClient extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
-    
+
+    public FicheClient(Long id) {
+        this.id = id;
+    }
+
+    public FicheClient() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")

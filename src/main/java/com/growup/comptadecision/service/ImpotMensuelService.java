@@ -58,6 +58,22 @@ public class ImpotMensuelService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    @Transactional(readOnly = true)
+    public List<ImpotMensuelDTO> findByParentIds(List<Long> parentIds) {
+        log.debug("Request to get all ImpotMensuels by parent!ids");
+        return impotMensuelRepository.findByParentIds(parentIds).stream()
+            .map(impotMensuelMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Transactional(readOnly = true)
+    public List<ImpotMensuelDTO> findWithoutChildren() {
+        log.debug("Request to get all ImpotMensuels");
+        return impotMensuelRepository.findWithoutChildren().stream()
+                .map(impotMensuelMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
     /**
      * Get all the impotMensuels.
      *

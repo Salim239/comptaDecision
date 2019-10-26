@@ -20,7 +20,7 @@ export class QuittanceMensuelleImpotService {
 
     initByParams(ficheClientId: number): Observable<EntityResponseType> {
         return this.http
-            .get<IQuittanceMensuelleImpot>(`${this.resourceUrl}/initByParams/ficheClient/${ficheClientId}`, { observe: 'response' })
+            .get<IQuittanceMensuelleImpot>(`${this.resourceUrl}/ficheClient/${ficheClientId}`, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 

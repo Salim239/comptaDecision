@@ -3,6 +3,7 @@ package com.growup.comptadecision.service.dto;
 import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
  */
 //@Data
 @EqualsAndHashCode
+@NoArgsConstructor
 @Builder
 @ToString
 public class DeclarationAnnuelleDTO implements Serializable {

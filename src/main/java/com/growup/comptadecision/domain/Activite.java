@@ -3,6 +3,7 @@ package com.growup.comptadecision.domain;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -17,6 +18,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "activite")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @EqualsAndHashCode
+@NoArgsConstructor
 @Builder
 @ToString
 public class Activite extends AbstractAuditingEntity {

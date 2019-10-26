@@ -1,12 +1,13 @@
 package com.growup.comptadecision.service.dto;
 
-import com.growup.comptadecision.domain.enumeration.TypeValeur;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A DTO for the QuittanceMensuelleImpotDetail entity.
@@ -17,21 +18,24 @@ import java.math.BigDecimal;
 @ToString
 public class QuittanceMensuelleImpotDetailDTO implements Serializable {
 
+    public QuittanceMensuelleImpotDetailDTO() {
+    }
+
+    public QuittanceMensuelleImpotDetailDTO(Long quittanceMensuelleImpotId, ImpotMensuelDTO impotMensuel, BigDecimal montantPaye) {
+        this.quittanceMensuelleImpotId = quittanceMensuelleImpotId;
+        this.impotMensuel = impotMensuel;
+        this.montantPaye = montantPaye;
+    }
+
     private Long id;
 
-    private ImpotMensuelClientDTO impotMensuelClient;
+    private Long quittanceMensuelleImpotId;
 
-    private QuittanceMensuelleImpotDTO quittanceMensuelleImpot;
+    private ImpotMensuelDTO impotMensuel;
 
-    private ImpotMensuelDetailDTO impotMensuelDetail;
+    private List<QuittanceMensuelleImpotSousDetailDTO> quittanceMensuelleImpotSousDetails = new ArrayList<>();
 
-    private Float impotMensuelValeur;
-
-    private TypeValeur impotMensuelTypeValeur;
-
-    private BigDecimal montantBase;
-
-    private BigDecimal montantTotal;
+    private BigDecimal montantPaye;
 
     public Long getId() {
         return id;
@@ -41,59 +45,35 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
         this.id = id;
     }
 
-    public ImpotMensuelDetailDTO getImpotMensuelDetail() {
-        return impotMensuelDetail;
+    public Long getQuittanceMensuelleImpotId() {
+        return quittanceMensuelleImpotId;
     }
 
-    public void setImpotMensuelDetail(ImpotMensuelDetailDTO impotMensuelDetail) {
-        this.impotMensuelDetail = impotMensuelDetail;
+    public void setQuittanceMensuelleImpotId(Long quittanceMensuelleImpotId) {
+        this.quittanceMensuelleImpotId = quittanceMensuelleImpotId;
     }
 
-    public ImpotMensuelClientDTO getImpotMensuelClient() {
-        return impotMensuelClient;
+    public ImpotMensuelDTO getImpotMensuel() {
+        return impotMensuel;
     }
 
-    public void setImpotMensuelClient(ImpotMensuelClientDTO impotMensuelClient) {
-        this.impotMensuelClient = impotMensuelClient;
+    public void setImpotMensuel(ImpotMensuelDTO impotMensuel) {
+        this.impotMensuel = impotMensuel;
     }
 
-    public QuittanceMensuelleImpotDTO getQuittanceMensuelleImpot() {
-        return quittanceMensuelleImpot;
+    public BigDecimal getMontantPaye() {
+        return montantPaye;
     }
 
-    public void setQuittanceMensuelleImpot(QuittanceMensuelleImpotDTO quittanceMensuelleImpot) {
-        this.quittanceMensuelleImpot = quittanceMensuelleImpot;
+    public void setMontantPaye(BigDecimal montantPaye) {
+        this.montantPaye = montantPaye;
     }
 
-    public Float getImpotMensuelValeur() {
-        return impotMensuelValeur;
+    public List<QuittanceMensuelleImpotSousDetailDTO> getQuittanceMensuelleImpotSousDetails() {
+        return quittanceMensuelleImpotSousDetails;
     }
 
-    public void setImpotMensuelValeur(Float impotMensuelValeur) {
-        this.impotMensuelValeur = impotMensuelValeur;
-    }
-
-    public TypeValeur getImpotMensuelTypeValeur() {
-        return impotMensuelTypeValeur;
-    }
-
-    public void setImpotMensuelTypeValeur(TypeValeur impotMensuelTypeValeur) {
-        this.impotMensuelTypeValeur = impotMensuelTypeValeur;
-    }
-
-    public BigDecimal getMontantBase() {
-        return montantBase;
-    }
-
-    public void setMontantBase(BigDecimal montantBase) {
-        this.montantBase = montantBase;
-    }
-
-    public BigDecimal getMontantTotal() {
-        return montantTotal;
-    }
-
-    public void setMontantTotal(BigDecimal montantTotal) {
-        this.montantTotal = montantTotal;
+    public void setQuittanceMensuelleImpotSousDetails(List<QuittanceMensuelleImpotSousDetailDTO> quittanceMensuelleImpotSousDetails) {
+        this.quittanceMensuelleImpotSousDetails = quittanceMensuelleImpotSousDetails;
     }
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.growup.comptadecision.domain.enumeration.TypeValeur;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -21,6 +22,7 @@ import javax.validation.constraints.NotNull;
 //@Data
 @EqualsAndHashCode
 @Builder
+@NoArgsConstructor
 @ToString
 public class ImpotMensuelDetail extends AbstractAuditingEntity {
 
@@ -131,4 +133,6 @@ public class ImpotMensuelDetail extends AbstractAuditingEntity {
     public void setImpotMensuel(ImpotMensuel impotMensuel) {
         this.impotMensuel = impotMensuel;
     }
+
+
 }

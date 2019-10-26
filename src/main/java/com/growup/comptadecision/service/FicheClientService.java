@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing FicheClient.
@@ -51,7 +52,7 @@ public class FicheClientService {
 
         log.debug("REST to init empty FicheClient");
         FicheClientDTO ficheClientDTO = new FicheClientDTO();
-        List<ImpotMensuelDTO> impotMensuelDTOs = impotMensuelService.findAll();
+        List<ImpotMensuelDTO> impotMensuelDTOs = impotMensuelService.findWithoutChildren();
         List<ImpotMensuelClientDTO> impotMensuelClientDTOs = new ArrayList<>();
         impotMensuelDTOs.forEach(impotMensuelDTO -> {
                 ImpotMensuelClientDTO impotMensuelClientDTO = new ImpotMensuelClientDTO();
@@ -59,6 +60,9 @@ public class FicheClientService {
                 impotMensuelClientDTO.setImpotMensuelId(impotMensuelDTO.getId());
                 impotMensuelClientDTO.setImpotMensuelDescription(impotMensuelDTO.getDescription());
                 impotMensuelClientDTO.setImpotMensuelLibelle(impotMensuelDTO.getLibelle());
+                impotMensuelClientDTO.setImpotMensuelChild(impotMensuelDTO.getChild());
+                impotMensuelClientDTO.setImpotMensuelParent(impotMensuelDTO.getParent());
+                impotMensuelClientDTO.setImpotMensuelParentId(impotMensuelDTO.getParentImpotMensuelId());
                 impotMensuelClientDTOs.add(impotMensuelClientDTO);
         });
         ficheClientDTO.setImpotMensuelClients(impotMensuelClientDTOs);
@@ -73,9 +77,22 @@ public class FicheClientService {
      */
     public FicheClientDTO save(FicheClientDTO ficheClientDTO) {
         log.debug("Request to save FicheClient : {}", ficheClientDTO);
+        updateImpotMensuelClientChildren(ficheClientDTO);
         FicheClient ficheClient = ficheClientMapper.toEntity(ficheClientDTO);
         ficheClient = ficheClientRepository.save(ficheClient);
         return ficheClientMapper.toDto(ficheClient);
+    }
+
+    private void updateImpotMensuelClientChildren(FicheClientDTO ficheClientDTO) {
+        List<ImpotMensuelClientDTO> parentImpotMensuelClientDtos = ficheClientDTO.getImpotMensuelClients().stream()
+                .filter(impotMensuelClientDTO -> impotMensuelClientDTO.getImpotMensuelParentId() != null)
+                .collect(Collectors.toList());
+
+        parentImpotMensuelClientDtos.forEach(parentImpotMensuelClientDto -> {
+            ficheClientDTO.getImpotMensuelClients().stream()
+                    .filter(impotMensuelClientDTO -> impotMensuelClientDTO.getImpotMensuelParentId().equals(parentImpotMensuelClientDto.getId()))
+                    .forEach(impotMensuelClientDTO -> impotMensuelClientDTO.setApplicable(parentImpotMensuelClientDto.getApplicable()));
+        });
     }
 
     /**

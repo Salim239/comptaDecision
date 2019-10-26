@@ -22,7 +22,10 @@ import javax.persistence.*;
 public class ImpotMensuelClient extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
-    
+
+    public ImpotMensuelClient() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")

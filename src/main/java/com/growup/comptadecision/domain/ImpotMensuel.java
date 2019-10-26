@@ -26,7 +26,6 @@ public class ImpotMensuel extends AbstractAuditingEntity {
     private static final long serialVersionUID = 1L;
 
     public ImpotMensuel() {
-
     }
 
     public ImpotMensuel(Long id) {
@@ -57,6 +56,12 @@ public class ImpotMensuel extends AbstractAuditingEntity {
 
     @OneToMany(mappedBy = "impotMensuel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImpotMensuelDetail> impotMensuelDetails = new ArrayList<>();
+
+    @OneToMany(mappedBy = "parentImpotMensuel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ImpotMensuel> childImpotMensuels = new ArrayList<>();
+
+    @OneToMany(mappedBy = "impotMensuel")
+    List<ImpotMensuelClient> impotMensuelClients = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private ImpotMensuel parentImpotMensuel;
@@ -147,5 +152,21 @@ public class ImpotMensuel extends AbstractAuditingEntity {
 
     public void setParentImpotMensuel(ImpotMensuel parentImpotMensuel) {
         this.parentImpotMensuel = parentImpotMensuel;
+    }
+
+    public List<ImpotMensuel> getChildImpotMensuels() {
+        return childImpotMensuels;
+    }
+
+    public void setChildImpotMensuels(List<ImpotMensuel> childImpotMensuels) {
+        this.childImpotMensuels = childImpotMensuels;
+    }
+
+    public List<ImpotMensuelClient> getImpotMensuelClients() {
+        return impotMensuelClients;
+    }
+
+    public void setImpotMensuelClients(List<ImpotMensuelClient> impotMensuelClients) {
+        this.impotMensuelClients = impotMensuelClients;
     }
 }

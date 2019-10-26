@@ -18,9 +18,14 @@ public interface ImpotMensuelClientMapper extends EntityMapper<ImpotMensuelClien
     @Mapping(source = "impotMensuel.id", target = "impotMensuelId")
     @Mapping(source = "impotMensuel.libelle", target = "impotMensuelLibelle")
     @Mapping(source = "impotMensuel.description", target = "impotMensuelDescription")
+    @Mapping(source = "impotMensuel.parent", target = "impotMensuelParent")
+    @Mapping(source = "impotMensuel.child", target = "impotMensuelChild")
+    @Mapping(expression = "java(impotMensuelClient.getImpotMensuel().getParentImpotMensuel() == null ? null : impotMensuelClient.getImpotMensuel().getParentImpotMensuel().getId())", target = "impotMensuelParentId")
+
+
     ImpotMensuelClientDTO toDto(ImpotMensuelClient impotMensuelClient);
 
-    @Mapping(source = "ficheClientId", target = "ficheClient")
+    @Mapping(source = "ficheClientId", target = "ficheClient", ignore = true)
     @Mapping(source = "impotMensuelId", target = "impotMensuel")
     ImpotMensuelClient toEntity(ImpotMensuelClientDTO impotMensuelClientDTO);
 

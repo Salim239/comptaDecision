@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 @Table(name = "declaration_annuelle")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @EqualsAndHashCode
+@NoArgsConstructor
 @Builder
 @ToString
 public class DeclarationAnnuelle extends AbstractAuditingEntity {

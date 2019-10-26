@@ -2,6 +2,7 @@ package com.growup.comptadecision.service.dto;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.io.Serializable;
  */
 //@Data
 @EqualsAndHashCode
+@NoArgsConstructor
 @Builder
 @ToString
 public class ImpotMensuelClientDTO implements Serializable {
@@ -31,9 +33,13 @@ public class ImpotMensuelClientDTO implements Serializable {
 
     private String impotMensuelDescription;
 
+    private Boolean impotMensuelParent;
+
+    private Boolean impotMensuelChild;
+
+    private Long impotMensuelParentId;
+
     private Long ficheClientId;
-
-
 
     private Long quittanceMensuelleImpotDetailId;
 
@@ -115,5 +121,33 @@ public class ImpotMensuelClientDTO implements Serializable {
 
     public void setImpotMensuelDescription(String impotMensuelDescription) {
         this.impotMensuelDescription = impotMensuelDescription;
+    }
+
+    public Boolean getApplicable() {
+        return applicable;
+    }
+
+    public Boolean getImpotMensuelParent() {
+        return impotMensuelParent;
+    }
+
+    public void setImpotMensuelParent(Boolean impotMensuelParent) {
+        this.impotMensuelParent = impotMensuelParent;
+    }
+
+    public Boolean getImpotMensuelChild() {
+        return impotMensuelChild;
+    }
+
+    public void setImpotMensuelChild(Boolean impotMensuelChild) {
+        this.impotMensuelChild = impotMensuelChild;
+    }
+
+    public Long getImpotMensuelParentId() {
+        return impotMensuelParentId;
+    }
+
+    public void setImpotMensuelParentId(Long impotMensuelParentId) {
+        this.impotMensuelParentId = impotMensuelParentId;
     }
 }

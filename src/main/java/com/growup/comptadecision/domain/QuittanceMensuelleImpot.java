@@ -27,6 +27,16 @@ import java.util.List;
 @ToString
 public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
 
+    public QuittanceMensuelleImpot() {
+    }
+
+    public QuittanceMensuelleImpot(FicheClient ficheClient, Integer annee, Integer mois, TypeDeclaration typeDeclaration) {
+        this.ficheClient = ficheClient;
+        this.annee = annee;
+        this.mois = mois;
+        this.typeDeclaration = typeDeclaration;
+    }
+
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -43,6 +53,7 @@ public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
     private Integer mois;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "type_declaration", nullable = false)
     private TypeDeclaration typeDeclaration;
 
@@ -155,16 +166,6 @@ public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
 
     public void setQuittanceMensuelleImpotDetails(List<QuittanceMensuelleImpotDetail> quittanceMensuelleImpotDetails) {
         this.quittanceMensuelleImpotDetails = quittanceMensuelleImpotDetails;
-    }
-
-    public void addQuittanceMensuelleImpotDetail(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail) {
-        quittanceMensuelleImpotDetails.add(quittanceMensuelleImpotDetail);
-        quittanceMensuelleImpotDetail.setQuittanceMensuelleImpot(this);
-    }
-
-    public void removeQuittanceMensuelleImpotDetail(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail) {
-        quittanceMensuelleImpotDetails.remove(quittanceMensuelleImpotDetail);
-        quittanceMensuelleImpotDetail.setQuittanceMensuelleImpot(null);
     }
 
     public TypeDeclaration getTypeDeclaration() {

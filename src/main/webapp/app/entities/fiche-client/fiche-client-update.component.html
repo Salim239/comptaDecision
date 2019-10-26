@@ -199,13 +199,14 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th *ngFor="let impotMensuelClient of ficheClient.impotMensuelClients" title="{{impotMensuelClient.impotMensuelDescription}}">{{impotMensuelClient.impotMensuelLibelle}}</th>
+                        <th  *ngFor="let impotMensuelClient of ficheClient.impotMensuelClients"  title="{{impotMensuelClient.impotMensuelDescription}}">
+                            <span *ngIf="!impotMensuelClient.impotMensuelChild">{{impotMensuelClient.impotMensuelLibelle}}</span></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td *ngFor="let impotMensuelClient of ficheClient.impotMensuelClients;let i=index">
-                            <input name="impotMensuelClients[{{i}}]" title="Appliquer cet impot" type="checkbox" [(ngModel)]="impotMensuelClient.applicable"/>
+                            <input name="impotMensuelClients[{{i}}]" title="Appliquer cet impot" type="checkbox" [(ngModel)]="impotMensuelClient.applicable" *ngIf="!impotMensuelClient.impotMensuelChild"/>
                         </td>
                     </tr>
                     </tbody>

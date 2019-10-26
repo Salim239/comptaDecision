@@ -31,10 +31,7 @@
                     </div>
                 </div>
 
-                <app-annee [currentFichClientDateCreation]="quittanceMensuelleImpot.ficheClientDateCreation"
-                           [ficheClients]="ficheclients" [form]="editForm"
-                           [currentFicheClientId]="quittanceMensuelleImpot.ficheClientId"
-                           [model]="quittanceMensuelleImpot"></app-annee>
+                <app-annee [model]="quittanceMensuelleImpot"></app-annee>
 
                 <app-mois [form]="editForm" [model]="quittanceMensuelleImpot" (moisChange)="initByParams()"></app-mois>
 
