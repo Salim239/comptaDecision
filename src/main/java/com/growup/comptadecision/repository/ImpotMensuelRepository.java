@@ -25,7 +25,7 @@ public interface ImpotMensuelRepository extends JpaRepository<ImpotMensuel, Long
     List<ImpotMensuel> findParents();
 
     @Query("select impotMensuel from ImpotMensuel impotMensuel " +
-            "where impotMensuel.child = false ")
+            "where impotMensuel.parentImpotMensuel is null ")
     List<ImpotMensuel> findWithoutChildren();
 
     @Query("select impotMensuel from ImpotMensuel impotMensuel " +

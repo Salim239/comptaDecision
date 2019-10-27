@@ -1,5 +1,4 @@
 <div class="form-group">
-    AAA {{model.annee}}
     <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.annee" for="field_annee">Annee</label>
     <select required class="form-control" name="annee" [(ngModel)]="model.annee" id="field_annee" >
         <option [ngValue]="year" *ngFor="let year of years;">{{year}}</option>

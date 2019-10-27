@@ -23,7 +23,7 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
     currentMonth: number;
     previousYears: number[];
 
-    ficheclients: IFicheClient[];
+    ficheClients: IFicheClient[];
     datePaiementDp: any;
 
     constructor(
@@ -36,47 +36,24 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.currentYear = moment().year();
-        this.currentMonth = moment().month();
         this.activatedRoute.data.subscribe(({ quittanceMensuelleImpot, ficheClients }) => {
             this.quittanceMensuelleImpot = quittanceMensuelleImpot;
-                this.ficheclients = ficheClients;
+            this.ficheClients = ficheClients;
+            this.getAnneesDeclaration();
         });
-        // this.activatedRoute.data.subscribe(({quittanceMensuelleImpot, ficheClients}) => {
-        //
-        //     this.quittanceMensuelleImpot = quittanceMensuelleImpot;
-        //     this.ficheclients = ficheClients;
-        //     if (!this.quittanceMensuelleImpot.id) {
-        //         if (this.ficheclients.length > 0) {
-        //             this.quittanceMensuelleImpot.ficheClientId = this.ficheclients[0].id;
-        //             this.quittanceMensuelleImpot.ficheClientDateCreation = this.ficheclients[0].dateCreation;
-        //             this.quittanceMensuelleImpot.ficheClientDesignation = this.ficheclients[0].designation;
-        //             this.quittanceMensuelleImpot.ficheClientMatriculeFiscale = this.ficheclients[0].matriculeFiscale;
-        //             this.quittanceMensuelleImpot.ficheClientRegistreCommerce = this.ficheclients[0].registreCommerce;
-        //         }
-        //
-        //         this.quittanceMensuelleImpot.typeDeclaration = TypeDeclaration.DECLARATION_INITIALE;
-        //         this.quittanceMensuelleImpot.annee = this.currentYear;
-        //         this.quittanceMensuelleImpot.annee = this.currentYear;
-        //         this.quittanceMensuelleImpot.mois = this.currentMonth + 1;
-        //         // this.initByParams();
-        //     }
-        //         this.calculateSumMontantPaye();
-        //     this.getAnnesDeclaration();
-        // });
     }
 
-    private getAnnesDeclaration() {
+    private getAnneesDeclaration() {
         if (this.quittanceMensuelleImpot && this.quittanceMensuelleImpot.ficheClientId) {
             let ficheClientId = this.quittanceMensuelleImpot.ficheClientId;
-            let ficheClient = _.find(this.ficheclients, function (ficheClient) {
+            let ficheClient = _.find(this.ficheClients, function (ficheClient) {
                 return ficheClientId === ficheClient.id;
             });
             if (ficheClient && ficheClient.dateCreation) {
-                this.previousYears = ComptaDecisionUtils.getPreviousYears(moment(ficheClient.dateCreation).year(), this.currentYear);
+                this.previousYears = ComptaDecisionUtils.getPreviousYears(moment(ficheClient.dateCreation).year());
             }
         } else {
-            this.previousYears = ComptaDecisionUtils.getPreviousYears(this.currentYear -5, this.currentYear);
+            this.previousYears = ComptaDecisionUtils.getPreviousYears(this.currentYear -5);
         }
     }
 
@@ -107,10 +84,6 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
     }
 
     initByParams() {
-        let anneeSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.annee : undefined;
-        let moisSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.mois : undefined;
-        let typeDeclarationSelected = this.quittanceMensuelleImpot ? this.quittanceMensuelleImpot.typeDeclaration : undefined;
-        this.getAnnesDeclaration();
         if(this.quittanceMensuelleImpot.ficheClientId !== undefined &&
             // this.quittanceMensuelleImpot.ficheClientId !== '' &&
             this.quittanceMensuelleImpot.ficheClientId !== null) {

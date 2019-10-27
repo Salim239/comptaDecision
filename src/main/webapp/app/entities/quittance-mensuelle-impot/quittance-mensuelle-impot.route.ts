@@ -3,7 +3,7 @@ import {HttpResponse} from '@angular/common/http';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
 import {JhiResolvePagingParams} from 'ng-jhipster';
 import {UserRouteAccessService} from 'app/core';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 import {IQuittanceMensuelleImpot, QuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
 import {QuittanceMensuelleImpotService} from './quittance-mensuelle-impot.service';
@@ -26,7 +26,14 @@ export class QuittanceMensuelleImpotResolve implements Resolve<IQuittanceMensuel
                 map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
             );
         }
-        return of(new QuittanceMensuelleImpot());
+        return this.service.initEmpty()
+            .pipe(
+                filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
+                map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => {
+                    return quittanceMensuelleImpot.body;
+                })
+            );
+        // return of(new QuittanceMensuelleImpot());
     }
 }
 

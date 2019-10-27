@@ -18,6 +18,12 @@ export class QuittanceMensuelleImpotService {
 
     constructor(protected http: HttpClient) {}
 
+    initEmpty(): Observable<EntityResponseType> {
+        return this.http
+            .get<IQuittanceMensuelleImpot>(this.resourceUrl + '/init', { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
     initByParams(ficheClientId: number): Observable<EntityResponseType> {
         return this.http
             .get<IQuittanceMensuelleImpot>(`${this.resourceUrl}/ficheClient/${ficheClientId}`, { observe: 'response' })

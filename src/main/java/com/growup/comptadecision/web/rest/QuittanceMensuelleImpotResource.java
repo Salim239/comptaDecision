@@ -111,12 +111,12 @@ public class QuittanceMensuelleImpotResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new quittanceMensuelleImpotDTO, or with status 400 (Bad Request) if the quittanceMensuelleImpot has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-//    @GetMapping("/quittance-mensuelle-impots/init")
-//    public ResponseEntity<QuittanceMensuelleImpotDTO> init() {
-//        log.debug("REST request to init empty QuittanceMensuelleImpot");
-//        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotService.init();
-//        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
-//    }
+    @GetMapping("/quittance-mensuelle-impots/init")
+    public ResponseEntity<QuittanceMensuelleImpotDTO> init() {
+        log.debug("REST request to init empty QuittanceMensuelleImpot");
+        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotService.init();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
+    }
 
     @GetMapping("/quittance-mensuelle-impots/ficheClient/{ficheClientId}")
     public ResponseEntity<QuittanceMensuelleImpotDTO> getEmptyQuittanceMensuel(@PathVariable("ficheClientId") Long ficheClientId) {
