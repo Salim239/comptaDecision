@@ -1,5 +1,6 @@
 package com.growup.comptadecision.service.dto;
 
+import com.growup.comptadecision.domain.enumeration.TypeValeur;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -19,19 +20,25 @@ public class QuittanceMensuelleImpotSousDetailDTO implements Serializable {
     public QuittanceMensuelleImpotSousDetailDTO() {
     }
 
-    public QuittanceMensuelleImpotSousDetailDTO(Long quittanceMensuelleImpotDetailId, ImpotMensuelDetailDTO impotMensuelDetail,
-                                                BigDecimal montantBase, BigDecimal montantTotal) {
-        this.quittanceMensuelleImpotDetailId = quittanceMensuelleImpotDetailId;
-        this.impotMensuelDetail = impotMensuelDetail;
-        this.montantBase = montantBase;
-        this.montantTotal = montantTotal;
-    }
-
     private Long id;
 
     private Long quittanceMensuelleImpotDetailId;
 
-    private ImpotMensuelDetailDTO impotMensuelDetail;
+    private Long impotMensuelDetailId;
+
+    private Integer impotMensuelDetailTriOrdre;
+
+    private String impotMensuelDetailCode;
+
+    private String impotMensuelDetailLibelle;
+
+    private TypeValeur impotMensuelDetailTypeValeur = TypeValeur.TAUX;
+
+    private Float impotMensuelDetailValeur = 1f;
+
+    private Boolean impotMensuelDetailValeurModifiable;
+
+    private String impotMensuelDetailDescription;
 
     private BigDecimal montantBase;
 
@@ -53,12 +60,60 @@ public class QuittanceMensuelleImpotSousDetailDTO implements Serializable {
         this.quittanceMensuelleImpotDetailId = quittanceMensuelleImpotDetailId;
     }
 
-    public ImpotMensuelDetailDTO getImpotMensuelDetail() {
-        return impotMensuelDetail;
+    public Long getImpotMensuelDetailId() {
+        return impotMensuelDetailId;
     }
 
-    public void setImpotMensuelDetail(ImpotMensuelDetailDTO impotMensuelDetail) {
-        this.impotMensuelDetail = impotMensuelDetail;
+    public void setImpotMensuelDetailId(Long impotMensuelDetailId) {
+        this.impotMensuelDetailId = impotMensuelDetailId;
+    }
+
+    public Integer getImpotMensuelDetailTriOrdre() {
+        return impotMensuelDetailTriOrdre;
+    }
+
+    public void setImpotMensuelDetailTriOrdre(Integer impotMensuelDetailTriOrdre) {
+        this.impotMensuelDetailTriOrdre = impotMensuelDetailTriOrdre;
+    }
+
+    public String getImpotMensuelDetailCode() {
+        return impotMensuelDetailCode;
+    }
+
+    public void setImpotMensuelDetailCode(String impotMensuelDetailCode) {
+        this.impotMensuelDetailCode = impotMensuelDetailCode;
+    }
+
+    public String getImpotMensuelDetailLibelle() {
+        return impotMensuelDetailLibelle;
+    }
+
+    public void setImpotMensuelDetailLibelle(String impotMensuelDetailLibelle) {
+        this.impotMensuelDetailLibelle = impotMensuelDetailLibelle;
+    }
+
+    public TypeValeur getImpotMensuelDetailTypeValeur() {
+        return impotMensuelDetailTypeValeur;
+    }
+
+    public void setImpotMensuelDetailTypeValeur(TypeValeur impotMensuelDetailTypeValeur) {
+        this.impotMensuelDetailTypeValeur = impotMensuelDetailTypeValeur;
+    }
+
+    public Boolean getImpotMensuelDetailValeurModifiable() {
+        return impotMensuelDetailValeurModifiable;
+    }
+
+    public void setImpotMensuelDetailValeurModifiable(Boolean impotMensuelDetailValeurModifiable) {
+        this.impotMensuelDetailValeurModifiable = impotMensuelDetailValeurModifiable;
+    }
+
+    public String getImpotMensuelDetailDescription() {
+        return impotMensuelDetailDescription;
+    }
+
+    public void setImpotMensuelDetailDescription(String impotMensuelDetailDescription) {
+        this.impotMensuelDetailDescription = impotMensuelDetailDescription;
     }
 
     public BigDecimal getMontantBase() {
@@ -67,6 +122,14 @@ public class QuittanceMensuelleImpotSousDetailDTO implements Serializable {
 
     public void setMontantBase(BigDecimal montantBase) {
         this.montantBase = montantBase;
+    }
+
+    public Float getImpotMensuelDetailValeur() {
+        return impotMensuelDetailValeur;
+    }
+
+    public void setImpotMensuelDetailValeur(Float impotMensuelDetailValeur) {
+        this.impotMensuelDetailValeur = impotMensuelDetailValeur;
     }
 
     public BigDecimal getMontantTotal() {

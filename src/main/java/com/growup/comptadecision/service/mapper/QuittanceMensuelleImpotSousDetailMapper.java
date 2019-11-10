@@ -5,6 +5,7 @@ import com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail;
 import com.growup.comptadecision.domain.QuittanceMensuelleImpotSousDetail;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotSousDetailDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,14 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring", uses = {QuittanceMensuelleImpotDetailMapper.class, ImpotMensuelDetailMapper.class})
 public interface QuittanceMensuelleImpotSousDetailMapper extends EntityMapper<QuittanceMensuelleImpotSousDetailDTO, QuittanceMensuelleImpotSousDetail> {
 
+    @Mapping(source = "impotMensuelDetail.id", target = "impotMensuelDetailId")
+    @Mapping(source = "impotMensuelDetail.code", target = "impotMensuelDetailCode")
+    @Mapping(source = "impotMensuelDetail.triOrdre", target = "impotMensuelDetailTriOrdre")
+    @Mapping(source = "impotMensuelDetail.libelle", target = "impotMensuelDetailLibelle")
+    @Mapping(source = "impotMensuelDetail.description", target = "impotMensuelDetailDescription")
+    @Mapping(source = "impotMensuelDetail.typeValeur", target = "impotMensuelDetailTypeValeur")
+    @Mapping(source = "impotMensuelDetail.valeur", target = "impotMensuelDetailValeur")
+    @Mapping(source = "impotMensuelDetail.valeurModifiable", target = "impotMensuelDetailValeurModifiable")
     QuittanceMensuelleImpotSousDetailDTO toDto(QuittanceMensuelleImpotSousDetail quittanceMensuelleImpotSousDetail);
 
     QuittanceMensuelleImpotSousDetail toEntity(QuittanceMensuelleImpotSousDetailDTO quittanceMensuelleImpotSousDetailDTO);

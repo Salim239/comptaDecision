@@ -1,5 +1,6 @@
 package com.growup.comptadecision.repository;
 
+import com.growup.comptadecision.domain.ImpotMensuel;
 import com.growup.comptadecision.domain.ImpotMensuelClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,10 +21,10 @@ public interface ImpotMensuelClientRepository extends JpaRepository<ImpotMensuel
 
     List<ImpotMensuelClient> findByFicheClientId(Long ficheClientId);
 
-    @Query("select impotMensuelClient.impotMensuel.id from ImpotMensuelClient impotMensuelClient " +
+    @Query("select distinct impotMensuelClient.impotMensuel from ImpotMensuelClient impotMensuelClient " +
             "where impotMensuelClient.ficheClient.id = :ficheClientId " +
             "and impotMensuelClient.applicable = true")
-    List<Long> findImpotMensuelDetailIdApplicableByFicheClientId(@Param("ficheClientId")Long ficheClientId);
+    List<ImpotMensuel> findImpotMensuelDetailIdApplicableByFicheClientId(@Param("ficheClientId")Long ficheClientId);
 
     Page<ImpotMensuelClient> findAllByCreatedBy(String creator, Pageable pageable);
 

@@ -1,18 +1,19 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {JhiLanguageService} from 'ng-jhipster';
+import {JhiLanguageHelper} from 'app/core';
 
-import { ComptaDecisionSharedModule } from 'app/shared';
+import {ComptaDecisionSharedModule} from 'app/shared';
 import {
     QuittanceMensuelleImpotComponent,
-    QuittanceMensuelleImpotDetailComponent,
-    QuittanceMensuelleImpotUpdateComponent,
-    QuittanceMensuelleImpotDeletePopupComponent,
     QuittanceMensuelleImpotDeleteDialogComponent,
+    QuittanceMensuelleImpotDeletePopupComponent,
+    QuittanceMensuelleImpotDetailComponent,
+    quittanceMensuelleImpotPopupRoute,
     quittanceMensuelleImpotRoute,
-    quittanceMensuelleImpotPopupRoute
+    QuittanceMensuelleImpotUpdateComponent
 } from './';
+import {QuittanceMensuelleImpotDetailListComponent} from './quittance-mensuelle-impot-detail/quittance-mensuelle-impot-detail-list.component'
 
 const ENTITY_STATES = [...quittanceMensuelleImpotRoute, ...quittanceMensuelleImpotPopupRoute];
 
@@ -23,13 +24,15 @@ const ENTITY_STATES = [...quittanceMensuelleImpotRoute, ...quittanceMensuelleImp
         QuittanceMensuelleImpotDetailComponent,
         QuittanceMensuelleImpotUpdateComponent,
         QuittanceMensuelleImpotDeleteDialogComponent,
-        QuittanceMensuelleImpotDeletePopupComponent
+        QuittanceMensuelleImpotDeletePopupComponent,
+        QuittanceMensuelleImpotDetailListComponent
     ],
     entryComponents: [
         QuittanceMensuelleImpotComponent,
         QuittanceMensuelleImpotUpdateComponent,
         QuittanceMensuelleImpotDeleteDialogComponent,
-        QuittanceMensuelleImpotDeletePopupComponent
+        QuittanceMensuelleImpotDeletePopupComponent,
+        QuittanceMensuelleImpotDetailListComponent
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

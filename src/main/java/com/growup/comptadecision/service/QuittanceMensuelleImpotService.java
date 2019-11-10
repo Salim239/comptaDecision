@@ -21,6 +21,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -78,6 +79,8 @@ public class QuittanceMensuelleImpotService {
         if (ficheClientId != null) {
             ficheClient = ficheClientRepository.findById(ficheClientId)
                     .orElseThrow(() -> new RuntimeException(String.format("FicheClient not found with id %s", ficheClientId)));
+        } else {
+            ficheClient = ficheClientRepository.count() > 0 ? ficheClientRepository.findAll().get(0) : null;
         }
         boolean existsQuittanceInitiale = quittanceMensuelleImpotRepository.findByAnneeAndMoisAndFicheClientIdAndTypeDeclaration(anneeCourante,
                 moisCourant, ficheClientId, TypeDeclaration.DECLARATION_INITIALE) != null;
@@ -89,7 +92,6 @@ public class QuittanceMensuelleImpotService {
                 !existsQuittanceInitiale || ficheClient == null? TypeDeclaration.DECLARATION_INITIALE : TypeDeclaration.DECLARATION_RECTIFICATIVE);
 
         if (quittanceMensuelleImpot.getFicheClient() != null) {
-
             initQuittanceImpotMensuelDetails(quittanceMensuelleImpot);
         }
 
@@ -101,17 +103,38 @@ public class QuittanceMensuelleImpotService {
      * @param quittanceMensuelleImpot quittanceMensuel object
      */
     private void initQuittanceImpotMensuelDetails(QuittanceMensuelleImpot quittanceMensuelleImpot) {
-        List<Long> impotMensuelIds = impotMensuelClientRepository.findImpotMensuelDetailIdApplicableByFicheClientId(quittanceMensuelleImpot.getFicheClient().getId());
-        List<QuittanceMensuelleImpotDetail> quittanceMensuelleImpotDetails = impotMensuelRepository.findAndChildByIds(impotMensuelIds).stream()
+        List<ImpotMensuel> impotMensuels = impotMensuelRepository.findImpotMensuelApplicableByFicheClientId(quittanceMensuelleImpot.getFicheClient().getId());
+        List<QuittanceMensuelleImpotDetail> quittanceMensuelleImpotDetails = impotMensuels.stream()
                 .map(impotMensuel -> {
-                    QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail = new QuittanceMensuelleImpotDetail();
-                    quittanceMensuelleImpotDetail.setQuittanceMensuelleImpot(quittanceMensuelleImpot);
-                    quittanceMensuelleImpotDetail.setImpotMensuel(new ImpotMensuel(impotMensuel.getId()));
-                    quittanceMensuelleImpotDetail.setQuittanceMensuelleImpotSousDetails(
-                            quittanceMensuelleImpotSousDetailMapper.map(quittanceMensuelleImpotDetail, impotMensuel.getImpotMensuelDetails()));
+                    QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail = getQuittanceMensuelImpotDetail(quittanceMensuelleImpot, impotMensuel);
+                    List<QuittanceMensuelleImpotDetail> childQuittanceMensuelleImpotDetails = new ArrayList<>();
+                    for (ImpotMensuel childImpotMensuel : impotMensuel.getChildImpotMensuels()) {
+                        QuittanceMensuelleImpotDetail childQuittanceMensuelleImpotDetail = getQuittanceMensuelImpotDetail(quittanceMensuelleImpot, childImpotMensuel, quittanceMensuelleImpotDetail);
+                        childQuittanceMensuelleImpotDetails.add(childQuittanceMensuelleImpotDetail);
+                        quittanceMensuelleImpotDetail.getChildQuittanceMensuelleImpotDetails().add(childQuittanceMensuelleImpotDetail);
+                    }
+                    quittanceMensuelleImpotDetail.setChildQuittanceMensuelleImpotDetails(childQuittanceMensuelleImpotDetails);
+
                     return quittanceMensuelleImpotDetail;
                 }).collect(Collectors.toList());
         quittanceMensuelleImpot.setQuittanceMensuelleImpotDetails(quittanceMensuelleImpotDetails);
+    }
+
+    private QuittanceMensuelleImpotDetail getQuittanceMensuelImpotDetail(QuittanceMensuelleImpot quittanceMensuelleImpot, ImpotMensuel impotMensuel) {
+        return getQuittanceMensuelImpotDetail(quittanceMensuelleImpot, impotMensuel, null);
+    }
+
+    private QuittanceMensuelleImpotDetail getQuittanceMensuelImpotDetail(QuittanceMensuelleImpot quittanceMensuelleImpot, ImpotMensuel impotMensuel, QuittanceMensuelleImpotDetail parentQuittanceMensuelleImpotDetail) {
+        QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail = new QuittanceMensuelleImpotDetail();
+        quittanceMensuelleImpotDetail.setQuittanceMensuelleImpot(quittanceMensuelleImpot);
+        quittanceMensuelleImpotDetail.setImpotMensuel(impotMensuel);
+        quittanceMensuelleImpotDetail.setParent(impotMensuel.getParent());
+        quittanceMensuelleImpotDetail.setLibelle(impotMensuel.getLibelle());
+        quittanceMensuelleImpotDetail.setChild(impotMensuel.getChild());
+        quittanceMensuelleImpotDetail.setParentQuittanceMensuelleImpotDetail(parentQuittanceMensuelleImpotDetail);
+        quittanceMensuelleImpotDetail.setQuittanceMensuelleImpotSousDetails(
+                quittanceMensuelleImpotSousDetailMapper.map(quittanceMensuelleImpotDetail, impotMensuel.getImpotMensuelDetails()));
+        return quittanceMensuelleImpotDetail;
     }
 
     /**

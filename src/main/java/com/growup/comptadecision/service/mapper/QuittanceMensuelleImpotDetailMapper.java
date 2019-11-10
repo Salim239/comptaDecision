@@ -11,8 +11,13 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {QuittanceMensuelleImpotMapper.class, ImpotMensuelMapper.class, QuittanceMensuelleImpotSousDetailMapper.class})
 public interface QuittanceMensuelleImpotDetailMapper extends EntityMapper<QuittanceMensuelleImpotDetailDTO, QuittanceMensuelleImpotDetail> {
 
+    @Mapping(source = "parentQuittanceMensuelleImpotDetail.id", target = "parentQuittanceMensuelleImpotDetailId")
+    @Mapping(source = "parentQuittanceMensuelleImpotDetail.libelle", target = "parentQuittanceMensuelleImpotDetailLibelle")
     QuittanceMensuelleImpotDetailDTO toDto(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail);
 
+    @Mapping(target = "parentQuittanceMensuelleImpotDetail",
+            expression = "java(quittanceMensuelleImpotDetailDTO.getParentQuittanceMensuelleImpotDetailId() == null ? null : " +
+                    "new com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail(quittanceMensuelleImpotDetailDTO.getParentQuittanceMensuelleImpotDetailId()))" )
     @Mapping(target = "quittanceMensuelleImpotSousDetails", expression = "java(" +
             "quittanceMensuelleImpotDetailDTO.getQuittanceMensuelleImpotSousDetails().stream().map(quittanceMensuelleImpotSousDetailDTO ->  {" +
             "com.growup.comptadecision.domain.QuittanceMensuelleImpotSousDetail quittanceMensuelleImpotSousDetail = " +

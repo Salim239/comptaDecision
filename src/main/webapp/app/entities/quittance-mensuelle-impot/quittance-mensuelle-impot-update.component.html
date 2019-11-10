@@ -51,13 +51,91 @@
                     </div>
                 </div>
 
-                <!--<div  class="form-group" *ngFor="let quittanceMensuelleImpotDetail of quittanceMensuelleImpot.quittanceMensuelleImpotDetails">-->
-                    <!--<div *ngIf="quittanceMensuelleImpotDetail.impotMensuelClient.applicable" class="form-group">-->
-                    <!--<label class="form-control-label">{{quittanceMensuelleImpotDetail.impotMensuelClient.impotMensuelLibelle}}</label>-->
-                    <!--<input (change)="calculateSumMontantPaye()" type="number" class="form-control" id="field_{{quittanceMensuelleImpotDetail.impotMensuelClient.impotMensuelId}}_montantPaye" name="{{quittanceMensuelleImpotDetail.impotMensuelClient.impotMensuelId}}_montantPaye" [readOnly]="!quittanceMensuelleImpotDetail.impotMensuelClient.applicable"-->
-                           <!--[(ngModel)]="quittanceMensuelleImpotDetail.montantPaye" />-->
-                    <!--</div>-->
-                <!--</div>-->
+                <ngb-tabset>
+                    <ngb-tab *ngFor="let quittanceMensuelleImpotDetail of quittanceMensuelleImpot.quittanceMensuelleImpotDetails;let i=index">
+                        <ng-template ngbTabTitle>{{quittanceMensuelleImpotDetail.impotMensuel.libelle}}
+                            <span class="badge badge-pill badge-primary" *ngIf="quittanceMensuelleImpotDetail.montantTotal">{{quittanceMensuelleImpotDetail.montantTotal}}</span>
+                        </ng-template>
+                        <ng-template ngbTabContent>
+                            <!--{{quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails.length > 0 ?-->
+                            <!--quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetail[0]}}-->
+
+                            <quittance-mensuelle-impot-detail-list [indexDetail]="i" [quittanceMensuelleImpotDetail]="quittanceMensuelleImpotDetail">
+                            </quittance-mensuelle-impot-detail-list>
+
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+
+                            <!--<table class="table table-hover">-->
+                                <!--<thead>-->
+                                <!--<tr>-->
+                                    <!--<th scope="col">-->
+                                        <!--<label  class="form-control-label"-->
+                                                <!--jhiTranslate="comptaDecisionApp.quittanceImpotMensuelSousDetail.libelle" for="field_quittanceMensuelleImpotSousDetailLibelle">Type Impôt</label>-->
+                                    <!--</th>-->
+                                    <!--<th scope="col">-->
+                                        <!--<label  class="form-control-label"-->
+                                                <!--jhiTranslate="comptaDecisionApp.quittanceImpotMensuelSousDetail.montantBase" for="field_quittanceMensuelleImpotSousDetailMontantBase">Base</label>-->
+                                    <!--</th>-->
+                                    <!--<th scope="col">-->
+                                        <!--<label  class="form-control-label"-->
+                                                <!--jhiTranslate="comptaDecisionApp.quittanceImpotMensuelSousDetail.taux" for="field_quittanceMensuelleImpotSousDetailTaux">Taux</label>-->
+                                    <!--</th>-->
+                                    <!--<th scope="col">-->
+                                        <!--<label  class="form-control-label"-->
+                                                <!--jhiTranslate="comptaDecisionApp.quittanceImpotMensuelSousDetail.montantTotal" for="field_quittanceMensuelleImpotSousDetailMontantTotal">Total</label>-->
+                                    <!--</th>-->
+                                <!--</tr>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                <!--<tr *ngIf="quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails.length === 0">-->
+                                    <!--<td colspan="4">-->
+                                        <!--<span hiTranslate="comptaDecisionApp.impotMensuelDetail.quittanceImpotMensuelSousDetails.empty" >Auncune configuration d'impôt définie</span>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                                <!--<tr *ngFor="let quittanceMensuelleImpotSousDetail of quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails;let j=index">-->
+                                    <!--<td>-->
+                                        <!--<div class="form-group">-->
+                                            <!--<input [disabled]="true" type="text" class="form-control"-->
+                                                   <!--name="quittanceMensuelleImpotDetail[{{i}}].quittanceMensuelleImpotSousDetails[{{j}}].quittanceMensuelleImpotSousDetailLibelle"-->
+                                                   <!--id="field_quittanceMensuelleImpotSousDetailLibelle"-->
+                                                   <!--[(ngModel)]="quittanceMensuelleImpotSousDetail.impotMensuelDetailLibelle"/>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td>-->
+                                        <!--<div class="form-group"  style="width: 160px">-->
+                                            <!--<input type="text" class="form-control"-->
+                                                   <!--name="quittanceMensuelleImpotDetail[{{i}}].quittanceMensuelleImpotSousDetails[{{j}}].quittanceMensuelleImpotSousDetailMontantBase"-->
+                                                   <!--id="field_quittanceMensuelleImpotSousDetailMontantBase"-->
+                                                   <!--[(ngModel)]="quittanceMensuelleImpotSousDetail.montantBase"/>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td>-->
+                                        <!--<div class="form-group input-group">-->
+                                            <!--<input [hidden]="!isTaux(quittanceMensuelleImpotSousDetail.impotMensuelDetailTypeValeur)" [disabled]="!quittanceMensuelleImpotSousDetail.impotMensuelDetailValeurModifiable" type="text" class="form-control"-->
+                                                   <!--name="quittanceMensuelleImpotDetail[{{i}}].quittanceMensuelleImpotSousDetails[{{j}}].quittanceMensuelleImpotSousDetailTaux"-->
+                                                   <!--id="field_quittanceMensuelleImpotSousDetailTaux"-->
+                                                   <!--[(ngModel)]="quittanceMensuelleImpotSousDetail.taux"/>-->
+                                            <!--<div [hidden]="!isTaux(quittanceMensuelleImpotSousDetail.impotMensuelDetailTypeValeur)" class="input-group-append">-->
+                                                <!--<span class="input-group-text" id="basic-addon2">%</span>-->
+                                            <!--</div>-->
+
+                                            <!--<input [hidden]="isTaux(quittanceMensuelleImpotSousDetail.impotMensuelDetailTypeValeur)" value="N/A" [disabled]="true" type="text" class="form-control"/>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--<td>-->
+                                        <!--<div class="form-group">-->
+                                            <!--<input type="text" class="form-control"-->
+                                                   <!--name="quittanceMensuelleImpotDetail[{{i}}].quittanceMensuelleImpotSousDetails[{{j}}].quittanceMensuelleImpotSousDetailMontantTotal"-->
+                                                   <!--id="field_quittanceMensuelleImpotSousDetailMontantTotal"-->
+                                                   <!--[(ngModel)]="quittanceMensuelleImpotSousDetail.montantTotal" [maxLength]="11"/>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.montantPaye" for="field_montantPaye">Montant Paye</label>

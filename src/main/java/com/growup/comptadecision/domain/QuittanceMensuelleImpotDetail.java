@@ -29,6 +29,10 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
     public QuittanceMensuelleImpotDetail() {
     }
 
+    public QuittanceMensuelleImpotDetail(Long id) {
+        this.id = id;
+    }
+
     public QuittanceMensuelleImpotDetail(QuittanceMensuelleImpot quittanceMensuelleImpot, ImpotMensuel impotMensuel) {
         this.quittanceMensuelleImpot = quittanceMensuelleImpot;
         this.impotMensuel = impotMensuel;
@@ -39,7 +43,24 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "montant_paye")
+    @Column(name = "libelle")
+    private String libelle;
+
+    @Column(name = "parent")
+    private Boolean parent;
+
+    @Column(name = "child")
+    private Boolean child;
+
+    @Column(name = "parent_quittance_mensuelle_impot_detail_id")
+    @OneToMany(mappedBy = "parentQuittanceMensuelleImpotDetail", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QuittanceMensuelleImpotDetail> childQuittanceMensuelleImpotDetails = new ArrayList<>();
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private QuittanceMensuelleImpotDetail parentQuittanceMensuelleImpotDetail;
+
+    @Column(name = "montant_total")
     private BigDecimal montantTotal;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -90,6 +111,46 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
 
     public void setQuittanceMensuelleImpotSousDetails(List<QuittanceMensuelleImpotSousDetail> quittanceMensuelleImpotSousDetails) {
         this.quittanceMensuelleImpotSousDetails = quittanceMensuelleImpotSousDetails;
+    }
+
+    public Boolean getParent() {
+        return parent;
+    }
+
+    public String getLibelle() {
+        return libelle;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
+
+    public void setParent(Boolean parent) {
+        this.parent = parent;
+    }
+
+    public Boolean getChild() {
+        return child;
+    }
+
+    public void setChild(Boolean child) {
+        this.child = child;
+    }
+
+    public List<QuittanceMensuelleImpotDetail> getChildQuittanceMensuelleImpotDetails() {
+        return childQuittanceMensuelleImpotDetails;
+    }
+
+    public void setChildQuittanceMensuelleImpotDetails(List<QuittanceMensuelleImpotDetail> childQuittanceMensuelleImpotDetails) {
+        this.childQuittanceMensuelleImpotDetails = childQuittanceMensuelleImpotDetails;
+    }
+
+    public QuittanceMensuelleImpotDetail getParentQuittanceMensuelleImpotDetail() {
+        return parentQuittanceMensuelleImpotDetail;
+    }
+
+    public void setParentQuittanceMensuelleImpotDetail(QuittanceMensuelleImpotDetail parentQuittanceMensuelleImpotDetail) {
+        this.parentQuittanceMensuelleImpotDetail = parentQuittanceMensuelleImpotDetail;
     }
 }
 

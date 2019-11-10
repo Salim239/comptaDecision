@@ -57,7 +57,7 @@ public class ImpotMensuel extends AbstractAuditingEntity {
     @OneToMany(mappedBy = "impotMensuel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImpotMensuelDetail> impotMensuelDetails = new ArrayList<>();
 
-    @OneToMany(mappedBy = "parentImpotMensuel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "parentImpotMensuel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ImpotMensuel> childImpotMensuels = new ArrayList<>();
 
     @OneToMany(mappedBy = "impotMensuel")

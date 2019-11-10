@@ -40,6 +40,9 @@ public class QuittanceMensuelleImpotSousDetail extends AbstractAuditingEntity {
     @Column(name = "montant_base")
     private BigDecimal montantBase;
 
+    @Column(name = "montant_total")
+    private BigDecimal montantTotal;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail;
 
@@ -76,6 +79,14 @@ public class QuittanceMensuelleImpotSousDetail extends AbstractAuditingEntity {
 
     public void setImpotMensuelDetail(ImpotMensuelDetail impotMensuelDetail) {
         this.impotMensuelDetail = impotMensuelDetail;
+    }
+
+    public BigDecimal getMontantTotal() {
+        return montantTotal;
+    }
+
+    public void setMontantTotal(BigDecimal montantTotal) {
+        this.montantTotal = montantTotal;
     }
 }
 
