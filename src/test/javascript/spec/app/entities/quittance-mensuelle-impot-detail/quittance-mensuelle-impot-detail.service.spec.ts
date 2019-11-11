@@ -56,7 +56,7 @@ describe('Service Tests', () => {
             it('should update a QuittanceMensuelleImpotDetail', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        montantPaye: 1
+                        montantTotal: 1
                     },
                     elemDefault
                 );
@@ -73,7 +73,7 @@ describe('Service Tests', () => {
             it('should return a list of QuittanceMensuelleImpotDetail', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        montantPaye: 1
+                        montantTotal: 1
                     },
                     elemDefault
                 );

@@ -25,7 +25,7 @@
             <tbody>
             <tr *ngFor="let quittanceMensuelleImpotDetail of quittanceMensuelleImpotDetails ;trackBy: trackId">
                 <td><a [routerLink]="['/quittance-mensuelle-impot-detail', quittanceMensuelleImpotDetail.id, 'view' ]">{{quittanceMensuelleImpotDetail.id}}</a></td>
-                <td>{{quittanceMensuelleImpotDetail.montantPaye}}</td>
+                <td>{{quittanceMensuelleImpotDetail.montantTotal}}</td>
                 <td>
                     <div *ngIf="quittanceMensuelleImpotDetail.quittanceMensuelleImpotId">
                         <a [routerLink]="['../quittance-mensuelle-impot', quittanceMensuelleImpotDetail.quittanceMensuelleImpotId , 'view' ]" >{{quittanceMensuelleImpotDetail.quittanceMensuelleImpotId}}</a>

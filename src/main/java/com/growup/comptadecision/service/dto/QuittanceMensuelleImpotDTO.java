@@ -39,7 +39,7 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
 
     private LocalDate datePaiement;
 
-    private BigDecimal montantPaye;
+    private BigDecimal montantTotal;
 
     private Long ficheClientId;
 
@@ -126,12 +126,12 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
         this.datePaiement = datePaiement;
     }
 
-    public BigDecimal getMontantPaye() {
-        return montantPaye;
+    public BigDecimal getMontantTotal() {
+        return montantTotal;
     }
 
-    public void setMontantPaye(BigDecimal montantPaye) {
-        this.montantPaye = montantPaye;
+    public void setMontantTotal(BigDecimal montantTotal) {
+        this.montantTotal = montantTotal;
     }
 
     public Long getFicheClientId() {

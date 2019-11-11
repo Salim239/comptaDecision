@@ -113,7 +113,7 @@ public class QuittanceMensuelleImpotResourceIntTest {
             .mois(DEFAULT_MOIS)
             .numeroQuittance(DEFAULT_NUMERO_QUITTANCE)
             .datePaiement(DEFAULT_DATE_PAIEMENT)
-            .montantPaye(DEFAULT_MONTANT_PAYE);
+            .montantTotal(DEFAULT_MONTANT_PAYE);
         return quittanceMensuelleImpot;
     }
 
@@ -142,7 +142,7 @@ public class QuittanceMensuelleImpotResourceIntTest {
         assertThat(testQuittanceMensuelleImpot.getMois()).isEqualTo(DEFAULT_MOIS);
         assertThat(testQuittanceMensuelleImpot.getNumeroQuittance()).isEqualTo(DEFAULT_NUMERO_QUITTANCE);
         assertThat(testQuittanceMensuelleImpot.getDatePaiement()).isEqualTo(DEFAULT_DATE_PAIEMENT);
-        assertThat(testQuittanceMensuelleImpot.getMontantPaye()).isEqualTo(DEFAULT_MONTANT_PAYE);
+        assertThat(testQuittanceMensuelleImpot.getMontantTotal()).isEqualTo(DEFAULT_MONTANT_PAYE);
     }
 
     @Test
@@ -218,7 +218,7 @@ public class QuittanceMensuelleImpotResourceIntTest {
             .andExpect(jsonPath("$.[*].mois").value(hasItem(DEFAULT_MOIS)))
             .andExpect(jsonPath("$.[*].numeroQuittance").value(hasItem(DEFAULT_NUMERO_QUITTANCE.toString())))
             .andExpect(jsonPath("$.[*].datePaiement").value(hasItem(DEFAULT_DATE_PAIEMENT.toString())))
-            .andExpect(jsonPath("$.[*].montantPaye").value(hasItem(DEFAULT_MONTANT_PAYE.intValue())));
+            .andExpect(jsonPath("$.[*].montantTotal").value(hasItem(DEFAULT_MONTANT_PAYE.intValue())));
     }
     
     @Test
@@ -236,7 +236,7 @@ public class QuittanceMensuelleImpotResourceIntTest {
             .andExpect(jsonPath("$.mois").value(DEFAULT_MOIS))
             .andExpect(jsonPath("$.numeroQuittance").value(DEFAULT_NUMERO_QUITTANCE.toString()))
             .andExpect(jsonPath("$.datePaiement").value(DEFAULT_DATE_PAIEMENT.toString()))
-            .andExpect(jsonPath("$.montantPaye").value(DEFAULT_MONTANT_PAYE.intValue()));
+            .andExpect(jsonPath("$.montantTotal").value(DEFAULT_MONTANT_PAYE.intValue()));
     }
 
     @Test
@@ -264,7 +264,7 @@ public class QuittanceMensuelleImpotResourceIntTest {
             .mois(UPDATED_MOIS)
             .numeroQuittance(UPDATED_NUMERO_QUITTANCE)
             .datePaiement(UPDATED_DATE_PAIEMENT)
-            .montantPaye(UPDATED_MONTANT_PAYE);
+            .montantTotal(UPDATED_MONTANT_PAYE);
         QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotMapper.toDto(updatedQuittanceMensuelleImpot);
 
         restQuittanceMensuelleImpotMockMvc.perform(put("/api/quittance-mensuelle-impots")
@@ -280,7 +280,7 @@ public class QuittanceMensuelleImpotResourceIntTest {
         assertThat(testQuittanceMensuelleImpot.getMois()).isEqualTo(UPDATED_MOIS);
         assertThat(testQuittanceMensuelleImpot.getNumeroQuittance()).isEqualTo(UPDATED_NUMERO_QUITTANCE);
         assertThat(testQuittanceMensuelleImpot.getDatePaiement()).isEqualTo(UPDATED_DATE_PAIEMENT);
-        assertThat(testQuittanceMensuelleImpot.getMontantPaye()).isEqualTo(UPDATED_MONTANT_PAYE);
+        assertThat(testQuittanceMensuelleImpot.getMontantTotal()).isEqualTo(UPDATED_MONTANT_PAYE);
     }
 
     @Test

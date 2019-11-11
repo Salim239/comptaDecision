@@ -13,7 +13,7 @@ export interface IQuittanceMensuelleImpot {
     typeDeclaration?: TypeDeclaration;
     numeroQuittance?: string;
     datePaiement?: Moment;
-    montantPaye?: number;
+    montantTotal?: number;
     ficheClientId?: number;
     ficheClientDesignation?: string;
     ficheClientMatriculeFiscale?: string;
@@ -30,7 +30,7 @@ export class QuittanceMensuelleImpot implements IQuittanceMensuelleImpot {
         public typeDeclaration?: TypeDeclaration,
         public numeroQuittance?: string,
         public datePaiement?: Moment,
-        public montantPaye?: number,
+        public montantTotal?: number,
         public ficheClientId?: number,
         public ficheClientDesignation?: string,
         public ficheClientMatriculeFiscale?: string,

@@ -76,7 +76,7 @@ describe('Service Tests', () => {
                         mois: 1,
                         numeroQuittance: 'BBBBBB',
                         datePaiement: currentDate.format(DATE_FORMAT),
-                        montantPaye: 1
+                        montantTotal: 1
                     },
                     elemDefault
                 );
@@ -102,7 +102,7 @@ describe('Service Tests', () => {
                         mois: 1,
                         numeroQuittance: 'BBBBBB',
                         datePaiement: currentDate.format(DATE_FORMAT),
-                        montantPaye: 1
+                        montantTotal: 1
                     },
                     elemDefault
                 );

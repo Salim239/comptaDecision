@@ -21,10 +21,10 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
     public QuittanceMensuelleImpotDetailDTO() {
     }
 
-    public QuittanceMensuelleImpotDetailDTO(Long quittanceMensuelleImpotId, ImpotMensuelDTO impotMensuel, BigDecimal montantPaye) {
+    public QuittanceMensuelleImpotDetailDTO(Long quittanceMensuelleImpotId, ImpotMensuelDTO impotMensuel, BigDecimal montantTotal) {
         this.quittanceMensuelleImpotId = quittanceMensuelleImpotId;
         this.impotMensuel = impotMensuel;
-        this.montantPaye = montantPaye;
+        this.montantTotal = montantTotal;
     }
 
     private Long id;
@@ -34,6 +34,8 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
     private Boolean parent;
 
     private Boolean child;
+
+    private BigDecimal montantTotal;
 
     private Long parentQuittanceMensuelleImpotDetailId;
 
@@ -46,8 +48,6 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
     private List<QuittanceMensuelleImpotSousDetailDTO> quittanceMensuelleImpotSousDetails = new ArrayList<>();
 
     private List<QuittanceMensuelleImpotDetailDTO> childQuittanceMensuelleImpotDetails = new ArrayList<>();
-
-    private BigDecimal montantPaye;
 
     public Long getId() {
         return id;
@@ -71,14 +71,6 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
 
     public void setImpotMensuel(ImpotMensuelDTO impotMensuel) {
         this.impotMensuel = impotMensuel;
-    }
-
-    public BigDecimal getMontantPaye() {
-        return montantPaye;
-    }
-
-    public void setMontantPaye(BigDecimal montantPaye) {
-        this.montantPaye = montantPaye;
     }
 
     public List<QuittanceMensuelleImpotSousDetailDTO> getQuittanceMensuelleImpotSousDetails() {
@@ -135,5 +127,13 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
 
     public void setChildQuittanceMensuelleImpotDetails(List<QuittanceMensuelleImpotDetailDTO> childQuittanceMensuelleImpotDetails) {
         this.childQuittanceMensuelleImpotDetails = childQuittanceMensuelleImpotDetails;
+    }
+
+    public BigDecimal getMontantTotal() {
+        return montantTotal;
+    }
+
+    public void setMontantTotal(BigDecimal montantTotal) {
+        this.montantTotal = montantTotal;
     }
 }

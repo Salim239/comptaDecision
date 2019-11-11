@@ -1,15 +1,26 @@
 package com.growup.comptadecision.service.mapper;
 
 import com.growup.comptadecision.domain.QuittanceMensuelleImpot;
+import com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
+import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDetailDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Mapper for the entity QuittanceMensuelleImpot and its DTO QuittanceMensuelleImpotDTO.
  */
 @Mapper(componentModel = "spring", uses = {FicheClientMapper.class, QuittanceMensuelleImpotDetailMapper.class})
 public interface QuittanceMensuelleImpotMapper extends EntityMapper<QuittanceMensuelleImpotDTO, QuittanceMensuelleImpot> {
+
+    default BigDecimal sum(QuittanceMensuelleImpotDTO quittanceMensuelleImpot) {
+       return quittanceMensuelleImpot.getQuittanceMensuelleImpotDetails().stream()
+               .filter(quittanceMensuelleImpotDetail -> quittanceMensuelleImpotDetail.getMontantTotal() != null)
+               .map(QuittanceMensuelleImpotDetailDTO::getMontantTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 
     @Mapping(source = "ficheClient.id", target = "ficheClientId")
     @Mapping(source = "ficheClient.designation", target = "ficheClientDesignation")
@@ -25,6 +36,7 @@ public interface QuittanceMensuelleImpotMapper extends EntityMapper<QuittanceMen
             "quittanceMensuelleImpotDetail.setQuittanceMensuelleImpot(quittanceMensuelleImpot);" +
             "return quittanceMensuelleImpotDetail;})" +
             ".collect(java.util.stream.Collectors.toList()))")
+    @Mapping(target = "montantTotal", expression = "java(this.sum(quittanceMensuelleImpotDTO))")
     QuittanceMensuelleImpot toEntity(QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO);
 
     default QuittanceMensuelleImpot fromId(Long id) {

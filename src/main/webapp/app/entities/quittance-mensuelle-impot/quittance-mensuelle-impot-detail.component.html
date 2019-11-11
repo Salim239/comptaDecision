@@ -34,9 +34,9 @@
                 <dd>
                     <span>{{quittanceMensuelleImpot.datePaiement}}</span>
                 </dd>
-                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.montantPaye">Montant Paye</span></dt>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.montantTotal">Montant Paye</span></dt>
                 <dd>
-                    <span>{{quittanceMensuelleImpot.montantPaye}}</span>
+                    <span>{{quittanceMensuelleImpot.montantTotal}}</span>
                 </dd>
 
             </dl>
@@ -48,13 +48,13 @@
                     <tbody>
                     <tr *ngFor="let quittanceMensuelleImpotDetail of quittanceMensuelleImpot.quittanceMensuelleImpotDetails">
                         <td><span>{{quittanceMensuelleImpotDetail.impotMensuelClient.impotMensuelLibelle}}</span></td>
-                        <td style="text-align: right"><span><strong>{{quittanceMensuelleImpotDetail.montantPaye}}</strong></span></td>
+                        <td style="text-align: right"><span><strong>{{quittanceMensuelleImpotDetail.montantTotal}}</strong></span></td>
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td><strong><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.montantPaye">Total</span></strong></td>
-                        <td style="text-align: right"><span><strong>{{quittanceMensuelleImpot.montantPaye}}</strong></span></td>
+                        <td><strong><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.montantTotal">Total</span></strong></td>
+                        <td style="text-align: right"><span><strong>{{quittanceMensuelleImpot.montantTotal}}</strong></span></td>
                     </tr>
                     </tfoot>
                 </table>

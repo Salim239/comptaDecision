@@ -63,8 +63,8 @@ public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
     @Column(name = "date_paiement")
     private LocalDate datePaiement;
 
-    @Column(name = "montant_paye", precision = 10, scale = 2)
-    private BigDecimal montantPaye;
+    @Column(name = "montant_total", precision = 10, scale = 2)
+    private BigDecimal montantTotal;
 
     @ManyToOne
     @JsonIgnoreProperties("quittanceMensuelleImpots")
@@ -134,17 +134,17 @@ public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
         this.datePaiement = datePaiement;
     }
 
-    public BigDecimal getMontantPaye() {
-        return montantPaye;
+    public BigDecimal getMontantTotal() {
+        return montantTotal;
     }
 
-    public QuittanceMensuelleImpot montantPaye(BigDecimal montantPaye) {
-        this.montantPaye = montantPaye;
+    public QuittanceMensuelleImpot montantTotal(BigDecimal montantTotal) {
+        this.montantTotal = montantTotal;
         return this;
     }
 
-    public void setMontantPaye(BigDecimal montantPaye) {
-        this.montantPaye = montantPaye;
+    public void setMontantTotal(BigDecimal montantTotal) {
+        this.montantTotal = montantTotal;
     }
 
     public FicheClient getFicheClient() {

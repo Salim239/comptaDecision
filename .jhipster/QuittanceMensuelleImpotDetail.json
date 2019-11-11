@@ -2,7 +2,7 @@
     "name": "QuittanceMensuelleImpotDetail",
     "fields": [
         {
-            "fieldName": "montantPaye",
+            "fieldName": "montantTotal",
             "fieldType": "BigDecimal"
         }
     ],

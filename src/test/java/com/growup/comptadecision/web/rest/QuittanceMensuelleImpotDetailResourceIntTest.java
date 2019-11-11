@@ -126,7 +126,7 @@ public class QuittanceMensuelleImpotDetailResourceIntTest {
 //            .andExpect(status().isOk())
 //            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
 //            .andExpect(jsonPath("$.[*].id").value(hasItem(quittanceMensuelleImpotDetail.getId().intValue())))
-//            .andExpect(jsonPath("$.[*].montantPaye").value(hasItem(DEFAULT_MONTANT_PAYE.intValue())));
+//            .andExpect(jsonPath("$.[*].montantTotal").value(hasItem(DEFAULT_MONTANT_PAYE.intValue())));
 //    }
 //
 //    @Test
@@ -140,7 +140,7 @@ public class QuittanceMensuelleImpotDetailResourceIntTest {
 //            .andExpect(status().isOk())
 //            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
 //            .andExpect(jsonPath("$.id").value(quittanceMensuelleImpotDetail.getId().intValue()))
-//            .andExpect(jsonPath("$.montantPaye").value(DEFAULT_MONTANT_PAYE.intValue()));
+//            .andExpect(jsonPath("$.montantTotal").value(DEFAULT_MONTANT_PAYE.intValue()));
 //    }
 //
 //    @Test

@@ -123,7 +123,7 @@ entity QuittanceMensuelleImpot {
 	mois Integer required,
     numeroQuittance String,
     datePaiement LocalDate,
-    montantPaye BigDecimal    
+    montantTotal BigDecimal
 }
 relationship ManyToOne {
     QuittanceMensuelleImpot{ficheClient(id)} to FicheClient
@@ -134,7 +134,7 @@ paginate QuittanceMensuelleImpot with pagination
 
 entity QuittanceMensuelleImpotDetail {
 	id Long required,
-    montantPaye BigDecimal    
+    montantTotal BigDecimal
 }
 
 relationship ManyToOne {

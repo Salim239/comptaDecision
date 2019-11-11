@@ -20,7 +20,7 @@
             "typeDeclaration": "Type déclaration",
             "numeroQuittance": "Numero Quittance",
             "datePaiement": "Date Paiement",
-            "montantPaye": "Montant Paye",
+            "montantTotal": "Montant Paye",
             "ficheClient": "Fiche Client"
         }
     }

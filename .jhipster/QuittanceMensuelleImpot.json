@@ -24,7 +24,7 @@
             "fieldType": "LocalDate"
         },
         {
-            "fieldName": "montantPaye",
+            "fieldName": "montantTotal",
             "fieldType": "BigDecimal"
         }
     ],

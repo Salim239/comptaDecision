@@ -64,8 +64,9 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
     /**
      * Recalculer la somme du montant de la quittance à chaque fois que le montant qu'un impot change
      */
-    calculateSumMontantPaye() {
-        this.quittanceMensuelleImpot.montantPaye = this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails
+    calculateSumMontantTotal() {
+
+        this.quittanceMensuelleImpot.montantTotal = this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails
             .map(quittanceMensuelleImpotDetail => quittanceMensuelleImpotDetail.montantTotal).reduce(this.getSum);
     }
 
@@ -75,7 +76,7 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.calculateSumMontantPaye();
+        this.calculateSumMontantTotal();
         if (this.quittanceMensuelleImpot.id !== undefined && this.quittanceMensuelleImpot.id !== null) {
             this.subscribeToSaveResponse(this.quittanceMensuelleImpotService.update(this.quittanceMensuelleImpot));
         } else {
@@ -94,7 +95,7 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
                 )
                 .subscribe((res: QuittanceMensuelleImpot) => {
                     this.quittanceMensuelleImpot = res;
-                    this.calculateSumMontantPaye();
+                    this.calculateSumMontantTotal();
                     }, (res: HttpErrorResponse) => this.onError(res.message));
         }
     }
