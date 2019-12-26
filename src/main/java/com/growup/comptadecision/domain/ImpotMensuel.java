@@ -49,10 +49,22 @@ public class ImpotMensuel extends AbstractAuditingEntity {
     private String description;
 
     @Column(name = "parent")
-    private Boolean parent;
+    private Boolean parent = Boolean.FALSE;
 
     @Column(name = "child")
-    private Boolean child;
+    private Boolean child = Boolean.FALSE;
+
+    /**
+     * Si true à jouter au montant total la montant total du détail du mois dernier
+     */
+    @Column(name = "appliquer_report_montant")
+    private Boolean appliquerReportMontant = Boolean.FALSE;
+
+    /**
+     * C'est le coefficient à multiplier par le montant total lors du calcul de la somme des details enfants
+     */
+    @Column(name = "coefficient_montant")
+    private Float coefficientMontant = 1f;
 
     @OneToMany(mappedBy = "impotMensuel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImpotMensuelDetail> impotMensuelDetails = new ArrayList<>();
@@ -168,5 +180,21 @@ public class ImpotMensuel extends AbstractAuditingEntity {
 
     public void setImpotMensuelClients(List<ImpotMensuelClient> impotMensuelClients) {
         this.impotMensuelClients = impotMensuelClients;
+    }
+
+    public Boolean getAppliquerReportMontant() {
+        return appliquerReportMontant;
+    }
+
+    public void setAppliquerReportMontant(Boolean appliquerReportMontant) {
+        this.appliquerReportMontant = appliquerReportMontant;
+    }
+
+    public Float getCoefficientMontant() {
+        return coefficientMontant;
+    }
+
+    public void setCoefficientMontant(Float coefficientMontant) {
+        this.coefficientMontant = coefficientMontant;
     }
 }

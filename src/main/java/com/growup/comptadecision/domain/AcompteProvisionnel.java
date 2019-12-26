@@ -47,19 +47,19 @@ public class AcompteProvisionnel extends AbstractAuditingEntity {
     @Column(name = "numero_quittance")
     private String numeroQuittance;
 
-    @Column(name = "montant_base", precision = 10, scale = 2)
+    @Column(name = "montant_base", precision = 20, scale = 6)
     private BigDecimal montantBase;
 
-    @Column(name = "montant_acompte_provisionnel", precision = 10, scale = 2)
+    @Column(name = "montant_acompte_provisionnel", precision = 20, scale = 6)
     private BigDecimal montantAcompteProvisionnel;
 
-    @Column(name = "montant_report_anterieur", precision = 10, scale = 2)
+    @Column(name = "montant_report_anterieur", precision = 20, scale = 6)
     private BigDecimal montantReportAnterieur;
 
-    @Column(name = "montant_retenue_source", precision = 10, scale = 2)
+    @Column(name = "montant_retenue_source", precision = 20, scale = 6)
     private BigDecimal montantRetenueSource;
 
-    @Column(name = "montant_net", precision = 10, scale = 2)
+    @Column(name = "montant_net", precision = 20, scale = 6)
     private BigDecimal montantNet;
 
     @ManyToOne

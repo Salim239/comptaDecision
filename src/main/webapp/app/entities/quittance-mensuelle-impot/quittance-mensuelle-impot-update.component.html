@@ -58,27 +58,36 @@
 
                 <ngb-tabset>
                     <ngb-tab *ngFor="let quittanceMensuelleImpotDetail of quittanceMensuelleImpot.quittanceMensuelleImpotDetails;let i=index">
-                        <ng-template ngbTabTitle>{{quittanceMensuelleImpotDetail.impotMensuel.libelle}}
+                        <ng-template ngbTabTitle>{{quittanceMensuelleImpotDetail.libelle}}
                             <span class="badge badge-pill badge-primary" *ngIf="quittanceMensuelleImpotDetail.montantTotal">{{quittanceMensuelleImpotDetail.montantTotal}}</span>
                         </ng-template>
                         <ng-template ngbTabContent>
                             <br>
-                            <quittance-mensuelle-impot-detail-list *ngIf="quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails.length === 0" [indexDetail]="i" [quittanceMensuelleImpotDetail]="quittanceMensuelleImpotDetail">
+                            <quittance-mensuelle-impot-detail-list (calculerMontantTotal)="save($event)"
+                                                                   *ngIf="quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails.length === 0"
+                                                                   [indexDetail]="i"
+                                                                   [quittanceMensuelleImpotDetail]="quittanceMensuelleImpotDetail">
                             </quittance-mensuelle-impot-detail-list>
                             <!-- Childs -->
-                            <ngb-accordion #acc="ngbAccordion" *ngIf="quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails.length > 0">
-                                <ngb-panel id="toggle-{{indexChilDetail}}"
-                                           *ngFor="let childQuittanceMensuelleImpotDetail of quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails;let indexChilDetail = index;">
-                                    <ng-template ngbPanelTitle>
+                            <div *ngIf="quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails.length > 0">
+
+                            </div>
+                            <ngb-tabset
+                                    *ngIf="quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails.length > 0">
+                                <ngb-tab
+                                        *ngFor="let childQuittanceMensuelleImpotDetail of quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails;let indexChilDetail = index;">
+                                    <ng-template ngbTabTitle>
                                         <span>{{childQuittanceMensuelleImpotDetail.libelle}}</span>
                                         <span class="badge badge-pill badge-primary" *ngIf="childQuittanceMensuelleImpotDetail.montantTotal">{{childQuittanceMensuelleImpotDetail.montantTotal}}</span>
                                     </ng-template>
-                                    <ng-template ngbPanelContent>
-                                        <quittance-mensuelle-impot-detail-list [indexDetail]="indexChilDetail" [quittanceMensuelleImpotDetail]="childQuittanceMensuelleImpotDetail">
+                                    <ng-template ngbTabContent>
+                                        <quittance-mensuelle-impot-detail-list (calculerMontantTotal)="save($event)"
+                                                                               [indexDetail]="indexChilDetail"
+                                                                               [quittanceMensuelleImpotDetail]="childQuittanceMensuelleImpotDetail">
                                         </quittance-mensuelle-impot-detail-list>
                                     </ng-template>
-                                </ngb-panel>
-                            </ngb-accordion>
+                                </ngb-tab>
+                            </ngb-tabset>
                         </ng-template>
                     </ngb-tab>
                 </ngb-tabset>

@@ -47,10 +47,10 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
     private String libelle;
 
     @Column(name = "parent")
-    private Boolean parent;
+    private Boolean parent = Boolean.FALSE;
 
     @Column(name = "child")
-    private Boolean child;
+    private Boolean child = Boolean.FALSE;
 
     @Column(name = "parent_quittance_mensuelle_impot_detail_id")
     @OneToMany(mappedBy = "parentQuittanceMensuelleImpotDetail", cascade = CascadeType.ALL, orphanRemoval = true)

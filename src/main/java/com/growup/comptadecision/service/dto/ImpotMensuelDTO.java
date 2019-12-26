@@ -34,9 +34,19 @@ public class ImpotMensuelDTO implements Serializable {
 
     private String description;
 
-    private Boolean parent;
+    private Boolean parent = Boolean.FALSE;
 
-    private Boolean child;
+    private Boolean child = Boolean.FALSE;
+
+    /**
+     * Si true à jouter au montant total la montant total du détail du mois dernier
+     */
+    private Boolean appliquerReportMontant = Boolean.FALSE;
+
+    /**
+     * C'est le coefficient à multiplier par le montant total lors du calcul de la somme des details enfants
+     */
+    private Float coefficientMontant = 1f;
 
     private List<ImpotMensuelDetailDTO> impotMensuelDetails = new ArrayList<>();
 
@@ -162,5 +172,21 @@ public class ImpotMensuelDTO implements Serializable {
 
     public void setChildImpotMensuels(List<ImpotMensuelDTO> childImpotMensuels) {
         this.childImpotMensuels = childImpotMensuels;
+    }
+
+    public Boolean getAppliquerReportMontant() {
+        return appliquerReportMontant;
+    }
+
+    public void setAppliquerReportMontant(Boolean appliquerReportMontant) {
+        this.appliquerReportMontant = appliquerReportMontant;
+    }
+
+    public Float getCoefficientMontant() {
+        return coefficientMontant;
+    }
+
+    public void setCoefficientMontant(Float coefficientMontant) {
+        this.coefficientMontant = coefficientMontant;
     }
 }

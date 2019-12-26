@@ -57,30 +57,17 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         }
     }
 
-    private getSum(total, num) {
-        return total + num;
-    }
-
-    /**
-     * Recalculer la somme du montant de la quittance à chaque fois que le montant qu'un impot change
-     */
-    calculateSumMontantTotal() {
-
-        this.quittanceMensuelleImpot.montantTotal = this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails
-            .map(quittanceMensuelleImpotDetail => quittanceMensuelleImpotDetail.montantTotal).reduce(this.getSum);
-    }
 
     previousState() {
         window.history.back();
     }
 
-    save() {
-        this.isSaving = true;
-        this.calculateSumMontantTotal();
+    save(withoutExist) {
+        this.isSaving = !withoutExist;
         if (this.quittanceMensuelleImpot.id !== undefined && this.quittanceMensuelleImpot.id !== null) {
-            this.subscribeToSaveResponse(this.quittanceMensuelleImpotService.update(this.quittanceMensuelleImpot));
+            this.subscribeToSaveResponse(this.quittanceMensuelleImpotService.update(this.quittanceMensuelleImpot), withoutExist);
         } else {
-            this.subscribeToSaveResponse(this.quittanceMensuelleImpotService.create(this.quittanceMensuelleImpot));
+            this.subscribeToSaveResponse(this.quittanceMensuelleImpotService.create(this.quittanceMensuelleImpot), withoutExist);
         }
     }
 
@@ -95,14 +82,20 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
                 )
                 .subscribe((res: QuittanceMensuelleImpot) => {
                     this.quittanceMensuelleImpot = res;
-                    this.calculateSumMontantTotal();
                     }, (res: HttpErrorResponse) => this.onError(res.message));
         }
     }
 
-    protected subscribeToSaveResponse(result: Observable<HttpResponse<IQuittanceMensuelleImpot>>) {
+    protected subscribeToSaveResponse(result: Observable<HttpResponse<IQuittanceMensuelleImpot>>, withoutExist) {
         result.subscribe(
-            (res: HttpResponse<IQuittanceMensuelleImpot>) => this.onSaveSuccess(),
+            (res: HttpResponse<IQuittanceMensuelleImpot>) => {
+                if (withoutExist) {
+
+                    this.quittanceMensuelleImpot = res.body;
+                } else {
+                    this.onSaveSuccess()
+                }
+            },
             (res: HttpErrorResponse) => this.onSaveError()
         );
     }

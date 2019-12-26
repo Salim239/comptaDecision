@@ -38,10 +38,6 @@ public class QuittanceMensuelleImpotService {
 
     private final QuittanceMensuelleImpotRepository quittanceMensuelleImpotRepository;
 
-    private final ImpotMensuelClientRepository impotMensuelClientRepository;
-
-    private final ImpotMensuelService impotMensuelService;
-
     private final ImpotMensuelRepository impotMensuelRepository;
 
     private final QuittanceMensuelleImpotMapper quittanceMensuelleImpotMapper;
@@ -61,9 +57,7 @@ public class QuittanceMensuelleImpotService {
         this.quittanceMensuelleImpotMapper = quittanceMensuelleImpotMapper;
         this.quittanceMensuelleImpotSousDetailMapper = quittanceMensuelleImpotSousDetailMapper;
         this.ficheClientRepository = ficheClientRepository;
-        this.impotMensuelClientRepository = impotMensuelClientRepository;
         this.impotMensuelRepository = impotMensuelRepository;
-        this.impotMensuelService = impotMensuelService;
     }
 
     public QuittanceMensuelleImpotDTO init() {

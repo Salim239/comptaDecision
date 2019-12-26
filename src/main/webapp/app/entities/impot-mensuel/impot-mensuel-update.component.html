@@ -32,9 +32,22 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.coefficientMontant"
+                           for="field_libelle">Coefficient dans calcul montant total</label>
+                    <input type="text" class="form-control" name="coefficientMontant" id="field_coefficientMontant"
+                           [(ngModel)]="impotMensuel.coefficientMontant" required/>
+                    <div [hidden]="!(editForm.controls.coefficientMontant?.dirty && editForm.controls.coefficientMontant?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.coefficientMontant?.errors?.required"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.description" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
-                        [(ngModel)]="impotMensuel.description" />
+                           [(ngModel)]="impotMensuel.description" />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.parent" for="field_parent">Est une catégorie mère?</label>
@@ -44,6 +57,13 @@
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.child" for="field_child">Est une sous catégorie?</label>
                     <input id="field_child" name="child" type="checkbox" [(ngModel)]="impotMensuel.child">
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label"
+                           jhiTranslate="comptaDecisionApp.impotMensuel.appliquerReportMontant"
+                           for="field_appliquerReportMontant">Appliquer report montant mois précédent?</label>
+                    <input id="field_appliquerReportMontant" name="appliquerReportMontant" type="checkbox"
+                           [(ngModel)]="impotMensuel.appliquerReportMontant">
+                </div>
                 <div class="form-group" *ngIf="impotMensuel.child">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.parentImpotMensuel" for="field_parentImpotMensuel">Catégorie parente</label>
                     <select class="form-control" id="field_parentImpotMensuel" name="parentImpotMensuelId" [(ngModel)]="impotMensuel.parentImpotMensuelId" >
@@ -52,9 +72,11 @@
                     </select>
                 </div>
 
-                <h2 jhiTranslate="comptaDecisionApp.impotMensuelDetail.home.title">Détails impôt</h2>
+                <h2 *ngIf="!impotMensuel.parent" jhiTranslate="comptaDecisionApp.impotMensuelDetail.home.title">Détails
+                    impôt</h2>
                 <br>
-                <jhi-impot-mensuel-line [impotMensuel]="impotMensuel"></jhi-impot-mensuel-line>
+                <jhi-impot-mensuel-line *ngIf="!impotMensuel.parent"
+                                        [impotMensuel]="impotMensuel"></jhi-impot-mensuel-line>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

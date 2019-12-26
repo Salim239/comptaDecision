@@ -19,6 +19,8 @@
             "libelle": "Libelle",
             "description": "Description",
             "parent": "Est une catégorie parent?",
+          "coefficientMontant": "Coefficient dans calcul montant total",
+          "appliquerReportMontant": "Appliquer report montant mois précédent?",
             "child": "Est une sous catégorie",
             "parentImpotMensuel": "Catégorie parent",
             "suImpotMensuels": "sous catégories"

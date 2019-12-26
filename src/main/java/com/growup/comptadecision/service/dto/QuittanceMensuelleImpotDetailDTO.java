@@ -21,12 +21,6 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
     public QuittanceMensuelleImpotDetailDTO() {
     }
 
-    public QuittanceMensuelleImpotDetailDTO(Long quittanceMensuelleImpotId, ImpotMensuelDTO impotMensuel, BigDecimal montantTotal) {
-        this.quittanceMensuelleImpotId = quittanceMensuelleImpotId;
-        this.impotMensuel = impotMensuel;
-        this.montantTotal = montantTotal;
-    }
-
     private Long id;
 
     private String libelle;
@@ -35,6 +29,25 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
 
     private Boolean child;
 
+    private Long impotMensuelId;
+
+    private String impotMensuelLibelle;
+
+    /**
+     * Si true à jouter au montant total la montant total du détail du mois dernier
+     */
+    private Boolean impotMensuelAppliquerReportMontant = Boolean.FALSE;
+
+    /**
+     * Si report, initialiser avec montant total même impot mois préc"dent sinon 0
+     */
+    private BigDecimal montantTotalReport = BigDecimal.ZERO;
+
+    /**
+     * C'est le coefficient à multiplier par le montant total lors du calcul de la somme des details enfants
+     */
+    private Float impotMensuelCoefficientMontant = 1f;
+
     private BigDecimal montantTotal;
 
     private Long parentQuittanceMensuelleImpotDetailId;
@@ -42,8 +55,6 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
     private String parentQuittanceMensuelleImpotDetailLibelle;
 
     private Long quittanceMensuelleImpotId;
-
-    private ImpotMensuelDTO impotMensuel;
 
     private List<QuittanceMensuelleImpotSousDetailDTO> quittanceMensuelleImpotSousDetails = new ArrayList<>();
 
@@ -63,14 +74,6 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
 
     public void setQuittanceMensuelleImpotId(Long quittanceMensuelleImpotId) {
         this.quittanceMensuelleImpotId = quittanceMensuelleImpotId;
-    }
-
-    public ImpotMensuelDTO getImpotMensuel() {
-        return impotMensuel;
-    }
-
-    public void setImpotMensuel(ImpotMensuelDTO impotMensuel) {
-        this.impotMensuel = impotMensuel;
     }
 
     public List<QuittanceMensuelleImpotSousDetailDTO> getQuittanceMensuelleImpotSousDetails() {
@@ -135,5 +138,45 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
 
     public void setMontantTotal(BigDecimal montantTotal) {
         this.montantTotal = montantTotal;
+    }
+
+    public Boolean getImpotMensuelAppliquerReportMontant() {
+        return impotMensuelAppliquerReportMontant;
+    }
+
+    public void setImpotMensuelAppliquerReportMontant(Boolean impotMensuelAppliquerReportMontant) {
+        this.impotMensuelAppliquerReportMontant = impotMensuelAppliquerReportMontant;
+    }
+
+    public Float getImpotMensuelCoefficientMontant() {
+        return impotMensuelCoefficientMontant;
+    }
+
+    public void setImpotMensuelCoefficientMontant(Float impotMensuelCoefficientMontant) {
+        this.impotMensuelCoefficientMontant = impotMensuelCoefficientMontant;
+    }
+
+    public Long getImpotMensuelId() {
+        return impotMensuelId;
+    }
+
+    public void setImpotMensuelId(Long impotMensuelId) {
+        this.impotMensuelId = impotMensuelId;
+    }
+
+    public String getImpotMensuelLibelle() {
+        return impotMensuelLibelle;
+    }
+
+    public void setImpotMensuelLibelle(String impotMensuelLibelle) {
+        this.impotMensuelLibelle = impotMensuelLibelle;
+    }
+
+    public BigDecimal getMontantTotalReport() {
+        return montantTotalReport;
+    }
+
+    public void setMontantTotalReport(BigDecimal montantTotalReport) {
+        this.montantTotalReport = montantTotalReport;
     }
 }

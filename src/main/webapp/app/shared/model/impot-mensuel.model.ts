@@ -9,6 +9,8 @@ export interface IImpotMensuel {
     parent?: boolean;
     parentImpotMensuelId?: number;
     parentImpotMensuelLibelle?: string;
+    appliquerReportMontant?: boolean;
+    coefficientMontant?: number;
     impotMensuelDetails?: IImpotMensuelDetail[];
     childImpotMensuels?: IImpotMensuel[];
 }
@@ -18,9 +20,13 @@ export class ImpotMensuel implements IImpotMensuel {
                 public parent?: boolean, public child?: boolean, public description?: string,
                 public parentImpotMensuelId?: number,
                 public parentImpotMensuelLibelle?: string,
+                public appliquerReportMontant?: boolean,
+                public coefficientMontant?: number,
                 public impotMensuelDetails?: IImpotMensuelDetail[],
-        public childImpotMensuels?: IImpotMensuel[]) {
+                public childImpotMensuels?: IImpotMensuel[]) {
         this.impotMensuelDetails = [];
         this.childImpotMensuels = [];
+        this.appliquerReportMontant = false;
+        this.coefficientMontant = 1;
     }
 }

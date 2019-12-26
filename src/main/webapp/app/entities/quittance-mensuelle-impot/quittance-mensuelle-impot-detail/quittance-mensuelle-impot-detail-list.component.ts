@@ -1,7 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IQuittanceMensuelleImpotDetail} from "app/shared/model/quittance-mensuelle-impot-detail.model";
 import {TypeValeur} from "app/shared/model/impot-mensuel-detail.model";
-import * as _ from 'lodash';
 
 @Component({
     selector: 'quittance-mensuelle-impot-detail-list',
@@ -11,6 +10,7 @@ export class QuittanceMensuelleImpotDetailListComponent implements OnInit {
 
     @Input() quittanceMensuelleImpotDetail: IQuittanceMensuelleImpotDetail;
     @Input() indexDetail: number;
+    @Output() calculerMontantTotal = new EventEmitter();
 
 
     constructor() {
@@ -24,21 +24,15 @@ export class QuittanceMensuelleImpotDetailListComponent implements OnInit {
         return typeValeur === TypeValeur.TAUX
     }
 
-    calculerImpotDetailValeur(quittanceMensuelleImpotSousDetail) {
-        return (this.isTaux(quittanceMensuelleImpotSousDetail.impotMensuelDetailTypeValeur) ?
-            quittanceMensuelleImpotSousDetail.impotMensuelDetailValeur / 100 :
-            quittanceMensuelleImpotSousDetail.impotMensuelDetailValeur);
+    changedMontant() {
+
+        this.calculerMontantTotal.emit(true);
     }
 
-    calculerMontantTotal(indexSousDetail) {
-        var impotDetailValeur = this.calculerImpotDetailValeur(this.quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails[indexSousDetail]);
-        this.quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails[indexSousDetail].montantTotal =
-            impotDetailValeur * this.quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails[indexSousDetail].montantBase;
-        var that = this;
-        this.quittanceMensuelleImpotDetail.montantTotal = _.sum(
-            _.map(this.quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails, function(quittanceMensuelleImpotSousDetail) {
-                return that.calculerImpotDetailValeur(quittanceMensuelleImpotSousDetail) * quittanceMensuelleImpotSousDetail.montantBase;
-            })
-        );
+    isMontantForfaitaire(quittanceMensuelleImpotSousDetail) {
+        return quittanceMensuelleImpotSousDetail.impotMensuelDetailTypeValeur === TypeValeur.MONTANT &&
+            quittanceMensuelleImpotSousDetail.impotMensuelDetailValeur &&
+            quittanceMensuelleImpotSousDetail.impotMensuelDetailValeur !== 1;
     }
+
 }

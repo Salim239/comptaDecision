@@ -3,13 +3,13 @@ package com.growup.comptadecision.service.mapper;
 import com.growup.comptadecision.domain.ImpotMensuelDetail;
 import com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail;
 import com.growup.comptadecision.domain.QuittanceMensuelleImpotSousDetail;
-import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
-import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDetailDTO;
+import com.growup.comptadecision.domain.enumeration.TypeValeur;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotSousDetailDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,9 +19,15 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring", uses = {QuittanceMensuelleImpotDetailMapper.class, ImpotMensuelDetailMapper.class})
 public interface QuittanceMensuelleImpotSousDetailMapper extends EntityMapper<QuittanceMensuelleImpotSousDetailDTO, QuittanceMensuelleImpotSousDetail> {
 
-    default BigDecimal sum(QuittanceMensuelleImpotDetailDTO quittanceMensuelleDetailImpot) {
-        return quittanceMensuelleDetailImpot.getQuittanceMensuelleImpotSousDetails().stream()
-                .map(QuittanceMensuelleImpotSousDetailDTO::getMontantTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+    default BigDecimal sum(QuittanceMensuelleImpotSousDetailDTO quittanceMensuelleSousDetailImpot) {
+
+        if (quittanceMensuelleSousDetailImpot.getMontantBase() == null) return null;
+
+        float impot = quittanceMensuelleSousDetailImpot.getImpotMensuelDetailTypeValeur() == TypeValeur.MONTANT ?
+                quittanceMensuelleSousDetailImpot.getImpotMensuelDetailValeur() :
+                quittanceMensuelleSousDetailImpot.getImpotMensuelDetailValeur() / 100;
+        MathContext mc3 = new MathContext(3);
+        return quittanceMensuelleSousDetailImpot.getMontantBase().multiply(new BigDecimal(impot, mc3));
     }
 
     @Mapping(source = "impotMensuelDetail.id", target = "impotMensuelDetailId")
@@ -42,7 +48,7 @@ public interface QuittanceMensuelleImpotSousDetailMapper extends EntityMapper<Qu
     @Mapping(target = "impotMensuelDetail.typeValeur", source = "impotMensuelDetailTypeValeur")
     @Mapping(target = "impotMensuelDetail.valeur", source = "impotMensuelDetailValeur")
     @Mapping(target = "impotMensuelDetail.valeurModifiable", source = "impotMensuelDetailValeurModifiable")
-//    @Mapping(target = "montantTotal", source = "java(this.sum(quittanceMensuelleImpotSousDetailDTO))")
+    @Mapping(target = "montantTotal", expression = "java(sum(quittanceMensuelleImpotSousDetailDTO))")
     QuittanceMensuelleImpotSousDetail toEntity(QuittanceMensuelleImpotSousDetailDTO quittanceMensuelleImpotSousDetailDTO);
 
     default QuittanceMensuelleImpotSousDetail fromId(Long id) {

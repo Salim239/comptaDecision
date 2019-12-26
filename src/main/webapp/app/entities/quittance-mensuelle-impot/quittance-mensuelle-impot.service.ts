@@ -44,7 +44,7 @@ export class QuittanceMensuelleImpotService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-        find(id: number): Observable<EntityResponseType> {
+    find(id: number): Observable<EntityResponseType> {
         return this.http
             .get<IQuittanceMensuelleImpot>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));

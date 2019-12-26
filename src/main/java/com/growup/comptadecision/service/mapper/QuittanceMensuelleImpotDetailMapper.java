@@ -1,13 +1,15 @@
 package com.growup.comptadecision.service.mapper;
 
 import com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail;
-import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
+import com.growup.comptadecision.domain.QuittanceMensuelleImpotSousDetail;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDetailDTO;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotSousDetailDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Mapper for the entity QuittanceMensuelleImpotDetail and its DTO QuittanceMensuelleImpotDetailDTO.
@@ -15,34 +17,91 @@ import java.math.BigDecimal;
 @Mapper(componentModel = "spring", uses = {QuittanceMensuelleImpotMapper.class, ImpotMensuelMapper.class, QuittanceMensuelleImpotSousDetailMapper.class})
 public interface QuittanceMensuelleImpotDetailMapper extends EntityMapper<QuittanceMensuelleImpotDetailDTO, QuittanceMensuelleImpotDetail> {
 
+    //////
+    default BigDecimal sum(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail) {
+        return quittanceMensuelleImpotDetail.getQuittanceMensuelleImpotSousDetails().stream()
+                .filter(quittanceMensuelleImpotSousDetail -> quittanceMensuelleImpotSousDetail.getMontantTotal() != null)
+                .map(QuittanceMensuelleImpotSousDetail::getMontantTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    default BigDecimal sumWithChildren(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail) {
+        return quittanceMensuelleImpotDetail.getChildQuittanceMensuelleImpotDetails().stream()
+                .map(childQuittanceMensuelleImpotDetail ->
+                        sum(childQuittanceMensuelleImpotDetail).multiply(new BigDecimal(childQuittanceMensuelleImpotDetail.getImpotMensuel().getCoefficientMontant())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
     default BigDecimal sum(QuittanceMensuelleImpotDetailDTO QuittanceMensuelleImpotDetail) {
+
         return QuittanceMensuelleImpotDetail.getQuittanceMensuelleImpotSousDetails().stream()
                 .filter(quittanceMensuelleImpotSousDetail -> quittanceMensuelleImpotSousDetail.getMontantTotal() != null)
                 .map(QuittanceMensuelleImpotSousDetailDTO::getMontantTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    ////
+    default BigDecimal sumWithChildren(QuittanceMensuelleImpotDetailDTO quittanceMensuelleImpotDetail) {
+        return quittanceMensuelleImpotDetail.getChildQuittanceMensuelleImpotDetails().stream()
+                .map(childQuittanceMensuelleImpotDetail ->
+                        sum(childQuittanceMensuelleImpotDetail).multiply(new BigDecimal(childQuittanceMensuelleImpotDetail.getImpotMensuelCoefficientMontant())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    default BigDecimal getMontantTotal(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail) {
+
+        return quittanceMensuelleImpotDetail.getParent() ? sumWithChildren(quittanceMensuelleImpotDetail) : sum(quittanceMensuelleImpotDetail);
+    }
+
+    default BigDecimal getMontantTotal(QuittanceMensuelleImpotDetailDTO quittanceMensuelleImpotDetail) {
+
+        return quittanceMensuelleImpotDetail.getParent() ? sumWithChildren(quittanceMensuelleImpotDetail) : sum(quittanceMensuelleImpotDetail);
+    }
+
+//    default QuittanceMensuelleImpotDetail calculateParentQuittanceMensuelleImpotDetail(QuittanceMensuelleImpotDetailDTO quittanceMensuelleImpotDetailDTO) {
+//
+//        return null;
+//    }
+
+    default List<QuittanceMensuelleImpotSousDetail> getQuittanceMensuelleImpotSousDetails(QuittanceMensuelleImpotDetailDTO quittanceMensuelleImpotDetailDTO,
+                                                                                          QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail,
+                                                                                          QuittanceMensuelleImpotSousDetailMapper quittanceMensuelleImpotSousDetailMapper) {
+
+        return quittanceMensuelleImpotDetailDTO.getQuittanceMensuelleImpotSousDetails().stream().map(quittanceMensuelleImpotSousDetailDTO -> {
+            QuittanceMensuelleImpotSousDetail quittanceMensuelleImpotSousDetail = quittanceMensuelleImpotSousDetailMapper.toEntity(quittanceMensuelleImpotSousDetailDTO);
+            quittanceMensuelleImpotSousDetail.setQuittanceMensuelleImpotDetail(quittanceMensuelleImpotDetail);
+            return quittanceMensuelleImpotSousDetail;
+        })
+                .collect(Collectors.toList());
+    }
+
+    default List<QuittanceMensuelleImpotDetail> getChildQuittanceMensuelleImpotDetails(QuittanceMensuelleImpotDetailDTO quittanceMensuelleImpotDetailDTO,
+                                                                                       QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail) {
+
+        return quittanceMensuelleImpotDetailDTO.getChildQuittanceMensuelleImpotDetails().stream().map(childQuittanceMensuelleImpotDetailDTO -> {
+            QuittanceMensuelleImpotDetail childQuittanceMensuelleImpotDetail = toEntity(childQuittanceMensuelleImpotDetailDTO);
+            childQuittanceMensuelleImpotDetail.setParentQuittanceMensuelleImpotDetail(quittanceMensuelleImpotDetail);
+            return childQuittanceMensuelleImpotDetail;
+        })
+                .collect(java.util.stream.Collectors.toList());
+    }
+
     @Mapping(source = "parentQuittanceMensuelleImpotDetail.id", target = "parentQuittanceMensuelleImpotDetailId")
     @Mapping(source = "parentQuittanceMensuelleImpotDetail.libelle", target = "parentQuittanceMensuelleImpotDetailLibelle")
+    @Mapping(source = "impotMensuel.id", target = "impotMensuelId")
+    @Mapping(source = "impotMensuel.libelle", target = "impotMensuelLibelle")
+    @Mapping(source = "impotMensuel.coefficientMontant", target = "impotMensuelCoefficientMontant")
+    @Mapping(source = "impotMensuel.appliquerReportMontant", target = "impotMensuelAppliquerReportMontant")
+//    @Mapping(target = "montantTotal", expression = "java(getMontantTotal(quittanceMensuelleImpotDetail))")
     QuittanceMensuelleImpotDetailDTO toDto(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail);
 
+
+    @Mapping(source = "impotMensuelId", target = "impotMensuel.id")
     @Mapping(target = "parentQuittanceMensuelleImpotDetail",
             expression = "java(quittanceMensuelleImpotDetailDTO.getParentQuittanceMensuelleImpotDetailId() == null ? null : " +
                     "new com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail(quittanceMensuelleImpotDetailDTO.getParentQuittanceMensuelleImpotDetailId()))" )
-    @Mapping(target = "quittanceMensuelleImpotSousDetails", expression = "java(" +
-            "quittanceMensuelleImpotDetailDTO.getQuittanceMensuelleImpotSousDetails().stream().map(quittanceMensuelleImpotSousDetailDTO ->  {" +
-            "com.growup.comptadecision.domain.QuittanceMensuelleImpotSousDetail quittanceMensuelleImpotSousDetail = " +
-            "quittanceMensuelleImpotSousDetailMapper.toEntity(quittanceMensuelleImpotSousDetailDTO);" +
-            "quittanceMensuelleImpotSousDetail.setQuittanceMensuelleImpotDetail(quittanceMensuelleImpotDetail);" +
-            "return quittanceMensuelleImpotSousDetail;})" +
-            ".collect(java.util.stream.Collectors.toList()))")
-    @Mapping(target = "childQuittanceMensuelleImpotDetails", expression = "java(" +
-            "quittanceMensuelleImpotDetailDTO.getChildQuittanceMensuelleImpotDetails().stream().map(childQuittanceMensuelleImpotDetailDTO ->  {" +
-            "com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail childQuittanceMensuelleImpotDetail = " +
-            "this.toEntity(childQuittanceMensuelleImpotDetailDTO);" +
-            "childQuittanceMensuelleImpotDetail.setParentQuittanceMensuelleImpotDetail(quittanceMensuelleImpotDetail);" +
-            "return childQuittanceMensuelleImpotDetail;})" +
-            ".collect(java.util.stream.Collectors.toList()))")
-    @Mapping(target = "montantTotal", expression = "java(this.sum(quittanceMensuelleImpotDetailDTO))")
+    @Mapping(target = "quittanceMensuelleImpotSousDetails",
+            expression = "java(getQuittanceMensuelleImpotSousDetails(quittanceMensuelleImpotDetailDTO, quittanceMensuelleImpotDetail, quittanceMensuelleImpotSousDetailMapper))")
+    @Mapping(target = "childQuittanceMensuelleImpotDetails", expression = "java(getChildQuittanceMensuelleImpotDetails(quittanceMensuelleImpotDetailDTO, quittanceMensuelleImpotDetail))")
+    @Mapping(target = "montantTotal", expression = "java(getMontantTotal(quittanceMensuelleImpotDetail))", dependsOn = {"quittanceMensuelleImpotSousDetails", "childQuittanceMensuelleImpotDetails"})
     QuittanceMensuelleImpotDetail toEntity(QuittanceMensuelleImpotDetailDTO quittanceMensuelleImpotDetailDTO);
 
     default QuittanceMensuelleImpotDetail fromId(Long id) {
