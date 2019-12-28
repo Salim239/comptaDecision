@@ -2,14 +2,17 @@ import {IQuittanceMensuelleImpotSousDetail} from "app/shared/model/quittance-men
 
 export interface IQuittanceMensuelleImpotDetail {
     id?: number;
+    code?: string;
     libelle?: string;
     parent?: boolean,
     child?: boolean,
     parentQuittanceMensuelleImpotDetailId?: number,
+    parentQuittanceMensuelleImpotDetailCode?: string,
     parentQuittanceMensuelleImpotDetailLibelle?: string,
     childParentQuittanceMensuelleImpotDetails?: [IQuittanceMensuelleImpotDetail],
     quittanceMensuelleImpotId?: number;
     impotMensuelId?: number;
+    impotMensuelCode?: string;
     impotMensuelLibelle?: string;
     impotMensuelCoefficientMontant?: number;
     impotMensuelAppliquerReportMontant?: boolean;
@@ -21,15 +24,18 @@ export interface IQuittanceMensuelleImpotDetail {
 export class QuittanceMensuelleImpotDetail implements IQuittanceMensuelleImpotDetail {
     constructor(
         public id?: number,
+        public code?: string,
         public libelle?: string,
         public montantTotal?: number,
         public parent?: boolean,
         public child?: boolean,
         public parentQuittanceMensuelleImpotDetailId?: number,
+        public parentQuittanceMensuelleImpotDetailCode?: string,
         public parentQuittanceMensuelleImpotDetailLibelle?: string,
         public childParentQuittanceMensuelleImpotDetails?: [IQuittanceMensuelleImpotDetail],
         public quittanceMensuelleImpotId?: number,
         public impotMensuelId?: number,
+        public impotMensuelCode?: string,
         public impotMensuelLibelle?: string,
         public impotMensuelAppliquerReportMontant?: boolean,
         public montantTotalReport?: number,

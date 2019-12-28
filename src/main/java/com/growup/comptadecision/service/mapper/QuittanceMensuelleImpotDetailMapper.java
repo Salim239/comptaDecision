@@ -25,10 +25,15 @@ public interface QuittanceMensuelleImpotDetailMapper extends EntityMapper<Quitta
     }
 
     default BigDecimal sumWithChildren(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail) {
-        return quittanceMensuelleImpotDetail.getChildQuittanceMensuelleImpotDetails().stream()
+        BigDecimal montant = quittanceMensuelleImpotDetail.getChildQuittanceMensuelleImpotDetails().stream()
                 .map(childQuittanceMensuelleImpotDetail ->
-                        sum(childQuittanceMensuelleImpotDetail).multiply(new BigDecimal(childQuittanceMensuelleImpotDetail.getImpotMensuel().getCoefficientMontant())))
+                        childQuittanceMensuelleImpotDetail.getMontantTotal().multiply(new BigDecimal(childQuittanceMensuelleImpotDetail.getCoefficientMontant())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+        //Add report amount
+        if (quittanceMensuelleImpotDetail.getAppliquerReportMontant()) {
+            //todo
+        }
+        return montant;
     }
 
     default BigDecimal sum(QuittanceMensuelleImpotDetailDTO QuittanceMensuelleImpotDetail) {
@@ -56,11 +61,6 @@ public interface QuittanceMensuelleImpotDetailMapper extends EntityMapper<Quitta
         return quittanceMensuelleImpotDetail.getParent() ? sumWithChildren(quittanceMensuelleImpotDetail) : sum(quittanceMensuelleImpotDetail);
     }
 
-//    default QuittanceMensuelleImpotDetail calculateParentQuittanceMensuelleImpotDetail(QuittanceMensuelleImpotDetailDTO quittanceMensuelleImpotDetailDTO) {
-//
-//        return null;
-//    }
-
     default List<QuittanceMensuelleImpotSousDetail> getQuittanceMensuelleImpotSousDetails(QuittanceMensuelleImpotDetailDTO quittanceMensuelleImpotDetailDTO,
                                                                                           QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail,
                                                                                           QuittanceMensuelleImpotSousDetailMapper quittanceMensuelleImpotSousDetailMapper) {
@@ -85,6 +85,7 @@ public interface QuittanceMensuelleImpotDetailMapper extends EntityMapper<Quitta
     }
 
     @Mapping(source = "parentQuittanceMensuelleImpotDetail.id", target = "parentQuittanceMensuelleImpotDetailId")
+    @Mapping(source = "parentQuittanceMensuelleImpotDetail.code", target = "parentQuittanceMensuelleImpotDetailCode")
     @Mapping(source = "parentQuittanceMensuelleImpotDetail.libelle", target = "parentQuittanceMensuelleImpotDetailLibelle")
     @Mapping(source = "impotMensuel.id", target = "impotMensuelId")
     @Mapping(source = "impotMensuel.libelle", target = "impotMensuelLibelle")

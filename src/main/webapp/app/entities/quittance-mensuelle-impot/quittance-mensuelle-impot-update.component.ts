@@ -12,6 +12,7 @@ import * as _ from 'lodash';
 import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
 import {filter, map} from "rxjs/operators";
 
+
 @Component({
     selector: 'jhi-quittance-mensuelle-impot-update',
     templateUrl: './quittance-mensuelle-impot-update.component.html'
@@ -115,5 +116,39 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
 
     trackFicheClientById(index: number, item: IFicheClient) {
         return item.id;
+    }
+
+
+    protected calculerMontantTotalDetail(quittanceMensuelleImpotDetail) {
+
+        return _.sum(_.map(quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails, function (quittanceMensuelleImpotSousDetail) {
+            return quittanceMensuelleImpotSousDetail.montantTotal;
+        }));
+    }
+
+    protected calculerMontantTotalDetailWithChildren(quittanceMensuelleImpotDetail) {
+
+        console.log("report ", quittanceMensuelleImpotDetail.montantTotalReport);
+        return _.sum(_.map(quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails, function (child) {
+            return child.montantTotal * child.impotMensuelCoefficientMontant;
+        })) - quittanceMensuelleImpotDetail.montantTotalReport;
+    }
+
+
+    updateMontantTotal(quittanceMensuelleImpotDetail) {
+
+        quittanceMensuelleImpotDetail.montantTotal = this.calculerMontantTotalDetail(quittanceMensuelleImpotDetail);
+
+        if (quittanceMensuelleImpotDetail.parentQuittanceMensuelleImpotDetailCode) {
+            console.log("parentQuittanceMensuelleImpotDetailCode ", quittanceMensuelleImpotDetail.parentQuittanceMensuelleImpotDetailCode);
+            let parentDetail = _.find(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function (detail) {
+                return detail.code === quittanceMensuelleImpotDetail.parentQuittanceMensuelleImpotDetailCode;
+            });
+            parentDetail.montantTotal = this.calculerMontantTotalDetailWithChildren(parentDetail);
+        }
+
+        this.quittanceMensuelleImpot.montantTotal = _.sum(_.map(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function (detail) {
+            return detail.montantTotal;
+        }));
     }
 }

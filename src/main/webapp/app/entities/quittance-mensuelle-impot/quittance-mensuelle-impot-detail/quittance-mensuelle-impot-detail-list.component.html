@@ -36,7 +36,7 @@
         </td>
         <td>
             <div class="form-group"  style="width: 160px">
-                <input (change)="changedMontant()" type="text" class="form-control"
+                <input (change)="calculerMontantTotal(indexSousDetail)" type="text" class="form-control"
                        name="quittanceMensuelleImpotDetail[{{indexDetail}}].quittanceMensuelleImpotSousDetails[{{indexSousDetail}}].quittanceMensuelleImpotSousDetailMontantBase"
                        id="field_quittanceMensuelleImpotSousDetailMontantBase"
                        [(ngModel)]="quittanceMensuelleImpotSousDetail.montantBase"/>

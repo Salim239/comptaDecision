@@ -43,6 +43,9 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    @Column(name = "code")
+    private String code;
+
     @Column(name = "libelle")
     private String libelle;
 
@@ -51,6 +54,18 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
 
     @Column(name = "child")
     private Boolean child = Boolean.FALSE;
+
+    /**
+     * Si true à jouter au montant total la montant total du détail du mois dernier
+     */
+    @Column(name = "appliquer_report_montant")
+    private Boolean appliquerReportMontant = Boolean.FALSE;
+
+    /**
+     * C'est le coefficient à multiplier par le montant total lors du calcul de la somme des details enfants
+     */
+    @Column(name = "coefficient_montant")
+    private Float coefficientMontant = 1f;
 
     @Column(name = "parent_quittance_mensuelle_impot_detail_id")
     @OneToMany(mappedBy = "parentQuittanceMensuelleImpotDetail", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -151,6 +166,30 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
 
     public void setParentQuittanceMensuelleImpotDetail(QuittanceMensuelleImpotDetail parentQuittanceMensuelleImpotDetail) {
         this.parentQuittanceMensuelleImpotDetail = parentQuittanceMensuelleImpotDetail;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Boolean getAppliquerReportMontant() {
+        return appliquerReportMontant;
+    }
+
+    public void setAppliquerReportMontant(Boolean appliquerReportMontant) {
+        this.appliquerReportMontant = appliquerReportMontant;
+    }
+
+    public Float getCoefficientMontant() {
+        return coefficientMontant;
+    }
+
+    public void setCoefficientMontant(Float coefficientMontant) {
+        this.coefficientMontant = coefficientMontant;
     }
 }
 

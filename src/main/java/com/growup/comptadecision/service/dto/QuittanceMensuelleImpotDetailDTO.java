@@ -23,11 +23,23 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
 
     private Long id;
 
+    private String code;
+
     private String libelle;
 
     private Boolean parent;
 
     private Boolean child;
+
+    /**
+     * Si true à jouter au montant total la montant total du détail du mois dernier
+     */
+    private Boolean appliquerReportMontant;
+
+    /**
+     * C'est le coefficient à multiplier par le montant total lors du calcul de la somme des details enfants
+     */
+    private Float coefficientMontant;
 
     private Long impotMensuelId;
 
@@ -51,6 +63,8 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
     private BigDecimal montantTotal;
 
     private Long parentQuittanceMensuelleImpotDetailId;
+
+    private String parentQuittanceMensuelleImpotDetailCode;
 
     private String parentQuittanceMensuelleImpotDetailLibelle;
 
@@ -178,5 +192,37 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
 
     public void setMontantTotalReport(BigDecimal montantTotalReport) {
         this.montantTotalReport = montantTotalReport;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Boolean getAppliquerReportMontant() {
+        return appliquerReportMontant;
+    }
+
+    public void setAppliquerReportMontant(Boolean appliquerReportMontant) {
+        this.appliquerReportMontant = appliquerReportMontant;
+    }
+
+    public Float getCoefficientMontant() {
+        return coefficientMontant;
+    }
+
+    public void setCoefficientMontant(Float coefficientMontant) {
+        this.coefficientMontant = coefficientMontant;
+    }
+
+    public String getParentQuittanceMensuelleImpotDetailCode() {
+        return parentQuittanceMensuelleImpotDetailCode;
+    }
+
+    public void setParentQuittanceMensuelleImpotDetailCode(String parentQuittanceMensuelleImpotDetailCode) {
+        this.parentQuittanceMensuelleImpotDetailCode = parentQuittanceMensuelleImpotDetailCode;
     }
 }

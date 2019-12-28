@@ -123,7 +123,11 @@ public class QuittanceMensuelleImpotService {
         quittanceMensuelleImpotDetail.setQuittanceMensuelleImpot(quittanceMensuelleImpot);
         quittanceMensuelleImpotDetail.setImpotMensuel(impotMensuel);
         quittanceMensuelleImpotDetail.setParent(impotMensuel.getParent());
+        quittanceMensuelleImpotDetail.setCode(impotMensuel.getCode());
         quittanceMensuelleImpotDetail.setLibelle(impotMensuel.getLibelle());
+        quittanceMensuelleImpotDetail.setChild(impotMensuel.getChild());
+        quittanceMensuelleImpotDetail.setAppliquerReportMontant(impotMensuel.getAppliquerReportMontant());
+        quittanceMensuelleImpotDetail.setCoefficientMontant(impotMensuel.getCoefficientMontant());
         quittanceMensuelleImpotDetail.setChild(impotMensuel.getChild());
         quittanceMensuelleImpotDetail.setParentQuittanceMensuelleImpotDetail(parentQuittanceMensuelleImpotDetail);
         quittanceMensuelleImpotDetail.setQuittanceMensuelleImpotSousDetails(
