@@ -1,5 +1,6 @@
 package com.growup.comptadecision.web.rest;
 
+import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import com.growup.comptadecision.service.QuittanceMensuelleImpotService;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
 import com.growup.comptadecision.web.rest.errors.BadRequestAlertException;
@@ -111,19 +112,20 @@ public class QuittanceMensuelleImpotResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new quittanceMensuelleImpotDTO, or with status 400 (Bad Request) if the quittanceMensuelleImpot has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @GetMapping("/quittance-mensuelle-impots/init")
-    public ResponseEntity<QuittanceMensuelleImpotDTO> init() {
+    @GetMapping("/quittance-mensuelle-impots/init/{id}/{annee}/{mois}/{typeDeclaration}")
+    public ResponseEntity<QuittanceMensuelleImpotDTO> init(@PathVariable Long id, @PathVariable Integer annee, @PathVariable Integer mois,
+                                                           @PathVariable String typeDeclaration) {
         log.debug("REST request to init empty QuittanceMensuelleImpot");
-        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotService.init();
+        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotService.init(id, annee, mois, TypeDeclaration.valueOf(typeDeclaration));
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
     }
 
-    @GetMapping("/quittance-mensuelle-impots/ficheClient/{ficheClientId}")
-    public ResponseEntity<QuittanceMensuelleImpotDTO> getEmptyQuittanceMensuel(@PathVariable("ficheClientId") Long ficheClientId) {
-        log.debug("REST request to get QuittanceMensuelleImpot de la fiche client : {}", ficheClientId);
-        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotService.getEmptyQuittanceMensuel(ficheClientId);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
-    }
+//    @GetMapping("/quittance-mensuelle-impots/ficheClient/{ficheClientId}")
+//    public ResponseEntity<QuittanceMensuelleImpotDTO> getEmptyQuittanceMensuel(@PathVariable("ficheClientId") Long ficheClientId) {
+//        log.debug("REST request to get QuittanceMensuelleImpot de la fiche client : {}", ficheClientId);
+//        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotService.getEmptyQuittanceMensuel(ficheClientId);
+//        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
+//    }
 
     /**
      * DELETE  /quittance-mensuelle-impots/:id : delete the "id" quittanceMensuelleImpot.

@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode
 @Builder
 @ToString
-public class QuittanceMensuelleImpotSousDetailDTO implements Serializable {
+public class QuittanceMensuelleImpotSousDetailDTO implements Serializable, Cloneable {
 
     public QuittanceMensuelleImpotSousDetailDTO() {
     }
@@ -138,5 +138,12 @@ public class QuittanceMensuelleImpotSousDetailDTO implements Serializable {
 
     public void setMontantTotal(BigDecimal montantTotal) {
         this.montantTotal = montantTotal;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        QuittanceMensuelleImpotSousDetailDTO cloneQuittanceMensuelleImpotSousDetail = (QuittanceMensuelleImpotSousDetailDTO) super.clone();
+        cloneQuittanceMensuelleImpotSousDetail.setQuittanceMensuelleImpotDetailId(null);
+        return cloneQuittanceMensuelleImpotSousDetail;
     }
 }

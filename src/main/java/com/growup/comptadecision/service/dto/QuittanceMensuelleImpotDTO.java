@@ -43,6 +43,9 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
 
     private Long ficheClientId;
 
+    private Long parentQuittanceId;
+
+    private String statut;
     private String ficheClientDesignation;
     private String ficheClientMatriculeFiscale;
     private String ficheClientRegistreCommerce;
@@ -166,4 +169,19 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
         this.ficheClientDateCreation = ficheClientDateCreation;
     }
 
+    public Long getParentQuittanceId() {
+        return parentQuittanceId;
+    }
+
+    public void setParentQuittanceId(Long parentQuittanceId) {
+        this.parentQuittanceId = parentQuittanceId;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
 }

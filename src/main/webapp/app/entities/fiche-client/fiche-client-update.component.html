@@ -122,7 +122,8 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.dateCreation" for="field_dateCreation">Date Creation</label>
                     <div class="input-group">
-                        <input id="field_dateCreation" type="text" class="form-control" name="dateCreation" ngbDatepicker  #dateCreationDp="ngbDatepicker" [(ngModel)]="ficheClient.dateCreation"
+                        <input id="field_dateCreation" required type="text" class="form-control" name="dateCreation"
+                               ngbDatepicker #dateCreationDp="ngbDatepicker" [(ngModel)]="ficheClient.dateCreation"
                         />
                         <span class="input-group-append">
                             <button type="button" class="btn btn-secondary" (click)="dateCreationDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>

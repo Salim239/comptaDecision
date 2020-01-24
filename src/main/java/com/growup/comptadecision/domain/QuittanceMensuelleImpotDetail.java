@@ -49,11 +49,18 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
     @Column(name = "libelle")
     private String libelle;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "parent")
     private Boolean parent = Boolean.FALSE;
 
     @Column(name = "child")
     private Boolean child = Boolean.FALSE;
+
+    @Column(name = "parent_quittance_mensuelle_impot_detail_id")
+    @OneToMany(mappedBy = "parentQuittanceMensuelleImpotDetail", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QuittanceMensuelleImpotDetail> childQuittanceMensuelleImpotDetails = new ArrayList<>();
 
     /**
      * Si true à jouter au montant total la montant total du détail du mois dernier
@@ -61,15 +68,14 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
     @Column(name = "appliquer_report_montant")
     private Boolean appliquerReportMontant = Boolean.FALSE;
 
+    @Column(name = "montant_report")
+    private BigDecimal montantReport = BigDecimal.ZERO;
+
     /**
      * C'est le coefficient à multiplier par le montant total lors du calcul de la somme des details enfants
      */
     @Column(name = "coefficient_montant")
     private Float coefficientMontant = 1f;
-
-    @Column(name = "parent_quittance_mensuelle_impot_detail_id")
-    @OneToMany(mappedBy = "parentQuittanceMensuelleImpotDetail", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<QuittanceMensuelleImpotDetail> childQuittanceMensuelleImpotDetails = new ArrayList<>();
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -190,6 +196,22 @@ public class QuittanceMensuelleImpotDetail extends AbstractAuditingEntity {
 
     public void setCoefficientMontant(Float coefficientMontant) {
         this.coefficientMontant = coefficientMontant;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public BigDecimal getMontantReport() {
+        return montantReport;
+    }
+
+    public void setMontantReport(BigDecimal montantReport) {
+        this.montantReport = montantReport;
     }
 }
 

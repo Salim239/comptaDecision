@@ -6,11 +6,19 @@ export const enum TypeDeclaration {
     DECLARATION_RECTIFICATIVE = 'DECLARATION_RECTIFICATIVE'
 }
 
+export const enum StatutDeclaration {
+    BROULLON = 'BROUILLON',
+    VALIDE = 'VALIDE',
+    ARCHIVE = 'ARCHIVE',
+    RECTIFIE = 'RECTIFIE'
+}
+
 export interface IQuittanceMensuelleImpot {
     id?: number;
     annee?: number;
     mois?: number;
     typeDeclaration?: TypeDeclaration;
+    statut?: StatutDeclaration;
     numeroQuittance?: string;
     datePaiement?: Moment;
     montantTotal?: number;
@@ -20,6 +28,7 @@ export interface IQuittanceMensuelleImpot {
     ficheClientRegistreCommerce?: string;
     ficheClientDateCreation?: Moment;
     quittanceMensuelleImpotDetails?: IQuittanceMensuelleImpotDetail[];
+    parentQuittanceId?: number;
 }
 
 export class QuittanceMensuelleImpot implements IQuittanceMensuelleImpot {
@@ -28,6 +37,7 @@ export class QuittanceMensuelleImpot implements IQuittanceMensuelleImpot {
         public annee?: number,
         public mois?: number,
         public typeDeclaration?: TypeDeclaration,
+        public statut?: StatutDeclaration,
         public numeroQuittance?: string,
         public datePaiement?: Moment,
         public montantTotal?: number,
@@ -36,7 +46,9 @@ export class QuittanceMensuelleImpot implements IQuittanceMensuelleImpot {
         public ficheClientMatriculeFiscale?: string,
         public ficheClientRegistreCommerce?: string,
         public ficheClientDateCreation?: Moment,
-        public quittanceMensuelleImpotDetails?: IQuittanceMensuelleImpotDetail[]
+        public quittanceMensuelleImpotDetails?: IQuittanceMensuelleImpotDetail[],
+        public parentQuittanceId?: number,
+
     ) {
     }
 }

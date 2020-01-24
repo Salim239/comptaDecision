@@ -17,11 +17,13 @@
             },
             "annee": "Annee",
             "mois": "Mois",
+          "trimestre": "Trimestre",
             "typeDeclaration": "Type déclaration",
             "numeroQuittance": "Numero Quittance",
             "datePaiement": "Date Paiement",
             "montantTotal": "Montant Paye",
-            "ficheClient": "Fiche Client"
+          "ficheClient": "Fiche Client",
+          "montantReport": "Montant report"
         }
     }
 }

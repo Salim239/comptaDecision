@@ -54,7 +54,7 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
                 this.previousYears = ComptaDecisionUtils.getPreviousYears(moment(ficheClient.dateCreation).year());
             }
         } else {
-            this.previousYears = ComptaDecisionUtils.getPreviousYears(this.currentYear -5);
+            this.previousYears = ComptaDecisionUtils.getPreviousYears(this.currentYear - 5);
         }
     }
 
@@ -128,10 +128,10 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
 
     protected calculerMontantTotalDetailWithChildren(quittanceMensuelleImpotDetail) {
 
-        console.log("report ", quittanceMensuelleImpotDetail.montantTotalReport);
+        console.log("report ", quittanceMensuelleImpotDetail.montantReport);
         return _.sum(_.map(quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails, function (child) {
-            return child.montantTotal * child.impotMensuelCoefficientMontant;
-        })) - quittanceMensuelleImpotDetail.montantTotalReport;
+            return (child.montantTotal ? child.montantTotal : 0) * child.coefficientMontant;
+        })) + quittanceMensuelleImpotDetail.montantReport;
     }
 
 

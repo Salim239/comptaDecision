@@ -12,6 +12,7 @@ export class AnneeComponent implements OnInit {
 
     selectedYear: number;
     years: number[];
+    @Input() displayType: string; //row or empty
     @Input() model: any;
     @Input() form: any;
 

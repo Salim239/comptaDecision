@@ -4,6 +4,7 @@ export interface IQuittanceMensuelleImpotDetail {
     id?: number;
     code?: string;
     libelle?: string;
+    description?: string;
     parent?: boolean,
     child?: boolean,
     parentQuittanceMensuelleImpotDetailId?: number,
@@ -12,11 +13,9 @@ export interface IQuittanceMensuelleImpotDetail {
     childParentQuittanceMensuelleImpotDetails?: [IQuittanceMensuelleImpotDetail],
     quittanceMensuelleImpotId?: number;
     impotMensuelId?: number;
-    impotMensuelCode?: string;
-    impotMensuelLibelle?: string;
-    impotMensuelCoefficientMontant?: number;
-    impotMensuelAppliquerReportMontant?: boolean;
-    montantTotalReport?: number,
+    coefficientMontant?: number;
+    appliquerReportMontant?: boolean;
+    montantReport?: number,
     montantTotal?: number;
     quittanceMensuelleImpotSousDetails?: [IQuittanceMensuelleImpotSousDetail];
 }
@@ -26,6 +25,7 @@ export class QuittanceMensuelleImpotDetail implements IQuittanceMensuelleImpotDe
         public id?: number,
         public code?: string,
         public libelle?: string,
+        public description?: string,
         public montantTotal?: number,
         public parent?: boolean,
         public child?: boolean,
@@ -35,11 +35,9 @@ export class QuittanceMensuelleImpotDetail implements IQuittanceMensuelleImpotDe
         public childParentQuittanceMensuelleImpotDetails?: [IQuittanceMensuelleImpotDetail],
         public quittanceMensuelleImpotId?: number,
         public impotMensuelId?: number,
-        public impotMensuelCode?: string,
-        public impotMensuelLibelle?: string,
-        public impotMensuelAppliquerReportMontant?: boolean,
-        public montantTotalReport?: number,
-        public impotMensuelCoefficientMontant?: number,
+        public appliquerReportMontant?: boolean,
+        public montantReport?: number,
+        public coefficientMontant?: number,
         public quittanceMensuelleImpotSousDetails?: [IQuittanceMensuelleImpotSousDetail],
     ) {
 

@@ -38,7 +38,6 @@
                 <dd>
                     <span>{{quittanceMensuelleImpot.montantTotal}}</span>
                 </dd>
-
             </dl>
 
             <br/>
@@ -47,7 +46,7 @@
                 <table class="table table-striped">
                     <tbody>
                     <tr *ngFor="let quittanceMensuelleImpotDetail of quittanceMensuelleImpot.quittanceMensuelleImpotDetails">
-                        <td><span>{{quittanceMensuelleImpotDetail.impotMensuelClient.impotMensuelLibelle}}</span></td>
+                        <td><span>{{quittanceMensuelleImpotDetail.libelle}}</span></td>
                         <td style="text-align: right"><span><strong>{{quittanceMensuelleImpotDetail.montantTotal}}</strong></span></td>
                     </tr>
                     </tbody>

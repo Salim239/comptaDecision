@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IQuittanceMensuelleImpotDetail} from "app/shared/model/quittance-mensuelle-impot-detail.model";
 import {TypeValeur} from "app/shared/model/impot-mensuel-detail.model";
 
+
 @Component({
     selector: 'quittance-mensuelle-impot-detail-list',
     templateUrl: './quittance-mensuelle-impot-detail-list.component.html'
@@ -23,6 +24,7 @@ export class QuittanceMensuelleImpotDetailListComponent implements OnInit {
     isTaux (typeValeur) {
         return typeValeur === TypeValeur.TAUX
     }
+
 
     isMontantForfaitaire(quittanceMensuelleImpotSousDetail) {
 

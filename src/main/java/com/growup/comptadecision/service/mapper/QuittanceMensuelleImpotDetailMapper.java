@@ -47,7 +47,7 @@ public interface QuittanceMensuelleImpotDetailMapper extends EntityMapper<Quitta
     default BigDecimal sumWithChildren(QuittanceMensuelleImpotDetailDTO quittanceMensuelleImpotDetail) {
         return quittanceMensuelleImpotDetail.getChildQuittanceMensuelleImpotDetails().stream()
                 .map(childQuittanceMensuelleImpotDetail ->
-                        sum(childQuittanceMensuelleImpotDetail).multiply(new BigDecimal(childQuittanceMensuelleImpotDetail.getImpotMensuelCoefficientMontant())))
+                        sum(childQuittanceMensuelleImpotDetail).multiply(new BigDecimal(childQuittanceMensuelleImpotDetail.getCoefficientMontant())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
@@ -88,9 +88,6 @@ public interface QuittanceMensuelleImpotDetailMapper extends EntityMapper<Quitta
     @Mapping(source = "parentQuittanceMensuelleImpotDetail.code", target = "parentQuittanceMensuelleImpotDetailCode")
     @Mapping(source = "parentQuittanceMensuelleImpotDetail.libelle", target = "parentQuittanceMensuelleImpotDetailLibelle")
     @Mapping(source = "impotMensuel.id", target = "impotMensuelId")
-    @Mapping(source = "impotMensuel.libelle", target = "impotMensuelLibelle")
-    @Mapping(source = "impotMensuel.coefficientMontant", target = "impotMensuelCoefficientMontant")
-    @Mapping(source = "impotMensuel.appliquerReportMontant", target = "impotMensuelAppliquerReportMontant")
 //    @Mapping(target = "montantTotal", expression = "java(getMontantTotal(quittanceMensuelleImpotDetail))")
     QuittanceMensuelleImpotDetailDTO toDto(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail);
 

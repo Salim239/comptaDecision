@@ -46,7 +46,6 @@ public interface ImpotMensuelRepository extends JpaRepository<ImpotMensuel, Long
 
     @Query("select distinct impotMensuel from ImpotMensuel impotMensuel " +
             "left join fetch impotMensuel.impotMensuelClients impotMensuelClient " +
-            "left join impotMensuel.impotMensuelDetails impotMensuelDetail " +
             "where impotMensuelClient.ficheClient.id =:ficheClientId " +
             "and impotMensuelClient.applicable = true ")
     List<ImpotMensuel> findImpotMensuelApplicableByFicheClientId(@Param("ficheClientId") Long ficheClientId);

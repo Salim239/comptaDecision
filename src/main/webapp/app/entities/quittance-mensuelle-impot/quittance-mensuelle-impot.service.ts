@@ -18,9 +18,9 @@ export class QuittanceMensuelleImpotService {
 
     constructor(protected http: HttpClient) {}
 
-    initEmpty(): Observable<EntityResponseType> {
+    initEmpty(id, annee, mois, typeDeclaration): Observable<EntityResponseType> {
         return this.http
-            .get<IQuittanceMensuelleImpot>(this.resourceUrl + '/init', { observe: 'response' })
+            .get<IQuittanceMensuelleImpot>(this.resourceUrl + `/init/${id}/${annee}/${mois}/${typeDeclaration}`, {observe: 'response'})
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 

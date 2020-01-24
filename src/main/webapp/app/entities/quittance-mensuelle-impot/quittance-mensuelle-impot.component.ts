@@ -1,15 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import { IQuittanceMensuelleImpot } from 'app/shared/model/quittance-mensuelle-impot.model';
-import { AccountService } from 'app/core';
+import {IQuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
+import {AccountService} from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
-import { QuittanceMensuelleImpotService } from './quittance-mensuelle-impot.service';
+import {ITEMS_PER_PAGE} from 'app/shared';
+import {QuittanceMensuelleImpotService} from './quittance-mensuelle-impot.service';
 
 @Component({
     selector: 'jhi-quittance-mensuelle-impot',
@@ -127,5 +126,17 @@ export class QuittanceMensuelleImpotComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    addNewQuittance(event) {
+        let ficheClientId = event.ficheClientId;
+        let mois = event.mois;
+        let annee = event.annee;
+        let typeDeclaration = event.typeDeclaration;
+        console.log('ficheClientId ', ficheClientId);
+        console.log('annee ', annee);
+        console.log('mois ', mois);
+        this.router.navigateByUrl(`/quittance-mensuelle-impot/${ficheClientId}/${annee}/${mois}/${typeDeclaration}/new`);
+
     }
 }

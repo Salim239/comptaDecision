@@ -2,6 +2,7 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.growup.comptadecision.domain.enumeration.StatutDeclaration;
 import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -57,6 +58,10 @@ public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
     @Column(name = "type_declaration", nullable = false)
     private TypeDeclaration typeDeclaration;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "statut", nullable = false)
+    private StatutDeclaration statut;
+
     @Column(name = "numero_quittance")
     private String numeroQuittance;
 
@@ -65,6 +70,10 @@ public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
 
     @Column(name = "montant_total", precision = 10, scale = 2)
     private BigDecimal montantTotal;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_quittance_id")
+    private QuittanceMensuelleImpot parentQuittance;
 
     @ManyToOne
     @JsonIgnoreProperties("quittanceMensuelleImpots")
@@ -176,6 +185,19 @@ public class QuittanceMensuelleImpot extends AbstractAuditingEntity {
         this.typeDeclaration = typeDeclaration;
     }
 
+    public StatutDeclaration getStatut() {
+        return statut;
+    }
 
+    public void setStatut(StatutDeclaration statut) {
+        this.statut = statut;
+    }
 
+    public QuittanceMensuelleImpot getParentQuittance() {
+        return parentQuittance;
+    }
+
+    public void setParentQuittance(QuittanceMensuelleImpot parentQuittance) {
+        this.parentQuittance = parentQuittance;
+    }
 }

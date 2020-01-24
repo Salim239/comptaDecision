@@ -5,8 +5,9 @@ export default class ComptaDecisionUtils {
     static getPreviousYears(anneeCreation: number) {
         let previousYears = [];
         var currentYear = moment().year();
-        for (let i = 0; i < (currentYear - anneeCreation); i++) {
-            previousYears[i] = currentYear - (i + 1);
+        previousYears.push(currentYear);
+        for (let i = 1; i <= (currentYear - anneeCreation); i++) {
+            previousYears.push(currentYear - i);
         }
         return previousYears;
     }

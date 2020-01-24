@@ -1,13 +1,15 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.home.title">Quittance Mensuelle Impots</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-quittance-mensuelle-impot" [routerLink]="['/quittance-mensuelle-impot/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.home.createLabel">
-            Create new Quittance Mensuelle Impot
-            </span>
-        </button>
+        <!--<span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.home.title">Quittance Mensuelle Impots</span>-->
+        <!--<button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-quittance-mensuelle-impot" [routerLink]="['/quittance-mensuelle-impot/new']">-->
+        <!--<fa-icon [icon]="'plus'"></fa-icon>-->
+        <!--<span  jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.home.createLabel">-->
+        <!--Create new Quittance Mensuelle Impot-->
+        <!--</span>-->
+        <!--</button>-->
+        <!--<app-new-entry></app-new-entry>-->
     </h2>
+    <app-new-entry [hideTrimestre]="true" (submitCreationForm)="addNewQuittance($event)"></app-new-entry>
     <jhi-alert></jhi-alert>
     <br/>
     <div class="table-responsive" *ngIf="quittanceMensuelleImpots">

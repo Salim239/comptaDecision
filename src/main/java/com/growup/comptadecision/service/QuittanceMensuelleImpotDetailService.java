@@ -1,6 +1,7 @@
 package com.growup.comptadecision.service;
 
 import com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail;
+import com.growup.comptadecision.domain.enumeration.StatutDeclaration;
 import com.growup.comptadecision.repository.QuittanceMensuelleImpotDetailRepository;
 import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDetailDTO;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -82,5 +84,14 @@ public class QuittanceMensuelleImpotDetailService {
     public void delete(Long id) {
         log.debug("Request to delete QuittanceMensuelleImpotDetail : {}", id);
         quittanceMensuelleImpotDetailRepository.deleteById(id);
+    }
+
+    public Optional<QuittanceMensuelleImpotDetail> findByFicheClientIdAndQuittanceStatutAndAnneeAndMoisAndCode(Long ficheClientId,
+                                                                                                               List<StatutDeclaration> statuts,
+                                                                                                               Integer annee,
+                                                                                                               Integer mois,
+                                                                                                               String code) {
+
+        return quittanceMensuelleImpotDetailRepository.findByFicheClientIdAndQuittanceStatutsAndAnneeAndMoisAndCode(ficheClientId, statuts, annee, mois, code);
     }
 }

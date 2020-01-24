@@ -14,6 +14,7 @@ import {
     QuittanceMensuelleImpotUpdateComponent
 } from './';
 import {QuittanceMensuelleImpotDetailListComponent} from './quittance-mensuelle-impot-detail/quittance-mensuelle-impot-detail-list.component'
+import {QuittanceMensuelleImpotDetailCalcMontantTotalComponent} from './quittance-mensuelle-impot-detail/quittance-mensuelle-impot-detail-calc-montant-total.component'
 
 const ENTITY_STATES = [...quittanceMensuelleImpotRoute, ...quittanceMensuelleImpotPopupRoute];
 
@@ -25,14 +26,16 @@ const ENTITY_STATES = [...quittanceMensuelleImpotRoute, ...quittanceMensuelleImp
         QuittanceMensuelleImpotUpdateComponent,
         QuittanceMensuelleImpotDeleteDialogComponent,
         QuittanceMensuelleImpotDeletePopupComponent,
-        QuittanceMensuelleImpotDetailListComponent
+        QuittanceMensuelleImpotDetailListComponent,
+        QuittanceMensuelleImpotDetailCalcMontantTotalComponent
     ],
     entryComponents: [
         QuittanceMensuelleImpotComponent,
         QuittanceMensuelleImpotUpdateComponent,
         QuittanceMensuelleImpotDeleteDialogComponent,
         QuittanceMensuelleImpotDeletePopupComponent,
-        QuittanceMensuelleImpotDetailListComponent
+        QuittanceMensuelleImpotDetailListComponent,
+        QuittanceMensuelleImpotDetailCalcMontantTotalComponent
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

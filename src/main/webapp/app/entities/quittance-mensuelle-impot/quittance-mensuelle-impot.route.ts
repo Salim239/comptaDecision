@@ -20,13 +20,18 @@ export class QuittanceMensuelleImpotResolve implements Resolve<IQuittanceMensuel
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IQuittanceMensuelleImpot> {
         const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
+        const annee = route.params['annee'] ? route.params['annee'] : null;
+        const mois = route.params['mois'] ? route.params['mois'] : null;
+        const typeDeclaration = route.params['typeDeclaration'] ? route.params['typeDeclaration'] : null;
+        if (id && !annee && !mois) {
             return this.service.find(id).pipe(
                 filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
                 map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
             );
         }
-        return this.service.initEmpty()
+
+        if (id && annee && mois && typeDeclaration)
+            return this.service.initEmpty(id, annee, mois, typeDeclaration)
             .pipe(
                 filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
                 map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => {
@@ -79,7 +84,7 @@ export const quittanceMensuelleImpotRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: ':id/:annee/:mois/:typeDeclaration/new',
         component: QuittanceMensuelleImpotUpdateComponent,
         resolve: {
             quittanceMensuelleImpot: QuittanceMensuelleImpotResolve,

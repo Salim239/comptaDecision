@@ -34,31 +34,19 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
     /**
      * Si true à jouter au montant total la montant total du détail du mois dernier
      */
-    private Boolean appliquerReportMontant;
+    private Boolean appliquerReportMontant = Boolean.FALSE;
 
     /**
      * C'est le coefficient à multiplier par le montant total lors du calcul de la somme des details enfants
      */
-    private Float coefficientMontant;
+    private Float coefficientMontant = 1f;
 
     private Long impotMensuelId;
-
-    private String impotMensuelLibelle;
-
-    /**
-     * Si true à jouter au montant total la montant total du détail du mois dernier
-     */
-    private Boolean impotMensuelAppliquerReportMontant = Boolean.FALSE;
 
     /**
      * Si report, initialiser avec montant total même impot mois préc"dent sinon 0
      */
-    private BigDecimal montantTotalReport = BigDecimal.ZERO;
-
-    /**
-     * C'est le coefficient à multiplier par le montant total lors du calcul de la somme des details enfants
-     */
-    private Float impotMensuelCoefficientMontant = 1f;
+    private BigDecimal montantReport = BigDecimal.ZERO;
 
     private BigDecimal montantTotal;
 
@@ -154,21 +142,6 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
         this.montantTotal = montantTotal;
     }
 
-    public Boolean getImpotMensuelAppliquerReportMontant() {
-        return impotMensuelAppliquerReportMontant;
-    }
-
-    public void setImpotMensuelAppliquerReportMontant(Boolean impotMensuelAppliquerReportMontant) {
-        this.impotMensuelAppliquerReportMontant = impotMensuelAppliquerReportMontant;
-    }
-
-    public Float getImpotMensuelCoefficientMontant() {
-        return impotMensuelCoefficientMontant;
-    }
-
-    public void setImpotMensuelCoefficientMontant(Float impotMensuelCoefficientMontant) {
-        this.impotMensuelCoefficientMontant = impotMensuelCoefficientMontant;
-    }
 
     public Long getImpotMensuelId() {
         return impotMensuelId;
@@ -178,20 +151,12 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
         this.impotMensuelId = impotMensuelId;
     }
 
-    public String getImpotMensuelLibelle() {
-        return impotMensuelLibelle;
+    public BigDecimal getMontantReport() {
+        return montantReport;
     }
 
-    public void setImpotMensuelLibelle(String impotMensuelLibelle) {
-        this.impotMensuelLibelle = impotMensuelLibelle;
-    }
-
-    public BigDecimal getMontantTotalReport() {
-        return montantTotalReport;
-    }
-
-    public void setMontantTotalReport(BigDecimal montantTotalReport) {
-        this.montantTotalReport = montantTotalReport;
+    public void setMontantReport(BigDecimal montantReport) {
+        this.montantReport = montantReport;
     }
 
     public String getCode() {
@@ -225,4 +190,5 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
     public void setParentQuittanceMensuelleImpotDetailCode(String parentQuittanceMensuelleImpotDetailCode) {
         this.parentQuittanceMensuelleImpotDetailCode = parentQuittanceMensuelleImpotDetailCode;
     }
+
 }
