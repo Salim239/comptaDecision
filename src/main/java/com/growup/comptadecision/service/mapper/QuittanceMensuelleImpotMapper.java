@@ -16,7 +16,8 @@ public interface QuittanceMensuelleImpotMapper extends EntityMapper<QuittanceMen
 
     default BigDecimal sum(QuittanceMensuelleImpot quittanceMensuelleImpot) {
        return quittanceMensuelleImpot.getQuittanceMensuelleImpotDetails().stream()
-               .filter(quittanceMensuelleImpotDetail -> quittanceMensuelleImpotDetail.getMontantTotal() != null)
+               .filter(quittanceMensuelleImpotDetail -> quittanceMensuelleImpotDetail.getMontantTotal() != null &&
+                       quittanceMensuelleImpotDetail.getMontantTotal().compareTo(BigDecimal.ZERO) >= 0)
                .map(QuittanceMensuelleImpotDetail::getMontantTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

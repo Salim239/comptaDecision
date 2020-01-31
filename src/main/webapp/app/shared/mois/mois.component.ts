@@ -11,6 +11,7 @@ export class MoisComponent implements OnInit {
     @Input() form: any;
     @Input() displayType: string;
     @Output() moisChange = new EventEmitter();
+    @Input() disabled: boolean;
 
 
     constructor() {

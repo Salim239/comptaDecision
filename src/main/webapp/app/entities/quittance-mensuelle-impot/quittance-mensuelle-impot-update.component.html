@@ -11,20 +11,23 @@
                 </div>
                 <div class="form-group row">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.ficheClient" for="field_ficheClient">Fiche Client</label>
-                    <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="quittanceMensuelleImpot.ficheClientId" (change)="initByParams()" >
+                    <select [disabled]="true" class="form-control" id="field_ficheClient" name="ficheClient"
+                            [(ngModel)]="quittanceMensuelleImpot.ficheClientId" (change)="initByParams()">
                         <option [ngValue]=""></option>
                         <option [ngValue]="ficheClientOption.id" *ngFor="let ficheClientOption of ficheClients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
                     </select>
                 </div>
 
-                <app-annee [displayType]="'row'" [form]="editForm" [model]="quittanceMensuelleImpot"></app-annee>
+                <app-annee [disabled]="true" [displayType]="'row'" [form]="editForm"
+                           [model]="quittanceMensuelleImpot"></app-annee>
 
-                <app-mois [displayType]="'row'" [form]="editForm" [model]="quittanceMensuelleImpot"
+                <app-mois [disabled]="true" [displayType]="'row'" [form]="editForm" [model]="quittanceMensuelleImpot"
                           (moisChange)="initByParams()"></app-mois>
 
                 <div class="form-group row">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.typeDeclaration" for="field_typeDeclaration">Type déclaration</label>
-                    <select required class="form-control" name="typeDeclaration" [(ngModel)]="quittanceMensuelleImpot.typeDeclaration" id="field_typeDeclaration" >
+                    <select [disabled]="true" required class="form-control" name="typeDeclaration"
+                            [(ngModel)]="quittanceMensuelleImpot.typeDeclaration" id="field_typeDeclaration">
                         <option value="DECLARATION_INITIALE">{{'comptaDecisionApp.typeDeclaration.DECLARATION_INITIALE' | translate}}</option>
                         <option value="DECLARATION_RECTIFICATIVE">{{'comptaDecisionApp.typeDeclaration.DECLARATION_RECTIFICATIVE' | translate}}</option>
                     </select>

@@ -147,8 +147,10 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
             parentDetail.montantTotal = this.calculerMontantTotalDetailWithChildren(parentDetail);
         }
 
-        this.quittanceMensuelleImpot.montantTotal = _.sum(_.map(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function (detail) {
+        let montantTotadetails = _.map(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function (detail) {
             return detail.montantTotal;
-        }));
+        });
+        //Sum only positive montant total details
+        this.quittanceMensuelleImpot.montantTotal = _.sum(_.filter(montantTotadetails, montantTotal => montantTotal > 0));
     }
 }

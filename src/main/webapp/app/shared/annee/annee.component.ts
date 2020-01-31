@@ -15,6 +15,7 @@ export class AnneeComponent implements OnInit {
     @Input() displayType: string; //row or empty
     @Input() model: any;
     @Input() form: any;
+    @Input() disabled: boolean;
 
 
     constructor() {

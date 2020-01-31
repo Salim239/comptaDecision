@@ -254,7 +254,9 @@ public class QuittanceMensuelleImpotService {
                         quittanceMensuelleImpot.getMois() - 1,
 //                        impotMensuel.getCode()).orElseThrow(() -> new RuntimeException("Il n'existe pas de quittance pour le mois précédent"));
                         impotMensuel.getCode()).orElseThrow(() -> new RuntimeException("Il n'existe pas de quittance pour le mois précédent"));
-                quittanceMensuelleImpotDetail.setMontantReport(quittanceMensuelleImpotDetailPrecedente.getMontantTotal());
+                quittanceMensuelleImpotDetail.setMontantReport(quittanceMensuelleImpotDetailPrecedente.getMontantTotal().compareTo(BigDecimal.ZERO) == -1 ?
+                        quittanceMensuelleImpotDetailPrecedente.getMontantTotal() :
+                        BigDecimal.ZERO);
             } else {
                 quittanceMensuelleImpotDetail.setMontantReport(BigDecimal.ZERO);
             }
