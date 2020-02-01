@@ -56,8 +56,8 @@
                 </div>
                 <div class="form-group row">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.montantTotal" for="field_montantTotal">Montant Paye</label>
-                    <input class="form-control" name="montantTotal" id="field_montantTotal" [readOnly]="true"
-                           [(ngModel)]="quittanceMensuelleImpot.montantTotal"/>
+                    <input class="form-control numeric" name="montantTotal" id="field_montantTotal" [readOnly]="true" digitOnly
+                           [ngModel]="quittanceMensuelleImpot.montantTotal | number:'1.3-3'" (ngModelChange)="quittanceMensuelleImpot.montantTotal=$event"/>
                 </div>
 
                 <ngb-tabset>

@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IQuittanceMensuelleImpotDetail} from "app/shared/model/quittance-mensuelle-impot-detail.model";
 import {TypeValeur} from "app/shared/model/impot-mensuel-detail.model";
+import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
+import * as _ from 'lodash';
 
 
 @Component({
@@ -13,12 +15,24 @@ export class QuittanceMensuelleImpotDetailListComponent implements OnInit {
     @Input() indexDetail: number;
     @Output() updateMontantTotal = new EventEmitter();
 
+    private formatMontantBase(quittanceMensuelleImpotSousDetail) {
+        quittanceMensuelleImpotSousDetail.montantBase = ComptaDecisionUtils.formatCurrency(quittanceMensuelleImpotSousDetail.montantBase);
+    }
+
+    private parseMontantBase(quittanceMensuelleImpotSousDetail) {
+        quittanceMensuelleImpotSousDetail.montantBase = ComptaDecisionUtils.parseCurrency(quittanceMensuelleImpotSousDetail.montantBase);
+    }
+
 
     constructor() {
 
     }
 
     ngOnInit() {
+        let that = this;
+        _.each(this.quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails, function(quittanceMensuelleImpotSousDetail) {
+            that.formatMontantBase(quittanceMensuelleImpotSousDetail) ;
+        });
     }
 
     isTaux (typeValeur) {
@@ -43,8 +57,7 @@ export class QuittanceMensuelleImpotDetailListComponent implements OnInit {
         var impotDetailValeur = this.calculerImpotDetailValeur(this.quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails[indexSousDetail]);
         this.quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails[indexSousDetail].montantTotal =
             impotDetailValeur * this.quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails[indexSousDetail].montantBase;
+        this.formatMontantBase(this.quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails[indexSousDetail]);
         this.updateMontantTotal.emit(this.quittanceMensuelleImpotDetail);
     }
-
-
 }

@@ -224,3 +224,10 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+/* ===================================================================================
+specific app style
+====================================================================================*/
+input.numeric {
+    text-align: right;
+}

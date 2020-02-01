@@ -36,7 +36,8 @@
         </td>
         <td>
             <div class="form-group"  style="width: 160px">
-                <input (change)="calculerMontantTotal(indexSousDetail)" type="text" class="form-control"
+                <input digitOnly [decimal]="true"
+                       (change)="calculerMontantTotal(indexSousDetail)" type="text" class="form-control numeric"
                        name="quittanceMensuelleImpotDetail[{{indexDetail}}].quittanceMensuelleImpotSousDetails[{{indexSousDetail}}].quittanceMensuelleImpotSousDetailMontantBase"
                        id="field_quittanceMensuelleImpotSousDetailMontantBase"
                        [(ngModel)]="quittanceMensuelleImpotSousDetail.montantBase"/>
@@ -46,24 +47,25 @@
             <div class="form-group input-group">
                 <input [hidden]="!isTaux(quittanceMensuelleImpotSousDetail.impotMensuelDetailTypeValeur) && !isMontantForfaitaire(quittanceMensuelleImpotSousDetail)"
                        [disabled]="!quittanceMensuelleImpotSousDetail.impotMensuelDetailValeurModifiable" type="text"
-                       class="form-control"
+                       class="form-control numeric"
                        name="quittanceMensuelleImpotDetail[{{indexDetail}}].quittanceMensuelleImpotSousDetails[{{indexSousDetail}}].quittanceMensuelleImpotSousDetailValeur"
                        id="field_quittanceMensuelleImpotSousDetailValeur"
-                       [(ngModel)]="quittanceMensuelleImpotSousDetail.impotMensuelDetailValeur"/>
+                       [ngModel]="quittanceMensuelleImpotSousDetail.impotMensuelDetailValeur | number:'1.3-3'"
+                       (ngModelChange)="quittanceMensuelleImpotSousDetail.impotMensuelDetailValeur=$event"/>
                 <div [hidden]="!isTaux(quittanceMensuelleImpotSousDetail.impotMensuelDetailTypeValeur)" class="input-group-append">
                     <span class="input-group-text" id="basic-addon2">%</span>
                 </div>
 
                 <input [hidden]="isTaux(quittanceMensuelleImpotSousDetail.impotMensuelDetailTypeValeur) || isMontantForfaitaire(quittanceMensuelleImpotSousDetail)"
-                       value="N/A" [disabled]="true" type="text" class="form-control"/>
+                       value="N/A" [disabled]="true" type="text" class="form-control numeric"/>
             </div>
         </td>
         <td>
             <div class="form-group">
-                <input type="text" class="form-control"
+                <input type="text" class="form-control numeric"
                        name="quittanceMensuelleImpotDetail[{{indexDetail}}].quittanceMensuelleImpotSousDetails[{{indexSousDetail}}].quittanceMensuelleImpotSousDetailMontantTotal"
                        id="field_quittanceMensuelleImpotSousDetailMontantTotal"
-                       [(ngModel)]="quittanceMensuelleImpotSousDetail.montantTotal" [maxLength]="20"
+                       [ngModel]="quittanceMensuelleImpotSousDetail.montantTotal | number:'1.3-3'" (ngModelChange)="quittanceMensuelleImpotSousDetail.montantTotal=$event"
                        [disabled]="!quittanceMensuelleImpotSousDetail.impotMensuelDetailValeurModifiable"/>
             </div>
         </td>

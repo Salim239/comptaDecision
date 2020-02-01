@@ -63,8 +63,25 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         window.history.back();
     }
 
+    private unformatDetail(quittanceMensuelleImpotDetail) {
+        _.each(quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails, function(quittanceMensuelleImpotSousDetail) {
+            quittanceMensuelleImpotSousDetail.montantBase = ComptaDecisionUtils.parseCurrency(quittanceMensuelleImpotSousDetail.montantBase);
+        });
+    }
+
+    private unformat(quittanceMensuelleImpot) {
+        let that = this;
+        _.each(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function(quittanceMensuelleImpotDetail) {
+            that.unformatDetail(quittanceMensuelleImpotDetail);
+            _.each(quittanceMensuelleImpotDetail.childParentQuittanceMensuelleImpotDetails, function(childParentQuittanceMensuelleImpotDetail) {
+                that.unformatDetail(childParentQuittanceMensuelleImpotDetail);
+            });
+        });
+    }
+
     save(withoutExist) {
         this.isSaving = !withoutExist;
+        this.unformat(this.quittanceMensuelleImpot);
         if (this.quittanceMensuelleImpot.id !== undefined && this.quittanceMensuelleImpot.id !== null) {
             this.subscribeToSaveResponse(this.quittanceMensuelleImpotService.update(this.quittanceMensuelleImpot), withoutExist);
         } else {

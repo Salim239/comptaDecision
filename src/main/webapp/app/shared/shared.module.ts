@@ -2,6 +2,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {NgbDateAdapter} from '@ng-bootstrap/ng-bootstrap';
 
 import {NgbDateMomentAdapter} from './util/datepicker-adapter';
+import {DigitOnlyDirective} from 'app/shared/directives/digit-only.directive';
 import {
     ComptaDecisionSharedCommonModule,
     ComptaDecisionSharedLibsModule,
@@ -14,10 +15,10 @@ import {NewEntryComponent} from "app/shared/new-entry-form/new-entry.component";
 
 @NgModule({
     imports: [ComptaDecisionSharedLibsModule, ComptaDecisionSharedCommonModule],
-    declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective, AnneeComponent, MoisComponent, NewEntryComponent],
+    declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective, AnneeComponent, MoisComponent, NewEntryComponent, DigitOnlyDirective],
     providers: [{ provide: NgbDateAdapter, useClass: NgbDateMomentAdapter }],
     entryComponents: [JhiLoginModalComponent],
-    exports: [ComptaDecisionSharedCommonModule, JhiLoginModalComponent, AnneeComponent, MoisComponent, NewEntryComponent, HasAnyAuthorityDirective],
+    exports: [ComptaDecisionSharedCommonModule, JhiLoginModalComponent, AnneeComponent, MoisComponent, NewEntryComponent, HasAnyAuthorityDirective, DigitOnlyDirective],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ComptaDecisionSharedModule {

@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import {accounting} from 'accounting';
 
 export default class ComptaDecisionUtils {
 
@@ -10,5 +11,13 @@ export default class ComptaDecisionUtils {
             previousYears.push(currentYear - i);
         }
         return previousYears;
+    }
+
+    static formatCurrency(value) {
+        return accounting.formatMoney(value, '', 3, ' ', ',');
+    }
+
+    static parseCurrency(value) {
+        return accounting.unformat(value, ',');
     }
 }
