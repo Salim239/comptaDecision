@@ -11,28 +11,27 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.ficheClient" for="field_ficheClient">Fiche Client</label>
-                    <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="declarationAnnuelle.ficheClientId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="ficheClientOption.id" *ngFor="let ficheClientOption of ficheclients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
-                    </select>
+                    <input [disabled]="true" type="text" class="form-control" name="ficheClient" id="field_ficheClient"
+                           [(ngModel)]="declarationAnnuelle.ficheClientDesignation" />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.typeDeclaration" for="field_typeDeclaration">Type déclaration</label>
-                    <select required class="form-control" name="typeDeclaration" [(ngModel)]="declarationAnnuelle.typeDeclaration" id="field_typeDeclaration" >
+                    <select [disabled]="true" required class="form-control" name="typeDeclaration" [(ngModel)]="declarationAnnuelle.typeDeclaration" id="field_typeDeclaration" >
                         <option value="DECLARATION_INITIALE">{{'comptaDecisionApp.typeDeclaration.DECLARATION_INITIALE' | translate}}</option>
                         <option value="DECLARATION_RECTIFICATIVE">{{'comptaDecisionApp.typeDeclaration.DECLARATION_RECTIFICATIVE' | translate}}</option>
                     </select>
-                    <div [hidden]="!(editForm.controls.typeDeclaration?.dirty && editForm.controls.typeDeclaration?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.typeDeclaration?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                    </div>
                 </div>
-                <app-annee [currentFichClientDateCreation]="declarationAnnuelle.ficheClientDateCreation"
-                           [ficheClients]="ficheclients" [form]="editForm"
-                           [currentFicheClientId]="declarationAnnuelle.ficheClientId"
-                           [model]="declarationAnnuelle"></app-annee>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.annee" for="field_annee">Annee</label>
+                    <input [disabled]="true" type="text" class="form-control" name="annee" id="field_annee"
+                           [(ngModel)]="declarationAnnuelle.annee" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montant" for="field_montant">Montant</label>
+                    <input [disabled]="true" class="form-control numeric" name="montant" id="field_montant"
+                           [ngModel]="declarationAnnuelle.montant | number:'1.3-3'"
+                           (ngModelChange)="declarationAnnuelle.montant=$event"/>
+                </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.datePaiement" for="field_datePaiement">Date Paiement</label>
                     <div class="input-group">
@@ -48,11 +47,20 @@
                     <input type="text" class="form-control" name="numeroQuittance" id="field_numeroQuittance"
                         [(ngModel)]="declarationAnnuelle.numeroQuittance" />
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.declarationAnnuelle.montant" for="field_montant">Montant</label>
-                    <input type="number" class="form-control" name="montant" id="field_montant"
-                        [(ngModel)]="declarationAnnuelle.montant" />
-                </div>
+
+
+                <table class="table table-hover">
+                    <tbody>
+                    <tr *ngFor="let declarationAnnuelleDetail of declarationAnnuelle.declarationAnnuelleDetails | orderBy: 'triOrdre'; let i = index;">
+                        <th><label class="form-control-label" for="field_declarationAnnuelleDetailMontant">{{declarationAnnuelleDetail.libelle}}</label></th>
+                        <td [colSpan]="declarationAnnuelleDetail.calcule ? 1 : 2"><input digitOnly decimal="true" class="form-control numeric" name="field_declarationAnnuelleDetail[{{i}}].montant" id="field_declarationAnnuelleDetailMontant"
+                                   [(ngModel)]="declarationAnnuelleDetail.montant" (change)="calculerMontant(i)"/></td>
+                        <td><input [disabled]="true" class="form-control numeric" name="field_declarationAnnuelleDetail[{{i}}].montantCalcule" id="field_declarationAnnuelleDetailMontantCalcule"
+                                   *ngIf="declarationAnnuelleDetail.calcule"
+                                   [ngModel]="declarationAnnuelleDetail.montantCalcule | number:'1.3-3'" (ngModelChange)="declarationAnnuelleDetail.montantCalcule=$event"/></td>
+                    </tr>
+                    </tbody>
+                </table>
 
             </div>
             <div>

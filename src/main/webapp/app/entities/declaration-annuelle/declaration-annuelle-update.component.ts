@@ -2,13 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
 import * as moment from 'moment';
 import {JhiAlertService} from 'ng-jhipster';
-import {IDeclarationAnnuelle, TypeDeclaration} from 'app/shared/model/declaration-annuelle.model';
+import {IDeclarationAnnuelle} from 'app/shared/model/declaration-annuelle.model';
 import {DeclarationAnnuelleService} from './declaration-annuelle.service';
 import {IFicheClient} from 'app/shared/model/fiche-client.model';
 import {FicheClientService} from 'app/entities/fiche-client';
+import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
+import * as _ from 'lodash';
 
 @Component({
     selector: 'jhi-declaration-annuelle-update',
@@ -31,30 +32,15 @@ export class DeclarationAnnuelleUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
+        let that = this;
+        // _.each(this.declarationAnnuelle.declarationAnnuelleDetails, function(declarationAnnuelleDetail) {
+        //     that.formatMontant(declarationAnnuelleDetail) ;
+        // });
         this.currentYear = moment().year();
         this.activatedRoute.data.subscribe(({ declarationAnnuelle, ficheClients }) => {
-            this.ficheclients = ficheClients;
             this.declarationAnnuelle = declarationAnnuelle;
-            if (!this.declarationAnnuelle.id) {
-                if (this.ficheclients.length > 0) {
-                    this.declarationAnnuelle.typeDeclaration = TypeDeclaration.DECLARATION_INITIALE;
-                    this.declarationAnnuelle.ficheClientId = this.ficheclients[0].id;
-                    this.declarationAnnuelle.ficheClientDateCreation = this.ficheclients[0].dateCreation;
-                    this.declarationAnnuelle.ficheClientDesignation = this.ficheclients[0].designation;
-                    this.declarationAnnuelle.ficheClientMatriculeFiscale = this.ficheclients[0].matriculeFiscale;
-                    this.declarationAnnuelle.ficheClientRegistreCommerce = this.ficheclients[0].registreCommerce;
-                }
-                this.declarationAnnuelle.annee = this.currentYear;
-            }
+
         });
-        this.currentYear = moment().year();
-        this.ficheClientService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IFicheClient[]>) => response.body)
-            )
-            .subscribe((res: IFicheClient[]) => (this.ficheclients = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -63,6 +49,7 @@ export class DeclarationAnnuelleUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.unformatDeclarationAnnuelle();
         if (this.declarationAnnuelle.id !== undefined) {
             this.subscribeToSaveResponse(this.declarationAnnuelleService.update(this.declarationAnnuelle));
         } else {
@@ -87,7 +74,32 @@ export class DeclarationAnnuelleUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackFicheClientById(index: number, item: IFicheClient) {
-        return item.id;
+    private formatMontant(declarationAnnuelleDetail) {
+        declarationAnnuelleDetail.montant = ComptaDecisionUtils.parseCurrency(declarationAnnuelleDetail.montant);
+        declarationAnnuelleDetail.montant = ComptaDecisionUtils.formatCurrency(declarationAnnuelleDetail.montant);
+    }
+
+    private parseMontant(declarationAnnuelleDetail) {
+        declarationAnnuelleDetail.montantBase = ComptaDecisionUtils.parseCurrency(declarationAnnuelleDetail.montant);
+    }
+
+    calculerMontant(indexDetail) {
+        this.unformatMontantDeclarationAnnuelle();
+        this.declarationAnnuelle.montant = _.sum(_.map(this.declarationAnnuelle.declarationAnnuelleDetails, function (declarationAnnuelleDetail) {
+            return declarationAnnuelleDetail.montant ? declarationAnnuelleDetail.montant : 0;
+        }));
+        this.formatMontantDeclarationAnnuelle()
+    }
+
+    private unformatMontantDeclarationAnnuelle() {
+        _.each(this.declarationAnnuelle.declarationAnnuelleDetails, function(declarationAnnuelleDetail) {
+            declarationAnnuelleDetail.montant = ComptaDecisionUtils.parseCurrency(declarationAnnuelleDetail.montant);
+        });
+    }
+
+    private formatMontantDeclarationAnnuelle() {
+        _.each(this.declarationAnnuelle.declarationAnnuelleDetails, function(declarationAnnuelleDetail) {
+            declarationAnnuelleDetail.montant = ComptaDecisionUtils.formatCurrency(declarationAnnuelleDetail.montant);
+        });
     }
 }

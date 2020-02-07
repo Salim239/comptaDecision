@@ -137,6 +137,7 @@ public class DeclarationAnnuelleService {
                     DecalrationAnnuelleDetail declarationAnnuelleDetail = new DecalrationAnnuelleDetail();
                     declarationAnnuelleDetail.setCode(impotAnnuel.getCode());
                     declarationAnnuelleDetail.setDescription(impotAnnuel.getDescription());
+                    declarationAnnuelleDetail.setLibelle(impotAnnuel.getLibelle());
                     declarationAnnuelleDetail.setCalcule(impotAnnuel.getCalcule());
                     declarationAnnuelleDetail.setTriOrdre(impotAnnuel.getTriOrdre());
                     List<String> impotMensuelDetailToSum = impotAnnuel.getImpotAnnuelDetails().stream()
