@@ -53,7 +53,12 @@ public class CacheConfiguration {
             cm.createCache(com.growup.comptadecision.domain.QuittanceMensuelleImpot.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.QuittanceMensuelleImpot.class.getName() + ".quittanceMensuelleImpotDetails", jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail.class.getName(), jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.ImpotAnnuel.class.getName(), jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.ImpotAnnuel.class.getName() + ".impotAnnuelDetails", jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.ImpotAnnuelDetail.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.DeclarationAnnuelle.class.getName(), jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.DeclarationAnnuelle.class.getName() + ".declarationAnnuelleDetails", jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.DecalrationAnnuelleDetail.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.DeclarationEmployeurAnnuelle.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.AcompteProvisionnel.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.QuittanceMensuelleImpotSousDetail.class.getName(), jcacheConfiguration);

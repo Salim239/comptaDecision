@@ -73,8 +73,8 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         let that = this;
         _.each(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function(quittanceMensuelleImpotDetail) {
             that.unformatDetail(quittanceMensuelleImpotDetail);
-            _.each(quittanceMensuelleImpotDetail.childParentQuittanceMensuelleImpotDetails, function(childParentQuittanceMensuelleImpotDetail) {
-                that.unformatDetail(childParentQuittanceMensuelleImpotDetail);
+            _.each(quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails, function(childQuittanceMensuelleImpotDetail) {
+                that.unformatDetail(childQuittanceMensuelleImpotDetail);
             });
         });
     }

@@ -1,14 +1,15 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="comptaDecisionApp.declarationAnnuelle.home.title">Declaration Annuelles</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-declaration-annuelle" [routerLink]="['/declaration-annuelle/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="comptaDecisionApp.declarationAnnuelle.home.createLabel">
-            Create new Declaration Annuelle
-            </span>
-        </button>
+        <!--<span jhiTranslate="comptaDecisionApp.declarationAnnuelle.home.title">Declaration Annuelles</span>-->
+        <!--<button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-declaration-annuelle" [routerLink]="['/declaration-annuelle/new']">-->
+            <!--<fa-icon [icon]="'plus'"></fa-icon>-->
+            <!--<span  jhiTranslate="comptaDecisionApp.declarationAnnuelle.home.createLabel">-->
+            <!--Create new Declaration Annuelle-->
+            <!--</span>-->
+        <!--</button>-->
     </h2>
-    <jhi-alert></jhi-alert>
+    <app-new-entry [hideTrimestre]="true" [hideMois]="true" (submitCreationForm)="addDeclarationAnnuelle($event)"></app-new-entry>
+    <!--<jhi-alert></jhi-alert>-->
     <br/>
     <div class="table-responsive" *ngIf="declarationAnnuelles">
         <table class="table table-striped">
@@ -21,19 +22,8 @@
                 <th jhiSortBy="annee"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.annee">Annee</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="datePaiement"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.datePaiement">Date Paiement</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="numeroQuittance"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.numeroQuittance">Numero Quittance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantChiffreAffaireHT"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireHT">Montant Chiffre Affaire HT</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantChiffreAffaireExport"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireExport">Montant Chiffre Affaire Export</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantChiffreAffaireLocal"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireLocal">Montant Chiffre Affaire Impot</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantChiffreAffaireTTC"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantChiffreAffaireTTC">Montant Chiffre Affaire TTC</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantResultatComptable"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantResultatComptable">Montant Resultat Comptable</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantResultatFiscal"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantResultatFiscal">Montant Deduction Commune</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantAutreDeduction"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantAutreDeduction">Montant Autre Deduction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantBaseImposable"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantBaseImposable">Montant Base Imposable</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantImpotLiquide"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantImpotLiquide">Montant Impot Liquide</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantAcompteProvisionnel"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantAcompteProvisionnel">Montant Acompte Provisionnel</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantRetenueSource"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantRetenueSource">Montant Retenue Source</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montantNetAPaye"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantNetAPaye">Montant Net A Paye</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
+            <th jhiSortBy="montant"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montant">Montant</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+           <th></th>
             </tr>
             </thead>
             <tbody>
@@ -48,18 +38,7 @@
                 <td>{{declarationAnnuelle.annee}}</td>
                 <td>{{declarationAnnuelle.datePaiement | date:'mediumDate'}}</td>
                 <td>{{declarationAnnuelle.numeroQuittance}}</td>
-                <td>{{declarationAnnuelle.montantChiffreAffaireHT}}</td>
-                <td>{{declarationAnnuelle.montantChiffreAffaireExport}}</td>
-                <td>{{declarationAnnuelle.montantChiffreAffaireLocal}}</td>
-                <td>{{declarationAnnuelle.montantChiffreAffaireTTC}}</td>
-                <td>{{declarationAnnuelle.montantResultatComptable}}</td>
-                <td>{{declarationAnnuelle.montantResultatFiscal}}</td>
-                <td>{{declarationAnnuelle.montantAutreDeduction}}</td>
-                <td>{{declarationAnnuelle.montantBaseImposable}}</td>
-                <td>{{declarationAnnuelle.montantImpotLiquide}}</td>
-                <td>{{declarationAnnuelle.montantAcompteProvisionnel}}</td>
-                <td>{{declarationAnnuelle.montantRetenueSource}}</td>
-                <td>{{declarationAnnuelle.montantNetAPaye}}</td>
+                <td>{{declarationAnnuelle.montant}}</td>
 
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

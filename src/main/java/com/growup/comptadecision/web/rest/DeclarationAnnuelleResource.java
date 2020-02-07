@@ -1,23 +1,23 @@
 package com.growup.comptadecision.web.rest;
+
+import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import com.growup.comptadecision.service.DeclarationAnnuelleService;
+import com.growup.comptadecision.service.dto.DeclarationAnnuelleDTO;
 import com.growup.comptadecision.web.rest.errors.BadRequestAlertException;
 import com.growup.comptadecision.web.rest.util.HeaderUtil;
 import com.growup.comptadecision.web.rest.util.PaginationUtil;
-import com.growup.comptadecision.service.dto.DeclarationAnnuelleDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -76,6 +76,17 @@ public class DeclarationAnnuelleResource {
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, declarationAnnuelleDTO.getId().toString()))
             .body(result);
+    }
+
+    /**
+     *
+     */
+    @GetMapping("/declaration-annuelles/init/{id}/{annee}/{typeDeclaration}")
+    public ResponseEntity<DeclarationAnnuelleDTO> init(@PathVariable Long id, @PathVariable Integer annee,
+                                                           @PathVariable String typeDeclaration) {
+        log.debug("REST request to init empty DeclarationAnnuelle");
+        DeclarationAnnuelleDTO declarationAnnuelleDTO = declarationAnnuelleService.init(id, annee, TypeDeclaration.valueOf(typeDeclaration));
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(declarationAnnuelleDTO);
     }
 
     /**

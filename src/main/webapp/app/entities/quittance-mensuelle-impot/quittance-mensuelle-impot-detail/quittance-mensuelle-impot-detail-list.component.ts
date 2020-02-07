@@ -16,6 +16,7 @@ export class QuittanceMensuelleImpotDetailListComponent implements OnInit {
     @Output() updateMontantTotal = new EventEmitter();
 
     private formatMontantBase(quittanceMensuelleImpotSousDetail) {
+        quittanceMensuelleImpotSousDetail.montantBase = ComptaDecisionUtils.parseCurrency(quittanceMensuelleImpotSousDetail.montantBase);
         quittanceMensuelleImpotSousDetail.montantBase = ComptaDecisionUtils.formatCurrency(quittanceMensuelleImpotSousDetail.montantBase);
     }
 

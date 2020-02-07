@@ -1,15 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import { IDeclarationAnnuelle } from 'app/shared/model/declaration-annuelle.model';
-import { AccountService } from 'app/core';
+import {IDeclarationAnnuelle} from 'app/shared/model/declaration-annuelle.model';
+import {AccountService} from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
-import { DeclarationAnnuelleService } from './declaration-annuelle.service';
+import {ITEMS_PER_PAGE} from 'app/shared';
+import {DeclarationAnnuelleService} from './declaration-annuelle.service';
 
 @Component({
     selector: 'jhi-declaration-annuelle',
@@ -127,5 +126,15 @@ export class DeclarationAnnuelleComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    addDeclarationAnnuelle(event) {
+        let ficheClientId = event.ficheClientId;
+        let annee = event.annee;
+        let typeDeclaration = event.typeDeclaration;
+        console.log('ficheClientId ', ficheClientId);
+        console.log('annee ', annee);
+        this.router.navigateByUrl(`/declaration-annuelle/${ficheClientId}/${annee}/${typeDeclaration}/new`);
+
     }
 }

@@ -10,7 +10,7 @@ export interface IQuittanceMensuelleImpotDetail {
     parentQuittanceMensuelleImpotDetailId?: number,
     parentQuittanceMensuelleImpotDetailCode?: string,
     parentQuittanceMensuelleImpotDetailLibelle?: string,
-    childParentQuittanceMensuelleImpotDetails?: [IQuittanceMensuelleImpotDetail],
+    childQuittanceMensuelleImpotDetails?: [IQuittanceMensuelleImpotDetail],
     quittanceMensuelleImpotId?: number;
     impotMensuelId?: number;
     coefficientMontant?: number;
@@ -32,7 +32,7 @@ export class QuittanceMensuelleImpotDetail implements IQuittanceMensuelleImpotDe
         public parentQuittanceMensuelleImpotDetailId?: number,
         public parentQuittanceMensuelleImpotDetailCode?: string,
         public parentQuittanceMensuelleImpotDetailLibelle?: string,
-        public childParentQuittanceMensuelleImpotDetails?: [IQuittanceMensuelleImpotDetail],
+        public childQuittanceMensuelleImpotDetails?: [IQuittanceMensuelleImpotDetail],
         public quittanceMensuelleImpotId?: number,
         public impotMensuelId?: number,
         public appliquerReportMontant?: boolean,
