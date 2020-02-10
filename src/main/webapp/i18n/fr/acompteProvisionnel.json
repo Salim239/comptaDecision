@@ -1,0 +1,30 @@
+{
+    "comptaDecisionApp": {
+        "acompteProvisionnel": {
+            "home": {
+                "title": "AcompteProvisionnels",
+                "createLabel": "Créer un nouveau Acompte Provisionnel",
+                "createOrEditLabel": "Créer ou éditer un Acompte Provisionnel"
+            },
+            "created": "Un nouveau Acompte Provisionnel a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Acompte Provisionnel avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Acompte Provisionnel avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Acompte Provisionnel {{ id }} ?"
+            },
+            "detail": {
+                "title": "Acompte Provisionnel"
+            },
+            "annee": "Annee",
+            "numero": "Numero",
+            "date": "Date",
+            "numeroQuittance": "Numero Quittance",
+            "montantBase": "Montant Base",
+            "montantAcompteProvisionnel": "Montant Acompte Provisionnel",
+            "montantReportAnterieur": "Montant Report Anterieur",
+            "montantRetenueSource": "Montant Retenue Source",
+            "montantNet": "Montant Net",
+            "ficheClient": "Fiche Client"
+        }
+    }
+}

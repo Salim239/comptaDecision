@@ -1,0 +1,49 @@
+{
+    "name": "QuittanceMensuelleImpot",
+    "fields": [
+        {
+            "fieldName": "annee",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "mois",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "numeroQuittance",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "datePaiement",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "montantTotal",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "ficheClient",
+            "otherEntityRelationshipName": "quittanceMensuelleImpot",
+            "relationshipName": "ficheClient",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190403192326",
+    "entityTableName": "quittance_mensuelle_impot",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-impot-mensuel-heading" jhiTranslate="comptaDecisionApp.impotMensuel.home.createOrEditLabel">Create or edit a Impot Mensuel</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!impotMensuel.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="impotMensuel.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.code" for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                        [(ngModel)]="impotMensuel.code" required/>
+                    <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.libelle" for="field_libelle">Libelle</label>
+                    <input type="text" class="form-control" name="libelle" id="field_libelle"
+                        [(ngModel)]="impotMensuel.libelle" required/>
+                    <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.libelle?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.coefficientMontant"
+                           for="field_libelle">Coefficient dans calcul montant total</label>
+                    <input type="text" class="form-control" name="coefficientMontant" id="field_coefficientMontant"
+                           [(ngModel)]="impotMensuel.coefficientMontant" required/>
+                    <div [hidden]="!(editForm.controls.coefficientMontant?.dirty && editForm.controls.coefficientMontant?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.coefficientMontant?.errors?.required"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           [(ngModel)]="impotMensuel.description" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.parent" for="field_parent">Est une catégorie mère?</label>
+                    <input id="field_parent" name="parent" type="checkbox" [(ngModel)]="impotMensuel.parent">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.child" for="field_child">Est une sous catégorie?</label>
+                    <input id="field_child" name="child" type="checkbox" [(ngModel)]="impotMensuel.child">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label"
+                           jhiTranslate="comptaDecisionApp.impotMensuel.appliquerReportMontant"
+                           for="field_appliquerReportMontant">Appliquer report montant mois précédent?</label>
+                    <input id="field_appliquerReportMontant" name="appliquerReportMontant" type="checkbox"
+                           [(ngModel)]="impotMensuel.appliquerReportMontant">
+                </div>
+                <div class="form-group" *ngIf="impotMensuel.child">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotMensuel.parentImpotMensuel" for="field_parentImpotMensuel">Catégorie parente</label>
+                    <select class="form-control" id="field_parentImpotMensuel" name="parentImpotMensuelId" [(ngModel)]="impotMensuel.parentImpotMensuelId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="parentImpotMensuelOption.id" *ngFor="let parentImpotMensuelOption of parentImpotMensuels">{{parentImpotMensuelOption.libelle}}</option>
+                    </select>
+                </div>
+
+                <h2 *ngIf="!impotMensuel.parent" jhiTranslate="comptaDecisionApp.impotMensuelDetail.home.title">Détails
+                    impôt</h2>
+                <br>
+                <jhi-impot-mensuel-line *ngIf="!impotMensuel.parent"
+                                        [impotMensuel]="impotMensuel"></jhi-impot-mensuel-line>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

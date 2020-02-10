@@ -1,0 +1,23 @@
+{
+    "comptaDecisionApp": {
+        "secteurActivite": {
+            "home": {
+                "title": "SecteurActivites",
+                "createLabel": "Créer un nouveau Secteur Activite",
+                "createOrEditLabel": "Créer ou éditer un Secteur Activite"
+            },
+            "created": "Un nouveau Secteur Activite a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Secteur Activite avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Secteur Activite avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Secteur Activite {{ id }} ?"
+            },
+            "detail": {
+                "title": "Secteur Activite"
+            },
+            "code": "Code",
+            "libelle": "Libelle",
+            "description": "Description"
+        }
+    }
+}

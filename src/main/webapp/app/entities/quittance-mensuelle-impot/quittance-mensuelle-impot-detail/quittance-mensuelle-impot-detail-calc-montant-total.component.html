@@ -1,0 +1,14 @@
+<div class="panel panel-default"
+     *ngIf="quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails.length > 0">
+    <div class="panel-body">
+        <span>{{quittanceMensuelleImpotDetail.libelle}} =</span>
+        <span *ngFor="let child of quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails; let childIndex = index">
+                                        {{childIndex !== 0 ? child.coefficientMontant > 0 ? ' + ' : ' - ' : ''}}
+            <span>{{child.libelle}}</span>
+                                        <span class="badge badge-pill badge-primary">{{child.montantTotal | number:'1.3-3'}}</span>
+                                    </span>
+        <span> + report
+                                        <span class="badge badge-pill badge-primary">{{quittanceMensuelleImpotDetail.montantReport | number:'1.3-3'}}</span>
+                                    </span>
+    </div>
+</div>

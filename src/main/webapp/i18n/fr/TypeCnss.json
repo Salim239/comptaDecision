@@ -1,0 +1,9 @@
+{
+    "comptaDecisionApp": {
+        "typeCnss": {
+            "null": "",
+            "CNSS_GENERALE": "CNSS générale",
+            "CNSS_EMPLOYEUR": "CNSS employeur"
+        }
+    }
+}

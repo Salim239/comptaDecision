@@ -1,0 +1,65 @@
+{
+    "name": "AcompteProvisionnel",
+    "fields": [
+        {
+            "fieldName": "annee",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "numero",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "numeroQuittance",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "montantBase",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAcompteProvisionnel",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantReportAnterieur",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantRetenueSource",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantNet",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "ficheClient",
+            "otherEntityRelationshipName": "acompteProvisionnel",
+            "relationshipName": "ficheClient",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190403192330",
+    "entityTableName": "acompte_provisionnel",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

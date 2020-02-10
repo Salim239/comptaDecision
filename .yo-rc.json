@@ -1,0 +1,41 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.growup.comptadecision",
+      "nativeLanguage": "fr"
+    },
+    "jhipsterVersion": "5.8.2",
+    "applicationType": "monolith",
+    "baseName": "comptaDecision",
+    "packageName": "com.growup.comptadecision",
+    "packageFolder": "com/growup/comptadecision",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "ZDJjYjlhZGZhYzE5YmI4NDFlYTY1ZDEzYjU1YThkNThiZjY0NDE4M2ZjNjczYWE2MGNiMmJhN2MxYmY2YmNhNDdhMmViNjE3MDVmMjFhYzY1YzFjZDg5MjNiMzVkZDdiNzRlMThmM2I2NWM3MjcwZTRmYWJhNDk5MGEzYmZmYTY=",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "fr",
+    "languages": [
+      "fr",
+      "ar-ly"
+    ]
+  }
+}

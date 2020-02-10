@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="quittanceMensuelleImpot">
+            <h2><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.detail.title">Quittance Mensuelle Impot</span>
+                <span title="MF: {{quittanceMensuelleImpot.ficheClientMatriculeFiscale}}">{{quittanceMensuelleImpot.ficheClientDesignation}}</span>
+                <span>{{quittanceMensuelleImpot.annee}}/{{quittanceMensuelleImpot.mois}}</span>
+            </h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.ficheClient">Fiche Client</span></dt>
+                <dd>
+                    <div *ngIf="quittanceMensuelleImpot.ficheClientId">
+                        <a [routerLink]="['/fiche-client', quittanceMensuelleImpot.ficheClientId, 'view']">{{quittanceMensuelleImpot.ficheClientDesignation}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.annee">Annee</span></dt>
+                <dd>
+                    <span>{{quittanceMensuelleImpot.annee}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.mois">Mois</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'comptaDecisionApp.mois.' + quittanceMensuelleImpot.mois}}">{{quittanceMensuelleImpot.mois}}></span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.typeDeclaration">Type déclaration</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'comptaDecisionApp.typeDeclaration.' + quittanceMensuelleImpot.typeDeclaration}}">{{quittanceMensuelleImpot.typeDeclaration}}></span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.numeroQuittance">Numero Quittance</span></dt>
+                <dd>
+                    <span>{{quittanceMensuelleImpot.numeroQuittance}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.datePaiement">Date Paiement</span></dt>
+                <dd>
+                    <span>{{quittanceMensuelleImpot.datePaiement}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.montantTotal">Montant Paye</span></dt>
+                <dd>
+                    <span>{{quittanceMensuelleImpot.montantTotal}}</span>
+                </dd>
+            </dl>
+
+            <br/>
+            <h3 jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotDetail.detail.title">Quittance Mensuelle Impot Line</h3>
+            <div class="table-responsive" *ngIf="quittanceMensuelleImpot.quittanceMensuelleImpotDetails.length > 0">
+                <table class="table table-striped">
+                    <tbody>
+                    <tr *ngFor="let quittanceMensuelleImpotDetail of quittanceMensuelleImpot.quittanceMensuelleImpotDetails">
+                        <td><span>{{quittanceMensuelleImpotDetail.libelle}}</span></td>
+                        <td style="text-align: right"><span><strong>{{quittanceMensuelleImpotDetail.montantTotal}}</strong></span></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td><strong><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.montantTotal">Total</span></strong></td>
+                        <td style="text-align: right"><span><strong>{{quittanceMensuelleImpot.montantTotal}}</strong></span></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/quittance-mensuelle-impot', quittanceMensuelleImpot.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

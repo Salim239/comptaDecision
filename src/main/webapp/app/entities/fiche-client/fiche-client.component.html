@@ -1,0 +1,128 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="comptaDecisionApp.ficheClient.home.title">Fiche Clients</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-fiche-client" [routerLink]="['/fiche-client/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="comptaDecisionApp.ficheClient.home.createLabel">
+            Create new Fiche Client
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="ficheClients">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="categorieClient"><span jhiTranslate="comptaDecisionApp.ficheClient.categorieClient">Categorie Client</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="designation"><span jhiTranslate="comptaDecisionApp.ficheClient.designation">Designation</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!--<th jhiSortBy="logo"><span jhiTranslate="comptaDecisionApp.ficheClient.logo">Logo</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="adresse"><span jhiTranslate="comptaDecisionApp.ficheClient.adresse">Adresse</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <!--<th jhiSortBy="regionLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.region">Region</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+                <th jhiSortBy="villeLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.ville">Ville</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+
+                <th jhiSortBy="codePostal"><span jhiTranslate="comptaDecisionApp.ficheClient.codePostal">Code Postal</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="telephone"><span jhiTranslate="comptaDecisionApp.ficheClient.telephone">Telephone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!--<th jhiSortBy="fax"><span jhiTranslate="comptaDecisionApp.ficheClient.fax">Fax</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <!--<th jhiSortBy="email"><span jhiTranslate="comptaDecisionApp.ficheClient.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="matriculeFiscale"><span jhiTranslate="comptaDecisionApp.ficheClient.matriculeFiscale">Matricule Fiscale</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="registreCommerce"><span jhiTranslate="comptaDecisionApp.ficheClient.registreCommerce">Registre Commerce</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!--<th jhiSortBy="dateCreation"><span jhiTranslate="comptaDecisionApp.ficheClient.dateCreation">Date Creation</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="cnssEmployeur"><span jhiTranslate="comptaDecisionApp.ficheClient.cnssEmployeur">Cnss Employeur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cnssGerant"><span jhiTranslate="comptaDecisionApp.ficheClient.cnssGerant">Cnss Gerant</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!--<th jhiSortBy="fichierPatente"><span jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente">Fichier Patente</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="secteurActiviteLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.secteurActivite">Secteur Activite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="activiteLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.activite">Activite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="activiteScondaireLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.activiteScondaire">Activite Scondaire</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ficheClient of ficheClients ;trackBy: trackId">
+                <td><a [routerLink]="['/fiche-client', ficheClient.id, 'view' ]">{{ficheClient.id}}</a></td>
+                <td jhiTranslate="{{'comptaDecisionApp.CategorieClient.' + ficheClient.categorieClient}}">{{ficheClient.categorieClient}}</td>
+                <td>{{ficheClient.designation}}</td>
+                <!--<td>-->
+                    <!--<a *ngIf="ficheClient.logo" (click)="openFile(ficheClient.logoContentType, ficheClient.logo)">-->
+                        <!--<img [src]="'data:' + ficheClient.logoContentType + ';base64,' + ficheClient.logo" style="max-height: 30px;" alt="ficheClient image"/>-->
+                    <!--</a>-->
+                    <!--<span *ngIf="ficheClient.logo">{{ficheClient.logoContentType}}, {{byteSize(ficheClient.logo)}}</span>-->
+                <!--</td>-->
+                <td>{{ficheClient.adresse}}</td>
+                <!--<td>-->
+                    <!--<div *ngIf="ficheClient.regionId">-->
+                        <!--<a [routerLink]="['../region', ficheClient.regionId , 'view' ]" >{{ficheClient.regionLibelle}}</a>-->
+                    <!--</div>-->
+                <!--</td>-->
+                <td>
+                    <div *ngIf="ficheClient.villeId">
+                        <a [routerLink]="['../ville', ficheClient.villeId , 'view' ]" >{{ficheClient.villeLibelle}}</a>
+                    </div>
+                </td>
+                <td>{{ficheClient.codePostal}}</td>
+                <td>{{ficheClient.telephone}}</td>
+                <!--<td>{{ficheClient.fax}}</td>-->
+                <!--<td>{{ficheClient.email}}</td>-->
+                <td>{{ficheClient.matriculeFiscale}}</td>
+                <td>{{ficheClient.registreCommerce}}</td>
+                <!--<td>{{ficheClient.dateCreation | date:'mediumDate'}}</td>-->
+                <td>{{ficheClient.cnssEmployeur}}</td>
+                <td>{{ficheClient.cnssGerant}}</td>
+                <!--<td>-->
+                    <!--<a *ngIf="ficheClient.fichierPatente" (click)="openFile(ficheClient.fichierPatenteContentType, ficheClient.fichierPatente)" jhiTranslate="entity.action.open">open</a>-->
+                    <!--<span *ngIf="ficheClient.fichierPatente">{{ficheClient.fichierPatenteContentType}}, {{byteSize(ficheClient.fichierPatente)}}</span>-->
+                <!--</td>-->
+                <td>
+                    <div *ngIf="ficheClient.secteurActiviteId">
+                        <a [routerLink]="['../secteur-activite', ficheClient.secteurActiviteId , 'view' ]" >{{ficheClient.secteurActiviteLibelle}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="ficheClient.activiteId">
+                        <a [routerLink]="['../activite', ficheClient.activiteId , 'view' ]" >{{ficheClient.activiteLibelle}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="ficheClient.activiteScondaireId">
+                        <a [routerLink]="['../activite', ficheClient.activiteScondaireId , 'view' ]" >{{ficheClient.activiteScondaireLibelle}}</a>
+                    </div>
+                </td>
+
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/fiche-client', ficheClient.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/fiche-client', ficheClient.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'fiche-client', { outlets: { popup: ficheClient.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="ficheClients && ficheClients.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

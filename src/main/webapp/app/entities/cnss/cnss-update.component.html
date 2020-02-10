@@ -1,0 +1,104 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-cnss-heading" jhiTranslate="comptaDecisionApp.cnss.home.createOrEditLabel">Create or edit a Cnss</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!cnss.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="cnss.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.ficheClient" for="field_ficheClient">Fiche Client</label>
+                    <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="cnss.ficheClientId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="ficheClientOption.id" *ngFor="let ficheClientOption of ficheclients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.typeCnss" for="field_typeCnss">Type CNSS</label>
+                    <select required class="form-control" id="field_typeCnss" name="typeCnss" [(ngModel)]="cnss.typeCnss" >
+                        <option value="CNSS_GENERALE">{{'comptaDecisionApp.typeCnss.CNSS_GENERALE' | translate}}</option>
+                        <option value="CNSS_EMPLOYEUR">{{'comptaDecisionApp.typeCnss.CNSS_EMPLOYEUR' | translate}}</option>
+                    </select>
+                </div>
+
+                <app-annee [currentFichClientDateCreation]="cnss.ficheClientDateCreation"
+                           [ficheClients]="ficheclients" [form]="editForm"
+                           [currentFicheClientId]="cnss.ficheClientId"
+                           [model]="cnss"></app-annee>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.trimestre" for="field_trimestre">Trimestre</label>
+                    <!--<input type="number" class="form-control" name="trimestre" id="field_trimestre"-->
+                        <!--[(ngModel)]="cnss.trimestre" required/>-->
+                    <select class="form-control" id="field_trimestre" name="trimestre" [(ngModel)]="cnss.trimestre" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="trimestreOption.id" *ngFor="let trimestreOption of trimestres;">{{trimestreOption.libelle}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.trimestre?.dirty && editForm.controls.trimestre?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.trimestre?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.trimestre?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.date" for="field_date">Date</label>
+                    <div class="input-group">
+                        <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker  #dateDp="ngbDatepicker" [(ngModel)]="cnss.date"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.numeroQuittance" for="field_numeroQuittance">Numero Quittance</label>
+                    <input type="text" class="form-control" name="numeroQuittance" id="field_numeroQuittance"
+                        [(ngModel)]="cnss.numeroQuittance" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutNormal" for="field_montantSalaireBrutNormal">Montant Salaire Brut Normal</label>
+                    <input type="number" class="form-control" name="montantSalaireBrutNormal" id="field_montantSalaireBrutNormal"
+                        [(ngModel)]="cnss.montantSalaireBrutNormal" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutKarama" for="field_montantSalaireBrutKarama">Montant Salaire Brut Karama</label>
+                    <input type="number" class="form-control" name="montantSalaireBrutKarama" id="field_montantSalaireBrutKarama"
+                        [(ngModel)]="cnss.montantSalaireBrutKarama" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutAutre" for="field_montantSalaireBrutAutre">Montant Salaire Brut Autre</label>
+                    <input type="number" class="form-control" name="montantSalaireBrutAutre" id="field_montantSalaireBrutAutre"
+                        [(ngModel)]="cnss.montantSalaireBrutAutre" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.montantTotal" for="field_tot">Montant total</label>
+                    <input type="number" class="form-control" name="montantTotal" id="field_tot"
+                           [(ngModel)]="cnss.montantTotal" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.cnss" for="field_cnss">Cnss</label>
+                    <input type="number" class="form-control" name="cnss" id="field_cnss"
+                        [(ngModel)]="cnss.cnss" />
+                </div>
+
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

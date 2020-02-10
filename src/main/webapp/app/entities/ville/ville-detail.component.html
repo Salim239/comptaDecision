@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="ville">
+            <h2><span jhiTranslate="comptaDecisionApp.ville.detail.title">Ville</span> {{ville.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.ville.code">Code</span></dt>
+                <dd>
+                    <span>{{ville.code}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ville.codePostal">Code Postal</span></dt>
+                <dd>
+                    <span>{{ville.codePostal}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ville.libelle">Libelle</span></dt>
+                <dd>
+                    <span>{{ville.libelle}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ville.description">Description</span></dt>
+                <dd>
+                    <span>{{ville.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ville.region">Region</span></dt>
+                <dd>
+                    <div *ngIf="ville.regionId">
+                        <a [routerLink]="['/region', ville.regionId, 'view']">{{ville.regionId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/ville', ville.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

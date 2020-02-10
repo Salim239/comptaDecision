@@ -1,0 +1,133 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="ficheClient">
+            <h2><span jhiTranslate="comptaDecisionApp.ficheClient.detail.title">Fiche Client</span> <span title="MF: {{ficheClient.matriculeFiscale}}">{{ficheClient.designation}}</span></h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.categorieClient">Categorie Client</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'comptaDecisionApp.CategorieClient.' + ficheClient.categorieClient}}">{{ficheClient.categorieClient}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.designation">Designation</span></dt>
+                <dd>
+                    <span>{{ficheClient.designation}}</span>
+                </dd>
+                <!--<dt><span jhiTranslate="comptaDecisionApp.ficheClient.logo">Logo</span></dt>-->
+                <!--<dd>-->
+                    <!--<div *ngIf="ficheClient.logo">-->
+                        <!--<a (click)="openFile(ficheClient.logoContentType, ficheClient.logo)">-->
+                            <!--<img [src]="'data:' + ficheClient.logoContentType + ';base64,' + ficheClient.logo" style="max-width: 100%;" alt="ficheClient image"/>-->
+                        <!--</a>-->
+                        <!--{{ficheClient.logoContentType}}, {{byteSize(ficheClient.logo)}}-->
+                    <!--</div>-->
+                <!--</dd>-->
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.adresse">Adresse</span></dt>
+                <dd>
+                    <span>{{ficheClient.adresse}}</span> {{ficheClient.regionLibelle}}, {{ficheClient.codePostal}} {{ficheClient.villeLibelle}}
+                </dd>
+                <!--<dt><span jhiTranslate="comptaDecisionApp.ficheClient.region">Region</span></dt>-->
+                <!--<dd>-->
+                    <!--<span>-->
+                        <!--{{ficheClient.regionLibelle}}   -->
+                    <!--</span>-->
+                <!--</dd>-->
+                <!--<dt><span jhiTranslate="comptaDecisionApp.ficheClient.ville">Ville</span></dt>-->
+                <!--<dd>-->
+                    <!--<span>{{ficheClient.villeLibelle}}</span>-->
+                <!--</dd>                -->
+                <!--<dt><span jhiTranslate="comptaDecisionApp.ficheClient.codePostal">Code Postal</span></dt>-->
+                <!--<dd>-->
+                    <!--<span>{{ficheClient.codePostal}}</span>-->
+                <!--</dd>-->
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.telephone">Telephone</span></dt>
+                <dd>
+                    <span>{{ficheClient.telephone}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.fax">Fax</span></dt>
+                <dd>
+                    <span>{{ficheClient.fax}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.email">Email</span></dt>
+                <dd>
+                    <span>{{ficheClient.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.matriculeFiscale">Matricule Fiscale</span></dt>
+                <dd>
+                    <span>{{ficheClient.matriculeFiscale}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.registreCommerce">Registre Commerce</span></dt>
+                <dd>
+                    <span>{{ficheClient.registreCommerce}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.dateCreation">Date Creation</span></dt>
+                <dd>
+                    <span>{{ficheClient.dateCreation}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.cnssEmployeur">Cnss Employeur</span></dt>
+                <dd>
+                    <span>{{ficheClient.cnssEmployeur}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.cnssGerant">Cnss Gerant</span></dt>
+                <dd>
+                    <span>{{ficheClient.cnssGerant}}</span>
+                </dd>
+                <!--<dt><span jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente">Fichier Patente</span></dt>-->
+                <!--<dd>-->
+                    <!--<div *ngIf="ficheClient.fichierPatente">-->
+                        <!--<a (click)="openFile(ficheClient.fichierPatenteContentType, ficheClient.fichierPatente)" jhiTranslate="entity.action.open">open</a>-->
+                        <!--{{ficheClient.fichierPatenteContentType}}, {{byteSize(ficheClient.fichierPatente)}}-->
+                    <!--</div>-->
+                <!--</dd>-->
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.secteurActivite">Secteur Activite</span></dt>
+                <dd>
+                    <span>
+                        {{ficheClient.secteurActiviteLibelle}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.activite">Activite</span></dt>
+                <dd>
+                    <span>
+                       {{ficheClient.activiteLibelle}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.activiteScondaire">Activite Scondaire</span></dt>
+                <dd>
+                    <span>
+                        {{ficheClient.activiteScondaireLibelle}}
+                    </span>
+                </dd>
+            </dl>
+            <br/>
+            <h2><span jhiTranslate="comptaDecisionApp.impotMensuelClient.detail.title">Paramétrage impôts mensuels client </span> {{ficheClient.designation}}</h2>
+
+            <div class="table-responsive" *ngIf="ficheClient.impotMensuelClients.length > 0">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th *ngFor="let impotMensuelClient of ficheClient.impotMensuelClients" title="{{impotMensuelClient.impotMensuelDescription}}">{{impotMensuelClient.impotMensuelLibelle}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td *ngFor="let impotMensuelClient of ficheClient.impotMensuelClients">
+                            <input disabled="disabled" title="Appliquer cet impot" type="checkbox" [(ngModel)]="impotMensuelClient.applicable"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/fiche-client', ficheClient.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

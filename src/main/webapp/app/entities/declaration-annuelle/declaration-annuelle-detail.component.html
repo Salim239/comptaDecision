@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="declarationAnnuelle">
+            <h2><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.detail.title">Declaration Annuelle</span> {{declarationAnnuelle.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.ficheClient">Fiche Client</span></dt>
+                <dd>
+                    <div *ngIf="declarationAnnuelle.ficheClientId">
+                        <a [routerLink]="['/fiche-client', declarationAnnuelle.ficheClientId, 'view']">{{declarationAnnuelle.ficheClientDesignation}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.typeDeclaration">Type déclaration</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'comptaDecisionApp.typeDeclaration.' + declarationAnnuelle.typeDeclaration}}">{{declarationAnnuelle.typeDeclaration}}></span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.annee">Annee</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.annee}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.datePaiement">Date Paiement</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.datePaiement}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.numeroQuittance">Numero Quittance</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.numeroQuittance}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montant">Montant</span></dt>
+                <dd>
+                    <span>{{declarationAnnuelle.montant}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/declaration-annuelle', declarationAnnuelle.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

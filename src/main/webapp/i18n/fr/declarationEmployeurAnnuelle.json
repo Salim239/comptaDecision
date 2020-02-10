@@ -1,0 +1,34 @@
+{
+    "comptaDecisionApp": {
+        "declarationEmployeurAnnuelle": {
+            "home": {
+                "title": "DeclarationEmployeurAnnuelles",
+                "createLabel": "Créer un nouveau Declaration Employeur Annuelle",
+                "createOrEditLabel": "Créer ou éditer un Declaration Employeur Annuelle"
+            },
+            "created": "Un nouveau Declaration Employeur Annuelle a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Declaration Employeur Annuelle avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Declaration Employeur Annuelle avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Declaration Employeur Annuelle {{ id }} ?"
+            },
+            "detail": {
+                "title": "Declaration Employeur Annuelle"
+            },
+            "annee": "Annee",
+            "montantAnnexe1": "Montant Annexe 1",
+            "montantAnnexe2": "Montant Annexe 2",
+            "montantAnnexe3": "Montant Annexe 3",
+            "montantAnnexe4": "Montant Annexe 4",
+            "montantAnnexe5": "Montant Annexe 5",
+            "montantAnnexe6": "Montant Annexe 6",
+            "montantAnnexe7": "Montant Annexe 7",
+            "montantAnnexe8": "Montant Annexe 8",
+            "montantAnnexe9": "Montant Annexe 9",
+            "montantAnnexe10": "Montant Annexe 10",
+            "montantAnnexe11": "Montant Annexe 11",
+            "montantAnnexe12": "Montant Annexe 12",
+            "ficheClient": "Fiche Client"
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "comptaDecisionApp": {
+        "declarationAnnuelle": {
+            "home": {
+                "title": "Declaration Annuelles",
+                "createLabel": "Create a new Declaration Annuelle",
+                "createOrEditLabel": "Create or edit a Declaration Annuelle"
+            },
+            "created": "A new Declaration Annuelle is created with identifier {{ param }}",
+            "updated": "A Declaration Annuelle is updated with identifier {{ param }}",
+            "deleted": "A Declaration Annuelle is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Declaration Annuelle {{ id }}?"
+            },
+            "detail": {
+                "title": "Declaration Annuelle"
+            },
+            "typeDeclaration": "Type déclaration",
+            "annee": "Annee",
+            "datePaiement": "Date Paiement",
+            "numeroQuittance": "Numero Quittance",
+            "montant": "Montant",
+            "ficheClient": "Fiche Client"
+        }
+    }
+}

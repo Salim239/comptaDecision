@@ -1,0 +1,17 @@
+<div class="form-group {{displayType}}">
+    <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.annee" for="field_annee">Annee</label>
+    <select [disabled]="disabled === true" required class="form-control" name="annee" [(ngModel)]="model.annee"
+            id="field_annee">
+        <option [ngValue]="year" *ngFor="let year of years;">{{year}}</option>
+    </select>
+    <div [hidden]="!(form.controls.annee?.dirty && form.controls.annee?.invalid)">
+        <small class="form-text text-danger"
+               [hidden]="!form.controls.annee?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+        </small>
+        <small class="form-text text-danger"
+               [hidden]="!form.controls.annee?.errors?.number" jhiTranslate="entity.validation.number">
+            This field should be a number.
+        </small>
+    </div>
+</div>

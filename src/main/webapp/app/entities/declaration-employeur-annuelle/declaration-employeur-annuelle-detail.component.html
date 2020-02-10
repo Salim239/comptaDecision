@@ -1,0 +1,82 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="declarationEmployeurAnnuelle">
+            <h2><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.detail.title">Declaration Employeur Annuelle</span> {{declarationEmployeurAnnuelle.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.ficheClient">Fiche Client</span></dt>
+                <dd>
+                    <div *ngIf="declarationEmployeurAnnuelle.ficheClientId">
+                        <a [routerLink]="['/fiche-client', declarationEmployeurAnnuelle.ficheClientId, 'view']">{{declarationEmployeurAnnuelle.ficheClientDesignation}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.annee">Annee</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.annee}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe1">Montant Annexe 1</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.montantAnnexe1}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe2">Montant Annexe 2</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.montantAnnexe2}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe3">Montant Annexe 3</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.montantAnnexe3}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe4">Montant Annexe 4</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.montantAnnexe4}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe5">Montant Annexe 5</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.montantAnnexe5}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe6">Montant Annexe 6</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.montantAnnexe6}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe7">Montant Annexe 7</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.montantAnnexe7}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe8">Montant Annexe 8</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.montantAnnexe8}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe9">Montant Annexe 9</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.montantAnnexe9}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe10">Montant Annexe 10</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.montantAnnexe10}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe11">Montant Annexe 11</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.montantAnnexe11}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.montantAnnexe12">Montant Annexe 12</span></dt>
+                <dd>
+                    <span>{{declarationEmployeurAnnuelle.montantAnnexe12}}</span>
+                </dd>
+
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/declaration-employeur-annuelle', declarationEmployeurAnnuelle.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

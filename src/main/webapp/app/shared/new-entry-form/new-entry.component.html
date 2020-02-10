@@ -1,0 +1,47 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="submit()" #editForm="ngForm" class="form-inline fa-pull-right">
+    <div class="form-group mb-2">
+        <label for="field_ficheClient" jhiTranslate="comptaDecisionApp.form.inputLabel.ficheClient">Fiche Client</label><span
+            style="color: red">*</span>&nbsp;&nbsp;&nbsp;
+        <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="selectedFicheClientId"
+                (change)="updateAnneeMois()">
+            <option [ngValue]=""></option>
+            <option [ngValue]="ficheClientOption.id"
+                    *ngFor="let ficheClientOption of ficheClients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
+        </select>
+    </div>
+    <div class="form-group mx-sm-3 mb-2" [hidden]="hideTypeDeclaration">
+        <label for="field_typeDeclaration" jhiTranslate="comptaDecisionApp.form.inputLabel.typeDeclaration">Type
+            déclaration</label><span style="color: red">*</span>&nbsp;&nbsp;&nbsp;
+        <select required class="form-control" name="typeDeclaration" [(ngModel)]="selectedTypeDeclaration"
+                id="field_typeDeclaration">
+            <option [ngValue]="typeDeclarationOption" *ngFor="let typeDeclarationOption of typeDeclarationList;">
+                {{'comptaDecisionApp.typeDeclaration.' + typeDeclarationOption | translate}}
+            </option>
+        </select>
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+        <label for="field_annee" jhiTranslate="comptaDecisionApp.form.inputLabel.annee">Annee</label><span
+            style="color: red">*</span>&nbsp;&nbsp;&nbsp;
+        <select required class="form-control" name="annee" [(ngModel)]="selectedAnnee" id="field_annee">
+            <option [ngValue]="anneeOption" *ngFor="let anneeOption of anneeList;">{{anneeOption}}</option>
+        </select>
+    </div>
+    <div class="form-group mx-sm-3 mb-2" [hidden]="hideMois">
+        <label for="field_mois" jhiTranslate="comptaDecisionApp.form.inputLabel.mois">Mois</label><span
+            style="color: red">*</span>&nbsp;&nbsp;&nbsp;
+        <select required class="form-control" name="mois" [(ngModel)]="selectedMois" id="field_mois">
+            <option [ngValue]="moisOption"
+                    *ngFor="let moisOption of moisList;">{{'comptaDecisionApp.form.optionSelect.mois.' + moisOption | translate}}</option>
+        </select>
+    </div>
+    <div class="form-group mx-sm-3 mb-2" [hidden]="hideTrimestre">
+        <label for="field_trimestre" jhiTranslate="comptaDecisionApp.form.inputLabel.trimestre">Trimestre</label><span
+            style="color: red">*</span>&nbsp;&nbsp;&nbsp;
+        <select required class="form-control" name="trimestre" [(ngModel)]="selectedTrimestre" id="field_trimestre">
+            <option [ngValue]="trimestreOption"
+                    *ngFor="let trimestreOption of trimestreList;">{{'comptaDecisionApp.form.optionSelect.trimestre.' + trimestreOption | translate}}</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2" [disabled]="editForm.form.invalid"><span
+            jhiTranslate="entity.action.add">Créer</span></button>
+</form>

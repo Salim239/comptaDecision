@@ -1,0 +1,78 @@
+{
+    "name": "DeclarationEmployeurAnnuelle",
+    "fields": [
+        {
+            "fieldName": "annee",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "montantAnnexe1",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAnnexe2",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAnnexe3",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAnnexe4",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAnnexe5",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAnnexe6",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAnnexe7",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAnnexe8",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAnnexe9",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAnnexe10",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAnnexe11",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "montantAnnexe12",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "ficheClient",
+            "otherEntityRelationshipName": "declarationEmployeurAnnuelle",
+            "relationshipName": "ficheClient",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190403192329",
+    "entityTableName": "declaration_employeur_annuelle",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

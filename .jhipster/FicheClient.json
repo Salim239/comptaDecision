@@ -1,0 +1,122 @@
+{
+    "name": "FicheClient",
+    "fields": [
+        {
+            "fieldName": "categorieClient",
+            "fieldType": "CategorieClient",
+            "fieldValues": "PERSONNE_PHYSIQUE,PERSONNE_MORALE"
+        },
+        {
+            "fieldName": "designation",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "logo",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "adresse",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "codePostal",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "telephone",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fax",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "matriculeFiscale",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "registreCommerce",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateCreation",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "cnssEmployeur",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cnssGerant",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fichierPatente",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "secteurActivite",
+            "otherEntityRelationshipName": "ficheClient",
+            "relationshipName": "secteurActivite",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "activite",
+            "otherEntityRelationshipName": "ficheClient",
+            "relationshipName": "activite",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "activite",
+            "otherEntityRelationshipName": "ficheClient",
+            "relationshipName": "activiteScondaire",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "region",
+            "otherEntityRelationshipName": "ficheClient",
+            "relationshipName": "region",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "ville",
+            "otherEntityRelationshipName": "ficheClient",
+            "relationshipName": "ville",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190403192323",
+    "entityTableName": "fiche_client",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,226 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-fiche-client-heading" jhiTranslate="comptaDecisionApp.ficheClient.home.createOrEditLabel">Create or edit a Fiche Client</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!ficheClient.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="ficheClient.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.categorieClient" for="field_categorieClient">Categorie Client</label>
+                    <select required class="form-control" name="categorieClient" [(ngModel)]="ficheClient.categorieClient" id="field_categorieClient" >
+                        <option value="PERSONNE_PHYSIQUE">{{'comptaDecisionApp.CategorieClient.PERSONNE_PHYSIQUE' | translate}}</option>
+                        <option value="PERSONNE_MORALE">{{'comptaDecisionApp.CategorieClient.PERSONNE_MORALE' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.categorieClient?.dirty && editForm.controls.categorieClient?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.categorieClient?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.designation" for="field_designation">Designation</label>
+                    <input type="text" class="form-control" name="designation" id="field_designation"
+                        [(ngModel)]="ficheClient.designation" required/>
+                    <div [hidden]="!(editForm.controls.designation?.dirty && editForm.controls.designation?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.designation?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.logo" for="field_logo">Logo</label>-->
+                    <!--<div>-->
+                        <!--<img [src]="'data:' + ficheClient.logoContentType + ';base64,' + ficheClient.logo" style="max-height: 100px;" *ngIf="ficheClient.logo" alt="ficheClient image"/>-->
+                        <!--<div *ngIf="ficheClient.logo" class="form-text text-danger clearfix">-->
+                            <!--<span class="pull-left">{{ficheClient.logoContentType}}, {{byteSize(ficheClient.logo)}}</span>-->
+                            <!--<button type="button" (click)="clearInputImage('logo', 'logoContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">-->
+                                <!--<fa-icon [icon]="'times'"></fa-icon>-->
+                            <!--</button>-->
+                        <!--</div>-->
+                        <!--<input type="file" id="file_logo" (change)="setFileData($event, ficheClient, 'logo', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>-->
+                    <!--</div>-->
+                    <!--<input type="hidden" class="form-control" name="logo" id="field_logo"-->
+                        <!--[(ngModel)]="ficheClient.logo" />-->
+                    <!--<input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType"-->
+                        <!--[(ngModel)]="ficheClient.logoContentType" />-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.adresse" for="field_adresse">Adresse</label>
+                    <input type="text" class="form-control" name="adresse" id="field_adresse"
+                        [(ngModel)]="ficheClient.adresse" required/>
+                    <div [hidden]="!(editForm.controls.adresse?.dirty && editForm.controls.adresse?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.adresse?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.region" for="field_region">Region</label>
+                    <select class="form-control" id="field_region" name="region" [(ngModel)]="ficheClient.regionId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="regionOption.id" *ngFor="let regionOption of regions; trackBy: trackRegionById">{{regionOption.libelle}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.ville" for="field_ville">Ville</label>
+                    <select class="form-control" id="field_ville" name="ville" [(ngModel)]="ficheClient.villeId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="villeOption.id" *ngFor="let villeOption of villes; trackBy: trackVilleById">{{villeOption.libelle}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.codePostal" for="field_codePostal">Code Postal</label>
+                    <input type="text" class="form-control" name="codePostal" id="field_codePostal"
+                        [(ngModel)]="ficheClient.codePostal" required/>
+                    <div [hidden]="!(editForm.controls.codePostal?.dirty && editForm.controls.codePostal?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.codePostal?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.telephone" for="field_telephone">Telephone</label>
+                    <input type="text" class="form-control" name="telephone" id="field_telephone"
+                        [(ngModel)]="ficheClient.telephone" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.fax" for="field_fax">Fax</label>
+                    <input type="text" class="form-control" name="fax" id="field_fax"
+                        [(ngModel)]="ficheClient.fax" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.email" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                        [(ngModel)]="ficheClient.email" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.matriculeFiscale" for="field_matriculeFiscale">Matricule Fiscale</label>
+                    <input type="text" class="form-control" name="matriculeFiscale" id="field_matriculeFiscale"
+                        [(ngModel)]="ficheClient.matriculeFiscale" required/>
+                    <div [hidden]="!(editForm.controls.matriculeFiscale?.dirty && editForm.controls.matriculeFiscale?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.matriculeFiscale?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.registreCommerce" for="field_registreCommerce">Registre Commerce</label>
+                    <input type="text" class="form-control" name="registreCommerce" id="field_registreCommerce"
+                        [(ngModel)]="ficheClient.registreCommerce" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.dateCreation" for="field_dateCreation">Date Creation</label>
+                    <div class="input-group">
+                        <input id="field_dateCreation" required type="text" class="form-control" name="dateCreation"
+                               ngbDatepicker #dateCreationDp="ngbDatepicker" [(ngModel)]="ficheClient.dateCreation"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateCreationDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.cnssEmployeur" for="field_cnssEmployeur">Cnss Employeur</label>
+                    <input type="text" class="form-control" name="cnssEmployeur" id="field_cnssEmployeur"
+                        [(ngModel)]="ficheClient.cnssEmployeur" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.cnssGerant" for="field_cnssGerant">Cnss Gerant</label>
+                    <input type="text" class="form-control" name="cnssGerant" id="field_cnssGerant"
+                        [(ngModel)]="ficheClient.cnssGerant" />
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente" for="field_fichierPatente">Fichier Patente</label>-->
+                    <!--<div>-->
+                        <!--<div *ngIf="ficheClient.fichierPatente" class="form-text text-danger clearfix">-->
+                            <!--<a class="pull-left" (click)="openFile(ficheClient.fichierPatenteContentType, ficheClient.fichierPatente)" jhiTranslate="entity.action.open">open</a><br>-->
+                            <!--<span class="pull-left">{{ficheClient.fichierPatenteContentType}}, {{byteSize(ficheClient.fichierPatente)}}</span>-->
+                            <!--<button type="button" (click)="ficheClient.fichierPatente=null;ficheClient.fichierPatenteContentType=null;"-->
+                                    <!--class="btn btn-secondary btn-xs pull-right">-->
+                                <!--<fa-icon [icon]="'times'"></fa-icon>-->
+                            <!--</button>-->
+                        <!--</div>-->
+                        <!--<input type="file" id="file_fichierPatente" (change)="setFileData($event, ficheClient, 'fichierPatente', false)" jhiTranslate="entity.action.addblob"/>-->
+                    <!--</div>-->
+                    <!--<input type="hidden" class="form-control" name="fichierPatente" id="field_fichierPatente"-->
+                        <!--[(ngModel)]="ficheClient.fichierPatente" />-->
+                    <!--<input type="hidden" class="form-control" name="fichierPatenteContentType" id="field_fichierPatenteContentType"-->
+                        <!--[(ngModel)]="ficheClient.fichierPatenteContentType" />-->
+                <!--</div>-->
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.secteurActivite" for="field_secteurActivite">Secteur Activite</label>
+                    <select required class="form-control" id="field_secteurActivite" name="secteurActivite" [(ngModel)]="ficheClient.secteurActiviteId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="secteurActiviteOption.id" *ngFor="let secteurActiviteOption of secteuractivites; trackBy: trackSecteurActiviteById">{{secteurActiviteOption.libelle}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.secteurActivite?.dirty && editForm.controls.secteurActivite?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.secteurActivite?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.activite" for="field_activite">Activite</label>
+                    <select required class="form-control" id="field_activite" name="activite" [(ngModel)]="ficheClient.activiteId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="activiteOption.id" *ngFor="let activiteOption of activites; trackBy: trackActiviteById">{{activiteOption.libelle}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.activite?.dirty && editForm.controls.activite?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.activite?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.activiteScondaire" for="field_activiteScondaire">Activite Scondaire</label>
+                    <select class="form-control" id="field_activiteScondaire" name="activiteScondaire" [(ngModel)]="ficheClient.activiteScondaireId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="activiteOption.id" *ngFor="let activiteOption of activites; trackBy: trackActiviteById">{{activiteOption.libelle}}</option>
+                    </select>
+                </div>
+            </div>
+            <br/>
+            <h2><span jhiTranslate="comptaDecisionApp.impotMensuelClient.detail.title">Paramétrage impôts mensuels client </span> {{ficheClient.designation}}</h2>
+
+            <div class="table-responsive" *ngIf="ficheClient.impotMensuelClients.length > 0">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th  *ngFor="let impotMensuelClient of ficheClient.impotMensuelClients"  title="{{impotMensuelClient.impotMensuelDescription}}">
+                            <span *ngIf="!impotMensuelClient.impotMensuelChild">{{impotMensuelClient.impotMensuelLibelle}}</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td *ngFor="let impotMensuelClient of ficheClient.impotMensuelClients;let i=index">
+                            <input name="impotMensuelClients[{{i}}]" title="Appliquer cet impot" type="checkbox" [(ngModel)]="impotMensuelClient.applicable" *ngIf="!impotMensuelClient.impotMensuelChild"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

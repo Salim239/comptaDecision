@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="quittanceMensuelleImpotDetail">
+            <h2><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotDetail.detail.title">Quittance Mensuelle Impot Line</span> {{quittanceMensuelleImpotDetail.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotDetail.montantTotal">Montant Paye</span></dt>
+                <dd>
+                    <span>{{quittanceMensuelleImpotDetail.montantTotal}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelleImpotDetail.quittanceMensuelleImpot">Quittance Mensuelle Impot</span></dt>
+                <dd>
+                    <div *ngIf="quittanceMensuelleImpotDetail.quittanceMensuelleImpotId">
+                        <a [routerLink]="['/quittance-mensuelle-impot', quittanceMensuelleImpotDetail.quittanceMensuelleImpotId, 'view']">{{quittanceMensuelleImpotDetail.quittanceMensuelleImpotId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/quittance-mensuelle-impot-detail', quittanceMensuelleImpotDetail.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

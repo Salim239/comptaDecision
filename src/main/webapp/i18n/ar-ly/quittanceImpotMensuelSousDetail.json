@@ -1,0 +1,17 @@
+{
+    "comptaDecisionApp": {
+        "quittanceImpotMensuelSousDetail": {
+            "code": "Code",
+            "triOrdre": "Num",
+            "valeur": "Valeur",
+            "typeValeur": "Type",
+            "typeValeurMontant": "Montant",
+            "valeurModifiable": "Modif.?",
+            "description": "Description",
+            "libelle": "Type Impot",
+            "montantBase": "Base",
+            "taux": "Taux",
+            "montantTotal": "Montant"
+        }
+    }
+}

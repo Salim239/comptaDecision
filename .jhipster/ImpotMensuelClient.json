@@ -1,0 +1,47 @@
+{
+    "name": "ImpotMensuelClient",
+    "fields": [
+        {
+            "fieldName": "mois",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "applicable",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "ficheClient",
+            "otherEntityRelationshipName": "impotMensuelClient",
+            "relationshipName": "ficheClient",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "impotMensuel",
+            "otherEntityRelationshipName": "impotMensuelClient",
+            "relationshipName": "impotMensuel",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "quittanceMensuelleImpotDetail",
+            "otherEntityName": "quittanceMensuelleImpotDetail",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190403192325",
+    "entityTableName": "impot_mensuel_client",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
