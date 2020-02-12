@@ -13,6 +13,8 @@ import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
 import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotMapper;
 import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotSousDetailMapper;
+import com.growup.comptadecision.web.rest.errors.BusinessErrorException;
+import com.growup.comptadecision.web.rest.errors.ErrorConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -69,7 +68,8 @@ public class QuittanceMensuelleImpotService {
                 quittanceMensuelleImpot.getAnnee(),
                 quittanceMensuelleImpot.getMois(),
                 quittanceMensuelleImpot.getFicheClient().getId(),
-                TypeDeclaration.DECLARATION_INITIALE).orElseThrow(() -> new RuntimeException("Cette quittance rectificative ne possède pas de quittance initiale associée"));
+                TypeDeclaration.DECLARATION_INITIALE).orElseThrow(() -> new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_INITIALE_INEXISTANTE));
+
     }
 
     private void updateStatutQuittance(QuittanceMensuelleImpot quittanceMensuelleImpot) {
@@ -80,7 +80,7 @@ public class QuittanceMensuelleImpotService {
                     quittanceMensuelleImpot.getAnnee(),
                     quittanceMensuelleImpot.getMois(),
                     quittanceMensuelleImpot.getFicheClient().getId(),
-                    TypeDeclaration.DECLARATION_INITIALE).orElseThrow(() -> new RuntimeException("Cette quittance rectificative ne possède pas de quittance initiale associée"));
+                    TypeDeclaration.DECLARATION_INITIALE).orElseThrow(() -> new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_RECTIFICATIVE_SANS_QUITTANCE_INITIALE));
 
             quittanceInitiale.setStatut(StatutDeclaration.RECTIFIE);
             QuittanceMensuelleImpot quittanceInitialeUpdated = quittanceMensuelleImpotRepository.save(quittanceInitiale);
@@ -95,41 +95,41 @@ public class QuittanceMensuelleImpotService {
 
     private void validateCreationForm(FicheClient ficheClient, Integer annee, Integer mois, TypeDeclaration typeDeclaration) {
 
-        if (ficheClient.getDateCreation().getYear() > annee) throw new RuntimeException("Annee non valide");
+        if (ficheClient.getDateCreation().getYear() > annee) throw new BusinessErrorException(ErrorConstants.ERR_ANNEE_NON_VALIDE);
         if (mois > 12 || mois < 1) {
-            throw new RuntimeException("mois non valide");
+            throw new BusinessErrorException(ErrorConstants.ERR_MOIS_NON_VALIDE);
         }
         if (mois > 1) {
             List<QuittanceMensuelleImpot> previousMounthQuittances = quittanceMensuelleImpotRepository.findByAnneeAndMoisAndFicheClientId(annee,
                     mois - 1, ficheClient.getId());
-            if (previousMounthQuittances.isEmpty()) throw new RuntimeException("Previous mounth quittance not found");
+            if (previousMounthQuittances.isEmpty()) throw new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_PRECEDENTE_INEXISTANTE);
             Optional<QuittanceMensuelleImpot> previousMounthQuittanceOptional = previousMounthQuittances.stream()
                     .filter(previousQuittance -> previousQuittance.getStatut().equals(StatutDeclaration.BROUILLON))
                     .findFirst();
             if (previousMounthQuittanceOptional.isPresent()) {
-                throw new RuntimeException("Previous mounth quittance is not yet validated. Validate it to continue!");
+                throw new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_PRECEDENTE_NON_VALIDE);
             }
         }
         List<QuittanceMensuelleImpot> quittances = quittanceMensuelleImpotRepository.findByAnneeAndMoisAndFicheClientId(annee,
                 mois, ficheClient.getId());
         if (quittances.isEmpty() && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE)) {
-            throw new RuntimeException("Quittance initiale not exists. Create quiitance initiale before can create quittantance rectifcative!!");
+            throw new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_INITIALE_INEXISTANTE);
         }
         if (quittances.size() == 1 && typeDeclaration.equals(TypeDeclaration.DECLARATION_INITIALE)) {
-            throw new RuntimeException("Quittance initiale already exists for this mouth. Edit it or create one for another mounth!");
+            throw new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_INITIALE_INEXISTANTE);
         }
         if (quittances.size() == 1 && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE) &&
                 quittances.get(0).getStatut().equals(StatutDeclaration.BROUILLON)) {
-            throw new RuntimeException("Quittance initiale not validated yet. Validate it to can create quittance rectificative!");
+            throw new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_INITIALE_NON_VALIDE);
         }
         if (quittances.size() == 2 && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE)) {
-            throw new RuntimeException("Quittance rectificative already exists for this mouth. Edit it or create one for another mounth!");
+            throw new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_RECTIFICATIVE_INEXISTANTE);
         }
     }
 
     public QuittanceMensuelleImpotDTO init(Long ficheClientId, Integer annee, Integer mois, TypeDeclaration typeDeclaration) {
 
-        FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new RuntimeException(String.format("FicheClient not found with id %s", ficheClientId)));
+        FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new BusinessErrorException(String.format("Il n'existe pas de fiche client avec l'id %s", ficheClientId)));
         validateCreationForm(ficheClient, annee, mois, typeDeclaration);
         return getEmptyQuittanceMensuel(ficheClient, annee, mois);
     }
@@ -252,8 +252,7 @@ public class QuittanceMensuelleImpotService {
                         Arrays.asList(StatutDeclaration.VALIDE, StatutDeclaration.BROUILLON),
                         quittanceMensuelleImpot.getAnnee(),
                         quittanceMensuelleImpot.getMois() - 1,
-//                        impotMensuel.getCode()).orElseThrow(() -> new RuntimeException("Il n'existe pas de quittance pour le mois précédent"));
-                        impotMensuel.getCode()).orElseThrow(() -> new RuntimeException("Il n'existe pas de quittance pour le mois précédent"));
+                        impotMensuel.getCode()).orElseThrow(() -> new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_PRECEDENTE_INEXISTANTE));
                 quittanceMensuelleImpotDetail.setMontantReport(quittanceMensuelleImpotDetailPrecedente.getMontantTotal().compareTo(BigDecimal.ZERO) == -1 ?
                         quittanceMensuelleImpotDetailPrecedente.getMontantTotal() :
                         BigDecimal.ZERO);
@@ -320,13 +319,15 @@ public class QuittanceMensuelleImpotService {
     @Transactional
     public void delete(Long id) {
         log.debug("Request to delete QuittanceMensuelleImpot : {}", id);
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
         QuittanceMensuelleImpot quittanceMensuelleImpot = quittanceMensuelleImpotRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("The quittance to delete with id %s doesn't exist", id)));
+                .orElseThrow(() -> new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_A_SUPPRIMER_INEXISTANTE, params));
         if (quittanceMensuelleImpot.getNumeroQuittance() != null && quittanceMensuelleImpot.getDatePaiement() != null)
-            throw new RuntimeException(String.format("The quittance with id %s can't be delete because it was validated", id));
+            throw new BusinessErrorException(String.format(ErrorConstants.ERR_QUITTANCEA_SUPPRIMER_VALIDEE, params));
         if (quittanceMensuelleImpot.getTypeDeclaration().equals(TypeDeclaration.DECLARATION_RECTIFICATIVE)) {
             QuittanceMensuelleImpot quittanceInitiale = quittanceMensuelleImpotRepository.findById(quittanceMensuelleImpot.getParentQuittance().getId())
-                    .orElseThrow(() -> new RuntimeException(String.format("The quittance RECTIFICATIVE to delete with id %s doesn't have associated quittance initiale", id)));
+                    .orElseThrow(() -> new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_RECTIFICATIVE_A_SUPPRIMER_SANS_QUITTANCE_INITIALE, params));
             quittanceInitiale.setStatut(StatutDeclaration.VALIDE);
             quittanceMensuelleImpotRepository.save(quittanceInitiale);
         }

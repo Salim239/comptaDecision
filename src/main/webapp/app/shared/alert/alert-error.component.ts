@@ -1,7 +1,7 @@
-import { Component, OnDestroy } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { JhiEventManager, JhiAlert, JhiAlertService } from 'ng-jhipster';
-import { Subscription } from 'rxjs';
+import {Component, OnDestroy} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {JhiAlert, JhiAlertService, JhiEventManager} from 'ng-jhipster';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'jhi-alert-error',
@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
                     <pre [innerHTML]="alert.msg"></pre>
                 </ngb-alert>
             </div>
+            
         </div>`
 })
 export class JhiAlertErrorComponent implements OnDestroy {
@@ -72,6 +73,11 @@ export class JhiAlertErrorComponent implements OnDestroy {
                     this.addErrorAlert('Not found', 'error.url.not.found');
                     break;
 
+                case 500:
+                    // const fieldName = translateService.instant(httpErrorResponse.error.detail);
+                    this.addErrorAlert(httpErrorResponse.error.title);
+                    break;
+
                 default:
                     if (httpErrorResponse.error !== '' && httpErrorResponse.error.message) {
                         this.addErrorAlert(httpErrorResponse.error.message);
@@ -107,6 +113,8 @@ export class JhiAlertErrorComponent implements OnDestroy {
             toast: this.alertService.isToast(),
             scoped: true
         };
+
+        console.log("msg ", newAlert.msg);
 
         this.alerts.push(this.alertService.addAlert(newAlert, this.alerts));
     }

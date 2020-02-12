@@ -9,6 +9,19 @@
             "500": "Internal server error."
         },
         "concurrencyFailure": "Another user modified this data at the same time as you. Your changes were rejected.",
-        "validation": "Validation error on the server."
+        "validation": "Validation error on the server.",
+        "quittance": {
+            "qittanceRectificativeSansQuittanceInitiale": "Cette quittance rectificative ne possède pas de quittance initiale associée",
+            "anneeNonValide": "Annee non valide",
+            "moisNonValide": "mois non valide",
+            "quittancePrecedenteNonValide": "La quittance du mois précédent n'est pas validée! Valider la en saisissant son numéro et la date de paiement pour continuer!",
+            "quittanceInitialeInexistante": "Il existe déjà une quittance initiale pour ce mois. Editer la ou créer une quittance pour un autre mois!",
+            "quittanceInitialeNonValidee": "Impossible de créer une quittance rectificative pour ce mois avant de valider la quittance initiale par saisie du numéro et de la date de paiement!",
+            "quittanceRectificativeInexistante": "Il existe déjà une quittance rectificative pour ce mois. Editer la ou créer une quittance pour un autre mois!",
+            "quittancePrecedenteInexistante": "Il n'existe pas de quittance pour le mois précédent",
+            "quittanceASussuprimerNonExistante": "La quittance a supprimée dont l'id est {{id}} n'existe pas!",
+            "quittanceASupprimerValidee": "Cette quittance dont l'id est {{id}} ne peut pas être supprimée car elle est déjà validée!",
+            "quittanceRectificativeAsupprimerPossedePasQuittanceInitiale": "Cette quittance retificative à supprimer dont l'id est {{id}} ne possède pas d equittance initiale à tort!"
+        }
     }
 }

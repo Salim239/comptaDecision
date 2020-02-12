@@ -26,7 +26,8 @@ export class QuittanceMensuelleImpotResolve implements Resolve<IQuittanceMensuel
         if (id && !annee && !mois) {
             return this.service.find(id).pipe(
                 filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
-                map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
+                map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body),
+
             );
         }
 
