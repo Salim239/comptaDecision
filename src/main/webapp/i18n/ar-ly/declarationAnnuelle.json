@@ -3,6 +3,7 @@
         "declarationAnnuelle": {
             "home": {
                 "title": "Declaration Annuelles",
+                "tableTitle": "Saisie des montants de la déclaration",
                 "createLabel": "Create a new Declaration Annuelle",
                 "createOrEditLabel": "Create or edit a Declaration Annuelle"
             },

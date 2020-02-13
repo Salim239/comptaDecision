@@ -25,7 +25,7 @@
             <span hiTranslate="comptaDecisionApp.impotMensuelDetail.quittanceImpotMensuelSousDetails.empty" >Auncune configuration d'impôt définie</span>
         </td>
     </tr>
-    <tr *ngFor="let quittanceMensuelleImpotSousDetail of quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails;let indexSousDetail=index">
+    <tr *ngFor="let quittanceMensuelleImpotSousDetail of quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails | orderBy: 'impotMensuelDetailTriOrdre';let indexSousDetail=index">
         <td>
             <div class="form-group">
                 <input [disabled]="true" type="text" class="form-control"
@@ -45,12 +45,13 @@
         </td>
         <td>
             <div class="form-group input-group">
+
                 <input [hidden]="!isTaux(quittanceMensuelleImpotSousDetail.impotMensuelDetailTypeValeur) && !isMontantForfaitaire(quittanceMensuelleImpotSousDetail)"
                        [disabled]="!quittanceMensuelleImpotSousDetail.impotMensuelDetailValeurModifiable" type="text"
                        class="form-control numeric"
                        name="quittanceMensuelleImpotDetail[{{indexDetail}}].quittanceMensuelleImpotSousDetails[{{indexSousDetail}}].quittanceMensuelleImpotSousDetailValeur"
                        id="field_quittanceMensuelleImpotSousDetailValeur"
-                       [ngModel]="quittanceMensuelleImpotSousDetail.impotMensuelDetailValeur | number:'1.3-3'"
+                       [ngModel]="quittanceMensuelleImpotSousDetail.impotMensuelDetailValeur | number: isTaux(quittanceMensuelleImpotSousDetail.impotMensuelDetailTypeValeur) ? '': '1.3-3'"
                        (ngModelChange)="quittanceMensuelleImpotSousDetail.impotMensuelDetailValeur=$event"/>
                 <div [hidden]="!isTaux(quittanceMensuelleImpotSousDetail.impotMensuelDetailTypeValeur)" class="input-group-append">
                     <span class="input-group-text" id="basic-addon2">%</span>

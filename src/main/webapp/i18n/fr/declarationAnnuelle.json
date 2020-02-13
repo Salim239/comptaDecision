@@ -2,23 +2,24 @@
     "comptaDecisionApp": {
         "declarationAnnuelle": {
             "home": {
-                "title": "DeclarationAnnuelles",
-                "createLabel": "Créer un nouveau Declaration Annuelle",
-                "createOrEditLabel": "Créer ou éditer un Declaration Annuelle"
+                "title": "Déclarations Annuelles",
+                "tableTitle": "Saisie des montants de la déclaration",
+                "createLabel": "Créer une nouvelle Déclaration Annuelle",
+                "createOrEditLabel": "Créer ou éditer une Déclaration Annuelle"
             },
-            "created": "Un nouveau Declaration Annuelle a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Declaration Annuelle avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Declaration Annuelle avec l'identifiant {{ param }} a été supprimé",
+            "created": "Une nouvelle Déclaration Annuelle a été créée avec l'identifiant {{ param }}",
+            "updated": "La Déclaration Annuelle avec l'identifiant {{ param }} a été mise à jour",
+            "deleted": "La Déclaration Annuelle avec l'identifiant {{ param }} a été supprimée",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Declaration Annuelle {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer La Déclaration Annuelle {{ id }} ?"
             },
             "detail": {
-                "title": "Declaration Annuelle"
+                "title": "Déclaration Annuelle"
             },
             "typeDeclaration": "Type déclaration",
-            "annee": "Annee",
+            "annee": "Année",
             "datePaiement": "Date Paiement",
-            "numeroQuittance": "Numero Quittance",
+            "numeroQuittance": "Numéro Quittance",
             "montant": "Montant",
             "ficheClient": "Fiche Client"
         }

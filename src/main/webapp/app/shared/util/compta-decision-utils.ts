@@ -20,6 +20,6 @@ export default class ComptaDecisionUtils {
 
     static parseCurrency(value) {
         if (!value) return 0;
-        return +(("" + value).replace(",", "."));
+        return +(("" + value).replace(",", ".").replace(" ", ""));
     }
 }
