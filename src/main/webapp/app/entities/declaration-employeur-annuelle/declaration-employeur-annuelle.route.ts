@@ -1,17 +1,19 @@
-import { Injectable } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
-import { UserRouteAccessService } from 'app/core';
-import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { DeclarationEmployeurAnnuelle } from 'app/shared/model/declaration-employeur-annuelle.model';
-import { DeclarationEmployeurAnnuelleService } from './declaration-employeur-annuelle.service';
-import { DeclarationEmployeurAnnuelleComponent } from './declaration-employeur-annuelle.component';
-import { DeclarationEmployeurAnnuelleDetailComponent } from './declaration-employeur-annuelle-detail.component';
-import { DeclarationEmployeurAnnuelleUpdateComponent } from './declaration-employeur-annuelle-update.component';
-import { DeclarationEmployeurAnnuelleDeletePopupComponent } from './declaration-employeur-annuelle-delete-dialog.component';
-import { IDeclarationEmployeurAnnuelle } from 'app/shared/model/declaration-employeur-annuelle.model';
+import {Injectable} from '@angular/core';
+import {HttpResponse} from '@angular/common/http';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
+import {JhiResolvePagingParams} from 'ng-jhipster';
+import {UserRouteAccessService} from 'app/core';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {
+    DeclarationEmployeurAnnuelle,
+    IDeclarationEmployeurAnnuelle
+} from 'app/shared/model/declaration-employeur-annuelle.model';
+import {DeclarationEmployeurAnnuelleService} from './declaration-employeur-annuelle.service';
+import {DeclarationEmployeurAnnuelleComponent} from './declaration-employeur-annuelle.component';
+import {DeclarationEmployeurAnnuelleDetailComponent} from './declaration-employeur-annuelle-detail.component';
+import {DeclarationEmployeurAnnuelleUpdateComponent} from './declaration-employeur-annuelle-update.component';
+import {DeclarationEmployeurAnnuelleDeletePopupComponent} from './declaration-employeur-annuelle-delete-dialog.component';
 import {IFicheClient} from "app/shared/model/fiche-client.model";
 import {FicheClientService} from "app/entities/fiche-client";
 
@@ -21,13 +23,20 @@ export class DeclarationEmployeurAnnuelleResolve implements Resolve<IDeclaration
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IDeclarationEmployeurAnnuelle> {
         const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
+        const annee = route.params['annee'] ? route.params['annee'] : null;
+        if (id && !annee) {
             return this.service.find(id).pipe(
                 filter((response: HttpResponse<DeclarationEmployeurAnnuelle>) => response.ok),
                 map((declarationEmployeurAnnuelle: HttpResponse<DeclarationEmployeurAnnuelle>) => declarationEmployeurAnnuelle.body)
             );
         }
-        return of(new DeclarationEmployeurAnnuelle());
+        if (id && annee) {
+            return this.service.initEmpty(id, annee).pipe(
+                filter((response: HttpResponse<DeclarationEmployeurAnnuelle>) => response.ok),
+                map((acompteProvisionnel: HttpResponse<DeclarationEmployeurAnnuelle>) => acompteProvisionnel.body)
+            );
+        }
+        // return of(new DeclarationEmployeurAnnuelle());
     }
 }
 
@@ -73,7 +82,7 @@ export const declarationEmployeurAnnuelleRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: ':id/:annee/new',
         component: DeclarationEmployeurAnnuelleUpdateComponent,
         resolve: {
             declarationEmployeurAnnuelle: DeclarationEmployeurAnnuelleResolve,

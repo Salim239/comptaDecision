@@ -1,14 +1,10 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.home.title">Declaration Employeur Annuelles</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-declaration-employeur-annuelle" [routerLink]="['/declaration-employeur-annuelle/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.home.createLabel">
-            Create new Declaration Employeur Annuelle
-            </span>
-        </button>
     </h2>
     <jhi-alert></jhi-alert>
+    <app-new-entry [hideTrimestre]="true" [hideTypeDeclaration]="true" [hideMois]="true" [hildeNumeroAcompte]="true" (submitCreationForm)="addDeclarationEmployeur($event)"></app-new-entry>
+    <br/>
     <br/>
     <div class="table-responsive" *ngIf="declarationEmployeurAnnuelles">
         <table class="table table-striped">
@@ -41,18 +37,18 @@
                     </div>
                 </td>
                 <td>{{declarationEmployeurAnnuelle.annee}}</td>
-                <td>{{declarationEmployeurAnnuelle.montantAnnexe1}}</td>
-                <td>{{declarationEmployeurAnnuelle.montantAnnexe2}}</td>
-                <td>{{declarationEmployeurAnnuelle.montantAnnexe3}}</td>
-                <td>{{declarationEmployeurAnnuelle.montantAnnexe4}}</td>
-                <td>{{declarationEmployeurAnnuelle.montantAnnexe5}}</td>
-                <td>{{declarationEmployeurAnnuelle.montantAnnexe6}}</td>
-                <td>{{declarationEmployeurAnnuelle.montantAnnexe7}}</td>
-                <td>{{declarationEmployeurAnnuelle.montantAnnexe8}}</td>
-                <td>{{declarationEmployeurAnnuelle.montantAnnexe9}}</td>
-                <td>{{declarationEmployeurAnnuelle.montantAnnexe10}}</td>
-                <td>{{declarationEmployeurAnnuelle.montantAnnexe11}}</td>
-                <td>{{declarationEmployeurAnnuelle.montantAnnexe12}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe1  | number:'1.3-3'}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe2  | number:'1.3-3'}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe3  | number:'1.3-3'}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe4  | number:'1.3-3'}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe5  | number:'1.3-3'}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe6  | number:'1.3-3'}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe7  | number:'1.3-3'}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe8  | number:'1.3-3'}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe9  | number:'1.3-3'}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe10  | number:'1.3-3'}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe11  | number:'1.3-3'}}</td>
+                <td>{{declarationEmployeurAnnuelle.montantAnnexe12  | number:'1.3-3'}}</td>
 
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

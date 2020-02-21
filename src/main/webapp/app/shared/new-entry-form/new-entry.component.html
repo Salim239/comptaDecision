@@ -52,7 +52,7 @@
                     *ngFor="let trimestreOption of trimestreList;">{{'comptaDecisionApp.form.optionSelect.trimestre.' + trimestreOption | translate}}</option>
         </select>
     </div>
-    <div class="form-group mx-sm-3 mb-2" [hidden]="hideNumeroAcompte">
+    <div class="form-group mx-sm-3 mb-2" [hidden]="hildeNumeroAcompte">
         <label for="field_numeroAcompte" jhiTranslate="comptaDecisionApp.form.inputLabel.numeroAcompte">Numéro</label><span
             style="color: red">*</span>&nbsp;&nbsp;&nbsp;
         <select required class="form-control" name="numeroAcompte" [(ngModel)]="selectedNumeroAcompte" id="field_numeroAcompte">

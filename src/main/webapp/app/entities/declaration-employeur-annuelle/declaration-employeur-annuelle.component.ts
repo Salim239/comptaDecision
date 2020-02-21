@@ -1,15 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import { IDeclarationEmployeurAnnuelle } from 'app/shared/model/declaration-employeur-annuelle.model';
-import { AccountService } from 'app/core';
+import {IDeclarationEmployeurAnnuelle} from 'app/shared/model/declaration-employeur-annuelle.model';
+import {AccountService} from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
-import { DeclarationEmployeurAnnuelleService } from './declaration-employeur-annuelle.service';
+import {ITEMS_PER_PAGE} from 'app/shared';
+import {DeclarationEmployeurAnnuelleService} from './declaration-employeur-annuelle.service';
 
 @Component({
     selector: 'jhi-declaration-employeur-annuelle',
@@ -127,5 +126,12 @@ export class DeclarationEmployeurAnnuelleComponent implements OnInit, OnDestroy 
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    addDeclarationEmployeur(event) {
+        let id = event.ficheClientId;
+        let annee = event.annee;
+        this.router.navigateByUrl(`/declaration-employeur-annuelle/${id}/${annee}/new`);
+
     }
 }
