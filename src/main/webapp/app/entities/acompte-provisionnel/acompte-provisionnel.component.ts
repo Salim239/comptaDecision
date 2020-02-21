@@ -1,15 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import { IAcompteProvisionnel } from 'app/shared/model/acompte-provisionnel.model';
-import { AccountService } from 'app/core';
+import {IAcompteProvisionnel} from 'app/shared/model/acompte-provisionnel.model';
+import {AccountService} from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
-import { AcompteProvisionnelService } from './acompte-provisionnel.service';
+import {ITEMS_PER_PAGE} from 'app/shared';
+import {AcompteProvisionnelService} from './acompte-provisionnel.service';
 
 @Component({
     selector: 'jhi-acompte-provisionnel',
@@ -127,5 +126,13 @@ export class AcompteProvisionnelComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    addAccomptePrevisionnel(event) {
+        let id = event.ficheClientId;
+        let annee = event.annee;
+        let numero = event.numeroAcompte;
+        this.router.navigateByUrl(`/acompte-provisionnel/${id}/${annee}/${numero}/new`);
+
     }
 }

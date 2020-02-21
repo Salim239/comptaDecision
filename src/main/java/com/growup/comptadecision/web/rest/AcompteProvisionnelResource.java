@@ -1,23 +1,22 @@
 package com.growup.comptadecision.web.rest;
+
 import com.growup.comptadecision.service.AcompteProvisionnelService;
+import com.growup.comptadecision.service.dto.AcompteProvisionnelDTO;
 import com.growup.comptadecision.web.rest.errors.BadRequestAlertException;
 import com.growup.comptadecision.web.rest.util.HeaderUtil;
 import com.growup.comptadecision.web.rest.util.PaginationUtil;
-import com.growup.comptadecision.service.dto.AcompteProvisionnelDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +35,13 @@ public class AcompteProvisionnelResource {
 
     public AcompteProvisionnelResource(AcompteProvisionnelService acompteProvisionnelService) {
         this.acompteProvisionnelService = acompteProvisionnelService;
+    }
+
+    @GetMapping("/acompte-provisionnels/init/{id}/{annee}/{numroAcompte}")
+    public ResponseEntity<AcompteProvisionnelDTO> init(@PathVariable Long id, @PathVariable Integer annee,
+                                        @PathVariable Integer numroAcompte) {
+        AcompteProvisionnelDTO acompteProvisionnelDTO = acompteProvisionnelService.init(id, annee, numroAcompte);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(acompteProvisionnelDTO);
     }
 
     /**

@@ -86,7 +86,7 @@ public class DeclarationAnnuelleResource {
                                                            @PathVariable String typeDeclaration) {
         log.debug("REST request to init empty DeclarationAnnuelle");
         DeclarationAnnuelleDTO declarationAnnuelleDTO = declarationAnnuelleService.init(id, annee, TypeDeclaration.valueOf(typeDeclaration));
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(declarationAnnuelleDTO);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(declarationAnnuelleDTO);
     }
 
     /**

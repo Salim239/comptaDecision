@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import * as moment from 'moment';
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
-import { map } from 'rxjs/operators';
+import {DATE_FORMAT} from 'app/shared/constants/input.constants';
+import {map} from 'rxjs/operators';
 
-import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared';
-import { IAcompteProvisionnel } from 'app/shared/model/acompte-provisionnel.model';
+import {SERVER_API_URL} from 'app/app.constants';
+import {createRequestOption} from 'app/shared';
+import {IAcompteProvisionnel} from 'app/shared/model/acompte-provisionnel.model';
+import {ICnss} from "app/shared/model/cnss.model";
 
 type EntityResponseType = HttpResponse<IAcompteProvisionnel>;
 type EntityArrayResponseType = HttpResponse<IAcompteProvisionnel[]>;
@@ -17,6 +18,12 @@ export class AcompteProvisionnelService {
     public resourceUrl = SERVER_API_URL + 'api/acompte-provisionnels';
 
     constructor(protected http: HttpClient) {}
+
+    initEmpty(id, annee, numeroAccompte): Observable<EntityResponseType> {
+        return this.http
+            .get<ICnss>(this.resourceUrl + `/init/${id}/${annee}/${numeroAccompte}`, {observe: 'response'})
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
 
     create(acompteProvisionnel: IAcompteProvisionnel): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(acompteProvisionnel);

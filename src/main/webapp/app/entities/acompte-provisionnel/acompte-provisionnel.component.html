@@ -1,14 +1,10 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="comptaDecisionApp.acompteProvisionnel.home.title">Acompte Provisionnels</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-acompte-provisionnel" [routerLink]="['/acompte-provisionnel/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="comptaDecisionApp.acompteProvisionnel.home.createLabel">
-            Create new Acompte Provisionnel
-            </span>
-        </button>
     </h2>
     <jhi-alert></jhi-alert>
+    <app-new-entry [hideTrimestre]="true" [hildeNumeroAcompte]="false" [hideTypeDeclaration]="true" [hideMois]="true" (submitCreationForm)="addAccomptePrevisionnel($event)"></app-new-entry>
+    <br/>
     <br/>
     <div class="table-responsive" *ngIf="acompteProvisionnels">
         <table class="table table-striped">
@@ -40,11 +36,11 @@
                 <td>{{acompteProvisionnel.numero}}</td>
                 <td>{{acompteProvisionnel.date | date:'mediumDate'}}</td>
                 <td>{{acompteProvisionnel.numeroQuittance}}</td>
-                <td>{{acompteProvisionnel.montantBase}}</td>
-                <td>{{acompteProvisionnel.montantAcompteProvisionnel}}</td>
-                <td>{{acompteProvisionnel.montantReportAnterieur}}</td>
-                <td>{{acompteProvisionnel.montantRetenueSource}}</td>
-                <td>{{acompteProvisionnel.montantNet}}</td>
+                <td>{{acompteProvisionnel.montantBase | number:'1.3-3'}}</td>
+                <td>{{acompteProvisionnel.montantAcompteProvisionnel | number:'1.3-3'}}</td>
+                <td>{{acompteProvisionnel.montantReportAnterieur | number:'1.3-3'}}</td>
+                <td>{{acompteProvisionnel.montantRetenueSource | number:'1.3-3'}}</td>
+                <td>{{acompteProvisionnel.montantNet | number:'1.3-3'}}</td>
 
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

@@ -5,6 +5,7 @@
         "ficheClient": "Fiche Client",
         "typeDeclaration": "Type déclaration",
         "typeCnss": "Type CNSS",
+        "numeroAcompte": "Numéro Acompte",
         "annee": "Année",
         "trimestre": "Trimestre",
         "mois": "Mois"
@@ -29,6 +30,11 @@
           "2": "Trimestre 2",
           "3": "Trimestre 3",
           "4": "Trimestre 4"
+        },
+        "numeroAcompte": {
+          "1": "1",
+          "2": "2",
+          "3": "3"
         },
         "typeCnss": {
           "CNSS_GENERALE": "Générale",

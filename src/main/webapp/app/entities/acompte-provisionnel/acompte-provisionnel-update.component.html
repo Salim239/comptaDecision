@@ -4,90 +4,98 @@
             <h2 id="jhi-acompte-provisionnel-heading" jhiTranslate="comptaDecisionApp.acompteProvisionnel.home.createOrEditLabel">Create or edit a Acompte Provisionnel</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!acompteProvisionnel.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="acompteProvisionnel.id" readonly />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.ficheClient" for="field_ficheClient">Fiche Client</label>
-                    <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="acompteProvisionnel.ficheClientId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="ficheClientOption.id" *ngFor="let ficheClientOption of ficheclients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.annee" for="field_annee">Annee</label>
-                    <input type="number" class="form-control" name="annee" id="field_annee"
-                        [(ngModel)]="acompteProvisionnel.annee" required/>
-                    <div [hidden]="!(editForm.controls.annee?.dirty && editForm.controls.annee?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.annee?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.annee?.errors?.number" jhiTranslate="entity.validation.number">
-                            This field should be a number.
-                        </small>
+                <input type="text" class="form-control" id="id" name="id"
+                       [(ngModel)]="acompteProvisionnel.id" [hidden]="true" />
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label jhiTranslate="comptaDecisionApp.acompteProvisionnel.ficheClient"
+                               for="field_ficheClient">Fiche Client</label>
+                        <input [disabled]="true" type="text" class="form-control" name="ficheClient"
+                               id="field_ficheClient"
+                               [(ngModel)]="acompteProvisionnel.ficheClientDesignation"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.annee" for="field_annee">Annee</label>
+                        <input [disabled]="true" class="form-control" name="annee" id="field_annee"
+                               [(ngModel)]="acompteProvisionnel.annee" required/>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.numero" for="field_numero">Numero</label>
+
+                        <select [disabled]="true" required class="form-control" id="field_numero" name="numero" [(ngModel)]="acompteProvisionnel.numero" >
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.numero" for="field_numero">Numero</label>
-                    <input type="number" class="form-control" name="numero" id="field_numero"
-                        [(ngModel)]="acompteProvisionnel.numero" required/>
-                    <div [hidden]="!(editForm.controls.numero?.dirty && editForm.controls.numero?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.numero?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.numero?.errors?.number" jhiTranslate="entity.validation.number">
-                            This field should be a number.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.date" for="field_date">Date</label>
-                    <div class="input-group">
-                        <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker  #dateDp="ngbDatepicker" [(ngModel)]="acompteProvisionnel.date"
-                        />
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.date"
+                               for="field_date">Date</label>
+                        <div class="input-group">
+                            <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker
+                                   #dateDp="ngbDatepicker" [(ngModel)]="acompteProvisionnel.date"
+                            />
+                            <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon
+                                    [icon]="'calendar-alt'"></fa-icon></button>
                         </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-control-label"
+                               jhiTranslate="comptaDecisionApp.acompteProvisionnel.numeroQuittance"
+                               for="field_numeroQuittance">Numero Quittance</label>
+                        <input type="text" class="form-control" name="numeroQuittance" id="field_numeroQuittance"
+                               [(ngModel)]="acompteProvisionnel.numeroQuittance"/>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.numeroQuittance" for="field_numeroQuittance">Numero Quittance</label>
-                    <input type="text" class="form-control" name="numeroQuittance" id="field_numeroQuittance"
-                        [(ngModel)]="acompteProvisionnel.numeroQuittance" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantBase" for="field_montantBase">Montant Base</label>
-                    <input type="number" class="form-control" name="montantBase" id="field_montantBase"
-                        [(ngModel)]="acompteProvisionnel.montantBase" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantAcompteProvisionnel" for="field_montantAcompteProvisionnel">Montant Acompte Provisionnel</label>
-                    <input type="number" class="form-control" name="montantAcompteProvisionnel" id="field_montantAcompteProvisionnel"
-                        [(ngModel)]="acompteProvisionnel.montantAcompteProvisionnel" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantReportAnterieur" for="field_montantReportAnterieur">Montant Report Anterieur</label>
-                    <input type="number" class="form-control" name="montantReportAnterieur" id="field_montantReportAnterieur"
-                        [(ngModel)]="acompteProvisionnel.montantReportAnterieur" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantRetenueSource" for="field_montantRetenueSource">Montant Retenue Source</label>
-                    <input type="number" class="form-control" name="montantRetenueSource" id="field_montantRetenueSource"
-                        [(ngModel)]="acompteProvisionnel.montantRetenueSource" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantNet" for="field_montantNet">Montant Net</label>
-                    <input type="number" class="form-control" name="montantNet" id="field_montantNet"
-                        [(ngModel)]="acompteProvisionnel.montantNet" />
-                </div>
 
-
+                <h3 jhiTranslate="comptaDecisionApp.declarationAnnuelle.home.tableTitle">Saisie des montants
+                    de la déclaration</h3>
+                <br>
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantBase"
+                                   for="field_montantBase">Montant Base</label>
+                        </th>
+                        <td><input digitOnly [decimal]="true" class="numeric form-control" name="montantBase" id="field_montantBase"
+                                   [(ngModel)]="acompteProvisionnel.montantBase" (change)="updateMontants()"/></td>
+                    </tr>
+                    <tr>
+                        <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantAcompteProvisionnel"
+                                   for="field_montantAcompteProvisionnel">Montant Acompte Provisionnel</label>
+                        </th>
+                        <td><input digitOnly [decimal]="true" class="numeric form-control" name="montantAcompteProvisionnel" id="field_montantAcompteProvisionnel"
+                                   [(ngModel)]="acompteProvisionnel.montantAcompteProvisionnel" (change)="updateMontants()"/></td>
+                    </tr>
+                    <tr>
+                        <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantReportAnterieur"
+                                   for="field_montantReportAnterieur">Montant Report Anterieur</label>
+                        </th>
+                        <td><input digitOnly [decimal]="true" class="numeric form-control" name="montantReportAnterieur" id="field_montantReportAnterieur"
+                                   [(ngModel)]="acompteProvisionnel.montantReportAnterieur" (change)="updateMontants()"/></td>
+                    </tr>
+                    <tr>
+                        <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantRetenueSource"
+                                   for="field_montantRetenueSource">Montant Retenue Source</label>
+                        </th>
+                        <td><input digitOnly [decimal]="true" class="numeric form-control" name="montantRetenueSource" id="field_montantRetenueSource"
+                                   [(ngModel)]="acompteProvisionnel.montantRetenueSource" (change)="updateMontants()"/></td>
+                    </tr>
+                    <tr>
+                        <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantNet"
+                                   for="field_montantNet">Montant Net</label>
+                        </th>
+                        <td><input digitOnly [decimal]="true" class="numeric form-control" name="montantNet" id="field_montantNet"
+                                   [(ngModel)]="acompteProvisionnel.montantNet" (change)="updateMontants()" /></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

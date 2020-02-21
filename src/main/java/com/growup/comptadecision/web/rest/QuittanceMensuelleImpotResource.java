@@ -117,7 +117,7 @@ public class QuittanceMensuelleImpotResource {
                                                            @PathVariable String typeDeclaration) {
         log.debug("REST request to init empty QuittanceMensuelleImpot");
         QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotService.init(id, annee, mois, TypeDeclaration.valueOf(typeDeclaration));
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
     }
 
 //    @GetMapping("/quittance-mensuelle-impots/ficheClient/{ficheClientId}")

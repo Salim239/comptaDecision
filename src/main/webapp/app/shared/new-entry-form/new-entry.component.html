@@ -19,7 +19,7 @@
             </option>
         </select>
     </div>
-    <div class="form-group mx-sm-3 mb-2" [hidden]="hideTypeCnss">
+    <div class="form-group mx-sm-3 mb-2" [hidden]="hildeTypeCnss">
         <label for="field_typeCnss" jhiTranslate="comptaDecisionApp.form.inputLabel.typeCnss">Type
             CNSS</label><span style="color: red">*</span>&nbsp;&nbsp;&nbsp;
         <select required class="form-control" name="typeCnss" [(ngModel)]="selectedTypeCnss"
@@ -50,6 +50,14 @@
         <select required class="form-control" name="trimestre" [(ngModel)]="selectedTrimestre" id="field_trimestre">
             <option [ngValue]="trimestreOption"
                     *ngFor="let trimestreOption of trimestreList;">{{'comptaDecisionApp.form.optionSelect.trimestre.' + trimestreOption | translate}}</option>
+        </select>
+    </div>
+    <div class="form-group mx-sm-3 mb-2" [hidden]="hideNumeroAcompte">
+        <label for="field_numeroAcompte" jhiTranslate="comptaDecisionApp.form.inputLabel.numeroAcompte">Numéro</label><span
+            style="color: red">*</span>&nbsp;&nbsp;&nbsp;
+        <select required class="form-control" name="numeroAcompte" [(ngModel)]="selectedNumeroAcompte" id="field_numeroAcompte">
+            <option [ngValue]="numeroAcompteOption"
+                    *ngFor="let numeroAcompteOption of numeroAcompteList;">{{'comptaDecisionApp.form.optionSelect.numeroAcompte.' + numeroAcompteOption | translate}}</option>
         </select>
     </div>
     <button type="submit" class="btn btn-primary mb-2" [disabled]="editForm.form.invalid"><span

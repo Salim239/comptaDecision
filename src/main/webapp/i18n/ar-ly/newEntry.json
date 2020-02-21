@@ -7,6 +7,7 @@
         "typeCnss": "Type CNSS",
         "annee": "Année",
         "trimestre": "Trimestre",
+        "numeroAcompte": "Numéro Acompte",
         "mois": "Mois"
       },
       "optionSelect": {
@@ -29,6 +30,11 @@
           "2": "Trimestre 2",
           "3": "Trimestre 3",
           "4": "Trimestre 4"
+        },
+        "numeroAcompte": {
+          "1": "1",
+          "2": "2",
+          "3": "3"
         },
         "typeCnss": {
           "CNSS_GENERALE": "Générale",

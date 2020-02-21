@@ -1,13 +1,14 @@
 package com.growup.comptadecision.service;
 
 import com.growup.comptadecision.domain.AcompteProvisionnel;
+import com.growup.comptadecision.domain.FicheClient;
 import com.growup.comptadecision.repository.AcompteProvisionnelRepository;
+import com.growup.comptadecision.repository.FicheClientRepository;
 import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.AcompteProvisionnelDTO;
 import com.growup.comptadecision.service.mapper.AcompteProvisionnelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,10 +28,13 @@ public class AcompteProvisionnelService {
 
     private final AcompteProvisionnelRepository acompteProvisionnelRepository;
 
+    private final FicheClientRepository ficheClientRepository;
+
     private final AcompteProvisionnelMapper acompteProvisionnelMapper;
 
-    public AcompteProvisionnelService(AcompteProvisionnelRepository acompteProvisionnelRepository, AcompteProvisionnelMapper acompteProvisionnelMapper) {
+    public AcompteProvisionnelService(AcompteProvisionnelRepository acompteProvisionnelRepository, FicheClientRepository ficheClientRepository, AcompteProvisionnelMapper acompteProvisionnelMapper) {
         this.acompteProvisionnelRepository = acompteProvisionnelRepository;
+        this.ficheClientRepository = ficheClientRepository;
         this.acompteProvisionnelMapper = acompteProvisionnelMapper;
     }
 
@@ -83,5 +87,27 @@ public class AcompteProvisionnelService {
     public void delete(Long id) {
         log.debug("Request to delete AcompteProvisionnel : {}", id);
         acompteProvisionnelRepository.deleteById(id);
+    }
+
+    private void validateCreationForm(FicheClient ficheClient, Integer annee, Integer numero) {
+
+        Optional<AcompteProvisionnel> acompteOptional = acompteProvisionnelRepository.findByFicheClientIdAndAnneeAndNumero(ficheClient.getId(), annee, numero);
+        acompteOptional.ifPresent(acompte -> new RuntimeException(String.format("Il existe déjà un acompte numero %s annee %s pour le client %s", acompte.getNumero(), acompte.getAnnee(), acompte.getFicheClient().getDesignation())));
+    }
+
+    private AcompteProvisionnelDTO getEmptyAcompteProvisionnel(FicheClient ficheClient, Integer annee, Integer numero) {
+
+        AcompteProvisionnel acompteProvisionnel = new AcompteProvisionnel();
+        acompteProvisionnel.setFicheClient(ficheClient);
+        acompteProvisionnel.setAnnee(annee);
+        acompteProvisionnel.setNumero(numero);
+        return acompteProvisionnelMapper.toDto(acompteProvisionnel);
+    }
+
+    public AcompteProvisionnelDTO init(Long ficheClientId, Integer annee, Integer numeroAccompte) {
+        log.debug("Request to init new AcompteProvisionnel number {} for year {} client id {}", numeroAccompte, annee, ficheClientId);
+        FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new RuntimeException(String.format("FicheClient not found with id %s", ficheClientId)));
+        validateCreationForm(ficheClient, annee, numeroAccompte);
+        return getEmptyAcompteProvisionnel(ficheClient, annee, numeroAccompte);
     }
 }

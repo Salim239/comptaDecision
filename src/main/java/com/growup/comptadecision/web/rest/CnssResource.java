@@ -44,7 +44,7 @@ public class CnssResource {
                                                        @PathVariable String typeCnss,
                                                        @PathVariable Integer trimestre) {
         CnssDTO cnssDTO = cnssService.init(id, annee, TypeCnss.valueOf(typeCnss), trimestre);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, null)).body(cnssDTO);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(cnssDTO);
     }
 
     /**

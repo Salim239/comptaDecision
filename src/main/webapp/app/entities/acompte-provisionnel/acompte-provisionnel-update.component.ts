@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
 import * as moment from 'moment';
-import { JhiAlertService } from 'ng-jhipster';
-import { IAcompteProvisionnel } from 'app/shared/model/acompte-provisionnel.model';
-import { AcompteProvisionnelService } from './acompte-provisionnel.service';
-import { IFicheClient } from 'app/shared/model/fiche-client.model';
-import { FicheClientService } from 'app/entities/fiche-client';
-import {TypeCnss} from "app/shared/model/cnss.model";
+import {JhiAlertService} from 'ng-jhipster';
+import {IAcompteProvisionnel} from 'app/shared/model/acompte-provisionnel.model';
+import {AcompteProvisionnelService} from './acompte-provisionnel.service';
+import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import {FicheClientService} from 'app/entities/fiche-client';
+import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
 
 @Component({
     selector: 'jhi-acompte-provisionnel-update',
@@ -34,17 +34,7 @@ export class AcompteProvisionnelUpdateComponent implements OnInit {
         this.currentYear = moment().year();
         this.activatedRoute.data.subscribe(({ acompteProvisionnel, ficheClients }) => {
             this.acompteProvisionnel = acompteProvisionnel;
-            this.ficheclients = ficheClients;
-            if (!this.acompteProvisionnel.id) {
-                if (this.ficheclients.length > 0) {
-                    this.acompteProvisionnel.ficheClientId = this.ficheclients[0].id;
-                    this.acompteProvisionnel.ficheClientDateCreation = this.ficheclients[0].dateCreation;
-                    this.acompteProvisionnel.ficheClientDesignation = this.ficheclients[0].designation;
-                    this.acompteProvisionnel.ficheClientMatriculeFiscale = this.ficheclients[0].matriculeFiscale;
-                    this.acompteProvisionnel.ficheClientRegistreCommerce = this.ficheclients[0].registreCommerce;
-                }
-                this.acompteProvisionnel.annee = this.currentYear;
-            }
+            this.formatMontants();
         });
         this.ficheClientService
             .query()
@@ -61,7 +51,8 @@ export class AcompteProvisionnelUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        if (this.acompteProvisionnel.id !== undefined) {
+        this.parseMontants();
+        if (this.acompteProvisionnel.id) {
             this.subscribeToSaveResponse(this.acompteProvisionnelService.update(this.acompteProvisionnel));
         } else {
             this.subscribeToSaveResponse(this.acompteProvisionnelService.create(this.acompteProvisionnel));
@@ -85,7 +76,25 @@ export class AcompteProvisionnelUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackFicheClientById(index: number, item: IFicheClient) {
-        return item.id;
+    updateMontants() {
+        this.parseMontants();
+        this.formatMontants();
+    }
+
+    parseMontants() {
+
+        this.acompteProvisionnel.montantBase = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantBase);
+        this.acompteProvisionnel.montantNet = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantNet);
+        this.acompteProvisionnel.montantReportAnterieur = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantReportAnterieur);
+        this.acompteProvisionnel.montantAcompteProvisionnel = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantAcompteProvisionnel);
+        this.acompteProvisionnel.montantRetenueSource = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantRetenueSource);
+    }
+
+    formatMontants() {
+        this.acompteProvisionnel.montantBase = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantBase);
+        this.acompteProvisionnel.montantNet = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantNet);
+        this.acompteProvisionnel.montantReportAnterieur = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantReportAnterieur);
+        this.acompteProvisionnel.montantAcompteProvisionnel = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantAcompteProvisionnel);
+        this.acompteProvisionnel.montantRetenueSource = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantRetenueSource);
     }
 }
