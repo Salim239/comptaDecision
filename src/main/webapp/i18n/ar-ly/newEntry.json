@@ -4,6 +4,7 @@
       "inputLabel": {
         "ficheClient": "Fiche Client",
         "typeDeclaration": "Type déclaration",
+        "typeCnss": "Type CNSS",
         "annee": "Année",
         "trimestre": "Trimestre",
         "mois": "Mois"
@@ -28,6 +29,10 @@
           "2": "Trimestre 2",
           "3": "Trimestre 3",
           "4": "Trimestre 4"
+        },
+        "typeCnss": {
+          "CNSS_GENERALE": "Générale",
+          "CNSS_EMPLOYEUR": "Employeur"
         }
       }
     }

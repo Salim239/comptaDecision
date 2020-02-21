@@ -1,19 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
-import { UserRouteAccessService } from 'app/core';
-import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { Cnss } from 'app/shared/model/cnss.model';
-import { CnssService } from './cnss.service';
-import { CnssComponent } from './cnss.component';
-import { CnssDetailComponent } from './cnss-detail.component';
-import { CnssUpdateComponent } from './cnss-update.component';
-import { CnssDeletePopupComponent } from './cnss-delete-dialog.component';
-import { ICnss } from 'app/shared/model/cnss.model';
-import {IFicheClient} from "app/shared/model/fiche-client.model";
-import {FicheClientService} from "app/entities/fiche-client";
+import {Injectable} from '@angular/core';
+import {HttpResponse} from '@angular/common/http';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
+import {JhiResolvePagingParams} from 'ng-jhipster';
+import {UserRouteAccessService} from 'app/core';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {Cnss, ICnss} from 'app/shared/model/cnss.model';
+import {CnssService} from './cnss.service';
+import {CnssComponent} from './cnss.component';
+import {CnssDetailComponent} from './cnss-detail.component';
+import {CnssUpdateComponent} from './cnss-update.component';
+import {CnssDeletePopupComponent} from './cnss-delete-dialog.component';
 
 @Injectable({ providedIn: 'root' })
 export class CnssResolve implements Resolve<ICnss> {
@@ -21,28 +18,25 @@ export class CnssResolve implements Resolve<ICnss> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICnss> {
         const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
+        const annee = route.params['annee'] ? route.params['annee'] : null;
+        const typeCnss = route.params['typeCnss'] ? route.params['typeCnss'] : null;
+        const trimestre = route.params['trimestre'] ? route.params['trimestre'] : null;
+        if (id && !annee && !typeCnss && !trimestre) {
             return this.service.find(id).pipe(
                 filter((response: HttpResponse<Cnss>) => response.ok),
                 map((cnss: HttpResponse<Cnss>) => cnss.body)
             );
         }
-        return of(new Cnss());
-    }
-}
-
-@Injectable({ providedIn: 'root' })
-export class FicheClientResolve implements Resolve<IFicheClient[]> {
-    constructor(private service: FicheClientService) {}
-
-    resolve(): Observable<IFicheClient[]> {
-
-        return this.service
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IFicheClient[]>) => response.body)
-            );
+        if (id && annee && typeCnss && trimestre) {
+            return this.service.initEmpty(id, annee, typeCnss, trimestre)
+                .pipe(
+                    filter((response: HttpResponse<Cnss>) => response.ok),
+                    map((cnss: HttpResponse<Cnss>) => {
+                        return cnss.body;
+                    })
+                );
+        }
+        // return of(new Cnss());
     }
 }
 
@@ -73,11 +67,10 @@ export const cnssRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: ':id/:annee/:typeCnss/:trimestre/new',
         component: CnssUpdateComponent,
         resolve: {
-            cnss: CnssResolve,
-            ficheClients: FicheClientResolve
+            cnss: CnssResolve
         },
         data: {
             authorities: ['ROLE_USER'],
@@ -89,8 +82,7 @@ export const cnssRoute: Routes = [
         path: ':id/edit',
         component: CnssUpdateComponent,
         resolve: {
-            cnss: CnssResolve,
-            ficheClients: FicheClientResolve
+            cnss: CnssResolve
         },
         data: {
             authorities: ['ROLE_USER'],

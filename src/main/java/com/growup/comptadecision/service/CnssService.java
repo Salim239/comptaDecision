@@ -1,19 +1,22 @@
 package com.growup.comptadecision.service;
 
 import com.growup.comptadecision.domain.Cnss;
+import com.growup.comptadecision.domain.FicheClient;
+import com.growup.comptadecision.domain.enumeration.TypeCnss;
 import com.growup.comptadecision.repository.CnssRepository;
+import com.growup.comptadecision.repository.FicheClientRepository;
 import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.CnssDTO;
 import com.growup.comptadecision.service.mapper.CnssMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,10 +30,13 @@ public class CnssService {
 
     private final CnssRepository cnssRepository;
 
+    private final FicheClientRepository ficheClientRepository;
+
     private final CnssMapper cnssMapper;
 
-    public CnssService(CnssRepository cnssRepository, CnssMapper cnssMapper) {
+    public CnssService(CnssRepository cnssRepository, FicheClientRepository ficheClientRepository, CnssMapper cnssMapper) {
         this.cnssRepository = cnssRepository;
+        this.ficheClientRepository = ficheClientRepository;
         this.cnssMapper = cnssMapper;
     }
 
@@ -83,5 +89,30 @@ public class CnssService {
     public void delete(Long id) {
         log.debug("Request to delete Cnss : {}", id);
         cnssRepository.deleteById(id);
+    }
+
+    private void validateCreationForm(FicheClient ficheClient, TypeCnss typeCnss, Integer annee, Integer trimestre) {
+
+        List<Cnss> cnsses = cnssRepository.findByFicheClientIdAndAnneeAndTrimestre(ficheClient.getId(), annee, trimestre);
+        if (cnsses.stream().anyMatch(cnss -> cnss.getTypeCnss() == typeCnss)) {
+            new RuntimeException(String.format("Il existe déjà une déclaration cnss de type %s pour le trimestre %s/%s", typeCnss.toString(), annee, trimestre));
+        }
+    }
+
+    private CnssDTO getEmptyCnss(FicheClient ficheClient, TypeCnss typeCnss, Integer annee, Integer trimestre) {
+
+        Cnss cnss = new Cnss();
+        cnss.setFicheClient(ficheClient);
+        cnss.setAnnee(annee);
+        cnss.setTrimestre(trimestre);
+        cnss.setTypeCnss(typeCnss);
+        return cnssMapper.toDto(cnss);
+    }
+
+    public CnssDTO init(Long ficheClientId, Integer annee, TypeCnss typeCnss, Integer trimestre) {
+        log.debug("Request to init new Cnss type %s for year {} client id {} and trimestre {}", typeCnss.toString(), annee, ficheClientId,  trimestre);
+        FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new RuntimeException(String.format("FicheClient not found with id %s", ficheClientId)));
+        validateCreationForm(ficheClient, typeCnss, annee, trimestre);
+        return getEmptyCnss(ficheClient, typeCnss, annee, trimestre);
     }
 }

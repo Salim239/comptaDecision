@@ -76,6 +76,9 @@
                     de la déclaration</h3>
                 <table class="table table-hover">
                     <tbody>
+                    <tr>
+                      <th>Type d'impôts</th><th>Montants à saisir</th><th>Montants calculés</th>
+                    </tr>
                     <tr *ngFor="let declarationAnnuelleDetail of declarationAnnuelle.declarationAnnuelleDetails | orderBy: 'triOrdre'; let i = index;">
                         <th><label
                                 for="field_declarationAnnuelleDetailMontant">{{declarationAnnuelleDetail.libelle}}</label>

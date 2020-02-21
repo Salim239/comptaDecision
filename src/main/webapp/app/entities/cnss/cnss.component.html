@@ -1,15 +1,9 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="comptaDecisionApp.cnss.home.title">Cnsses</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-cnss"
-                [routerLink]="['/cnss/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span jhiTranslate="comptaDecisionApp.cnss.home.createLabel">
-            Create new Cnss
-            </span>
-        </button>
+        <span jhiTranslate="comptaDecisionApp.cnss.home.title">CNSS</span>
     </h2>
     <jhi-alert></jhi-alert>
+    <app-new-entry [hideTrimestre]="false" [hideTypeDeclaration]="true" [hideMois]="true" [hildeTypeCnss]="false" (submitCreationForm)="addCnss($event)"></app-new-entry>
     <br/>
     <div class="table-responsive" *ngIf="cnsses">
         <table class="table table-striped">

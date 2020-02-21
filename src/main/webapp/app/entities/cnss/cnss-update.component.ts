@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
 import * as moment from 'moment';
 import {JhiAlertService} from 'ng-jhipster';
-import {ICnss, TypeCnss} from 'app/shared/model/cnss.model';
+import {ICnss} from 'app/shared/model/cnss.model';
 import {CnssService} from './cnss.service';
 import {IFicheClient} from 'app/shared/model/fiche-client.model';
 import {FicheClientService} from 'app/entities/fiche-client';
+import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
 
 @Component({
     selector: 'jhi-cnss-update',
@@ -32,34 +32,35 @@ export class CnssUpdateComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.currentYear = moment().year();
-        this.activatedRoute.data.subscribe(({ cnss, ficheClients }) => {
+        this.activatedRoute.data.subscribe(({ cnss }) => {
             this.cnss = cnss;
-            this.ficheclients = ficheClients;
-            if (!this.cnss.id) {
-                if (this.ficheclients.length > 0) {
-                    this.cnss.typeCnss = TypeCnss.CNSS_GENERALE;
-                    this.cnss.ficheClientId = this.ficheclients[0].id;
-                    this.cnss.ficheClientDateCreation = this.ficheclients[0].dateCreation;
-                    this.cnss.ficheClientDesignation = this.ficheclients[0].designation;
-                    this.cnss.ficheClientMatriculeFiscale = this.ficheclients[0].matriculeFiscale;
-                    this.cnss.ficheClientRegistreCommerce = this.ficheclients[0].registreCommerce;
-                }
-                this.cnss.annee = this.currentYear;
-            }
+            this.formatMontants();
+            // this.ficheclients = ficheClients;
+            // if (!this.cnss.id) {
+            //     if (this.ficheclients.length > 0) {
+            //         this.cnss.typeCnss = TypeCnss.CNSS_GENERALE;
+            //         this.cnss.ficheClientId = this.ficheclients[0].id;
+            //         this.cnss.ficheClientDateCreation = this.ficheclients[0].dateCreation;
+            //         this.cnss.ficheClientDesignation = this.ficheclients[0].designation;
+            //         this.cnss.ficheClientMatriculeFiscale = this.ficheclients[0].matriculeFiscale;
+            //         this.cnss.ficheClientRegistreCommerce = this.ficheclients[0].registreCommerce;
+            //     }
+            //     this.cnss.annee = this.currentYear;
+            // }
         });
-        this.trimestres = [
-            {id: 1, libelle: 'Trimestre 1'},
-            {id: 2, libelle: 'Trimestre 2'},
-            {id: 3, libelle: 'Trimestre 3'},
-            {id: 4, libelle: 'Trimestre 4'}
-        ];
-        this.ficheClientService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IFicheClient[]>) => response.body)
-            )
-            .subscribe((res: IFicheClient[]) => (this.ficheclients = res), (res: HttpErrorResponse) => this.onError(res.message));
+        // this.trimestres = [
+        //     {id: 1, libelle: 'Trimestre 1'},
+        //     {id: 2, libelle: 'Trimestre 2'},
+        //     {id: 3, libelle: 'Trimestre 3'},
+        //     {id: 4, libelle: 'Trimestre 4'}
+        // ];
+        // this.ficheClientService
+        //     .query()
+        //     .pipe(
+        //         filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
+        //         map((response: HttpResponse<IFicheClient[]>) => response.body)
+        //     )
+        //     .subscribe((res: IFicheClient[]) => (this.ficheclients = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -68,6 +69,7 @@ export class CnssUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.parseMontants();
         if (this.cnss.id !== undefined) {
             this.subscribeToSaveResponse(this.cnssService.update(this.cnss));
         } else {
@@ -94,5 +96,25 @@ export class CnssUpdateComponent implements OnInit {
 
     trackFicheClientById(index: number, item: IFicheClient) {
         return item.id;
+    }
+
+    parseMontants() {
+
+        this.cnss.montantSalaireBrutKarama = ComptaDecisionUtils.parseCurrency(this.cnss.montantSalaireBrutKarama);
+        this.cnss.montantSalaireBrutNormal = ComptaDecisionUtils.parseCurrency(this.cnss.montantSalaireBrutNormal);
+        this.cnss.montantSalaireBrutAutre = ComptaDecisionUtils.parseCurrency(this.cnss.montantSalaireBrutAutre);
+    }
+
+    formatMontants() {
+        this.cnss.montantSalaireBrutKarama = ComptaDecisionUtils.formatCurrency(this.cnss.montantSalaireBrutKarama);
+        this.cnss.montantSalaireBrutNormal = ComptaDecisionUtils.formatCurrency(this.cnss.montantSalaireBrutNormal);
+        this.cnss.montantSalaireBrutAutre = ComptaDecisionUtils.formatCurrency(this.cnss.montantSalaireBrutAutre);
+    }
+
+    calculerMontant() {
+
+        this.parseMontants();
+        this.cnss.montantTotal = this.cnss.montantSalaireBrutKarama + this.cnss.montantSalaireBrutNormal + this.cnss.montantSalaireBrutAutre;
+        this.formatMontants();
     }
 }

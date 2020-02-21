@@ -19,6 +19,16 @@
             </option>
         </select>
     </div>
+    <div class="form-group mx-sm-3 mb-2" [hidden]="hideTypeCnss">
+        <label for="field_typeCnss" jhiTranslate="comptaDecisionApp.form.inputLabel.typeCnss">Type
+            CNSS</label><span style="color: red">*</span>&nbsp;&nbsp;&nbsp;
+        <select required class="form-control" name="typeCnss" [(ngModel)]="selectedTypeCnss"
+                id="field_typeCnss">
+            <option [ngValue]="typeCnssOption" *ngFor="let typeCnssOption of typeCnssList;">
+                {{'comptaDecisionApp.form.optionSelect.typeCnss.' + typeCnssOption | translate}}
+            </option>
+        </select>
+    </div>
     <div class="form-group mx-sm-3 mb-2">
         <label for="field_annee" jhiTranslate="comptaDecisionApp.form.inputLabel.annee">Annee</label><span
             style="color: red">*</span>&nbsp;&nbsp;&nbsp;
