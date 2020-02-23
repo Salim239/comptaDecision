@@ -39,7 +39,7 @@ public class CnssResource {
     }
 
 
-    @GetMapping("/cnsses/init/{id}/{annee}/{typeCnss}/{trimestre}")
+    @GetMapping("/cnss/init/{id}/{annee}/{typeCnss}/{trimestre}")
     public ResponseEntity<CnssDTO> init(@PathVariable Long id, @PathVariable Integer annee,
                                                        @PathVariable String typeCnss,
                                                        @PathVariable Integer trimestre) {
@@ -48,26 +48,26 @@ public class CnssResource {
     }
 
     /**
-     * POST  /cnsses : Create a new cnss.
+     * POST  /cnss : Create a new cnss.
      *
      * @param cnssDTO the cnssDTO to create
      * @return the ResponseEntity with status 201 (Created) and with body the new cnssDTO, or with status 400 (Bad Request) if the cnss has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/cnsses")
+    @PostMapping("/cnss")
     public ResponseEntity<CnssDTO> createCnss(@Valid @RequestBody CnssDTO cnssDTO) throws URISyntaxException {
         log.debug("REST request to save Cnss : {}", cnssDTO);
         if (cnssDTO.getId() != null) {
             throw new BadRequestAlertException("A new cnss cannot already have an ID", ENTITY_NAME, "idexists");
         }
         CnssDTO result = cnssService.save(cnssDTO);
-        return ResponseEntity.created(new URI("/api/cnsses/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/cnss/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /cnsses : Updates an existing cnss.
+     * PUT  /cnss : Updates an existing cnss.
      *
      * @param cnssDTO the cnssDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated cnssDTO,
@@ -75,7 +75,7 @@ public class CnssResource {
      * or with status 500 (Internal Server Error) if the cnssDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/cnsses")
+    @PutMapping("/cnss")
     public ResponseEntity<CnssDTO> updateCnss(@Valid @RequestBody CnssDTO cnssDTO) throws URISyntaxException {
         log.debug("REST request to update Cnss : {}", cnssDTO);
         if (cnssDTO.getId() == null) {
@@ -88,26 +88,26 @@ public class CnssResource {
     }
 
     /**
-     * GET  /cnsses : get all the cnsses.
+     * GET  /cnss : get all the cnss.
      *
      * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of cnsses in body
+     * @return the ResponseEntity with status 200 (OK) and the list of cnss in body
      */
-    @GetMapping("/cnsses")
-    public ResponseEntity<List<CnssDTO>> getAllCnsses(Pageable pageable) {
-        log.debug("REST request to get a page of Cnsses");
+    @GetMapping("/cnss")
+    public ResponseEntity<List<CnssDTO>> getAllCnss(Pageable pageable) {
+        log.debug("REST request to get a page of Cnss");
         Page<CnssDTO> page = cnssService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cnsses");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cnss");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
-     * GET  /cnsses/:id : get the "id" cnss.
+     * GET  /cnss/:id : get the "id" cnss.
      *
      * @param id the id of the cnssDTO to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the cnssDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/cnsses/{id}")
+    @GetMapping("/cnss/{id}")
     public ResponseEntity<CnssDTO> getCnss(@PathVariable Long id) {
         log.debug("REST request to get Cnss : {}", id);
         Optional<CnssDTO> cnssDTO = cnssService.findOne(id);
@@ -115,12 +115,12 @@ public class CnssResource {
     }
 
     /**
-     * DELETE  /cnsses/:id : delete the "id" cnss.
+     * DELETE  /cnss/:id : delete the "id" cnss.
      *
      * @param id the id of the cnssDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @DeleteMapping("/cnsses/{id}")
+    @DeleteMapping("/cnss/{id}")
     public ResponseEntity<Void> deleteCnss(@PathVariable Long id) {
         log.debug("REST request to delete Cnss : {}", id);
         cnssService.delete(id);

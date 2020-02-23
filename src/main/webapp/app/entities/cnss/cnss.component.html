@@ -5,7 +5,7 @@
     <jhi-alert></jhi-alert>
     <app-new-entry [hideTrimestre]="false" [hideTypeDeclaration]="true" [hideMois]="true" [hildeTypeCnss]="false" (submitCreationForm)="addCnss($event)"></app-new-entry>
     <br/>
-    <div class="table-responsive" *ngIf="cnsses">
+    <div class="table-responsive" *ngIf="cnss">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
@@ -54,7 +54,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let cnss of cnsses ;trackBy: trackId">
+            <tr *ngFor="let cnss of cnss ;trackBy: trackId">
                 <td><a [routerLink]="['/cnss', cnss.id, 'view' ]">{{cnss.id}}</a></td>
                 <td>
                     <div *ngIf="cnss.ficheClientId">
@@ -100,7 +100,7 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="cnsses && cnsses.length">
+    <div *ngIf="cnss && cnss.length">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5"
                             [itemsPerPage]="itemsPerPage"></jhi-item-count>

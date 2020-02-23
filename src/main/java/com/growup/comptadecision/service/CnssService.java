@@ -54,14 +54,14 @@ public class CnssService {
     }
 
     /**
-     * Get all the cnsses.
+     * Get all the cnss.
      *
      * @param pageable the pagination information
      * @return the list of entities
      */
     @Transactional(readOnly = true)
     public Page<CnssDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all Cnsses");
+        log.debug("Request to get all Cnss");
         String creator = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new UsernameNotFoundException("Only loggued user can access"));
         return cnssRepository.findAllByCreatedBy(creator, pageable)
             .map(cnssMapper::toDto);
@@ -93,8 +93,8 @@ public class CnssService {
 
     private void validateCreationForm(FicheClient ficheClient, TypeCnss typeCnss, Integer annee, Integer trimestre) {
 
-        List<Cnss> cnsses = cnssRepository.findByFicheClientIdAndAnneeAndTrimestre(ficheClient.getId(), annee, trimestre);
-        if (cnsses.stream().anyMatch(cnss -> cnss.getTypeCnss() == typeCnss)) {
+        List<Cnss> cnss = cnssRepository.findByFicheClientIdAndAnneeAndTrimestre(ficheClient.getId(), annee, trimestre);
+        if (cnss.stream().anyMatch(c -> c.getTypeCnss() == typeCnss)) {
             new RuntimeException(String.format("Il existe déjà une déclaration cnss de type %s pour le trimestre %s/%s", typeCnss.toString(), annee, trimestre));
         }
     }

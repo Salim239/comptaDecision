@@ -16,7 +16,7 @@ import {CnssService} from './cnss.service';
 })
 export class CnssComponent implements OnInit, OnDestroy {
     currentAccount: any;
-    cnsses: ICnss[];
+    cnss: ICnss[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -55,7 +55,7 @@ export class CnssComponent implements OnInit, OnDestroy {
                 sort: this.sort()
             })
             .subscribe(
-                (res: HttpResponse<ICnss[]>) => this.paginateCnsses(res.body, res.headers),
+                (res: HttpResponse<ICnss[]>) => this.paginateCnss(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
@@ -95,7 +95,7 @@ export class CnssComponent implements OnInit, OnDestroy {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
-        this.registerChangeInCnsses();
+        this.registerChangeInCnss();
     }
 
     ngOnDestroy() {
@@ -106,7 +106,7 @@ export class CnssComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
-    registerChangeInCnsses() {
+    registerChangeInCnss() {
         this.eventSubscriber = this.eventManager.subscribe('cnssListModification', response => this.loadAll());
     }
 
@@ -118,10 +118,10 @@ export class CnssComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    protected paginateCnsses(data: ICnss[], headers: HttpHeaders) {
+    protected paginateCnss(data: ICnss[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-        this.cnsses = data;
+        this.cnss = data;
     }
 
     protected onError(errorMessage: string) {

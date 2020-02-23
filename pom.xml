@@ -288,6 +288,10 @@
             <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+   <groupId>org.flywaydb</groupId>
+   <artifactId>flyway-core</artifactId>
+</dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
 
@@ -346,6 +350,18 @@
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
             </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.flywaydb</groupId>-->
+                <!--<artifactId>flyway-maven-plugin</artifactId>-->
+                <!--<version>6.2.4</version>-->
+                <!--<configuration>-->
+                    <!--<user>postgres</user>-->
+                    <!--<password>postgres</password>-->
+                    <!--<schemas>-->
+                        <!--<schema>schemaName</schema>-->
+                    <!--</schemas>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <!-- jhipster-needle-maven-add-plugin -->
         </plugins>
         <pluginManagement>
@@ -617,39 +633,6 @@
             </dependencies>
             <build>
                 <plugins>
-                    <!--<plugin>-->
-                        <!--<groupId>com.github.eirslett</groupId>-->
-                        <!--<artifactId>frontend-maven-plugin</artifactId>-->
-                        <!--<executions>-->
-                            <!--<execution>-->
-                                <!--<id>install node and npm</id>-->
-                                <!--<goals>-->
-                                    <!--<goal>install-node-and-npm</goal>-->
-                                <!--</goals>-->
-                                <!--<configuration>-->
-                                    <!--<nodeVersion>${node.version}</nodeVersion>-->
-                                    <!--<npmVersion>${npm.version}</npmVersion>-->
-                                <!--</configuration>-->
-                            <!--</execution>-->
-                            <!--<execution>-->
-                                <!--<id>npm install</id>-->
-                                <!--<goals>-->
-                                    <!--<goal>npm</goal>-->
-                                <!--</goals>-->
-                            <!--</execution>-->
-                            <!--<execution>-->
-                                <!--<id>webpack build dev</id>-->
-                                <!--<goals>-->
-                                    <!--<goal>npm</goal>-->
-                                <!--</goals>-->
-                                <!--<phase>generate-resources</phase>-->
-                                <!--<configuration>-->
-                                    <!--<arguments>run webpack:build</arguments>-->
-                                    <!--<npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>-->
-                                <!--</configuration>-->
-                            <!--</execution>-->
-                        <!--</executions>-->
-                    <!--</plugin>-->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>

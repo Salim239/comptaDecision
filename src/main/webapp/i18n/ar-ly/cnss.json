@@ -2,7 +2,7 @@
     "comptaDecisionApp": {
         "cnss": {
             "home": {
-                "title": "Cnsses",
+                "title": "Cnss",
                 "createLabel": "Create a new Cnss",
                 "createOrEditLabel": "Create or edit a Cnss"
             },

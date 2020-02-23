@@ -14,7 +14,7 @@ type EntityArrayResponseType = HttpResponse<ICnss[]>;
 
 @Injectable({ providedIn: 'root' })
 export class CnssService {
-    public resourceUrl = SERVER_API_URL + 'api/cnsses';
+    public resourceUrl = SERVER_API_URL + 'api/cnss';
 
     constructor(protected http: HttpClient) {}
 

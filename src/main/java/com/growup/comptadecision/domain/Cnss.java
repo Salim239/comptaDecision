@@ -68,7 +68,7 @@ public class Cnss extends AbstractAuditingEntity {
     private BigDecimal cnss;
 
     @ManyToOne
-    @JsonIgnoreProperties("cnsses")
+    @JsonIgnoreProperties("cnss")
     private FicheClient ficheClient;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

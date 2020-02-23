@@ -63,6 +63,12 @@ spring:
     thymeleaf:
         cache: false
 
+flyway:
+    url: jdbc:postgresql://localhost:5432/compta-decision2
+    schemas: public
+    user: "postgres"
+    password: "postgres"
+
 server:
     port: 8080
 
