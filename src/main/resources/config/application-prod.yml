@@ -25,17 +25,28 @@ spring:
             enabled: false
         livereload:
             enabled: false
+#    datasource:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        url: jdbc:postgresql://localhost:5432/compta-decision2
+#        username: postgres
+#        password: postgres
+#        hikari:
+#            poolName: Hikari
+#            auto-commit: false
     datasource:
-        type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/compta-decision2
-        username: postgres
-        password: postgres
-        hikari:
-            poolName: Hikari
-            auto-commit: false
+        driverClassName: org.h2.Driver
+#        url: jdbc:h2:file:/d/data/compta-decision2
+        url: jdbc:h2:mem:compta-decision2
+        username: sa
+        password: sa
+    h2:
+        console:
+            enabled: true
     jpa:
-        database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
-        database: POSTGRESQL
+#        database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
+#        database: POSTGRESQL
+        database-platform: org.hibernate.dialect.H2Dialect
+        database: h2
         show-sql: false
         properties:
             hibernate.id.new_generator_mappings: true
@@ -51,6 +62,12 @@ spring:
         password: Ahmed@@@239
     thymeleaf:
         cache: true
+
+flyway:
+    url: jdbc:postgresql://localhost:5432/compta-decision2
+    schemas: public
+    user: "postgres"
+    password: "postgres"
 
 # ===================================================================
 # To enable TLS in production, generate a certificate using:
