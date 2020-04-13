@@ -12,11 +12,14 @@ import {QuittanceMensuelleImpotService} from './quittance-mensuelle-impot.servic
 
 @Component({
     selector: 'jhi-quittance-mensuelle-impot',
+    styles: ['.table-dark.table-hover tbody tr::selection {color: red; background-color: red;}'],
     templateUrl: './quittance-mensuelle-impot.component.html'
+
 })
 export class QuittanceMensuelleImpotComponent implements OnInit, OnDestroy {
     currentAccount: any;
     quittanceMensuelleImpots: IQuittanceMensuelleImpot[];
+    selectedQuittanceMensuelleImpot: IQuittanceMensuelleImpot;
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -39,6 +42,7 @@ export class QuittanceMensuelleImpotComponent implements OnInit, OnDestroy {
         protected eventManager: JhiEventManager
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
+        this.selectedQuittanceMensuelleImpot = undefined;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;
             this.previousPage = data.pagingParams.page;
@@ -129,14 +133,48 @@ export class QuittanceMensuelleImpotComponent implements OnInit, OnDestroy {
     }
 
     addNewQuittance(event) {
-        let ficheClientId = event.ficheClientId;
-        let mois = event.mois;
-        let annee = event.annee;
-        let typeDeclaration = event.typeDeclaration;
+        const ficheClientId = event.ficheClientId;
+        const mois = event.mois;
+        const annee = event.annee;
+        const typeDeclaration = event.typeDeclaration;
         console.log('ficheClientId ', ficheClientId);
         console.log('annee ', annee);
         console.log('mois ', mois);
         this.router.navigateByUrl(`/quittance-mensuelle-impot/${ficheClientId}/${annee}/${mois}/${typeDeclaration}/new`);
 
+    }
+
+    selectRow(quittanceMensuelleImpot: IQuittanceMensuelleImpot) {
+
+        // unselect selected row
+        if (this.selectedQuittanceMensuelleImpot &&
+        quittanceMensuelleImpot.id == this.selectedQuittanceMensuelleImpot.id) {
+            this.selectedQuittanceMensuelleImpot = undefined
+            // select row
+        } else {
+            this.selectedQuittanceMensuelleImpot = quittanceMensuelleImpot;
+        }
+
+    }
+
+    delete() {
+        if (this.selectedQuittanceMensuelleImpot) {
+            const id = this.selectedQuittanceMensuelleImpot.id;
+            this.router.navigateByUrl(`/quittance-mensuelle-impot/${id}`);
+        }
+    }
+
+    edit() {
+        if (this.selectedQuittanceMensuelleImpot) {
+            const id = this.selectedQuittanceMensuelleImpot.id;
+            this.router.navigateByUrl(`/quittance-mensuelle-impot/${id}`);
+        }
+    }
+
+    view() {
+        if (this.selectedQuittanceMensuelleImpot) {
+            const id = this.selectedQuittanceMensuelleImpot.id;
+            this.router.navigateByUrl(`/quittance-mensuelle-impot/${id}`);
+        }
     }
 }

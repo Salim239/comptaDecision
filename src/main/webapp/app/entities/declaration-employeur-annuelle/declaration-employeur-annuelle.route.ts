@@ -14,8 +14,8 @@ import {DeclarationEmployeurAnnuelleComponent} from './declaration-employeur-ann
 import {DeclarationEmployeurAnnuelleDetailComponent} from './declaration-employeur-annuelle-detail.component';
 import {DeclarationEmployeurAnnuelleUpdateComponent} from './declaration-employeur-annuelle-update.component';
 import {DeclarationEmployeurAnnuelleDeletePopupComponent} from './declaration-employeur-annuelle-delete-dialog.component';
-import {IFicheClient} from "app/shared/model/fiche-client.model";
-import {FicheClientService} from "app/entities/fiche-client";
+import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import {FicheClientService} from 'app/entities/fiche-client';
 
 @Injectable({ providedIn: 'root' })
 export class DeclarationEmployeurAnnuelleResolve implements Resolve<IDeclarationEmployeurAnnuelle> {

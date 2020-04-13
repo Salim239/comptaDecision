@@ -3,14 +3,14 @@ import { Component, ElementRef, Input, Renderer } from '@angular/core';
 @Component({
     selector: 'jhi-password-strength-bar',
     template: `
-        <div id="strength">
-            <small jhiTranslate="global.messages.validate.newpassword.strength">Password strength:</small>
-            <ul id="strengthBar">
-                <li class="point"></li>
-                <li class="point"></li>
-                <li class="point"></li>
-                <li class="point"></li>
-                <li class="point"></li>
+        <div id='strength'>
+            <small jhiTranslate='global.messages.validate.newpassword.strength'>Password strength:</small>
+            <ul id='strengthBar'>
+                <li class='point'></li>
+                <li class='point'></li>
+                <li class='point'></li>
+                <li class='point'></li>
+                <li class='point'></li>
             </ul>
         </div>`,
     styleUrls: ['password-strength-bar.scss']
@@ -22,7 +22,7 @@ export class PasswordStrengthBarComponent {
 
     measureStrength(p: string): number {
         let force = 0;
-        const regex = /[$-/:-?{-~!"^_`\[\]]/g; // "
+        const regex = /[$-/:-?{-~!'^_`\[\]]/g; // '
         const lowerLetters = /[a-z]+/.test(p);
         const upperLetters = /[A-Z]+/.test(p);
         const numbers = /[0-9]+/.test(p);

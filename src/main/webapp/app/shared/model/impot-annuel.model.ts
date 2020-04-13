@@ -1,4 +1,4 @@
-import {IImpotAnnuelDetail} from "app/shared/model/impot-annuel-detail.model";
+import {IImpotAnnuelDetail} from 'app/shared/model/impot-annuel-detail.model';
 
 export interface IImpotAnnuel {
     id?: number;

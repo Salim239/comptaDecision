@@ -1,10 +1,10 @@
-import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
-import {IFicheClient} from "app/shared/model/fiche-client.model";
-import * as moment from "moment";
-import {Component, Input, OnInit} from "@angular/core";
+import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
+import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import * as moment from 'moment';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-    selector: 'app-annee',
+    selector: 'jhi-app-annee',
     templateUrl: './annee.component.html'
 })
 
@@ -12,11 +12,10 @@ export class AnneeComponent implements OnInit {
 
     selectedYear: number;
     years: number[];
-    @Input() displayType: string; //row or empty
+    @Input() displayType: string; // row or empty
     @Input() model: any;
     @Input() form: any;
     @Input() disabled: boolean;
-
 
     constructor() {
     }
@@ -33,6 +32,5 @@ export class AnneeComponent implements OnInit {
             this.years = [this.selectedYear];
         }
     }
-
 
 }

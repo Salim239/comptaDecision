@@ -67,7 +67,7 @@
                         <tr>
                             <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutNormal"
                                        for="field_montantSalaireBrutNormal">Montant Salaire Brut Normal</label></th>
-                            <td><input digitOnly [decimal]="true" class="form-control numeric" name="montantSalaireBrutNormal" id="field_montantSalaireBrutNormal"
+                            <td><input jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantSalaireBrutNormal" id="field_montantSalaireBrutNormal"
                                        [(ngModel)]="cnss.montantSalaireBrutNormal" (change)="calculerMontant()" /></td>
                         </tr>
                     <tr>
@@ -76,7 +76,7 @@
                                    for="field_montantSalaireBrutKarama">Montant Salaire Brut Karama</label>
                         </th>
                         <td>
-                            <input digitOnly [decimal]="true" class="form-control numeric" name="montantSalaireBrutKarama" id="field_montantSalaireBrutKarama"
+                            <input jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantSalaireBrutKarama" id="field_montantSalaireBrutKarama"
                                    [(ngModel)]="cnss.montantSalaireBrutKarama" (change)="calculerMontant()"/>
                         </td>
                     </tr>
@@ -87,7 +87,7 @@
 
                             </th>
                             <td>
-                                <input digitOnly [decimal]="true" class="form-control numeric" name="montantSalaireBrutAutre" id="field_montantSalaireBrutAutre"
+                                <input jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantSalaireBrutAutre" id="field_montantSalaireBrutAutre"
                                        [(ngModel)]="cnss.montantSalaireBrutAutre" (change)="calculerMontant()"/>
                             </td>
                         </tr>
@@ -97,7 +97,7 @@
 
                             </th>
                             <td>
-                                <input [disabled]="true" digitOnly [decimal]="true" class="form-control numeric" name="montantTotal" id="field_tot"
+                                <input [disabled]="true" jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantTotal" id="field_tot"
                                        [(ngModel)]="cnss.montantTotal"/>
                             </td>
                         </tr>

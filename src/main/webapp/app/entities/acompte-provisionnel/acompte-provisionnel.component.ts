@@ -129,9 +129,9 @@ export class AcompteProvisionnelComponent implements OnInit, OnDestroy {
     }
 
     addAccomptePrevisionnel(event) {
-        let id = event.ficheClientId;
-        let annee = event.annee;
-        let numero = event.numeroAcompte;
+        const id = event.ficheClientId;
+        const annee = event.annee;
+        const numero = event.numeroAcompte;
         this.router.navigateByUrl(`/acompte-provisionnel/${id}/${annee}/${numero}/new`);
 
     }

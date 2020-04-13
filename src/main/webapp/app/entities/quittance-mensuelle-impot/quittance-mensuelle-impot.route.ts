@@ -11,8 +11,8 @@ import {QuittanceMensuelleImpotComponent} from './quittance-mensuelle-impot.comp
 import {QuittanceMensuelleImpotDetailComponent} from './quittance-mensuelle-impot-detail.component';
 import {QuittanceMensuelleImpotUpdateComponent} from './quittance-mensuelle-impot-update.component';
 import {QuittanceMensuelleImpotDeletePopupComponent} from './quittance-mensuelle-impot-delete-dialog.component';
-import {IFicheClient} from "app/shared/model/fiche-client.model";
-import {FicheClientService} from "app/entities/fiche-client";
+import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import {FicheClientService} from 'app/entities/fiche-client';
 
 @Injectable({ providedIn: 'root' })
 export class QuittanceMensuelleImpotResolve implements Resolve<IQuittanceMensuelleImpot> {
@@ -31,14 +31,15 @@ export class QuittanceMensuelleImpotResolve implements Resolve<IQuittanceMensuel
             );
         }
 
-        if (id && annee && mois && typeDeclaration)
+        if (id && annee && mois && typeDeclaration) {
             return this.service.initEmpty(id, annee, mois, typeDeclaration)
-            .pipe(
-                filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
-                map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => {
-                    return quittanceMensuelleImpot.body;
-                })
-            );
+                .pipe(
+                    filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
+                    map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => {
+                        return quittanceMensuelleImpot.body;
+                    })
+                );
+        }
         // return of(new QuittanceMensuelleImpot());
     }
 }

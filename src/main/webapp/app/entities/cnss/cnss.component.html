@@ -3,7 +3,7 @@
         <span jhiTranslate="comptaDecisionApp.cnss.home.title">CNSS</span>
     </h2>
     <jhi-alert></jhi-alert>
-    <app-new-entry [hideTrimestre]="false" [hideTypeDeclaration]="true" [hideMois]="true" [hildeTypeCnss]="false" (submitCreationForm)="addCnss($event)"></app-new-entry>
+    <jhi-new-entry [hideTrimestre]="false" [hideTypeDeclaration]="true" [hideMois]="true" [hildeTypeCnss]="false" (submitCreationForm)="addCnss($event)"></jhi-new-entry>
     <br/>
     <div class="table-responsive" *ngIf="cnss">
         <table class="table table-striped">

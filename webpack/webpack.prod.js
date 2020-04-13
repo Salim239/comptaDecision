@@ -14,7 +14,6 @@ const commonConfig = require('./webpack.common.js');
 
 const ENV = 'production';
 const sass = require('sass');
-
 module.exports = webpackMerge(commonConfig({ env: ENV }), {
     // Enable source maps. Please note that this will slow down the build.
     // You have to enable it in UglifyJSPlugin config below and in tsconfig-aot.json as well

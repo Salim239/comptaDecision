@@ -6,13 +6,12 @@ import {Subscription} from 'rxjs';
 @Component({
     selector: 'jhi-alert-error',
     template: `
-        <div class="alerts" role="alert">
-            <div *ngFor="let alert of alerts" [ngClass]="setClasses(alert)">
-                <ngb-alert *ngIf="alert && alert.type && alert.msg" [type]="alert.type" (close)="alert.close(alerts)">
-                    <pre [innerHTML]="alert.msg"></pre>
+        <div class='alerts' role='alert'>
+            <div *ngFor='let alert of alerts' [ngClass]='setClasses(alert)'>
+                <ngb-alert *ngIf='alert && alert.type && alert.msg' [type]='alert.type' (close)='alert.close(alerts)'>
+                    <pre [innerHTML]='alert.msg'></pre>
                 </ngb-alert>
             </div>
-            
         </div>`
 })
 export class JhiAlertErrorComponent implements OnDestroy {
@@ -56,7 +55,7 @@ export class JhiAlertErrorComponent implements OnDestroy {
                             // convert 'something[14].other[4].id' to 'something[].other[].id' so translations can be written to it
                             const convertedField = fieldError.field.replace(/\[\d*\]/g, '[]');
                             const fieldName = translateService.instant('comptaDecisionApp.' + fieldError.objectName + '.' + convertedField);
-                            this.addErrorAlert('Error on field "' + fieldName + '"', 'error.' + fieldError.message, { fieldName });
+                            this.addErrorAlert("Error on field '" + fieldName + "'", 'error.' + fieldError.message, { fieldName });
                         }
                     } else if (httpErrorResponse.error !== '' && httpErrorResponse.error.message) {
                         this.addErrorAlert(
@@ -114,7 +113,7 @@ export class JhiAlertErrorComponent implements OnDestroy {
             scoped: true
         };
 
-        console.log("msg ", newAlert.msg);
+        console.log('msg ', newAlert.msg);
 
         this.alerts.push(this.alertService.addAlert(newAlert, this.alerts));
     }

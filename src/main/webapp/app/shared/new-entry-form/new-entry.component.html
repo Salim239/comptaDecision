@@ -6,7 +6,7 @@
                 (change)="updateAnneeMois()">
             <option [ngValue]=""></option>
             <option [ngValue]="ficheClientOption.id"
-                    *ngFor="let ficheClientOption of ficheClients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
+                    *ngFor="let ficheClientOption of ficheClients; ">{{ficheClientOption.designation}}</option>
         </select>
     </div>
     <div class="form-group mx-sm-3 mb-2" [hidden]="hideTypeDeclaration">

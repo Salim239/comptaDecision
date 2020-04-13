@@ -2,7 +2,7 @@
     "comptaDecisionApp": {
         "quittanceMensuelleImpot": {
             "home": {
-                "title": "QuittanceMensuelleImpots",
+                "title": "Quittances Impots",
                 "createLabel": "Créer un nouveau Quittance Mensuelle Impot",
                 "createOrEditLabel": "Créer ou éditer un Quittance Mensuelle Impot"
             },
@@ -18,7 +18,7 @@
             "annee": "Annee",
             "mois": "Mois",
             "typeDeclaration": "Type déclaration",
-            "numeroQuittance": "Numero Quittance",
+            "numeroQuittance": "Numéro",
             "datePaiement": "Date Paiement",
             "montantTotal": "Montant Paye",
           "ficheClient": "Fiche Client",

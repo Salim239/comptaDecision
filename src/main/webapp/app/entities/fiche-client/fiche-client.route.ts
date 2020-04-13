@@ -20,7 +20,7 @@ export class FicheClientResolve implements Resolve<IFicheClient> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
             return this.service.find(id).pipe(
-                filter((response: HttpResponse<FicheClient>) => response.ok),map((ficheClient: HttpResponse<FicheClient>) => {
+                filter((response: HttpResponse<FicheClient>) => response.ok), map((ficheClient: HttpResponse<FicheClient>) => {
                 const data = ficheClient.body;
                 return data;
             })
@@ -36,8 +36,6 @@ export class FicheClientResolve implements Resolve<IFicheClient> {
             );
         // return of(new FicheClient());
     }
-
-
 }
 
 export const ficheClientRoute: Routes = [

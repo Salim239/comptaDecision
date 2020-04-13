@@ -11,8 +11,8 @@ import {AcompteProvisionnelComponent} from './acompte-provisionnel.component';
 import {AcompteProvisionnelDetailComponent} from './acompte-provisionnel-detail.component';
 import {AcompteProvisionnelUpdateComponent} from './acompte-provisionnel-update.component';
 import {AcompteProvisionnelDeletePopupComponent} from './acompte-provisionnel-delete-dialog.component';
-import {IFicheClient} from "app/shared/model/fiche-client.model";
-import {FicheClientService} from "app/entities/fiche-client";
+import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import {FicheClientService} from 'app/entities/fiche-client';
 
 @Injectable({ providedIn: 'root' })
 export class AcompteProvisionnelResolve implements Resolve<IAcompteProvisionnel> {

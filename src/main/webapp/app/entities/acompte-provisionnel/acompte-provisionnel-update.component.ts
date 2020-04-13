@@ -9,7 +9,7 @@ import {IAcompteProvisionnel} from 'app/shared/model/acompte-provisionnel.model'
 import {AcompteProvisionnelService} from './acompte-provisionnel.service';
 import {IFicheClient} from 'app/shared/model/fiche-client.model';
 import {FicheClientService} from 'app/entities/fiche-client';
-import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
+import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
 
 @Component({
     selector: 'jhi-acompte-provisionnel-update',

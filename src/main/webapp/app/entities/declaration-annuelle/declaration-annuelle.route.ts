@@ -36,7 +36,7 @@ export class DeclarationAnnuelleResolve implements Resolve<IDeclarationAnnuelle>
                 );
         }
 
-        //return of(new DeclarationAnnuelle());
+        // return of(new DeclarationAnnuelle());
     }
 }
 

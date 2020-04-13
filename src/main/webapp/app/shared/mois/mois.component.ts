@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
-    selector: 'app-mois',
+    selector: 'jhi-app-mois',
     templateUrl: './mois.component.html'
 })
 
@@ -13,7 +13,6 @@ export class MoisComponent implements OnInit {
     @Output() moisChange = new EventEmitter();
     @Input() disabled: boolean;
 
-
     constructor() {
     }
 
@@ -23,6 +22,4 @@ export class MoisComponent implements OnInit {
     onChange() {
         this.moisChange.emit();
     }
-
-
 }

@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {SERVER_API_URL} from 'app/app.constants';
 import {createRequestOption} from 'app/shared';
 import {IDeclarationEmployeurAnnuelle} from 'app/shared/model/declaration-employeur-annuelle.model';
-import {ICnss} from "app/shared/model/cnss.model";
+import {ICnss} from 'app/shared/model/cnss.model';
 
 type EntityResponseType = HttpResponse<IDeclarationEmployeurAnnuelle>;
 type EntityArrayResponseType = HttpResponse<IDeclarationEmployeurAnnuelle[]>;

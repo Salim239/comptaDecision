@@ -36,7 +36,7 @@ spring:
             indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/compta-decision2
+        url: jdbc:postgresql://localhost:5432/compta-decision
         username: postgres
         password: postgres
         hikari:
@@ -64,7 +64,7 @@ spring:
         cache: false
 
 flyway:
-    url: jdbc:postgresql://localhost:5432/compta-decision2
+    url: jdbc:postgresql://localhost:5432/compta-decision
     schemas: public
     user: "postgres"
     password: "postgres"

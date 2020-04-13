@@ -3,7 +3,7 @@
         <span jhiTranslate="comptaDecisionApp.declarationEmployeurAnnuelle.home.title">Declaration Employeur Annuelles</span>
     </h2>
     <jhi-alert></jhi-alert>
-    <app-new-entry [hideTrimestre]="true" [hideTypeDeclaration]="true" [hideMois]="true" [hildeNumeroAcompte]="true" (submitCreationForm)="addDeclarationEmployeur($event)"></app-new-entry>
+    <jhi-new-entry [hideTrimestre]="true" [hideTypeDeclaration]="true" [hideMois]="true" [hildeNumeroAcompte]="true" (submitCreationForm)="addDeclarationEmployeur($event)"></jhi-new-entry>
     <br/>
     <br/>
     <div class="table-responsive" *ngIf="declarationEmployeurAnnuelles">

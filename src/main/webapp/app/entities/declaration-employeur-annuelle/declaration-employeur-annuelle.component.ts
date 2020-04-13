@@ -129,8 +129,8 @@ export class DeclarationEmployeurAnnuelleComponent implements OnInit, OnDestroy 
     }
 
     addDeclarationEmployeur(event) {
-        let id = event.ficheClientId;
-        let annee = event.annee;
+        const id = event.ficheClientId;
+        const annee = event.annee;
         this.router.navigateByUrl(`/declaration-employeur-annuelle/${id}/${annee}/new`);
 
     }

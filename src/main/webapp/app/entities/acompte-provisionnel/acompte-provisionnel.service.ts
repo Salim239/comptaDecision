@@ -8,7 +8,7 @@ import {map} from 'rxjs/operators';
 import {SERVER_API_URL} from 'app/app.constants';
 import {createRequestOption} from 'app/shared';
 import {IAcompteProvisionnel} from 'app/shared/model/acompte-provisionnel.model';
-import {ICnss} from "app/shared/model/cnss.model";
+import {ICnss} from 'app/shared/model/cnss.model';
 
 type EntityResponseType = HttpResponse<IAcompteProvisionnel>;
 type EntityArrayResponseType = HttpResponse<IAcompteProvisionnel[]>;

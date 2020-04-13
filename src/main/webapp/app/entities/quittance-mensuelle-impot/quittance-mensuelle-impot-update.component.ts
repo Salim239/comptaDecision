@@ -9,9 +9,8 @@ import {QuittanceMensuelleImpotService} from './quittance-mensuelle-impot.servic
 import {IFicheClient} from 'app/shared/model/fiche-client.model';
 import {FicheClientService} from 'app/entities/fiche-client';
 import * as _ from 'lodash';
-import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
-import {filter, map} from "rxjs/operators";
-
+import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
+import {filter, map} from 'rxjs/operators';
 
 @Component({
     selector: 'jhi-quittance-mensuelle-impot-update',
@@ -54,7 +53,7 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
     }
 
     private unformat(quittanceMensuelleImpot) {
-        let that = this;
+        const that = this;
         _.each(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function(quittanceMensuelleImpotDetail) {
             that.unformatDetail(quittanceMensuelleImpotDetail);
             _.each(quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails, function(childQuittanceMensuelleImpotDetail) {
@@ -74,7 +73,7 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
     }
 
     initByParams() {
-        if(this.quittanceMensuelleImpot.ficheClientId !== undefined &&
+        if (this.quittanceMensuelleImpot.ficheClientId !== undefined &&
             // this.quittanceMensuelleImpot.ficheClientId !== '' &&
             this.quittanceMensuelleImpot.ficheClientId !== null) {
             this.quittanceMensuelleImpotService.initByParams(this.quittanceMensuelleImpot.ficheClientId)
@@ -95,7 +94,7 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
 
                     this.quittanceMensuelleImpot = res.body;
                 } else {
-                    this.onSaveSuccess()
+                    this.onSaveSuccess();
                 }
             },
             (res: HttpErrorResponse) => this.onSaveError()
@@ -119,39 +118,37 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         return item.id;
     }
 
-
     protected calculerMontantTotalDetail(quittanceMensuelleImpotDetail) {
 
-        return _.sum(_.map(quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails, function (quittanceMensuelleImpotSousDetail) {
+        return _.sum(_.map(quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails, function(quittanceMensuelleImpotSousDetail) {
             return quittanceMensuelleImpotSousDetail.montantTotal;
         }));
     }
 
     protected calculerMontantTotalDetailWithChildren(quittanceMensuelleImpotDetail) {
 
-        console.log("report ", quittanceMensuelleImpotDetail.montantReport);
-        return _.sum(_.map(quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails, function (child) {
+        console.log('report ', quittanceMensuelleImpotDetail.montantReport);
+        return _.sum(_.map(quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails, function(child) {
             return (child.montantTotal ? child.montantTotal : 0) * child.coefficientMontant;
         })) + quittanceMensuelleImpotDetail.montantReport;
     }
-
 
     updateMontantTotal(quittanceMensuelleImpotDetail) {
 
         quittanceMensuelleImpotDetail.montantTotal = this.calculerMontantTotalDetail(quittanceMensuelleImpotDetail);
 
         if (quittanceMensuelleImpotDetail.parentQuittanceMensuelleImpotDetailCode) {
-            console.log("parentQuittanceMensuelleImpotDetailCode ", quittanceMensuelleImpotDetail.parentQuittanceMensuelleImpotDetailCode);
-            let parentDetail = _.find(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function (detail) {
+            console.log('parentQuittanceMensuelleImpotDetailCode ', quittanceMensuelleImpotDetail.parentQuittanceMensuelleImpotDetailCode);
+            const parentDetail = _.find(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function(detail) {
                 return detail.code === quittanceMensuelleImpotDetail.parentQuittanceMensuelleImpotDetailCode;
             });
             parentDetail.montantTotal = this.calculerMontantTotalDetailWithChildren(parentDetail);
         }
 
-        let montantTotadetails = _.map(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function (detail) {
+        const montantTotadetails = _.map(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function(detail) {
             return detail.montantTotal;
         });
-        //Sum only positive montant total details
+        // Sum only positive montant total details
         this.quittanceMensuelleImpot.montantTotal = _.sum(_.filter(montantTotadetails, montantTotal => montantTotal > 0));
     }
 }

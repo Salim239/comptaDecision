@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IImpotMensuelDetail, ImpotMensuelDetail} from "app/shared/model/impot-mensuel-detail.model";
-import {IImpotMensuel} from "app/shared/model/impot-mensuel.model";
+import {IImpotMensuelDetail, ImpotMensuelDetail} from 'app/shared/model/impot-mensuel-detail.model';
+import {IImpotMensuel} from 'app/shared/model/impot-mensuel.model';
 
 @Component({
   selector: 'jhi-impot-mensuel-line',
@@ -24,14 +24,13 @@ export class ImpotMensuelLineComponent implements OnInit {
    * @param recalFromIndex
    */
   recalculateImpotMensuelDetailTriOrdre(recalFromIndex) {
-    this.impotMensuel.impotMensuelDetails.forEach(impotMensuelDetail =>
-        {
-          if (impotMensuelDetail.triOrdre - 1 > recalFromIndex) {
-            impotMensuelDetail.triOrdre = impotMensuelDetail.triOrdre - 1;
-            return impotMensuelDetail;
+      this.impotMensuel.impotMensuelDetails.forEach(impotMensuelDetail => {
+              if (impotMensuelDetail.triOrdre - 1 > recalFromIndex) {
+                  impotMensuelDetail.triOrdre = impotMensuelDetail.triOrdre - 1;
+                  return impotMensuelDetail;
+              }
           }
-        }
-    );
+      );
   }
 
   addImpotMensuelDetail(impotMensuelDetailNew) {

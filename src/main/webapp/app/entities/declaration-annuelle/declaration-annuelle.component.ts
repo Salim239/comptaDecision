@@ -129,9 +129,9 @@ export class DeclarationAnnuelleComponent implements OnInit, OnDestroy {
     }
 
     addDeclarationAnnuelle(event) {
-        let ficheClientId = event.ficheClientId;
-        let annee = event.annee;
-        let typeDeclaration = event.typeDeclaration;
+        const ficheClientId = event.ficheClientId;
+        const annee = event.annee;
+        const typeDeclaration = event.typeDeclaration;
         console.log('ficheClientId ', ficheClientId);
         console.log('annee ', annee);
         this.router.navigateByUrl(`/declaration-annuelle/${ficheClientId}/${annee}/${typeDeclaration}/new`);

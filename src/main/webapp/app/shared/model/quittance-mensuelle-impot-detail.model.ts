@@ -1,21 +1,21 @@
-import {IQuittanceMensuelleImpotSousDetail} from "app/shared/model/quittance-mensuelle-impot-sous-detail.model";
+import {IQuittanceMensuelleImpotSousDetail} from 'app/shared/model/quittance-mensuelle-impot-sous-detail.model';
 
 export interface IQuittanceMensuelleImpotDetail {
     id?: number;
     code?: string;
     libelle?: string;
     description?: string;
-    parent?: boolean,
-    child?: boolean,
-    parentQuittanceMensuelleImpotDetailId?: number,
-    parentQuittanceMensuelleImpotDetailCode?: string,
-    parentQuittanceMensuelleImpotDetailLibelle?: string,
-    childQuittanceMensuelleImpotDetails?: [IQuittanceMensuelleImpotDetail],
+    parent?: boolean;
+    child?: boolean;
+    parentQuittanceMensuelleImpotDetailId?: number;
+    parentQuittanceMensuelleImpotDetailCode?: string;
+    parentQuittanceMensuelleImpotDetailLibelle?: string;
+    childQuittanceMensuelleImpotDetails?: [IQuittanceMensuelleImpotDetail];
     quittanceMensuelleImpotId?: number;
     impotMensuelId?: number;
     coefficientMontant?: number;
     appliquerReportMontant?: boolean;
-    montantReport?: number,
+    montantReport?: number;
     montantTotal?: number;
     quittanceMensuelleImpotSousDetails?: [IQuittanceMensuelleImpotSousDetail];
 }
@@ -43,4 +43,3 @@ export class QuittanceMensuelleImpotDetail implements IQuittanceMensuelleImpotDe
 
     }
 }
-

@@ -128,12 +128,11 @@ export class CnssComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-
     addCnss(event) {
-        let ficheClientId = event.ficheClientId;
-        let annee = event.annee;
-        let trimestre = event.trimestre;
-        let typeCnss = event.typeCnss;
+        const ficheClientId = event.ficheClientId;
+        const annee = event.annee;
+        const trimestre = event.trimestre;
+        const typeCnss = event.typeCnss;
         this.router.navigateByUrl(`/cnss/${ficheClientId}/${annee}/${typeCnss}/${trimestre}/new`);
 
     }

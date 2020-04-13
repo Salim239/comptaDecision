@@ -20,11 +20,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngIf="quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails.length === 0">
-        <td colspan="4">
-            <span hiTranslate="comptaDecisionApp.impotMensuelDetail.quittanceImpotMensuelSousDetails.empty" >Auncune configuration d'impôt définie</span>
-        </td>
-    </tr>
+<!--    <tr *ngIf="quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails.length === 0">-->
+<!--        <td colspan="4">-->
+<!--            <span jhiTranslate="comptaDecisionApp.impotMensuelDetail.quittanceImpotMensuelSousDetails.empty" >Auncune configuration d'impôt définie</span>-->
+<!--        </td>-->
+<!--    </tr>-->
     <tr *ngFor="let quittanceMensuelleImpotSousDetail of quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails | orderBy: 'impotMensuelDetailTriOrdre';let indexSousDetail=index">
         <td>
             <div class="form-group">
@@ -36,7 +36,7 @@
         </td>
         <td>
             <div class="form-group"  style="width: 160px">
-                <input digitOnly [decimal]="true"
+                <input jhiDigitOnly [decimal]="true"
                        (change)="calculerMontantTotal(indexSousDetail)" type="text" class="form-control numeric"
                        name="quittanceMensuelleImpotDetail[{{indexDetail}}].quittanceMensuelleImpotSousDetails[{{indexSousDetail}}].quittanceMensuelleImpotSousDetailMontantBase"
                        id="field_quittanceMensuelleImpotSousDetailMontantBase"

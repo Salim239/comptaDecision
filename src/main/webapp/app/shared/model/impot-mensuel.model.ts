@@ -1,4 +1,4 @@
-import {IImpotMensuelDetail} from "app/shared/model/impot-mensuel-detail.model";
+import {IImpotMensuelDetail} from 'app/shared/model/impot-mensuel-detail.model';
 
 export interface IImpotMensuel {
     id?: number;

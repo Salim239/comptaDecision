@@ -83,7 +83,7 @@
                         <th><label
                                 for="field_declarationAnnuelleDetailMontant">{{declarationAnnuelleDetail.libelle}}</label>
                         </th>
-                        <td><input digitOnly decimal="true" class="form-control numeric"
+                        <td><input jhiDigitOnly decimal="true" class="form-control numeric"
                                    name="field_declarationAnnuelleDetail[{{i}}].montant"
                                    id="field_declarationAnnuelleDetailMontant"
                                    [(ngModel)]="declarationAnnuelleDetail.montant" (change)="calculerMontant(i)"/></td>

@@ -7,7 +7,7 @@ import {ICnss} from 'app/shared/model/cnss.model';
 import {CnssService} from './cnss.service';
 import {IFicheClient} from 'app/shared/model/fiche-client.model';
 import {FicheClientService} from 'app/entities/fiche-client';
-import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
+import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
 
 @Component({
     selector: 'jhi-cnss-update',
@@ -17,7 +17,7 @@ export class CnssUpdateComponent implements OnInit {
     cnss: ICnss;
     isSaving: boolean;
     ficheclients: IFicheClient[];
-    trimestres:any[];
+    trimestres: any[];
     dateDp: any;
 
     constructor(

@@ -1,5 +1,5 @@
 import {Moment} from 'moment';
-import {IDeclarationAnnuelleDetail} from "app/shared/model/declaration-annuelle-detail.model";
+import {IDeclarationAnnuelleDetail} from 'app/shared/model/declaration-annuelle-detail.model';
 
 export const enum TypeDeclaration {
     DECLARATION_INITIALE = 'DECLARATION_INITIALE',

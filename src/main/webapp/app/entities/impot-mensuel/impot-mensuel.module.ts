@@ -15,7 +15,6 @@ import {
     ImpotMensuelUpdateComponent
 } from './';
 
-
 const ENTITY_STATES = [...impotMensuelRoute, ...impotMensuelPopupRoute];
 
 @NgModule({

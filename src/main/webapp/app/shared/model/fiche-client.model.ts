@@ -1,5 +1,5 @@
 import {Moment} from 'moment';
-import {IImpotMensuelClient} from "app/shared/model/impot-mensuel-client.model";
+import {IImpotMensuelClient} from 'app/shared/model/impot-mensuel-client.model';
 
 export const enum CategorieClient {
     PERSONNE_PHYSIQUE = 'PERSONNE_PHYSIQUE',

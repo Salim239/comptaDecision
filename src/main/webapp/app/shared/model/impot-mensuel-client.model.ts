@@ -21,4 +21,3 @@ export class ImpotMensuelClient implements IImpotMensuelClient {
         this.applicable = this.applicable || false;
     }
 }
-

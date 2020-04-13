@@ -9,7 +9,7 @@ import {DeclarationEmployeurAnnuelleService} from './declaration-employeur-annue
 import {IFicheClient} from 'app/shared/model/fiche-client.model';
 import {FicheClientService} from 'app/entities/fiche-client';
 import * as moment from 'moment';
-import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
+import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
 
 @Component({
     selector: 'jhi-declaration-employeur-annuelle-update',

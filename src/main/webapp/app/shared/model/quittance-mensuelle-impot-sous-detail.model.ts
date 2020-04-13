@@ -1,4 +1,4 @@
-import {TypeValeur} from "app/shared/model/impot-mensuel-detail.model";
+import {TypeValeur} from 'app/shared/model/impot-mensuel-detail.model';
 
 export interface IQuittanceMensuelleImpotSousDetail {
     id?: number;
@@ -27,4 +27,3 @@ export class QuittanceMensuelleImpotSousDetail implements IQuittanceMensuelleImp
         public montantTotal?: number
     ) {}
 }
-

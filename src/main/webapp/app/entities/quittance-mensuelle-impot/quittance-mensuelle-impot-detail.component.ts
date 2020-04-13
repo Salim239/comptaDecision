@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {IQuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
-import {IQuittanceMensuelleImpotDetail} from "app/shared/model/quittance-mensuelle-impot-detail.model";
+import {IQuittanceMensuelleImpotDetail} from 'app/shared/model/quittance-mensuelle-impot-detail.model';
 import * as _ from 'lodash';
 
 @Component({
@@ -19,8 +19,8 @@ export class QuittanceMensuelleImpotDetailComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ quittanceMensuelleImpot }) => {
             this.quittanceMensuelleImpot = quittanceMensuelleImpot;
             this.quittanceMensuelleImpotApplicableLines =
-                _.filter(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function (quittanceMensuelleImpotDetail) {
-                    return quittanceMensuelleImpotDetail.impotMensuelClient.applicable
+                _.filter(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function(quittanceMensuelleImpotDetail) {
+                    return quittanceMensuelleImpotDetail.impotMensuelClient.applicable;
             });
             this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails = this.quittanceMensuelleImpotApplicableLines;
         });

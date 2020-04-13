@@ -1,16 +1,16 @@
-import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
-import {IFicheClient} from "app/shared/model/fiche-client.model";
-import * as moment from "moment";
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {FicheClientService} from "app/entities/fiche-client";
-import {filter, map} from "rxjs/operators";
-import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {JhiAlertService} from "ng-jhipster";
-import {TypeDeclaration} from "app/shared/model/quittance-mensuelle-impot.model";
-import {TypeCnss} from "app/shared/model/cnss.model";
+import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
+import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import * as moment from 'moment';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FicheClientService} from 'app/entities/fiche-client';
+import {filter, map} from 'rxjs/operators';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {JhiAlertService} from 'ng-jhipster';
+import {TypeDeclaration} from 'app/shared/model/quittance-mensuelle-impot.model';
+import {TypeCnss} from 'app/shared/model/cnss.model';
 
 @Component({
-    selector: 'app-new-entry',
+    selector: 'jhi-new-entry',
     templateUrl: './new-entry.component.html'
 })
 
@@ -87,7 +87,7 @@ export class NewEntryComponent implements OnInit {
                 map((response: HttpResponse<IFicheClient>) => response.body)
             )
             .subscribe((res: IFicheClient) => {
-                let ficheClient = res;
+                const ficheClient = res;
                 // this.moisList = [1,2,3,4,5,6,7,8,9,10,11,12];
                 this.anneeList = ComptaDecisionUtils.getPreviousYears(moment(ficheClient.dateCreation).year());
                 this.selectedFicheClientId = ficheClient.id;
@@ -108,6 +108,4 @@ export class NewEntryComponent implements OnInit {
             'numeroAcompte': this.selectedNumeroAcompte,
         });
     }
-
-
 }

@@ -28,8 +28,6 @@ export class ImpotMensuelUpdateComponent implements OnInit {
         window.history.back();
     }
 
-
-
     save() {
         this.isSaving = true;
         if (this.impotMensuel.id !== undefined) {

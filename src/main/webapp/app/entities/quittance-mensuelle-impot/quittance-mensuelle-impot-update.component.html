@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save(false)" #editForm="ngForm">
             <h2 id="jhi-quittance-mensuelle-impot-heading" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.home.createOrEditLabel">Create or edit a Quittance Mensuelle Impot</h2>
             <br>
             <br>
@@ -98,13 +98,14 @@
                 </div>
                 <div class="form-row">
                     <label  jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.montantTotal" for="field_montantTotal">Montant Paye</label>
-                    <input class="form-control numeric" name="montantTotal" id="field_montantTotal" [readOnly]="true" digitOnly
+                    <input class="form-control numeric" name="montantTotal" id="field_montantTotal" [readOnly]="true"
+                           jhiDigitOnly
                            [ngModel]="quittanceMensuelleImpot.montantTotal | number:'1.3-3'" (ngModelChange)="quittanceMensuelleImpot.montantTotal=$event"/>
                 </div>
 
                 <br>
                 <br>
-                <ngb-tabset>
+                <ngb-tabset [destroyOnHide]="false">
                     <ngb-tab
                             *ngFor="let quittanceMensuelleImpotDetail of quittanceMensuelleImpot.quittanceMensuelleImpotDetails; let i=index">
                         <ng-template ngbTabTitle>{{quittanceMensuelleImpotDetail.libelle}}
@@ -113,11 +114,11 @@
                         </ng-template>
                         <ng-template ngbTabContent>
                             <br>
-                            <quittance-mensuelle-impot-detail-list (updateMontantTotal)="updateMontantTotal($event)"
-                                                                   *ngIf="quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails.length === 0"
-                                                                   [indexDetail]="i"
-                                                                   [quittanceMensuelleImpotDetail]="quittanceMensuelleImpotDetail">
-                            </quittance-mensuelle-impot-detail-list>
+                            <jhi-quittance-mensuelle-impot-detail-list (updateMontantTotal)="updateMontantTotal($event)"
+                                                                       *ngIf="quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails.length === 0"
+                                                                       [indexDetail]="i"
+                                                                       [quittanceMensuelleImpotDetail]="quittanceMensuelleImpotDetail">
+                            </jhi-quittance-mensuelle-impot-detail-list>
 
                             <!--<div class="form-row" *ngIf="quittanceMensuelleImpotDetail.appliquerReportMontant">-->
                             <!--<label class="col-sm-2 col-form-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.montantReport" for="field_montantReport">Montant Report</label>-->
@@ -127,10 +128,10 @@
                             <!--</div>-->
                             <!--</div>-->
                             <!-- Childs -->
-                            <quittance-mensuelle-impot-detail-calc-montant-total
+                            <jhi-quittance-mensuelle-impot-detail-calc-montant-total
                                     [quittanceMensuelleImpotDetail]="quittanceMensuelleImpotDetail">
 
-                            </quittance-mensuelle-impot-detail-calc-montant-total>
+                            </jhi-quittance-mensuelle-impot-detail-calc-montant-total>
 
                             <br>
                             <ngb-tabset
@@ -143,11 +144,11 @@
                                               *ngIf="childQuittanceMensuelleImpotDetail.montantTotal">{{childQuittanceMensuelleImpotDetail.montantTotal | number:'1.3-3'}}</span>
                                     </ng-template>
                                     <ng-template ngbTabContent>
-                                        <quittance-mensuelle-impot-detail-list
+                                        <jhi-quittance-mensuelle-impot-detail-list
                                                 (updateMontantTotal)="updateMontantTotal($event)"
                                                 [indexDetail]="indexChildDetail"
                                                 [quittanceMensuelleImpotDetail]="childQuittanceMensuelleImpotDetail">
-                                        </quittance-mensuelle-impot-detail-list>
+                                        </jhi-quittance-mensuelle-impot-detail-list>
                                     </ng-template>
                                 </ngb-tab>
                             </ngb-tabset>

@@ -28,7 +28,8 @@ export class ImpotMensuelResolve implements Resolve<IImpotMensuel> {
 }
 
 @Injectable({ providedIn: 'root' })
-export class parentImpotMensuelsResolve implements Resolve<IImpotMensuel[]> {
+
+export class ParentImpotMensuelsResolve implements Resolve<IImpotMensuel[]> {
     constructor(private service: ImpotMensuelService) {}
 
     resolve(): Observable<IImpotMensuel[]> {
@@ -69,7 +70,7 @@ export const impotMensuelRoute: Routes = [
         component: ImpotMensuelUpdateComponent,
         resolve: {
             impotMensuel: ImpotMensuelResolve,
-            parentImpotMensuels: parentImpotMensuelsResolve
+            parentImpotMensuels: ParentImpotMensuelsResolve
         },
         data: {
             authorities: ['ROLE_ADMIN'],
@@ -82,7 +83,7 @@ export const impotMensuelRoute: Routes = [
         component: ImpotMensuelUpdateComponent,
         resolve: {
             impotMensuel: ImpotMensuelResolve,
-            parentImpotMensuels: parentImpotMensuelsResolve
+            parentImpotMensuels: ParentImpotMensuelsResolve
         },
         data: {
             authorities: ['ROLE_ADMIN'],
