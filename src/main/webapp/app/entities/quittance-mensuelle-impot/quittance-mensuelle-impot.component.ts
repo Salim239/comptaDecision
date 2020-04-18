@@ -177,4 +177,24 @@ export class QuittanceMensuelleImpotComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl(`/quittance-mensuelle-impot/${id}`);
         }
     }
+
+    // print() {
+    //
+    //     if (this.selectedQuittanceMensuelleImpot) {
+    //         const id = this.selectedQuittanceMensuelleImpot.id;
+    //         this.quittanceMensuelleImpotService.print(id)
+    //             .subscribe(
+    //             (data) => {
+    //                 var binaryData = [];
+    //                 binaryData.push(data.body);
+    //                 var blob = new Blob(binaryData, {type: 'application/pdf'});
+    //                 const blobUrl = URL.createObjectURL(blob);
+    //                 const iframe = document.createElement('iframe');
+    //                 iframe.style.display = 'none';
+    //                 iframe.src = blobUrl;
+    //                 document.body.appendChild(iframe);
+    //                 iframe.contentWindow.print();
+    //             });
+    //     }
+    // }
 }

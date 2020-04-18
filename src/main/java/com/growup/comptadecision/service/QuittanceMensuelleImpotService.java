@@ -15,6 +15,10 @@ import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotMapper;
 import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotSousDetailMapper;
 import com.growup.comptadecision.web.rest.errors.BusinessErrorException;
 import com.growup.comptadecision.web.rest.errors.ErrorConstants;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +28,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -332,5 +339,29 @@ public class QuittanceMensuelleImpotService {
             quittanceMensuelleImpotRepository.save(quittanceInitiale);
         }
         quittanceMensuelleImpotRepository.deleteById(id);
+    }
+
+    public void print(Long quittanceMensuelleId, HttpServletResponse response) throws DocumentException, IOException {
+
+        PdfReader reader = new PdfReader("templates/pdf/model_quittance-mensuelle-impot.pdf");
+        final OutputStream outStream = response.getOutputStream();
+        PdfStamper stamper = new PdfStamper(reader, outStream);
+        AcroFields fields = stamper.getAcroFields();
+        fields.setField("matriculeFiscale", "MON MASTRICULE FISCALE");
+        fields.setField("TVA", "true");
+        fields.setField("TIMBRE_FISCALE", "MON TIMBRE FISCALE");
+//        fields.setField("abbr", "CA");
+//        fields.setField("capital", "Sacramento");
+//        fields.setField("city", "Los Angeles");
+//        fields.setField("population", "36,961,664");
+//        fields.setField("surface", "163,707");
+//        fields.setField("timezone1", "PT (UTC-8)");
+//        fields.setField("timezone2", "-");
+//        fields.setField("dst", "YES");
+        stamper.setFormFlattening(true);
+        stamper.close();
+        reader.close();
+        response.getOutputStream().close();
+
     }
 }

@@ -6,6 +6,7 @@ import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
 import com.growup.comptadecision.web.rest.errors.BadRequestAlertException;
 import com.growup.comptadecision.web.rest.util.HeaderUtil;
 import com.growup.comptadecision.web.rest.util.PaginationUtil;
+import com.itextpdf.text.DocumentException;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -137,6 +140,17 @@ public class QuittanceMensuelleImpotResource {
     public ResponseEntity<Void> deleteQuittanceMensuelleImpot(@PathVariable Long id) {
         log.debug("REST request to delete QuittanceMensuelleImpot : {}", id);
         quittanceMensuelleImpotService.delete(id);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/quittance-mensuelle-impots/{id}/print")
+    public ResponseEntity<Void> printQuittanceMensuelleImpot(HttpServletResponse response, @PathVariable Long id) {
+        log.debug("REST request to print QuittanceMensuelleImpot : {}", id);
+        try {
+            quittanceMensuelleImpotService.print(id, response);
+        } catch (IOException | DocumentException ex) {
+            throw new RuntimeException("Error When genererate Quittance report");
+        }
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

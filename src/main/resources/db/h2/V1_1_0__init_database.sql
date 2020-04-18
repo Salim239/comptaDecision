@@ -133,7 +133,7 @@ CREATE TABLE public.fiche_client (
     last_modified_date timestamp
 );
 
-CREATE SEQUENCE hibernate_sequence
+CREATE SEQUENCE public.hibernate_sequence
     START WITH 1000
     INCREMENT BY 50
     NO MINVALUE

@@ -14,9 +14,10 @@ import {AnneeComponent} from 'app/shared/annee/annee.component';
 import {MoisComponent} from 'app/shared/mois/mois.component';
 import {NewEntryComponent} from 'app/shared/new-entry-form/new-entry.component';
 import {DecimalFormatterDirective} from 'app/shared/directives/decimal-formatter-directive';
+import {Ng2SmartTableModule} from 'ng2-smart-table';
 
 @NgModule({
-    imports: [ComptaDecisionSharedLibsModule, ComptaDecisionSharedCommonModule],
+    imports: [ComptaDecisionSharedLibsModule, ComptaDecisionSharedCommonModule, Ng2SmartTableModule],
     declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective, AnneeComponent, MoisComponent, NewEntryComponent, DigitOnlyDirective, SelectedRowDirective, DecimalFormatterDirective],
     providers: [{ provide: NgbDateAdapter, useClass: NgbDateMomentAdapter }],
     entryComponents: [JhiLoginModalComponent],

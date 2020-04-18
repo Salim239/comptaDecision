@@ -16,7 +16,6 @@
                                 [(ngModel)]="ficheClient.categorieClient" id="field_categorieClient">
                             <option value="PERSONNE_PHYSIQUE">{{'comptaDecisionApp.CategorieClient.PERSONNE_PHYSIQUE' | translate}}</option>
                             <option value="PERSONNE_MORALE">{{'comptaDecisionApp.CategorieClient.PERSONNE_MORALE' | translate}}</option>
-                            <option value="PERSONNE_MORALE">{{'comptaDecisionApp.CategorieClient.PERSONNE_MORALE' | translate}}</option>
                         </select>
                         <div [hidden]="!(editForm.controls.categorieClient?.dirty && editForm.controls.categorieClient?.invalid)">
                             <small class="form-text text-danger"

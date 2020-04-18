@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import * as moment from 'moment';
 import {JhiAlertService} from 'ng-jhipster';
 import {IQuittanceMensuelleImpot, QuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
 import {QuittanceMensuelleImpotService} from './quittance-mensuelle-impot.service';
@@ -30,7 +29,8 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         protected jhiAlertService: JhiAlertService,
         protected quittanceMensuelleImpotService: QuittanceMensuelleImpotService,
         protected ficheClientService: FicheClientService,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        protected router: Router
     ) {
     }
 
@@ -43,7 +43,7 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
     }
 
     previousState() {
-        window.history.back();
+        this.router.navigateByUrl('/quittance-mensuelle-impot');
     }
 
     private unformatDetail(quittanceMensuelleImpotDetail) {

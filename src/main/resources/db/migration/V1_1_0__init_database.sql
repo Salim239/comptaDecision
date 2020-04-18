@@ -1,142 +1,86 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 11.2
--- Dumped by pg_dump version 11.2
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
-
-SET default_tablespace = '';
-
-SET default_with_oids = false;
-
---
--- Name: acompte_provisionnel; Type: TABLE; Schema: public; Owner: postgres
---
+create schema if not exists public;
 
 CREATE TABLE public.acompte_provisionnel (
     id bigint NOT NULL,
     annee integer NOT NULL,
     numero integer NOT NULL,
     jhi_date date,
-    numero_quittance character varying(255),
+    numero_quittance  VARCHAR(255),
     montant_base numeric(10,2),
     montant_acompte_provisionnel numeric(10,2),
     montant_report_anterieur numeric(10,2),
     montant_retenue_source numeric(10,2),
     montant_net numeric(10,2),
     fiche_client_id bigint,
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp
 );
-
-
-ALTER TABLE public.acompte_provisionnel OWNER TO postgres;
-
---
--- Name: activite; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.activite (
     id bigint NOT NULL,
-    code character varying(255) NOT NULL,
-    libelle character varying(255) NOT NULL,
-    description character varying(255),
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone
+    code  VARCHAR(255) NOT NULL,
+    libelle  VARCHAR(255) NOT NULL,
+    description  VARCHAR(255),
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp
 );
-
-
-ALTER TABLE public.activite OWNER TO postgres;
-
---
--- Name: cnss; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.cnss (
     id bigint NOT NULL,
     annee integer NOT NULL,
     trimestre integer NOT NULL,
     jhi_date date,
-    numero_quittance character varying(255),
+    numero_quittance  VARCHAR(255),
     montant_salaire_brut_normal numeric(10,2),
     montant_salaire_brut_karama numeric(10,2),
     montant_salaire_brut_autre numeric(10,2),
     montant_total numeric(10,2),
     cnss numeric(10,2),
     fiche_client_id bigint,
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone,
-    type_cnss character varying(255)
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp,
+    type_cnss  VARCHAR(255)
 );
-
-
-ALTER TABLE public.cnss OWNER TO postgres;
-
---
--- Name: declaration_annuelle; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.declaration_annuelle (
     id bigint NOT NULL,
     annee integer NOT NULL,
-    numero character varying(255),
+    numero  VARCHAR(255),
     date_paiement date,
     montant numeric(20,6),
     fiche_client_id bigint,
-    type_declaration character varying(255),
-    statut character varying(50) DEFAULT 'BROUILLON'::character varying,
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone
+    type_declaration  VARCHAR(255),
+    statut  VARCHAR(50) DEFAULT 'BROUILLON',
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp
 );
 
 
-ALTER TABLE public.declaration_annuelle OWNER TO postgres;
-
---
--- Name: declaration_annuelle_detail; Type: TABLE; Schema: public; Owner: postgres
---
-
 CREATE TABLE public.declaration_annuelle_detail (
     id bigint NOT NULL,
-    code character varying(255) NOT NULL,
-    libelle character varying(255) NOT NULL,
-    description character varying(255),
+    code  VARCHAR(255) NOT NULL,
+    libelle  VARCHAR(255) NOT NULL,
+    description  VARCHAR(255),
     tri_ordre integer NOT NULL,
     calcule boolean DEFAULT false,
     montant numeric(20,6),
     montant_calcule numeric(20,6),
     impot_annuel_id bigint NOT NULL,
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone,
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp,
     declaration_annuelle_id bigint NOT NULL
 );
 
-
-ALTER TABLE public.declaration_annuelle_detail OWNER TO postgres;
-
---
--- Name: declaration_employeur_annuelle; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.declaration_employeur_annuelle (
     id bigint NOT NULL,
@@ -154,54 +98,40 @@ CREATE TABLE public.declaration_employeur_annuelle (
     montant_annexe_11 numeric(10,2),
     montant_annexe_12 numeric(10,2),
     fiche_client_id bigint,
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp
 );
-
-
-ALTER TABLE public.declaration_employeur_annuelle OWNER TO postgres;
-
---
--- Name: fiche_client; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.fiche_client (
     id bigint NOT NULL,
-    categorie_client character varying(255),
-    designation character varying(255) NOT NULL,
+    categorie_client  VARCHAR(255),
+    designation  VARCHAR(255) NOT NULL,
     logo bytea,
-    logo_content_type character varying(255),
-    adresse character varying(255) NOT NULL,
-    code_postal character varying(255) NOT NULL,
-    telephone character varying(255),
-    fax character varying(255),
-    email character varying(255),
-    matricule_fiscale character varying(255) NOT NULL,
-    registre_commerce character varying(255),
+    logo_content_type  VARCHAR(255),
+    adresse  VARCHAR(255) NOT NULL,
+    code_postal  VARCHAR(255) NOT NULL,
+    telephone  VARCHAR(255),
+    fax  VARCHAR(255),
+    email  VARCHAR(255),
+    matricule_fiscale  VARCHAR(255) NOT NULL,
+    registre_commerce  VARCHAR(255),
     date_creation date,
-    cnss_employeur character varying(255),
-    cnss_gerant character varying(255),
+    cnss_employeur  VARCHAR(255),
+    cnss_gerant  VARCHAR(255),
     fichier_patente bytea,
-    fichier_patente_content_type character varying(255),
+    fichier_patente_content_type  VARCHAR(255),
     secteur_activite_id bigint,
     activite_id bigint,
     activite_scondaire_id bigint,
     region_id bigint,
     ville_id bigint,
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp
 );
-
-
-ALTER TABLE public.fiche_client OWNER TO postgres;
-
---
--- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: postgres
---
 
 CREATE SEQUENCE public.hibernate_sequence
     START WITH 1000
@@ -210,60 +140,39 @@ CREATE SEQUENCE public.hibernate_sequence
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE public.hibernate_sequence OWNER TO postgres;
-
---
--- Name: impot_annuel; Type: TABLE; Schema: public; Owner: postgres
---
-
 CREATE TABLE public.impot_annuel (
     id bigint NOT NULL,
-    code character varying(255) NOT NULL,
-    libelle character varying(255) NOT NULL,
-    description character varying(255),
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone,
+    code  VARCHAR(255) NOT NULL,
+    libelle  VARCHAR(255) NOT NULL,
+    description  VARCHAR(255),
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp,
     calcule boolean DEFAULT false,
     tri_ordre integer NOT NULL
 );
-
-
-ALTER TABLE public.impot_annuel OWNER TO postgres;
-
---
--- Name: impot_annuel_detail; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.impot_annuel_detail (
     id bigint NOT NULL,
     impot_annuel_id bigint NOT NULL,
     impot_mensuel_detail_id bigint NOT NULL,
     coefficient integer DEFAULT 1,
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp
 );
-
-
-ALTER TABLE public.impot_annuel_detail OWNER TO postgres;
-
---
--- Name: impot_mensuel; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.impot_mensuel (
     id bigint NOT NULL,
-    code character varying(255) NOT NULL,
-    libelle character varying(255) NOT NULL,
-    description character varying(255),
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone,
+    code  VARCHAR(255) NOT NULL,
+    libelle  VARCHAR(255) NOT NULL,
+    description  VARCHAR(255),
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp,
     parent boolean DEFAULT false,
     parent_impot_mensuel_id bigint,
     child boolean DEFAULT false,
@@ -271,180 +180,112 @@ CREATE TABLE public.impot_mensuel (
     coefficient_montant integer DEFAULT 1
 );
 
-
-ALTER TABLE public.impot_mensuel OWNER TO postgres;
-
---
--- Name: impot_mensuel_client; Type: TABLE; Schema: public; Owner: postgres
---
-
 CREATE TABLE public.impot_mensuel_client (
     id bigint NOT NULL,
     applicable boolean,
     fiche_client_id bigint,
     impot_mensuel_id bigint,
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp
 );
 
-
-ALTER TABLE public.impot_mensuel_client OWNER TO postgres;
-
---
--- Name: impot_mensuel_detail; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.impot_mensuel_detail (
     id bigint NOT NULL,
-    code character varying(255) NOT NULL,
+    code  VARCHAR(255) NOT NULL,
     tri_ordre numeric(2,0) NOT NULL,
     valeur numeric(10,3),
-    libelle character varying(255) NOT NULL,
-    description character varying(255),
+    libelle  VARCHAR(255) NOT NULL,
+    description  VARCHAR(255),
     impot_mensuel_id bigint NOT NULL,
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone,
-    type_valeur character varying(20) DEFAULT 'TAUX'::character varying,
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp,
+    type_valeur  VARCHAR(20) DEFAULT 'TAUX',
     valeur_modifiable boolean DEFAULT true
 );
 
-
-ALTER TABLE public.impot_mensuel_detail OWNER TO postgres;
-
---
--- Name: jhi_authority; Type: TABLE; Schema: public; Owner: postgres
---
-
 CREATE TABLE public.jhi_authority (
-    name character varying(50) NOT NULL
+    name  VARCHAR(50) NOT NULL
 );
-
-
-ALTER TABLE public.jhi_authority OWNER TO postgres;
-
---
--- Name: jhi_persistent_audit_event; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.jhi_persistent_audit_event (
     event_id bigint NOT NULL,
-    principal character varying(50) NOT NULL,
-    event_date timestamp without time zone,
-    event_type character varying(255)
+    principal  VARCHAR(50) NOT NULL,
+    event_date timestamp,
+    event_type  VARCHAR(255)
 );
-
-
-ALTER TABLE public.jhi_persistent_audit_event OWNER TO postgres;
-
---
--- Name: jhi_persistent_audit_evt_data; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.jhi_persistent_audit_evt_data (
     event_id bigint NOT NULL,
-    name character varying(150) NOT NULL,
-    value character varying(255)
+    name  VARCHAR(150) NOT NULL,
+    value  VARCHAR(255)
 );
-
-
-ALTER TABLE public.jhi_persistent_audit_evt_data OWNER TO postgres;
-
---
--- Name: jhi_user; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.jhi_user (
     id bigint NOT NULL,
-    login character varying(50) NOT NULL,
-    password_hash character varying(60) NOT NULL,
-    first_name character varying(50),
-    last_name character varying(50),
-    email character varying(191),
-    image_url character varying(256),
+    login  VARCHAR(50) NOT NULL,
+    password_hash  VARCHAR(60) NOT NULL,
+    first_name  VARCHAR(50),
+    last_name  VARCHAR(50),
+    email  VARCHAR(191),
+    image_url  VARCHAR(256),
     activated boolean NOT NULL,
-    lang_key character varying(6),
-    activation_key character varying(20),
-    reset_key character varying(20),
-    created_by character varying(50) NOT NULL,
-    created_date timestamp without time zone,
-    reset_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone
+    lang_key  VARCHAR(6),
+    activation_key  VARCHAR(20),
+    reset_key  VARCHAR(20),
+    created_by  VARCHAR(50) NOT NULL,
+    created_date timestamp,
+    reset_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp
 );
-
-
-ALTER TABLE public.jhi_user OWNER TO postgres;
-
---
--- Name: jhi_user_authority; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.jhi_user_authority (
     user_id bigint NOT NULL,
-    authority_name character varying(50) NOT NULL
+    authority_name  VARCHAR(50) NOT NULL
 );
-
-
-ALTER TABLE public.jhi_user_authority OWNER TO postgres;
-
---
--- Name: quittance_mensuelle_impot; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.quittance_mensuelle_impot (
     id bigint NOT NULL,
     annee integer NOT NULL,
     mois integer NOT NULL,
-    numero_quittance character varying(255),
+    numero_quittance  VARCHAR(255),
     date_paiement date,
     montant_total numeric(20,6),
     fiche_client_id bigint,
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone,
-    type_declaration character varying(255),
-    statut character varying(50) DEFAULT 'BROUILLON'::character varying,
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp,
+    type_declaration  VARCHAR(255),
+    statut  VARCHAR(50) DEFAULT 'BROUILLON',
     parent_quittance_id bigint
 );
-
-
-ALTER TABLE public.quittance_mensuelle_impot OWNER TO postgres;
-
---
--- Name: quittance_mensuelle_impot_detail; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.quittance_mensuelle_impot_detail (
     id bigint NOT NULL,
     impot_mensuel_id bigint,
     quittance_mensuelle_impot_id bigint,
     montant_total numeric(20,6),
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone,
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp,
     parent boolean,
     child boolean,
     parent_quittance_mensuelle_impot_detail_id bigint,
-    libelle character varying(255),
-    code character varying(255),
+    libelle  VARCHAR(255),
+    code  VARCHAR(255),
     appliquer_report_montant boolean DEFAULT false,
     coefficient_montant integer DEFAULT 1,
-    description character varying(255),
+    description  VARCHAR(255),
     montant_report numeric(20,6)
 );
 
-
-ALTER TABLE public.quittance_mensuelle_impot_detail OWNER TO postgres;
-
---
--- Name: quittance_mensuelle_impot_sous_detail; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.quittance_mensuelle_impot_sous_detail (
     id bigint NOT NULL,
@@ -452,104 +293,58 @@ CREATE TABLE public.quittance_mensuelle_impot_sous_detail (
     quittance_mensuelle_impot_detail_id bigint,
     montant_base numeric(20,6),
     montant_total numeric(20,6),
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp
 );
 
-
-ALTER TABLE public.quittance_mensuelle_impot_sous_detail OWNER TO postgres;
-
---
--- Name: region; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.region (
     id bigint NOT NULL,
-    code character varying(255) NOT NULL,
-    libelle character varying(255) NOT NULL,
-    description character varying(255),
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone
+    code  VARCHAR(255) NOT NULL,
+    libelle  VARCHAR(255) NOT NULL,
+    description  VARCHAR(255),
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp
 );
-
-
-ALTER TABLE public.region OWNER TO postgres;
-
---
--- Name: secteur_activite; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.secteur_activite (
     id bigint NOT NULL,
-    code character varying(255) NOT NULL,
-    libelle character varying(255) NOT NULL,
-    description character varying(255),
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone
+    code  VARCHAR(255) NOT NULL,
+    libelle  VARCHAR(255) NOT NULL,
+    description  VARCHAR(255),
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp
 );
-
-
-ALTER TABLE public.secteur_activite OWNER TO postgres;
-
---
--- Name: ville; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.ville (
     id bigint NOT NULL,
-    code character varying(255) NOT NULL,
-    code_postal character varying(255),
-    libelle character varying(255) NOT NULL,
-    description character varying(255),
+    code  VARCHAR(255) NOT NULL,
+    code_postal  VARCHAR(255),
+    libelle  VARCHAR(255) NOT NULL,
+    description  VARCHAR(255),
     region_id bigint,
-    created_by character varying(50) DEFAULT 'admin'::character varying NOT NULL,
-    created_date timestamp without time zone,
-    last_modified_by character varying(50),
-    last_modified_date timestamp without time zone
+    created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
+    created_date timestamp,
+    last_modified_by  VARCHAR(50),
+    last_modified_date timestamp
 );
 
-
-ALTER TABLE public.ville OWNER TO postgres;
-
---
--- Data for Name: acompte_provisionnel; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
 INSERT INTO public.acompte_provisionnel VALUES (18451, 2020, 1, NULL, NULL, 100.00, 200.00, 1478.00, 1414.25, 147.20, 14302, 'admin', '2020-02-21 21:56:03.894', 'admin', '2020-02-21 21:56:03.894');
-
-
---
--- Data for Name: activite; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
 INSERT INTO public.activite VALUES (1005, 'QUINCAILLERIE', 'Quincaillerie', NULL, 'admin', NULL, NULL, NULL);
 INSERT INTO public.activite VALUES (1006, 'VENTE_DETAIL_PRODUIT_ALIMENTAIRE', 'Vente détail produit alimentaire', NULL, 'admin', NULL, NULL, NULL);
 INSERT INTO public.activite VALUES (1007, 'ARCHITECTE', 'Architecte', NULL, 'admin', NULL, NULL, NULL);
 INSERT INTO public.activite VALUES (1008, 'TOPOGRAPHIE', 'Topographie', NULL, 'admin', NULL, NULL, NULL);
 
-
---
--- Data for Name: cnss; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
 INSERT INTO public.cnss VALUES (18351, 2020, 1, NULL, NULL, 10.00, 20.00, 30.00, 60.00, NULL, 14302, 'admin', '2020-02-21 17:41:16.05', 'admin', '2020-02-21 17:41:16.05', '0');
 
---
--- Data for Name: declaration_annuelle; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
 INSERT INTO public.declaration_annuelle VALUES (18201, 2020, NULL, NULL, 40.000000, 14302, 'DECLARATION_INITIALE', NULL, 'admin', '2020-02-21 10:39:10.711', 'admin', '2020-02-21 10:39:10.711');
-
-
---
--- Data for Name: declaration_annuelle_detail; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
 INSERT INTO public.declaration_annuelle_detail VALUES (18251, 'CA_HT', 'CA HT', '', 1, true, 10.000000, 0.000000, 1, 'admin', '2020-02-21 10:39:10.716', 'admin', '2020-02-21 10:39:10.716', 18201);
 INSERT INTO public.declaration_annuelle_detail VALUES (18252, 'ACHAT_HT', 'Achat HT', NULL, 2, true, 20.000000, 0.000000, 2, 'admin', '2020-02-21 10:39:10.718', 'admin', '2020-02-21 10:39:10.718', 18201);
@@ -562,24 +357,10 @@ INSERT INTO public.declaration_annuelle_detail VALUES (18258, 'SF', 'Stock Final
 INSERT INTO public.declaration_annuelle_detail VALUES (18259, 'BALANCE_COMPTE', 'Balance Compte', NULL, 8, false, 0.000000, NULL, 9, 'admin', '2020-02-21 10:39:10.722', 'admin', '2020-02-21 10:39:10.722', 18201);
 INSERT INTO public.declaration_annuelle_detail VALUES (18260, 'BALANCE_FISCALE', 'Balance Fiscale', NULL, 9, false, 0.000000, NULL, 10, 'admin', '2020-02-21 10:39:10.723', 'admin', '2020-02-21 10:39:10.723', 18201);
 
-
---
--- Data for Name: declaration_employeur_annuelle; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
 INSERT INTO public.declaration_employeur_annuelle VALUES (18501, 2020, 100.00, 0.00, 147.25, 14141.00, 14.00, 144.00, 150.00, 147.00, 147.25, 12.26, 147.20, 147.02, 14302, 'admin', '2020-02-21 22:44:22.275', 'admin', '2020-02-21 22:44:22.275');
-
-
---
--- Data for Name: fiche_client; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
 INSERT INTO public.fiche_client VALUES (14302, 'PERSONNE_MORALE', 'Grow up', NULL, NULL, 'Av. Hédi Chaker', '5170', NULL, NULL, NULL, '1353270P', NULL, '2013-05-08', NULL, NULL, NULL, NULL, 1051, 1005, NULL, NULL, NULL, 'admin', '2020-01-22 19:49:42.522', 'admin', '2020-01-22 19:51:06.001');
 
-
---
--- Data for Name: impot_annuel; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
 INSERT INTO public.impot_annuel VALUES (4, 'LOCATION', 'Location', NULL, 'admin', '2020-02-06 20:04:48.187', NULL, NULL, true, 4);
 INSERT INTO public.impot_annuel VALUES (6, 'CA_TTC', 'CA TTC', NULL, 'admin', '2020-02-06 20:04:53.978', NULL, NULL, true, 6);
@@ -592,10 +373,6 @@ INSERT INTO public.impot_annuel VALUES (8, 'SF', 'Stock Final', NULL, 'admin', '
 INSERT INTO public.impot_annuel VALUES (9, 'BALANCE_COMPTE', 'Balance Compte', NULL, 'admin', '2020-02-06 20:08:24.431', NULL, NULL, false, 8);
 INSERT INTO public.impot_annuel VALUES (10, 'BALANCE_FISCALE', 'Balance Fiscale', NULL, 'admin', '2020-02-06 20:08:55.773', NULL, NULL, false, 9);
 
-
---
--- Data for Name: impot_annuel_detail; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
 INSERT INTO public.impot_annuel_detail VALUES (1, 1, 7111, 1, 'admin', NULL, NULL, NULL);
 INSERT INTO public.impot_annuel_detail VALUES (2, 1, 7112, 1, 'admin', NULL, NULL, NULL);
@@ -611,10 +388,6 @@ INSERT INTO public.impot_annuel_detail VALUES (13, 6, 17002, 1, 'admin', NULL, N
 INSERT INTO public.impot_annuel_detail VALUES (9, 4, 7102, 1, 'admin', NULL, NULL, NULL);
 
 
---
--- Data for Name: impot_mensuel; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
 INSERT INTO public.impot_mensuel VALUES (7055, 'TVA_COLLECTEE', 'TVA Collectée', 'TVA Collectée', 'admin', '2019-10-27 19:25:07.904', 'admin', '2019-11-16 17:08:21.885', false, 7054, true, false, 1);
 INSERT INTO public.impot_mensuel VALUES (7054, 'TVA', 'TVA', 'Taxe Valeur Ajoutée', 'admin', '2019-10-27 19:22:59.165', 'admin', '2019-11-16 17:06:46.655', true, NULL, false, true, 1);
 INSERT INTO public.impot_mensuel VALUES (7059, 'AUTRE', 'Autre', 'Autre', 'admin', '2019-10-27 19:34:55.859', 'admin', '2019-10-27 19:34:55.859', false, NULL, false, false, 1);
@@ -625,11 +398,6 @@ INSERT INTO public.impot_mensuel VALUES (7051, 'RS', 'RS', 'Retenue à la Source
 INSERT INTO public.impot_mensuel VALUES (7056, 'TVA_DEDUCTIBLE', 'TVA Déductible', 'TVA Déductible', 'admin', '2019-10-27 19:28:54.658', 'admin', '2020-01-22 18:50:09.486', false, 7054, true, false, -1);
 INSERT INTO public.impot_mensuel VALUES (7058, 'TCL', 'TCL', 'Taxe Collectée Locale', 'admin', '2019-10-27 19:34:20.955', 'admin', '2020-02-06 20:49:08.64', false, NULL, false, false, 1);
 
-
---
--- Data for Name: impot_mensuel_client; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
 INSERT INTO public.impot_mensuel_client VALUES (14358, true, 14302, 7054, 'admin', '2020-01-22 19:49:42.523', 'admin', '2020-01-22 19:51:06.002');
 INSERT INTO public.impot_mensuel_client VALUES (14359, true, 14302, 7058, 'admin', '2020-01-22 19:49:42.524', 'admin', '2020-01-22 19:51:06.004');
 INSERT INTO public.impot_mensuel_client VALUES (14360, false, 14302, 7059, 'admin', '2020-01-22 19:49:42.526', 'admin', '2020-01-22 19:51:06.005');
@@ -638,10 +406,6 @@ INSERT INTO public.impot_mensuel_client VALUES (14362, true, 14302, 7053, 'admin
 INSERT INTO public.impot_mensuel_client VALUES (14363, true, 14302, 7057, 'admin', '2020-01-22 19:49:42.53', 'admin', '2020-01-22 19:51:06.01');
 INSERT INTO public.impot_mensuel_client VALUES (14364, true, 14302, 7051, 'admin', '2020-01-22 19:49:42.532', 'admin', '2020-01-22 19:51:06.01');
 
-
---
--- Data for Name: impot_mensuel_detail; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
 INSERT INTO public.impot_mensuel_detail VALUES (7113, 'IMMOBILISATION_7', 1, 7.000, 'Immobilisation', NULL, 7056, 'admin', '2019-10-27 19:28:54.659', 'admin', '2020-01-22 18:50:09.487', 'TAUX', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7114, 'IMMOBILISATION_13', 2, 13.000, 'Immobilisation', NULL, 7056, 'admin', '2019-10-27 19:28:54.659', 'admin', '2020-01-22 18:50:09.488', 'TAUX', false);
@@ -671,17 +435,9 @@ INSERT INTO public.impot_mensuel_detail VALUES (7111, 'CA_HT_13', 2, 13.000, 'CA
 INSERT INTO public.impot_mensuel_detail VALUES (7112, 'CA_HT_19', 3, 19.000, 'CA HT', NULL, 7055, 'admin', '2019-10-27 19:25:07.907', 'admin', '2019-11-16 17:08:21.886', 'TAUX', false);
 
 
---
--- Data for Name: jhi_authority; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
 INSERT INTO public.jhi_authority VALUES ('ROLE_ADMIN');
 INSERT INTO public.jhi_authority VALUES ('ROLE_USER');
 
-
---
--- Data for Name: jhi_persistent_audit_event; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
 INSERT INTO public.jhi_persistent_audit_event VALUES (951, 'admin', '2019-04-03 19:32:25.885', 'AUTHENTICATION_SUCCESS');
 INSERT INTO public.jhi_persistent_audit_event VALUES (1051, 'admin', '2019-04-03 22:03:30.576', 'AUTHENTICATION_SUCCESS');
@@ -948,7 +704,7 @@ INSERT INTO public.jhi_persistent_audit_event VALUES (18401, 'admin', '2020-02-2
 
 
 --
--- Data for Name: jhi_persistent_audit_evt_data; Type: TABLE DATA; Schema: public; Owner: postgres
+
 --
 
 INSERT INTO public.jhi_persistent_audit_evt_data VALUES (3403, 'type', 'org.springframework.security.authentication.BadCredentialsException');
@@ -1122,18 +878,18 @@ INSERT INTO public.jhi_persistent_audit_evt_data VALUES (17758, 'message', 'Bad 
 
 
 --
--- Data for Name: jhi_user; Type: TABLE DATA; Schema: public; Owner: postgres
+
 --
 
 INSERT INTO public.jhi_user VALUES (1, 'system', '$2a$10$mE.qmcV0mFU5NcKh73TZx.z4ueI/.bDWbj0T1BYyqP481kGGarKLG', 'System', 'System', 'system@localhost', '', true, 'fr', NULL, NULL, 'system', NULL, NULL, 'system', NULL);
 INSERT INTO public.jhi_user VALUES (2, 'anonymoususer', '$2a$10$j8S5d7Sr7.8VTOYNviDPOeWX8KcYILUVJBsYV83Y5NtECayypx9lO', 'Anonymous', 'User', 'anonymous@localhost', '', true, 'fr', NULL, NULL, 'system', NULL, NULL, 'system', NULL);
 INSERT INTO public.jhi_user VALUES (4, 'user', '$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K', 'User', 'User', 'user@localhost', '', true, 'fr', NULL, NULL, 'system', NULL, NULL, 'system', NULL);
-INSERT INTO public.jhi_user VALUES (3, 'admin', '$2a$10$3Sj2.6n/5Nq9dtWQzztAGu4901OHgnuPCMUiC3D7./FK5Ql.4kzEm', 'Administrator', 'Administrator', 'salim@godeals.pro', '', true, 'fr', NULL, NULL, 'system', NULL, NULL, 'anonymousUser', '2019-04-27 22:41:19.448');
+INSERT INTO public.jhi_user VALUES (3, 'admin', '$2a$10$yp3LsD4yvCEjQ5bNyKo9Ke4iWeuySnsDgekpQGm76jnJI2KD8kkGy', 'Administrator', 'Administrator', 'salim@godeals.pro', '', true, 'fr', NULL, NULL, 'system', NULL, NULL, 'anonymousUser', '2019-04-27 22:41:19.448');
 INSERT INTO public.jhi_user VALUES (3701, 'salim', '$2a$10$tC6fk/XXVUggcTkBm.NazuRVRRiaOSPDe1OymEUN9FLRYW7qbWQ5C', NULL, NULL, 'salim.hamidi@gmail.com', NULL, true, 'fr', NULL, '75066859491761084391', 'anonymousUser', '2019-04-14 21:15:42.224', '2019-10-06 22:45:11.015', 'anonymousUser', '2019-10-06 22:45:11.065');
 
 
 --
--- Data for Name: jhi_user_authority; Type: TABLE DATA; Schema: public; Owner: postgres
+
 --
 
 INSERT INTO public.jhi_user_authority VALUES (1, 'ROLE_ADMIN');
@@ -1145,14 +901,14 @@ INSERT INTO public.jhi_user_authority VALUES (3701, 'ROLE_USER');
 
 
 --
--- Data for Name: quittance_mensuelle_impot; Type: TABLE DATA; Schema: public; Owner: postgres
+
 --
 
 INSERT INTO public.quittance_mensuelle_impot VALUES (17904, 2020, 1, '100', '2020-02-21', 100335.553090, 14302, 'admin', '2020-02-12 11:54:14.513', 'admin', '2020-02-21 10:35:10.488', 'DECLARATION_INITIALE', 'VALIDE', NULL);
 
 
 --
--- Data for Name: quittance_mensuelle_impot_detail; Type: TABLE DATA; Schema: public; Owner: postgres
+
 --
 
 INSERT INTO public.quittance_mensuelle_impot_detail VALUES (17982, 7058, 17904, 0.000000, 'admin', '2020-02-12 11:54:14.536', 'admin', '2020-02-21 10:35:10.515', false, false, NULL, 'TCL', 'TCL', false, 1, NULL, 0.000000);
@@ -1166,7 +922,7 @@ INSERT INTO public.quittance_mensuelle_impot_detail VALUES (17981, 7057, 17904, 
 
 
 --
--- Data for Name: quittance_mensuelle_impot_sous_detail; Type: TABLE DATA; Schema: public; Owner: postgres
+
 --
 
 INSERT INTO public.quittance_mensuelle_impot_sous_detail VALUES (18099, 7121, 17980, 0.000000, 0.000000, 'admin', '2020-02-12 11:54:14.534', 'admin', '2020-02-21 10:35:10.514');
@@ -1198,7 +954,7 @@ INSERT INTO public.quittance_mensuelle_impot_sous_detail VALUES (18098, 7120, 17
 
 
 --
--- Data for Name: region; Type: TABLE DATA; Schema: public; Owner: postgres
+
 --
 
 INSERT INTO public.region VALUES (1101, 'MAHDIA', 'MAHDIA', NULL, 'admin', NULL, NULL, NULL);
@@ -1209,7 +965,7 @@ INSERT INTO public.region VALUES (1105, 'ARIANA', 'ARIANA', 'ARIANA', 'admin', N
 
 
 --
--- Data for Name: secteur_activite; Type: TABLE DATA; Schema: public; Owner: postgres
+
 --
 
 INSERT INTO public.secteur_activite VALUES (1051, 'COMMERCE', 'Commerce', NULL, 'admin', NULL, NULL, NULL);
@@ -1219,446 +975,435 @@ INSERT INTO public.secteur_activite VALUES (1054, 'AUTRES', 'Autres', NULL, 'adm
 
 
 --
--- Data for Name: ville; Type: TABLE DATA; Schema: public; Owner: postgres
+
 --
 
 INSERT INTO public.ville VALUES (1201, 'LACHEBBA', '5170', 'LA CHEBBA', NULL, 1101, 'admin', NULL, NULL, NULL);
 
 
---
--- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.hibernate_sequence', 20150, true);
-
 
 --
--- Name: jhi_persistent_audit_evt_data jhi_persistent_audit_evt_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.jhi_persistent_audit_evt_data
+ALTER TABLE public.jhi_persistent_audit_evt_data
     ADD CONSTRAINT jhi_persistent_audit_evt_data_pkey PRIMARY KEY (event_id, name);
 
 
 --
--- Name: jhi_user_authority jhi_user_authority_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.jhi_user_authority
+ALTER TABLE public.jhi_user_authority
     ADD CONSTRAINT jhi_user_authority_pkey PRIMARY KEY (user_id, authority_name);
 
 
 --
--- Name: acompte_provisionnel pk_acompte_provisionnel; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.acompte_provisionnel
+ALTER TABLE public.acompte_provisionnel
     ADD CONSTRAINT pk_acompte_provisionnel PRIMARY KEY (id);
 
 
 --
--- Name: activite pk_activite; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.activite
+ALTER TABLE public.activite
     ADD CONSTRAINT pk_activite PRIMARY KEY (id);
 
 
 --
--- Name: cnss pk_cnss; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.cnss
+ALTER TABLE public.cnss
     ADD CONSTRAINT pk_cnss PRIMARY KEY (id);
 
 
 --
--- Name: declaration_annuelle pk_declaration_annuel; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.declaration_annuelle
+ALTER TABLE public.declaration_annuelle
     ADD CONSTRAINT pk_declaration_annuel PRIMARY KEY (id);
 
 
 --
--- Name: declaration_annuelle_detail pk_declaration_annuel_detail; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.declaration_annuelle_detail
+ALTER TABLE public.declaration_annuelle_detail
     ADD CONSTRAINT pk_declaration_annuel_detail PRIMARY KEY (id);
 
 
 --
--- Name: declaration_employeur_annuelle pk_declaration_employeur_annuelle; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.declaration_employeur_annuelle
+ALTER TABLE public.declaration_employeur_annuelle
     ADD CONSTRAINT pk_declaration_employeur_annuelle PRIMARY KEY (id);
 
 
 --
--- Name: fiche_client pk_fiche_client; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.fiche_client
+ALTER TABLE public.fiche_client
     ADD CONSTRAINT pk_fiche_client PRIMARY KEY (id);
 
 
 --
--- Name: impot_annuel pk_impot_annuel; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.impot_annuel
+ALTER TABLE public.impot_annuel
     ADD CONSTRAINT pk_impot_annuel PRIMARY KEY (id);
 
 
 --
--- Name: impot_mensuel pk_impot_mensuel; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.impot_mensuel
+ALTER TABLE public.impot_mensuel
     ADD CONSTRAINT pk_impot_mensuel PRIMARY KEY (id);
 
 
 --
--- Name: impot_annuel_detail pk_impot_mensuel_annuel; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.impot_annuel_detail
+ALTER TABLE public.impot_annuel_detail
     ADD CONSTRAINT pk_impot_mensuel_annuel PRIMARY KEY (id);
 
 
 --
--- Name: impot_mensuel_client pk_impot_mensuel_client; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.impot_mensuel_client
+ALTER TABLE public.impot_mensuel_client
     ADD CONSTRAINT pk_impot_mensuel_client PRIMARY KEY (id);
 
 
 --
--- Name: impot_mensuel_detail pk_impot_mensuel_detail; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.impot_mensuel_detail
+ALTER TABLE public.impot_mensuel_detail
     ADD CONSTRAINT pk_impot_mensuel_detail PRIMARY KEY (id);
 
 
 --
--- Name: jhi_authority pk_jhi_authority; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.jhi_authority
+ALTER TABLE public.jhi_authority
     ADD CONSTRAINT pk_jhi_authority PRIMARY KEY (name);
 
 
 --
--- Name: jhi_persistent_audit_event pk_jhi_persistent_audit_event; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.jhi_persistent_audit_event
+ALTER TABLE public.jhi_persistent_audit_event
     ADD CONSTRAINT pk_jhi_persistent_audit_event PRIMARY KEY (event_id);
 
 
 --
--- Name: jhi_user pk_jhi_user; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.jhi_user
+ALTER TABLE public.jhi_user
     ADD CONSTRAINT pk_jhi_user PRIMARY KEY (id);
 
 
 --
--- Name: quittance_mensuelle_impot pk_quittance_mensuelle_impot; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.quittance_mensuelle_impot
+ALTER TABLE public.quittance_mensuelle_impot
     ADD CONSTRAINT pk_quittance_mensuelle_impot PRIMARY KEY (id);
 
 
 --
--- Name: quittance_mensuelle_impot_detail pk_quittance_mensuelle_impot_detail; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.quittance_mensuelle_impot_detail
+ALTER TABLE public.quittance_mensuelle_impot_detail
     ADD CONSTRAINT pk_quittance_mensuelle_impot_detail PRIMARY KEY (id);
 
 
 --
--- Name: quittance_mensuelle_impot_sous_detail pk_quittance_mensuelle_impot_sous_detail; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.quittance_mensuelle_impot_sous_detail
+ALTER TABLE public.quittance_mensuelle_impot_sous_detail
     ADD CONSTRAINT pk_quittance_mensuelle_impot_sous_detail PRIMARY KEY (id);
 
 
 --
--- Name: region pk_region; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.region
+ALTER TABLE public.region
     ADD CONSTRAINT pk_region PRIMARY KEY (id);
 
 
 --
--- Name: secteur_activite pk_secteur_activite; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.secteur_activite
+ALTER TABLE public.secteur_activite
     ADD CONSTRAINT pk_secteur_activite PRIMARY KEY (id);
 
 
 --
--- Name: ville pk_ville; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.ville
+ALTER TABLE public.ville
     ADD CONSTRAINT pk_ville PRIMARY KEY (id);
 
 
 --
--- Name: jhi_user ux_user_email; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.jhi_user
+ALTER TABLE public.jhi_user
     ADD CONSTRAINT ux_user_email UNIQUE (email);
 
 
 --
--- Name: jhi_user ux_user_login; Type: CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.jhi_user
+ALTER TABLE public.jhi_user
     ADD CONSTRAINT ux_user_login UNIQUE (login);
 
 
 --
--- Name: idx_persistent_audit_event; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX idx_persistent_audit_event ON public.jhi_persistent_audit_event USING btree (principal, event_date);
-
 
 --
--- Name: idx_persistent_audit_evt_data; Type: INDEX; Schema: public; Owner: postgres
---
 
-CREATE INDEX idx_persistent_audit_evt_data ON public.jhi_persistent_audit_evt_data USING btree (event_id);
+CREATE INDEX idx_persistent_audit_event ON public.jhi_persistent_audit_event (principal, event_date);
+
+CREATE INDEX idx_persistent_audit_evt_data ON public.jhi_persistent_audit_evt_data(event_id);
 
 
 --
--- Name: acompte_provisionnel fk_acompte_provisionnel_fiche_client_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.acompte_provisionnel
+ALTER TABLE public.acompte_provisionnel
     ADD CONSTRAINT fk_acompte_provisionnel_fiche_client_id FOREIGN KEY (fiche_client_id) REFERENCES public.fiche_client(id);
 
 
 --
--- Name: jhi_user_authority fk_authority_name; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.jhi_user_authority
+ALTER TABLE public.jhi_user_authority
     ADD CONSTRAINT fk_authority_name FOREIGN KEY (authority_name) REFERENCES public.jhi_authority(name);
 
 
 --
--- Name: cnss fk_cnss_fiche_client_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.cnss
+ALTER TABLE public.cnss
     ADD CONSTRAINT fk_cnss_fiche_client_id FOREIGN KEY (fiche_client_id) REFERENCES public.fiche_client(id);
 
 
 --
--- Name: declaration_annuelle_detail fk_declaration_annuelle_detail_declaration_annuelle_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.declaration_annuelle_detail
+ALTER TABLE public.declaration_annuelle_detail
     ADD CONSTRAINT fk_declaration_annuelle_detail_declaration_annuelle_id FOREIGN KEY (declaration_annuelle_id) REFERENCES public.declaration_annuelle(id);
 
 
 --
--- Name: declaration_annuelle_detail fk_declaration_annuelle_detail_impot_annuel_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.declaration_annuelle_detail
+ALTER TABLE public.declaration_annuelle_detail
     ADD CONSTRAINT fk_declaration_annuelle_detail_impot_annuel_id FOREIGN KEY (impot_annuel_id) REFERENCES public.impot_annuel(id);
 
 
 --
--- Name: declaration_annuelle fk_declaration_annuelle_fiche_client_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.declaration_annuelle
+ALTER TABLE public.declaration_annuelle
     ADD CONSTRAINT fk_declaration_annuelle_fiche_client_id FOREIGN KEY (fiche_client_id) REFERENCES public.fiche_client(id);
 
 
 --
--- Name: declaration_employeur_annuelle fk_declaration_employeur_annuelle_fiche_client_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.declaration_employeur_annuelle
+ALTER TABLE public.declaration_employeur_annuelle
     ADD CONSTRAINT fk_declaration_employeur_annuelle_fiche_client_id FOREIGN KEY (fiche_client_id) REFERENCES public.fiche_client(id);
 
 
 --
--- Name: jhi_persistent_audit_evt_data fk_evt_pers_audit_evt_data; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.jhi_persistent_audit_evt_data
+ALTER TABLE public.jhi_persistent_audit_evt_data
     ADD CONSTRAINT fk_evt_pers_audit_evt_data FOREIGN KEY (event_id) REFERENCES public.jhi_persistent_audit_event(event_id);
 
 
 --
--- Name: fiche_client fk_fiche_client_activite_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.fiche_client
+ALTER TABLE public.fiche_client
     ADD CONSTRAINT fk_fiche_client_activite_id FOREIGN KEY (activite_id) REFERENCES public.activite(id);
 
 
 --
--- Name: fiche_client fk_fiche_client_activite_scondaire_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.fiche_client
+ALTER TABLE public.fiche_client
     ADD CONSTRAINT fk_fiche_client_activite_scondaire_id FOREIGN KEY (activite_scondaire_id) REFERENCES public.activite(id);
 
 
 --
--- Name: fiche_client fk_fiche_client_region_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.fiche_client
+ALTER TABLE public.fiche_client
     ADD CONSTRAINT fk_fiche_client_region_id FOREIGN KEY (region_id) REFERENCES public.region(id);
 
 
 --
--- Name: fiche_client fk_fiche_client_secteur_activite_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.fiche_client
+ALTER TABLE public.fiche_client
     ADD CONSTRAINT fk_fiche_client_secteur_activite_id FOREIGN KEY (secteur_activite_id) REFERENCES public.secteur_activite(id);
 
 
 --
--- Name: fiche_client fk_fiche_client_ville_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.fiche_client
+ALTER TABLE public.fiche_client
     ADD CONSTRAINT fk_fiche_client_ville_id FOREIGN KEY (ville_id) REFERENCES public.ville(id);
 
 
 --
--- Name: impot_annuel_detail fk_impot_annuel_impot_mensuel_detail_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.impot_annuel_detail
+ALTER TABLE public.impot_annuel_detail
     ADD CONSTRAINT fk_impot_annuel_impot_mensuel_detail_id FOREIGN KEY (impot_mensuel_detail_id) REFERENCES public.impot_mensuel_detail(id);
 
 
 --
--- Name: impot_mensuel_client fk_impot_mensuel_client_fiche_client_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.impot_mensuel_client
+ALTER TABLE public.impot_mensuel_client
     ADD CONSTRAINT fk_impot_mensuel_client_fiche_client_id FOREIGN KEY (fiche_client_id) REFERENCES public.fiche_client(id);
 
 
 --
--- Name: impot_mensuel_client fk_impot_mensuel_client_impot_mensuel_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.impot_mensuel_client
+ALTER TABLE public.impot_mensuel_client
     ADD CONSTRAINT fk_impot_mensuel_client_impot_mensuel_id FOREIGN KEY (impot_mensuel_id) REFERENCES public.impot_mensuel(id);
 
 
 --
--- Name: impot_mensuel_detail fk_impot_mensuel_detail_impot_mensuel_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.impot_mensuel_detail
+ALTER TABLE public.impot_mensuel_detail
     ADD CONSTRAINT fk_impot_mensuel_detail_impot_mensuel_id FOREIGN KEY (impot_mensuel_id) REFERENCES public.impot_mensuel(id);
 
 
 --
--- Name: quittance_mensuelle_impot_detail fk_impot_mensuel_quittance_mensuelle_impot; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.quittance_mensuelle_impot_detail
+ALTER TABLE public.quittance_mensuelle_impot_detail
     ADD CONSTRAINT fk_impot_mensuel_quittance_mensuelle_impot FOREIGN KEY (impot_mensuel_id) REFERENCES public.impot_mensuel(id);
 
 
 --
--- Name: impot_mensuel fk_parent__impot_mensuel_impot_mensuel_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.impot_mensuel
+ALTER TABLE public.impot_mensuel
     ADD CONSTRAINT fk_parent__impot_mensuel_impot_mensuel_id FOREIGN KEY (parent_impot_mensuel_id) REFERENCES public.impot_mensuel(id);
 
 
 --
--- Name: quittance_mensuelle_impot fk_parent_quittance_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.quittance_mensuelle_impot
+ALTER TABLE public.quittance_mensuelle_impot
     ADD CONSTRAINT fk_parent_quittance_id FOREIGN KEY (parent_quittance_id) REFERENCES public.quittance_mensuelle_impot(id);
 
 
 --
--- Name: quittance_mensuelle_impot_detail fk_parent_quittance_mensuelle_impot_detail; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.quittance_mensuelle_impot_detail
+ALTER TABLE public.quittance_mensuelle_impot_detail
     ADD CONSTRAINT fk_parent_quittance_mensuelle_impot_detail FOREIGN KEY (parent_quittance_mensuelle_impot_detail_id) REFERENCES public.quittance_mensuelle_impot_detail(id);
 
 
 --
--- Name: quittance_mensuelle_impot fk_quittance_mensuelle_impot_fiche_client_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.quittance_mensuelle_impot
+ALTER TABLE public.quittance_mensuelle_impot
     ADD CONSTRAINT fk_quittance_mensuelle_impot_fiche_client_id FOREIGN KEY (fiche_client_id) REFERENCES public.fiche_client(id);
 
 
 --
--- Name: quittance_mensuelle_impot_detail fk_quittance_mensuelle_impot_quittance_mensuelle_impot_detail; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.quittance_mensuelle_impot_detail
+ALTER TABLE public.quittance_mensuelle_impot_detail
     ADD CONSTRAINT fk_quittance_mensuelle_impot_quittance_mensuelle_impot_detail FOREIGN KEY (quittance_mensuelle_impot_id) REFERENCES public.quittance_mensuelle_impot(id);
 
 
 --
--- Name: quittance_mensuelle_impot_sous_detail fk_quittance_mensuelle_impot_sous_detail_impot_mensuel_detail; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.quittance_mensuelle_impot_sous_detail
+ALTER TABLE public.quittance_mensuelle_impot_sous_detail
     ADD CONSTRAINT fk_quittance_mensuelle_impot_sous_detail_impot_mensuel_detail FOREIGN KEY (impot_mensuel_detail_id) REFERENCES public.impot_mensuel_detail(id);
 
 
 --
--- Name: quittance_mensuelle_impot_sous_detail fk_quittance_mensuelle_impot_sous_detail_quittance_mensuelle_im; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.quittance_mensuelle_impot_sous_detail
+ALTER TABLE public.quittance_mensuelle_impot_sous_detail
     ADD CONSTRAINT fk_quittance_mensuelle_impot_sous_detail_quittance_mensuelle_im FOREIGN KEY (quittance_mensuelle_impot_detail_id) REFERENCES public.quittance_mensuelle_impot_detail(id);
 
 
 --
--- Name: jhi_user_authority fk_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.jhi_user_authority
+ALTER TABLE public.jhi_user_authority
     ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES public.jhi_user(id);
 
 
 --
--- Name: ville fk_ville_region_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+
 --
 
-ALTER TABLE ONLY public.ville
+ALTER TABLE public.ville
     ADD CONSTRAINT fk_ville_region_id FOREIGN KEY (region_id) REFERENCES public.region(id);
 
 

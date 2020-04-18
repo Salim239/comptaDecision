@@ -4,7 +4,6 @@ import {Observable} from 'rxjs';
 import * as moment from 'moment';
 import {DATE_FORMAT} from 'app/shared/constants/input.constants';
 import {map} from 'rxjs/operators';
-
 import {SERVER_API_URL} from 'app/app.constants';
 import {createRequestOption} from 'app/shared';
 import {IQuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
@@ -49,6 +48,13 @@ export class QuittanceMensuelleImpotService {
             .get<IQuittanceMensuelleImpot>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
+
+    // print(id: number): Observable<EntityResponseType> {
+    //
+    //     return this.http
+    //         .get<any>(`${this.resourceUrl}/${id}/print`, { observe: 'response',
+    //         responseType: 'Blob'});
+    // }
 
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);

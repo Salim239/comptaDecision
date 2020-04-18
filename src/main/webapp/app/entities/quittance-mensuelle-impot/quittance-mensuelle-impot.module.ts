@@ -15,11 +15,12 @@ import {
 } from './';
 import {QuittanceMensuelleImpotDetailListComponent} from './quittance-mensuelle-impot-detail/quittance-mensuelle-impot-detail-list.component';
 import {QuittanceMensuelleImpotDetailCalcMontantTotalComponent} from './quittance-mensuelle-impot-detail/quittance-mensuelle-impot-detail-calc-montant-total.component';
+import {Ng2SmartTableModule} from "ng2-smart-table";
 
 const ENTITY_STATES = [...quittanceMensuelleImpotRoute, ...quittanceMensuelleImpotPopupRoute];
 
 @NgModule({
-    imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES), Ng2SmartTableModule],
     declarations: [
         QuittanceMensuelleImpotComponent,
         QuittanceMensuelleImpotDetailComponent,
