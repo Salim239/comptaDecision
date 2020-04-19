@@ -234,3 +234,9 @@ specific app style
 input.numeric {
     text-align: right;
 }
+
+tr.selected {
+    background-color: #3e8acc;
+    color: #fff;
+    border-color: #3e8acc;
+}

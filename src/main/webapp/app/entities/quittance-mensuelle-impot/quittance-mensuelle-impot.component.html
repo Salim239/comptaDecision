@@ -23,7 +23,7 @@
                         <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                     </button>
                     <button type="submit" [disabled]="!this.selectedQuittanceMensuelleImpot"
-                            [routerLink]="['/', 'quittance-mensuelle-impot', { outlets: { popup: (selectedQuittanceMensuelleImpot ? selectedQuittanceMensuelleImpot.id : '1') + '/delete'} }]"
+                            [routerLink]="['/', 'quittance-mensuelle-impot', { outlets: { popup: (selectedQuittanceMensuelleImpot ? selectedQuittanceMensuelleImpot.id : '') + '/delete'} }]"
                             replaceUrl="true"
                             queryParamsHandling="merge"
                             class="btn btn-danger btn-sm">
@@ -39,7 +39,7 @@
             </div>
         </div>
         <br>
-        <table class="table table-responsive-sm table-bordered table-hover" *ngIf="quittanceMensuelleImpots">
+        <table class="table table-responsive-sm table-bordered" *ngIf="quittanceMensuelleImpots">
             <thead>
             <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
 <!--            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
@@ -55,7 +55,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr jhiSelectedRow *ngFor="let quittanceMensuelleImpot of quittanceMensuelleImpots ;trackBy: trackId">
+            <tr [ngClass]="isTrSelected(quittanceMensuelleImpot) && 'selected'" *ngFor="let quittanceMensuelleImpot of quittanceMensuelleImpots ;trackBy: trackId">
 <!--               <td><a [routerLink]="['/quittance-mensuelle-impot', quittanceMensuelleImpot.id, 'view' ]">{{quittanceMensuelleImpot.id}}</a></td>-->
                 <td><input type="checkbox" (click)="selectRow(quittanceMensuelleImpot)" [checked]="selectedQuittanceMensuelleImpot && quittanceMensuelleImpot.id === selectedQuittanceMensuelleImpot.id"></td>
                 <td>

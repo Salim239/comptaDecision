@@ -1,20 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
-import {IQuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
-import {AccountService} from 'app/core';
+import { IQuittanceMensuelleImpot } from 'app/shared/model/quittance-mensuelle-impot.model';
+import { AccountService } from 'app/core';
 
-import {ITEMS_PER_PAGE} from 'app/shared';
-import {QuittanceMensuelleImpotService} from './quittance-mensuelle-impot.service';
+import { ITEMS_PER_PAGE } from 'app/shared';
+import { QuittanceMensuelleImpotService } from './quittance-mensuelle-impot.service';
 
 @Component({
     selector: 'jhi-quittance-mensuelle-impot',
     styles: ['.table-dark.table-hover tbody tr::selection {color: red; background-color: red;}'],
     templateUrl: './quittance-mensuelle-impot.component.html'
-
 })
 export class QuittanceMensuelleImpotComponent implements OnInit, OnDestroy {
     currentAccount: any;
@@ -141,20 +140,16 @@ export class QuittanceMensuelleImpotComponent implements OnInit, OnDestroy {
         console.log('annee ', annee);
         console.log('mois ', mois);
         this.router.navigateByUrl(`/quittance-mensuelle-impot/${ficheClientId}/${annee}/${mois}/${typeDeclaration}/new`);
-
     }
 
     selectRow(quittanceMensuelleImpot: IQuittanceMensuelleImpot) {
-
         // unselect selected row
-        if (this.selectedQuittanceMensuelleImpot &&
-        quittanceMensuelleImpot.id == this.selectedQuittanceMensuelleImpot.id) {
-            this.selectedQuittanceMensuelleImpot = undefined
+        if (this.selectedQuittanceMensuelleImpot && quittanceMensuelleImpot.id === this.selectedQuittanceMensuelleImpot.id) {
+            this.selectedQuittanceMensuelleImpot = undefined;
             // select row
         } else {
             this.selectedQuittanceMensuelleImpot = quittanceMensuelleImpot;
         }
-
     }
 
     delete() {
@@ -176,6 +171,10 @@ export class QuittanceMensuelleImpotComponent implements OnInit, OnDestroy {
             const id = this.selectedQuittanceMensuelleImpot.id;
             this.router.navigateByUrl(`/quittance-mensuelle-impot/${id}`);
         }
+    }
+
+    isTrSelected(quittance: IQuittanceMensuelleImpot) {
+        return this.selectedQuittanceMensuelleImpot && this.selectedQuittanceMensuelleImpot.id === quittance.id;
     }
 
     // print() {
