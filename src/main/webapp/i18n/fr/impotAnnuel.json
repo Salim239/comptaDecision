@@ -1,0 +1,26 @@
+{
+    "comptaDecisionApp": {
+        "impotAnnuel": {
+            "home": {
+                "title": "ImpotAnnuels",
+                "createLabel": "Créer un nouveau Impot Annuel",
+                "createOrEditLabel": "Créer ou éditer un Impot Annuel"
+            },
+            "created": "Un nouveau Impot Annuel a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Impot Annuel avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Impot Annuel avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Impot Annuel {{ id }} ?"
+            },
+            "detail": {
+                "title": "Impot Annuel"
+            },
+            "code": "Code",
+            "libelle": "Libelle",
+            "description": "Description",
+            "calcule": "Possède une formule de calcul?",
+            "triOrdre": "Ordre de tri",
+            "sumAcomptesPrevisonnels": "Est la somme des APs?"
+        }
+    }
+}

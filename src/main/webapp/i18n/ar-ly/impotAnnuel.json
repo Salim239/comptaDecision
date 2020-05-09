@@ -1,0 +1,26 @@
+{
+    "comptaDecisionApp": {
+        "impotAnnuel": {
+            "home": {
+                "title": "Impot Annuels",
+                "createLabel": "Create a new Impot Annuel",
+                "createOrEditLabel": "Create or edit a Impot Annuel"
+            },
+            "created": "A new Impot Annuel is created with identifier {{ param }}",
+            "updated": "A Impot Annuel is updated with identifier {{ param }}",
+            "deleted": "A Impot Annuel is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Impot Annuel {{ id }}?"
+            },
+            "detail": {
+                "title": "Impot Annuel"
+            },
+            "code": "Code",
+            "libelle": "Libelle",
+            "description": "Description",
+            "calcule": "Calculé?",
+            "triOrdre": "Ordre de tri",
+            "sumAcomptesPrevisonnels": "Est la somme des APs?"
+        }
+    }
+}

@@ -1,5 +1,5 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -23,6 +23,10 @@ import {RouterModule} from '@angular/router';
             {
                 path: 'impot-mensuel',
                 loadChildren: './impot-mensuel/impot-mensuel.module#ComptaDecisionImpotMensuelModule'
+            },
+            {
+                path: 'impot-annuel',
+                loadChildren: './impot-annuel/impot-annuel.module#ComptaDecisionImpotAnnuelModule'
             },
             {
                 path: 'fiche-client',

@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,6 +33,9 @@ public class ImpotAnnuelDTO implements Serializable {
     private String description;
 
     private Boolean calcule = Boolean.FALSE;
+
+    @Column(name = "sum_acomptes_previsionnels")
+    private Boolean sumAcomptesPrevisonnels = Boolean.FALSE;
 
     @NotNull
     private Integer triOrdre;
@@ -92,5 +96,13 @@ public class ImpotAnnuelDTO implements Serializable {
 
     public void setTriOrdre(Integer triOrdre) {
         this.triOrdre = triOrdre;
+    }
+
+    public Boolean getSumAcomptesPrevisonnels() {
+        return sumAcomptesPrevisonnels;
+    }
+
+    public void setSumAcomptesPrevisonnels(Boolean sumAcomptesPrevisonnels) {
+        this.sumAcomptesPrevisonnels = sumAcomptesPrevisonnels;
     }
 }

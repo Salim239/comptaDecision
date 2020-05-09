@@ -131,8 +131,8 @@ public class DeclarationAnnuelleService {
 
     private void initDeclarationAnnuelDetails(DeclarationAnnuelle declarationAnnuelle) {
 
-        List<ImpotAnnuel> impotMensuels = impotAnnuelRepository.findAll();
-        List<DecalrationAnnuelleDetail> declarationAnnuelleDetails = impotMensuels.stream()
+        List<ImpotAnnuel> impotAnnuels = impotAnnuelRepository.findAll();
+        List<DecalrationAnnuelleDetail> declarationAnnuelleDetails = impotAnnuels.stream()
                 .map(impotAnnuel -> {
                     DecalrationAnnuelleDetail declarationAnnuelleDetail = new DecalrationAnnuelleDetail();
                     declarationAnnuelleDetail.setCode(impotAnnuel.getCode());
@@ -163,7 +163,7 @@ public class DeclarationAnnuelleService {
         Optional<DeclarationAnnuelle> declarationAnnuelleOptional = declarationAnnuelleRepository.findByAnneeAndFicheClientIdAndTypeDeclaration(annee,
                 ficheClient.getId(), TypeDeclaration.DECLARATION_INITIALE);
 
-        //Si existe déjà une quittance mensuelle initiale avec un numéro (donc validée) alors créer une quittance type corrective
+        //Si existe déjà une déclartion annuelle initiale avec un numéro (donc validée) alors créer une quittance type corrective
         //Sinon si la quittance initiale trouvée de possède pas de numéro alors l'éditer
         //Enfin si pas de quittance initiale trouvée alors créé une nouvelle
         if (declarationAnnuelleOptional.isPresent()) {

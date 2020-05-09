@@ -50,6 +50,24 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
     private String ficheClientMatriculeFiscale;
     private String ficheClientRegistreCommerce;
     private LocalDate ficheClientDateCreation;
+    private String typeAlert;
+    private String codeAlert;
+
+    public String getTypeAlert() {
+        return typeAlert;
+    }
+
+    public void setTypeAlert(String typeAlert) {
+        this.typeAlert = typeAlert;
+    }
+
+    public String getCodeAlert() {
+        return codeAlert;
+    }
+
+    public void setCodeAlert(String codeAlert) {
+        this.codeAlert = codeAlert;
+    }
 
     private Float valeurImpot;
 

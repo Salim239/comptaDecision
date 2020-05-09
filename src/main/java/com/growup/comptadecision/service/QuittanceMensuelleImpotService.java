@@ -137,6 +137,11 @@ public class QuittanceMensuelleImpotService {
     public QuittanceMensuelleImpotDTO init(Long ficheClientId, Integer annee, Integer mois, TypeDeclaration typeDeclaration) {
 
         FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new BusinessErrorException(String.format("Il n'existe pas de fiche client avec l'id %s", ficheClientId)));
+        QuittanceMensuelleImpot quittanceInitiale = new QuittanceMensuelleImpot(
+            ficheClient,
+            annee,
+            mois,
+            TypeDeclaration.DECLARATION_INITIALE);
         validateCreationForm(ficheClient, annee, mois, typeDeclaration);
         return getEmptyQuittanceMensuel(ficheClient, annee, mois);
     }

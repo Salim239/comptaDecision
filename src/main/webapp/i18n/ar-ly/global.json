@@ -1,8 +1,7 @@
 {
     "global": {
         "title": "ComptaDecision",
-        "browsehappy":
-            "أنت تستخدم متصفح <strong>قديم</strong> . من فضلك <a href=\"http://browsehappy.com/?locale=en\">قم بتحديث متصفحك</a> لتحسين تجربتك.",
+        "browsehappy": "أنت تستخدم متصفح <strong>قديم</strong> . من فضلك <a href=\"http://browsehappy.com/?locale=en\">قم بتحديث متصفحك</a> لتحسين تجربتك.",
         "menu": {
             "home": "الصفحة الرئيسية",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
@@ -13,6 +12,7 @@
                 "secteurActivite": "Secteur Activite",
                 "activite": "Activite",
                 "impotMensuel": "Impot Mensuel",
+                "impotAnnuel": "Impot Annuel",
                 "ficheClient": "Fiche Client",
                 "cnss": "Cnss",
                 "impotMensuelClient": "Impot Mensuel Client",
@@ -64,8 +64,7 @@
                 "authenticated": {
                     "prefix": "إذا اردت أن ",
                     "link": "تسجل دخولك",
-                    "suffix":
-                        ", يمكنك تجربة الحسابات التجريبية:<br/>- المدير (login=\"admin\" و كلمة المرور=\"admin\") <br/>- المستخدم (login=\"user\" و كلمة المرور=\"user\")."
+                    "suffix": ", يمكنك تجربة الحسابات التجريبية:<br/>- المدير (login=\"admin\" و كلمة المرور=\"admin\") <br/>- المستخدم (login=\"user\" و كلمة المرور=\"user\")."
                 },
                 "register": {
                     "noaccount": "لا تملك حسابا حتى الآن؟",

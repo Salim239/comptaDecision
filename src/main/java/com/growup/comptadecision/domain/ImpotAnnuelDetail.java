@@ -36,7 +36,7 @@ public class ImpotAnnuelDetail extends AbstractAuditingEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private ImpotMensuelDetail impotMensuelDetail;
 
-    Integer coefficient = 1;
+    private Float coefficient = 1f;
 
     public Long getId() {
         return id;
@@ -62,11 +62,11 @@ public class ImpotAnnuelDetail extends AbstractAuditingEntity {
         this.impotMensuelDetail = impotMensuelDetail;
     }
 
-    public Integer getCoefficient() {
+    public Float getCoefficient() {
         return coefficient;
     }
 
-    public void setCoefficient(Integer coefficient) {
+    public void setCoefficient(Float coefficient) {
         this.coefficient = coefficient;
     }
 }

@@ -57,6 +57,12 @@
                             <span jhiTranslate="global.menu.entities.impotMensuel">Impot Mensuel</span>
                         </a>
                     </li>
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                        <a class="dropdown-item" routerLink="impot-annuel" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.impotAnnuel">Impot Annuel</span>
+                        </a>
+                    </li>
                     <li>
                         <a class="dropdown-item" routerLink="fiche-client" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>

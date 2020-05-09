@@ -354,8 +354,8 @@ INSERT INTO public.declaration_annuelle_detail VALUES (18255, 'HONORAIRE', 'Hono
 INSERT INTO public.declaration_annuelle_detail VALUES (18256, 'CA_TTC', 'CA TTC', NULL, 6, true, 0.000000, 0.000000, 6, 'admin', '2020-02-21 10:39:10.721', 'admin', '2020-02-21 10:39:10.721', 18201);
 INSERT INTO public.declaration_annuelle_detail VALUES (18257, 'SI', 'Sock Initiale', NULL, 6, false, 0.000000, NULL, 7, 'admin', '2020-02-21 10:39:10.721', 'admin', '2020-02-21 10:39:10.721', 18201);
 INSERT INTO public.declaration_annuelle_detail VALUES (18258, 'SF', 'Stock Final', NULL, 7, false, 0.000000, NULL, 8, 'admin', '2020-02-21 10:39:10.721', 'admin', '2020-02-21 10:39:10.721', 18201);
-INSERT INTO public.declaration_annuelle_detail VALUES (18259, 'BALANCE_COMPTE', 'Balance Compte', NULL, 8, false, 0.000000, NULL, 9, 'admin', '2020-02-21 10:39:10.722', 'admin', '2020-02-21 10:39:10.722', 18201);
-INSERT INTO public.declaration_annuelle_detail VALUES (18260, 'BALANCE_FISCALE', 'Balance Fiscale', NULL, 9, false, 0.000000, NULL, 10, 'admin', '2020-02-21 10:39:10.723', 'admin', '2020-02-21 10:39:10.723', 18201);
+INSERT INTO public.declaration_annuelle_detail VALUES (18259, 'BALANCE_COMPTE', 'Résultat Comptable', NULL, 8, false, 0.000000, NULL, 9, 'admin', '2020-02-21 10:39:10.722', 'admin', '2020-02-21 10:39:10.722', 18201);
+INSERT INTO public.declaration_annuelle_detail VALUES (18260, 'BALANCE_FISCALE', 'Résultat Fiscale', NULL, 9, false, 0.000000, NULL, 10, 'admin', '2020-02-21 10:39:10.723', 'admin', '2020-02-21 10:39:10.723', 18201);
 
 INSERT INTO public.declaration_employeur_annuelle VALUES (18501, 2020, 100.00, 0.00, 147.25, 14141.00, 14.00, 144.00, 150.00, 147.00, 147.25, 12.26, 147.20, 147.02, 14302, 'admin', '2020-02-21 22:44:22.275', 'admin', '2020-02-21 22:44:22.275');
 
@@ -370,8 +370,8 @@ INSERT INTO public.impot_annuel VALUES (3, 'SALAIRE_BRUT', 'Salaire Brut', NULL,
 INSERT INTO public.impot_annuel VALUES (5, 'HONORAIRE', 'Honoraire', NULL, 'admin', '2020-02-06 20:04:50.634', NULL, NULL, true, 5);
 INSERT INTO public.impot_annuel VALUES (7, 'SI', 'Sock Initiale', NULL, 'admin', '2020-02-06 20:06:14.742', NULL, NULL, false, 6);
 INSERT INTO public.impot_annuel VALUES (8, 'SF', 'Stock Final', NULL, 'admin', '2020-02-06 20:06:47.351', NULL, NULL, false, 7);
-INSERT INTO public.impot_annuel VALUES (9, 'BALANCE_COMPTE', 'Balance Compte', NULL, 'admin', '2020-02-06 20:08:24.431', NULL, NULL, false, 8);
-INSERT INTO public.impot_annuel VALUES (10, 'BALANCE_FISCALE', 'Balance Fiscale', NULL, 'admin', '2020-02-06 20:08:55.773', NULL, NULL, false, 9);
+INSERT INTO public.impot_annuel VALUES (9, 'BALANCE_COMPTE', 'Résultat Comptable', NULL, 'admin', '2020-02-06 20:08:24.431', NULL, NULL, false, 8);
+INSERT INTO public.impot_annuel VALUES (10, 'BALANCE_FISCALE', 'Résultat Fiscale', NULL, 'admin', '2020-02-06 20:08:55.773', NULL, NULL, false, 9);
 
 
 INSERT INTO public.impot_annuel_detail VALUES (1, 1, 7111, 1, 'admin', NULL, NULL, NULL);
@@ -422,12 +422,12 @@ INSERT INTO public.impot_mensuel_detail VALUES (7121, 'AUTRE2', 9, NULL, 'Autre'
 INSERT INTO public.impot_mensuel_detail VALUES (7122, 'NB_FACTURES', 1, 0.600, 'Nb Factures', NULL, 7057, 'admin', '2019-10-27 19:32:08.413', 'admin', '2019-11-24 13:26:24.417', 'MONTANT', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7102, 'LOYER', 2, 15.000, 'Loyer', NULL, 7051, 'admin', '2019-10-27 19:19:16.569', 'admin', '2019-11-24 13:39:00.986', 'TAUX', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7103, 'MONTANT_SUP_1000', 3, 1.500, 'Montant >1000', NULL, 7051, 'admin', '2019-10-27 19:19:16.57', 'admin', '2019-11-24 13:39:00.986', 'TAUX', false);
-INSERT INTO public.impot_mensuel_detail VALUES (7104, 'HONORAIRE', 4, NULL, 'Honoraire', NULL, 7051, 'admin', '2019-10-27 19:19:16.571', 'admin', '2019-11-24 13:39:00.992', 'MONTANT', false);
+INSERT INTO public.impot_mensuel_detail VALUES (7104, 'HONORAIRE_5', 4, 5.000, 'Honoraire', NULL, 7051, 'admin', '2019-10-27 19:19:16.571', 'admin', '2019-11-24 13:39:00.992', 'TAUX', false);
+INSERT INTO public.impot_mensuel_detail VALUES (17002, 'HONORAIRE_15', 4, 15.000, 'Honoraire', NULL, 7051, 'admin', '2019-10-27 19:19:16.571', 'admin', '2019-11-24 13:39:00.992', 'TAUX', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7106, 'AUTRE2', 6, NULL, 'Autre 2', NULL, 7051, 'admin', '2019-10-27 19:19:16.573', 'admin', '2019-11-24 13:39:00.993', 'MONTANT', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7101, 'SALAIRE_IMPOSABLE', 1, NULL, 'Salaire Imposable', NULL, 7051, 'admin', '2019-10-27 19:17:09.226', 'admin', '2019-11-24 13:39:00.994', 'MONTANT', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7105, 'AUTRE1', 5, NULL, 'Autre 1', NULL, 7051, 'admin', '2019-10-27 19:19:16.572', 'admin', '2019-11-24 13:39:00.994', 'MONTANT', false);
 INSERT INTO public.impot_mensuel_detail VALUES (17001, 'VENTE_SUSPENSION_TVA', 3, NULL, 'Vente en suspension de TVA', NULL, 7058, 'admin', '2020-02-06 20:49:08.629', 'admin', '2020-02-06 20:49:08.629', 'MONTANT', false);
-INSERT INTO public.impot_mensuel_detail VALUES (17002, 'VENTE_EXONEREE', 4, NULL, 'Vente éxonérée', NULL, 7058, 'admin', '2020-02-06 20:49:08.633', 'admin', '2020-02-06 20:49:08.633', 'MONTANT', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7123, 'CA_EXPORT', 1, 0.100, 'CA_Export', NULL, 7058, 'admin', '2019-10-27 19:34:20.956', 'admin', '2020-02-06 20:49:08.641', 'TAUX', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7124, 'CA_LOCAL', 2, 0.200, 'CA Local', NULL, 7058, 'admin', '2019-10-27 19:34:20.956', 'admin', '2020-02-06 20:49:08.641', 'TAUX', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7110, 'CA_HT_7', 1, 7.000, 'CA HT', NULL, 7055, 'admin', '2019-10-27 19:25:07.905', 'admin', '2019-11-16 17:08:21.885', 'TAUX', false);

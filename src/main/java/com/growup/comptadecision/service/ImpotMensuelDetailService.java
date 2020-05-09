@@ -29,11 +29,10 @@ public class ImpotMensuelDetailService {
         this.impotMensuelDetailMapper = impotMensuelDetailMapper;
     }
 
-    List<ImpotMensuelDetailDTO> findByImpotMensuelIds(List<Long> impotMensuelDetailIds) {
-
-        return impotMensuelDetailRepository.findByImpotMensuelIds(impotMensuelDetailIds).stream()
-                .map(impotMensuelDetail -> impotMensuelDetailMapper.toDto(impotMensuelDetail))
-                .collect(Collectors.toList());
+    public List<ImpotMensuelDetailDTO> findAll() {
+        return impotMensuelDetailRepository.findAll().stream()
+            .map(impotMensuelDetail -> impotMensuelDetailMapper.toDto(impotMensuelDetail))
+            .collect(Collectors.toList());
     }
 
 

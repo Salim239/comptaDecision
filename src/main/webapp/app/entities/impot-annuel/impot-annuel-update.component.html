@@ -1,0 +1,129 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-impot-annuel-heading" jhiTranslate="comptaDecisionApp.impotAnnuel.home.createOrEditLabel">Create
+                or edit a Impot Annuel</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!impotAnnuel.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                           [(ngModel)]="impotAnnuel.id" readonly/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotAnnuel.code"
+                           for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                           [(ngModel)]="impotAnnuel.code" required/>
+                    <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.code?.errors?.required"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotAnnuel.libelle"
+                           for="field_libelle">Libelle</label>
+                    <input type="text" class="form-control" name="libelle" id="field_libelle"
+                           [(ngModel)]="impotAnnuel.libelle" required/>
+                    <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.libelle?.errors?.required"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotAnnuel.triOrdre"
+                           for="field_libelle">Ordre de tri</label>
+                    <input type="text" class="form-control" name="triOrdre" id="field_triOrdre"
+                           [(ngModel)]="impotAnnuel.triOrdre" required/>
+                    <div [hidden]="!(editForm.controls.triOrdre?.dirty && editForm.controls.triOrdre?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.triOrdre?.errors?.required"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotAnnuel.description"
+                           for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           [(ngModel)]="impotAnnuel.description"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotAnnuel.sumAcomptesPrevisonnels" for="field_sumAcomptesPrevisonnels">Est la somme des AP?</label>
+                    <input id="field_sumAcomptesPrevisonnels" name="sumAcomptesPrevisonnels" type="checkbox" [(ngModel)]="impotAnnuel.sumAcomptesPrevisonnels">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label"
+                           jhiTranslate="comptaDecisionApp.impotAnnuel.calcule"
+                           for="field_calcule">Possède une formule de calcul?</label>
+                    <input id="field_calcule" name="calcule" type="checkbox"
+                           [(ngModel)]="impotAnnuel.calcule">
+                </div>
+                <div class="table-responsive" *ngIf="impotAnnuel.calcule">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th jhiTranslate="comptaDecisionApp.impotAnnuelDetail.impotMensuel">Impot</th>
+                            <th jhiTranslate="comptaDecisionApp.impotAnnuelDetail.coefficient">Coefficient</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td >
+                                <select class="form-control" name="impotMensuelDetailId"  [(ngModel)]="impotAnnuelDetailNew.impotMensuelDetailId">
+                                    <option  [ngValue]="impotMensuelDetail.id" *ngFor="let impotMensuelDetail of impotMensuelDetails">{{formatImpotMensuelDetailLibelle(impotMensuelDetail)}}</option>
+                                </select>
+                            </td>
+                            <td >
+                                <input class="form-control"  name="coefficient" type="text" [(ngModel)]="impotAnnuelDetailNew.coefficient"/>
+                            </td>
+                            <td>
+                                <button [title]="'entity.action.add'" type="button" id="add-impotAnnuelDetail" [disabled]="!isValidImpotAnnuelDetail(impotAnnuelDetailNew)" class="btn btn-primary" (click)="addImpotAnnuelDetail(impotAnnuelDetailNew)">
+                                    <fa-icon [icon]="'plus'"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let impotAnnuelDetail of impotAnnuel.impotAnnuelDetails;let i=index">
+                            <td >
+                                <select class="form-control" name="impotAnnuelDetail[{{i}}].impotMensuelDetailId"  [(ngModel)]="impotAnnuelDetail.impotMensuelDetailId">
+                                    <option  [ngValue]="impotMensuelDetail.id" *ngFor="let impotMensuelDetail of impotMensuelDetails">{{formatImpotMensuelDetailLibelle(impotMensuelDetail)}}</option>
+                                </select>
+                            </td>
+                            <td >
+                                <input class="form-control" name="impotAnnuuelDetail[{{i}}].coefficient" type="text" [(ngModel)]="impotAnnuelDetail.coefficient"/>
+                            </td>
+                            <td>
+<!--                                <button [title]="'entity.action.edit'" type="button" class="btn btn-warning" (click)="editImpotMensuelDetail(impotMensuelDetail, i)">-->
+<!--                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>-->
+<!--                                </button>-->
+                                &nbsp;
+                                <button [title]="'entity.action.delete'" type="button" class="btn btn-danger" (click)="deleteImpotAnnuelDetail(i)">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="impotAnnuel.impotAnnuelDetails && impotAnnuel.impotAnnuelDetails.length === 0">
+                            <td colspan="3" style="text-align: center;">Aucun détail défini</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
