@@ -1,5 +1,6 @@
 package com.growup.comptadecision.web.rest;
 
+import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import com.growup.comptadecision.service.AcompteProvisionnelService;
 import com.growup.comptadecision.service.dto.AcompteProvisionnelDTO;
 import com.growup.comptadecision.web.rest.errors.BadRequestAlertException;
@@ -37,10 +38,10 @@ public class AcompteProvisionnelResource {
         this.acompteProvisionnelService = acompteProvisionnelService;
     }
 
-    @GetMapping("/acompte-provisionnels/init/{id}/{annee}/{numroAcompte}")
+    @GetMapping("/acompte-provisionnels/init/{id}/{annee}/{numeroAccompte}/{type}")
     public ResponseEntity<AcompteProvisionnelDTO> init(@PathVariable Long id, @PathVariable Integer annee,
-                                        @PathVariable Integer numroAcompte) {
-        AcompteProvisionnelDTO acompteProvisionnelDTO = acompteProvisionnelService.init(id, annee, numroAcompte);
+                                                       @PathVariable Integer numeroAccompte, @PathVariable TypeDeclaration type) {
+        AcompteProvisionnelDTO acompteProvisionnelDTO = acompteProvisionnelService.init(id, annee, numeroAccompte, type);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(acompteProvisionnelDTO);
     }
 

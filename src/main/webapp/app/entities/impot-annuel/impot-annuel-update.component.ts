@@ -15,15 +15,17 @@ export class ImpotAnnuelUpdateComponent implements OnInit {
     impotAnnuel: IImpotAnnuel;
     impotAnnuelDetailNew: IImpotAnnuelDetail;
     impotMensuelDetails: IImpotMensuelDetail[];
+    impotAnnuelEnfants: IImpotAnnuel[];
     isSaving: boolean;
 
     constructor(protected impotAnnuelService: ImpotAnnuelService, protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ impotAnnuel, impotMensuelDetails }) => {
+        this.activatedRoute.data.subscribe(({ impotAnnuel, impotMensuelDetails, impotAnnuelEnfants }) => {
             this.impotAnnuel = impotAnnuel;
             this.impotMensuelDetails = impotMensuelDetails;
+            this.impotAnnuelEnfants = impotAnnuelEnfants;
             this.impotAnnuelDetailNew = this.newImpotAnnuelDetail();
         });
     }
@@ -81,11 +83,6 @@ export class ImpotAnnuelUpdateComponent implements OnInit {
         this.impotAnnuel.impotAnnuelDetails.push(impotAnnuelDetailNew);
         this.impotAnnuelDetailNew = this.newImpotAnnuelDetail();
     }
-
-    // editImpotAnnuelDetail(impotAnnuelDetail, impotAnnuelDetailIndex) {
-    //     this.impotAnnuelDetailNew = impotAnnuelDetail;
-    //     this.impotAnnuel.impotAnnuelDetails.splice(impotAnnuelDetailIndex, 1);
-    // }
 
     deleteImpotAnnuelDetail(impotAnnuelDetailIndex) {
         this.impotAnnuel.impotAnnuelDetails.splice(impotAnnuelDetailIndex, 1);

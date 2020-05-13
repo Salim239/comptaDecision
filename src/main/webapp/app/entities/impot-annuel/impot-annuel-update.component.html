@@ -55,22 +55,11 @@
                     <input type="text" class="form-control" name="description" id="field_description"
                            [(ngModel)]="impotAnnuel.description"/>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotAnnuel.sumAcomptesPrevisonnels" for="field_sumAcomptesPrevisonnels">Est la somme des AP?</label>
-                    <input id="field_sumAcomptesPrevisonnels" name="sumAcomptesPrevisonnels" type="checkbox" [(ngModel)]="impotAnnuel.sumAcomptesPrevisonnels">
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label"
-                           jhiTranslate="comptaDecisionApp.impotAnnuel.calcule"
-                           for="field_calcule">Possède une formule de calcul?</label>
-                    <input id="field_calcule" name="calcule" type="checkbox"
-                           [(ngModel)]="impotAnnuel.calcule">
-                </div>
                 <div class="table-responsive" *ngIf="impotAnnuel.calcule">
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th jhiTranslate="comptaDecisionApp.impotAnnuelDetail.impotMensuel">Impot</th>
+                            <th jhiTranslate="comptaDecisionApp.impotAnnuelDetail.impotMensuel">Impot Mensuel</th>
                             <th jhiTranslate="comptaDecisionApp.impotAnnuelDetail.coefficient">Coefficient</th>
                         </tr>
                         </thead>
@@ -108,9 +97,6 @@
                                     <fa-icon [icon]="'times'"></fa-icon>
                                 </button>
                             </td>
-                        </tr>
-                        <tr *ngIf="impotAnnuel.impotAnnuelDetails && impotAnnuel.impotAnnuelDetails.length === 0">
-                            <td colspan="3" style="text-align: center;">Aucun détail défini</td>
                         </tr>
                         </tbody>
                     </table>

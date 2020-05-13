@@ -1,5 +1,7 @@
 package com.growup.comptadecision.service.dto;
 
+import com.growup.comptadecision.domain.enumeration.StatutDeclaration;
+import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -41,6 +43,10 @@ public class AcompteProvisionnelDTO implements Serializable {
     private BigDecimal montantRetenueSource;
 
     private BigDecimal montantNet;
+
+    private TypeDeclaration type;
+
+    private StatutDeclaration statut;
 
 
     private Long ficheClientId;
@@ -169,4 +175,19 @@ public class AcompteProvisionnelDTO implements Serializable {
         this.ficheClientDateCreation = ficheClientDateCreation;
     }
 
+    public TypeDeclaration getType() {
+        return type;
+    }
+
+    public void setType(TypeDeclaration type) {
+        this.type = type;
+    }
+
+    public StatutDeclaration getStatut() {
+        return statut;
+    }
+
+    public void setStatut(StatutDeclaration statut) {
+        this.statut = statut;
+    }
 }

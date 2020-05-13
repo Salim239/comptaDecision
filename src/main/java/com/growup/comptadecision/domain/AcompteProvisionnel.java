@@ -2,6 +2,8 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.growup.comptadecision.domain.enumeration.StatutDeclaration;
+import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -65,6 +67,14 @@ public class AcompteProvisionnel extends AbstractAuditingEntity {
     @ManyToOne
     @JsonIgnoreProperties("acompteProvisionnels")
     private FicheClient ficheClient;
+
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private TypeDeclaration type = TypeDeclaration.DECLARATION_INITIALE;
+
+    @Column(name = "statut")
+    @Enumerated(EnumType.STRING)
+    private StatutDeclaration statut = StatutDeclaration.BROUILLON;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -201,9 +211,25 @@ public class AcompteProvisionnel extends AbstractAuditingEntity {
         return this;
     }
 
+    public StatutDeclaration getStatut() {
+        return statut;
+    }
+
+    public void setStatut(StatutDeclaration statut) {
+        this.statut = statut;
+    }
+
     public void setFicheClient(FicheClient ficheClient) {
         this.ficheClient = ficheClient;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
+
+    public TypeDeclaration getType() {
+        return type;
+    }
+
+    public void setType(TypeDeclaration type) {
+        this.type = type;
+    }
 }

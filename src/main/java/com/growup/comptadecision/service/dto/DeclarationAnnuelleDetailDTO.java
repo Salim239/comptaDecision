@@ -108,4 +108,6 @@ public class DeclarationAnnuelleDetailDTO implements Serializable {
     public void setDeclarationAnnuelleId(Long declarationAnnuelleId) {
         this.declarationAnnuelleId = declarationAnnuelleId;
     }
+
+
 }

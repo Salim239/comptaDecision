@@ -1,8 +1,12 @@
 package com.growup.comptadecision.service;
 
 import com.growup.comptadecision.domain.AcompteProvisionnel;
+import com.growup.comptadecision.domain.DeclarationAnnuelle;
 import com.growup.comptadecision.domain.FicheClient;
+import com.growup.comptadecision.domain.enumeration.StatutDeclaration;
+import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import com.growup.comptadecision.repository.AcompteProvisionnelRepository;
+import com.growup.comptadecision.repository.DeclarationAnnuelleRepository;
 import com.growup.comptadecision.repository.FicheClientRepository;
 import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.AcompteProvisionnelDTO;
@@ -15,6 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 /**
@@ -28,12 +33,17 @@ public class AcompteProvisionnelService {
 
     private final AcompteProvisionnelRepository acompteProvisionnelRepository;
 
+    private final DeclarationAnnuelleRepository declarationAnnuelleRepository;
+
     private final FicheClientRepository ficheClientRepository;
 
     private final AcompteProvisionnelMapper acompteProvisionnelMapper;
 
-    public AcompteProvisionnelService(AcompteProvisionnelRepository acompteProvisionnelRepository, FicheClientRepository ficheClientRepository, AcompteProvisionnelMapper acompteProvisionnelMapper) {
+    private static final double COEFFICIENT_BASE_AP = 0.3;
+
+    public AcompteProvisionnelService(AcompteProvisionnelRepository acompteProvisionnelRepository, DeclarationAnnuelleRepository declarationAnnuelleRepository, FicheClientRepository ficheClientRepository, AcompteProvisionnelMapper acompteProvisionnelMapper) {
         this.acompteProvisionnelRepository = acompteProvisionnelRepository;
+        this.declarationAnnuelleRepository = declarationAnnuelleRepository;
         this.ficheClientRepository = ficheClientRepository;
         this.acompteProvisionnelMapper = acompteProvisionnelMapper;
     }
@@ -47,8 +57,43 @@ public class AcompteProvisionnelService {
     public AcompteProvisionnelDTO save(AcompteProvisionnelDTO acompteProvisionnelDTO) {
         log.debug("Request to save AcompteProvisionnel : {}", acompteProvisionnelDTO);
         AcompteProvisionnel acompteProvisionnel = acompteProvisionnelMapper.toEntity(acompteProvisionnelDTO);
+        acompteProvisionnel.setMontantAcompteProvisionnel(acompteProvisionnel.getMontantBase().multiply(new BigDecimal(COEFFICIENT_BASE_AP)));
+        acompteProvisionnel.setMontantReportAnterieur(calculerReportAnterieur(acompteProvisionnel.getFicheClient(), acompteProvisionnel.getAnnee(), acompteProvisionnel.getNumero()));
+        acompteProvisionnel.setMontantNet(acompteProvisionnel.getMontantAcompteProvisionnel()
+            .subtract(acompteProvisionnel.getMontantReportAnterieur())
+            .subtract(acompteProvisionnel.getMontantRetenueSource())
+        );
+        StatutDeclaration statut = updateStatut(acompteProvisionnel);
+        acompteProvisionnel.setStatut(statut);
         acompteProvisionnel = acompteProvisionnelRepository.save(acompteProvisionnel);
         return acompteProvisionnelMapper.toDto(acompteProvisionnel);
+    }
+
+    private StatutDeclaration updateStatut(AcompteProvisionnel acompteProvisionnel) {
+        if (acompteProvisionnel.getType() == TypeDeclaration.DECLARATION_RECTIFICATIVE) {
+            AcompteProvisionnel acompteProvisionnelInitial = acompteProvisionnelRepository.
+                findByFicheClientIdAndAnneeAndNumeroAndType(
+                    acompteProvisionnel.getFicheClient().getId(),
+                    acompteProvisionnel.getAnnee(),
+                    acompteProvisionnel.getNumero(),
+                    TypeDeclaration.DECLARATION_INITIALE).orElseThrow(() -> new RuntimeException(String.format("Il n'existe pas de déclaration annuelle initiale pour le client %s et l'annee %s",
+                acompteProvisionnel.getFicheClient().getId(), acompteProvisionnel.getAnnee())));
+            acompteProvisionnelInitial.setStatut(StatutDeclaration.BROUILLON);
+            acompteProvisionnelRepository.save(acompteProvisionnelInitial);
+            if (acompteProvisionnel.getDate() != null && acompteProvisionnel.getNumeroQuittance() != null) {
+                return StatutDeclaration.VALIDE;
+            } else {
+                return StatutDeclaration.BROUILLON;
+            }
+        } else {
+            if (acompteProvisionnel.getType() == TypeDeclaration.DECLARATION_INITIALE &&
+                acompteProvisionnel.getDate() != null &&
+                acompteProvisionnel.getNumeroQuittance() != null) {
+                return StatutDeclaration.VALIDE;
+            } else {
+                return StatutDeclaration.BROUILLON;
+            }
+        }
     }
 
     /**
@@ -89,25 +134,71 @@ public class AcompteProvisionnelService {
         acompteProvisionnelRepository.deleteById(id);
     }
 
-    private void validateCreationForm(FicheClient ficheClient, Integer annee, Integer numero) {
+    private void validateCreationForm(FicheClient ficheClient, Integer annee, Integer numero, TypeDeclaration type) {
 
         Optional<AcompteProvisionnel> acompteOptional = acompteProvisionnelRepository.findByFicheClientIdAndAnneeAndNumero(ficheClient.getId(), annee, numero);
         acompteOptional.ifPresent(acompte -> new RuntimeException(String.format("Il existe déjà un acompte numero %s annee %s pour le client %s", acompte.getNumero(), acompte.getAnnee(), acompte.getFicheClient().getDesignation())));
     }
 
-    private AcompteProvisionnelDTO getEmptyAcompteProvisionnel(FicheClient ficheClient, Integer annee, Integer numero) {
+    private AcompteProvisionnelDTO getEmptyAcompteProvisionnel(FicheClient ficheClient, Integer annee, Integer numero, TypeDeclaration type) {
 
         AcompteProvisionnel acompteProvisionnel = new AcompteProvisionnel();
         acompteProvisionnel.setFicheClient(ficheClient);
         acompteProvisionnel.setAnnee(annee);
         acompteProvisionnel.setNumero(numero);
+        acompteProvisionnel.setType(type);
+        acompteProvisionnel.setMontantReportAnterieur(calculerReportAnterieur(ficheClient, annee, numero));
         return acompteProvisionnelMapper.toDto(acompteProvisionnel);
     }
 
-    public AcompteProvisionnelDTO init(Long ficheClientId, Integer annee, Integer numeroAccompte) {
+    /**
+     * Calculer le montant du report antéreir
+     * @param ficheClient
+     * @param annee
+     * @param numero
+     * @return
+     */
+    private BigDecimal calculerReportAnterieur(FicheClient ficheClient, Integer annee, Integer numero) {
+        //Si numéro AP = 1, montant report = montant report de la déclaration annuelle antérieure,
+        // Sinon report équal montant net AP antérieur si négative
+        BigDecimal montantReportAp = BigDecimal.ZERO;
+        if (numero == 1) {
+            DeclarationAnnuelle declarationAnnuelleAnterieure = declarationAnnuelleRepository.findValidByAnneeAndFicheClientId(annee, ficheClient.getId())
+            .orElseGet(() -> {
+                //todo mange error
+             //   new RuntimeException("Impossible de claculer le report antérieur à partir de la déclaration annuelle de l'année précédente car elle n'existe pas")
+                return new DeclarationAnnuelle();
+            });
+            //Remplacer ce champ par le montant report de la déclaration antérieure
+            montantReportAp = declarationAnnuelleAnterieure.getMontantReportAnterieur();
+        } else {
+            Optional<AcompteProvisionnel> acompteProvisionnelAnterieureOptional = acompteProvisionnelRepository.findByFicheClientIdAndAnneeAndNumero(ficheClient.getId(), annee, numero -1);
+            //Montant Ap antérieur = montant net ap anterier si négatif
+            if (acompteProvisionnelAnterieureOptional.isPresent()) {
+                BigDecimal montantNetApAnterieure = acompteProvisionnelAnterieureOptional.get().getMontantNet();
+                montantReportAp = montantNetApAnterieure.compareTo(BigDecimal.ZERO) > 0 ? BigDecimal.ZERO : montantNetApAnterieure.multiply(new BigDecimal(-1));
+            }
+        }
+        return montantReportAp;
+    }
+
+    public AcompteProvisionnelDTO init(Long ficheClientId, Integer annee, Integer numeroAccompte, TypeDeclaration type) {
         log.debug("Request to init new AcompteProvisionnel number {} for year {} client id {}", numeroAccompte, annee, ficheClientId);
         FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new RuntimeException(String.format("FicheClient not found with id %s", ficheClientId)));
-        validateCreationForm(ficheClient, annee, numeroAccompte);
-        return getEmptyAcompteProvisionnel(ficheClient, annee, numeroAccompte);
+        validateCreationForm(ficheClient, annee, numeroAccompte, type);
+        return getEmptyAcompteProvisionnel(ficheClient, annee, numeroAccompte, type);
     }
+
+    public BigDecimal sumpAcomptePrevisionnelPositifs(Long ficheClientId, Integer annee) {
+        log.debug("Request to init calculation sum acompte prévisionnel for year {} client id {}", annee, ficheClientId);
+        BigDecimal sumAps = acompteProvisionnelRepository.sumpAcomptePrevisionnelPositifs(ficheClientId, annee);
+        return sumAps == null ? BigDecimal.ZERO : sumAps;
+    }
+
+    public Optional<AcompteProvisionnel> findByFicheClientIdAndAnneeAndNumeroAndNotArchived(Long ficheClientId, Integer annee, Integer numero) {
+        log.debug("Request to find not archived acompte prévisionnel for year {} client id {} and number", annee, ficheClientId, numero);
+        return acompteProvisionnelRepository.findByFicheClientIdAndAnneeAndNumeroAndNotArchived(ficheClientId, annee, numero);
+    }
+
+
 }

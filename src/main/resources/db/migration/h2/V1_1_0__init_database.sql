@@ -6,11 +6,11 @@ CREATE TABLE public.acompte_provisionnel (
     numero integer NOT NULL,
     jhi_date date,
     numero_quittance  VARCHAR(255),
-    montant_base numeric(10,2),
-    montant_acompte_provisionnel numeric(10,2),
-    montant_report_anterieur numeric(10,2),
-    montant_retenue_source numeric(10,2),
-    montant_net numeric(10,2),
+    montant_base numeric(20,6),
+    montant_acompte_provisionnel numeric(20,6),
+    montant_report_anterieur numeric(20,6),
+    montant_retenue_source numeric(20,6),
+    montant_net numeric(20,6),
     fiche_client_id bigint,
     created_by  VARCHAR(50) DEFAULT 'admin' NOT NULL,
     created_date timestamp,
@@ -35,9 +35,9 @@ CREATE TABLE public.cnss (
     trimestre integer NOT NULL,
     jhi_date date,
     numero_quittance  VARCHAR(255),
-    montant_salaire_brut_normal numeric(10,2),
-    montant_salaire_brut_karama numeric(10,2),
-    montant_salaire_brut_autre numeric(10,2),
+    montant_salaire_brut_normal numeric(20,6),
+    montant_salaire_brut_karama numeric(20,6),
+    montant_salaire_brut_autre nUMERIC(20,6),
     montant_total numeric(10,2),
     cnss numeric(10,2),
     fiche_client_id bigint,
@@ -53,7 +53,11 @@ CREATE TABLE public.declaration_annuelle (
     annee integer NOT NULL,
     numero  VARCHAR(255),
     date_paiement date,
-    montant numeric(20,6),
+    montant_impot_annuel numeric(20,6),
+    montant_ap_payes numeric(20,6),
+    montant_retenue_source numeric(20,6),
+    montant_report_anterieur numeric(20,6),
+    montant_net numeric(20,6),
     fiche_client_id bigint,
     type_declaration  VARCHAR(255),
     statut  VARCHAR(50) DEFAULT 'BROUILLON',
@@ -335,57 +339,12 @@ CREATE TABLE public.ville (
     last_modified_date timestamp
 );
 
-INSERT INTO public.acompte_provisionnel VALUES (18451, 2020, 1, NULL, NULL, 100.00, 200.00, 1478.00, 1414.25, 147.20, 14302, 'admin', '2020-02-21 21:56:03.894', 'admin', '2020-02-21 21:56:03.894');
-
 INSERT INTO public.activite VALUES (1005, 'QUINCAILLERIE', 'Quincaillerie', NULL, 'admin', NULL, NULL, NULL);
 INSERT INTO public.activite VALUES (1006, 'VENTE_DETAIL_PRODUIT_ALIMENTAIRE', 'Vente détail produit alimentaire', NULL, 'admin', NULL, NULL, NULL);
 INSERT INTO public.activite VALUES (1007, 'ARCHITECTE', 'Architecte', NULL, 'admin', NULL, NULL, NULL);
 INSERT INTO public.activite VALUES (1008, 'TOPOGRAPHIE', 'Topographie', NULL, 'admin', NULL, NULL, NULL);
 
-INSERT INTO public.cnss VALUES (18351, 2020, 1, NULL, NULL, 10.00, 20.00, 30.00, 60.00, NULL, 14302, 'admin', '2020-02-21 17:41:16.05', 'admin', '2020-02-21 17:41:16.05', '0');
-
-INSERT INTO public.declaration_annuelle VALUES (18201, 2020, NULL, NULL, 40.000000, 14302, 'DECLARATION_INITIALE', NULL, 'admin', '2020-02-21 10:39:10.711', 'admin', '2020-02-21 10:39:10.711');
-
-INSERT INTO public.declaration_annuelle_detail VALUES (18251, 'CA_HT', 'CA HT', '', 1, true, 10.000000, 0.000000, 1, 'admin', '2020-02-21 10:39:10.716', 'admin', '2020-02-21 10:39:10.716', 18201);
-INSERT INTO public.declaration_annuelle_detail VALUES (18252, 'ACHAT_HT', 'Achat HT', NULL, 2, true, 20.000000, 0.000000, 2, 'admin', '2020-02-21 10:39:10.718', 'admin', '2020-02-21 10:39:10.718', 18201);
-INSERT INTO public.declaration_annuelle_detail VALUES (18253, 'SALAIRE_BRUT', 'Salaire Brut', NULL, 3, true, 10.000000, 0.000000, 3, 'admin', '2020-02-21 10:39:10.719', 'admin', '2020-02-21 10:39:10.719', 18201);
-INSERT INTO public.declaration_annuelle_detail VALUES (18254, 'LOCATION', 'Location', NULL, 4, true, 0.000000, 1547.255000, 4, 'admin', '2020-02-21 10:39:10.72', 'admin', '2020-02-21 10:39:10.72', 18201);
-INSERT INTO public.declaration_annuelle_detail VALUES (18255, 'HONORAIRE', 'Honoraire', NULL, 5, true, 0.000000, 0.000000, 5, 'admin', '2020-02-21 10:39:10.72', 'admin', '2020-02-21 10:39:10.72', 18201);
-INSERT INTO public.declaration_annuelle_detail VALUES (18256, 'CA_TTC', 'CA TTC', NULL, 6, true, 0.000000, 0.000000, 6, 'admin', '2020-02-21 10:39:10.721', 'admin', '2020-02-21 10:39:10.721', 18201);
-INSERT INTO public.declaration_annuelle_detail VALUES (18257, 'SI', 'Sock Initiale', NULL, 6, false, 0.000000, NULL, 7, 'admin', '2020-02-21 10:39:10.721', 'admin', '2020-02-21 10:39:10.721', 18201);
-INSERT INTO public.declaration_annuelle_detail VALUES (18258, 'SF', 'Stock Final', NULL, 7, false, 0.000000, NULL, 8, 'admin', '2020-02-21 10:39:10.721', 'admin', '2020-02-21 10:39:10.721', 18201);
-INSERT INTO public.declaration_annuelle_detail VALUES (18259, 'BALANCE_COMPTE', 'Résultat Comptable', NULL, 8, false, 0.000000, NULL, 9, 'admin', '2020-02-21 10:39:10.722', 'admin', '2020-02-21 10:39:10.722', 18201);
-INSERT INTO public.declaration_annuelle_detail VALUES (18260, 'BALANCE_FISCALE', 'Résultat Fiscale', NULL, 9, false, 0.000000, NULL, 10, 'admin', '2020-02-21 10:39:10.723', 'admin', '2020-02-21 10:39:10.723', 18201);
-
-INSERT INTO public.declaration_employeur_annuelle VALUES (18501, 2020, 100.00, 0.00, 147.25, 14141.00, 14.00, 144.00, 150.00, 147.00, 147.25, 12.26, 147.20, 147.02, 14302, 'admin', '2020-02-21 22:44:22.275', 'admin', '2020-02-21 22:44:22.275');
-
 INSERT INTO public.fiche_client VALUES (14302, 'PERSONNE_MORALE', 'Grow up', NULL, NULL, 'Av. Hédi Chaker', '5170', NULL, NULL, NULL, '1353270P', NULL, '2013-05-08', NULL, NULL, NULL, NULL, 1051, 1005, NULL, NULL, NULL, 'admin', '2020-01-22 19:49:42.522', 'admin', '2020-01-22 19:51:06.001');
-
-
-INSERT INTO public.impot_annuel VALUES (4, 'LOCATION', 'Location', NULL, 'admin', '2020-02-06 20:04:48.187', NULL, NULL, true, 4);
-INSERT INTO public.impot_annuel VALUES (6, 'CA_TTC', 'CA TTC', NULL, 'admin', '2020-02-06 20:04:53.978', NULL, NULL, true, 6);
-INSERT INTO public.impot_annuel VALUES (2, 'ACHAT_HT', 'Achat HT', NULL, 'admin', '2020-02-06 20:04:43.001', NULL, NULL, true, 2);
-INSERT INTO public.impot_annuel VALUES (1, 'CA_HT', 'CA HT', '', 'admin', '2020-02-06 20:04:33.389', NULL, NULL, true, 1);
-INSERT INTO public.impot_annuel VALUES (3, 'SALAIRE_BRUT', 'Salaire Brut', NULL, 'admin', '2020-02-06 20:04:45.647', NULL, NULL, true, 3);
-INSERT INTO public.impot_annuel VALUES (5, 'HONORAIRE', 'Honoraire', NULL, 'admin', '2020-02-06 20:04:50.634', NULL, NULL, true, 5);
-INSERT INTO public.impot_annuel VALUES (7, 'SI', 'Sock Initiale', NULL, 'admin', '2020-02-06 20:06:14.742', NULL, NULL, false, 6);
-INSERT INTO public.impot_annuel VALUES (8, 'SF', 'Stock Final', NULL, 'admin', '2020-02-06 20:06:47.351', NULL, NULL, false, 7);
-INSERT INTO public.impot_annuel VALUES (9, 'BALANCE_COMPTE', 'Résultat Comptable', NULL, 'admin', '2020-02-06 20:08:24.431', NULL, NULL, false, 8);
-INSERT INTO public.impot_annuel VALUES (10, 'BALANCE_FISCALE', 'Résultat Fiscale', NULL, 'admin', '2020-02-06 20:08:55.773', NULL, NULL, false, 9);
-
-
-INSERT INTO public.impot_annuel_detail VALUES (1, 1, 7111, 1, 'admin', NULL, NULL, NULL);
-INSERT INTO public.impot_annuel_detail VALUES (2, 1, 7112, 1, 'admin', NULL, NULL, NULL);
-INSERT INTO public.impot_annuel_detail VALUES (3, 1, 7110, 1, 'admin', NULL, NULL, NULL);
-INSERT INTO public.impot_annuel_detail VALUES (4, 2, 7117, 1, 'admin', NULL, NULL, NULL);
-INSERT INTO public.impot_annuel_detail VALUES (5, 2, 7118, 1, 'admin', NULL, NULL, NULL);
-INSERT INTO public.impot_annuel_detail VALUES (6, 2, 7116, 1, 'admin', NULL, NULL, NULL);
-INSERT INTO public.impot_annuel_detail VALUES (7, 3, 7107, 1, 'admin', NULL, NULL, NULL);
-INSERT INTO public.impot_annuel_detail VALUES (8, 3, 7108, 1, 'admin', NULL, NULL, NULL);
-INSERT INTO public.impot_annuel_detail VALUES (11, 5, 7104, 1, 'admin', NULL, NULL, NULL);
-INSERT INTO public.impot_annuel_detail VALUES (12, 6, 17001, 1, 'admin', NULL, NULL, NULL);
-INSERT INTO public.impot_annuel_detail VALUES (13, 6, 17002, 1, 'admin', NULL, NULL, NULL);
-INSERT INTO public.impot_annuel_detail VALUES (9, 4, 7102, 1, 'admin', NULL, NULL, NULL);
 
 
 INSERT INTO public.impot_mensuel VALUES (7055, 'TVA_COLLECTEE', 'TVA Collectée', 'TVA Collectée', 'admin', '2019-10-27 19:25:07.904', 'admin', '2019-11-16 17:08:21.885', false, 7054, true, false, 1);
@@ -415,7 +374,7 @@ INSERT INTO public.impot_mensuel_detail VALUES (7117, 'ACHAT_13', 5, 13.000, 'Ac
 INSERT INTO public.impot_mensuel_detail VALUES (7118, 'ACHAT_19', 6, 19.000, 'Achat', NULL, 7056, 'admin', '2019-10-27 19:28:54.662', 'admin', '2020-01-22 18:50:09.491', 'TAUX', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7107, 'SALAIRE_BRUT_1', 1, 1.000, 'Salaire Brut', NULL, 7052, 'admin', '2019-10-27 19:20:45.742', 'admin', '2019-10-27 19:20:45.742', 'TAUX', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7108, 'SALAIRE_BRUT_2', 2, 2.000, 'Salaire Brut', NULL, 7052, 'admin', '2019-10-27 19:20:45.743', 'admin', '2019-10-27 19:20:45.743', 'TAUX', false);
-INSERT INTO public.impot_mensuel_detail VALUES (7109, 'SOM_SALAIRE8BRUT', 1, 1.000, 'Sum Salaire Brut', NULL, 7053, 'admin', '2019-10-27 19:21:50.241', 'admin', '2019-10-27 19:21:50.241', 'TAUX', false);
+INSERT INTO public.impot_mensuel_detail VALUES (7109, 'SUM_SALAIRE_BRUT', 1, 1.000, 'Sum Salaire Brut', NULL, 7053, 'admin', '2019-10-27 19:21:50.241', 'admin', '2019-10-27 19:21:50.241', 'TAUX', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7119, 'RS_TVA', 7, 25.000, 'RS TVA', NULL, 7056, 'admin', '2019-10-27 19:28:54.662', 'admin', '2020-01-22 18:50:09.492', 'TAUX', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7120, 'AUTRE1', 8, NULL, 'Autre 1', NULL, 7056, 'admin', '2019-10-27 19:30:01.744', 'admin', '2020-01-22 18:50:09.492', 'MONTANT', false);
 INSERT INTO public.impot_mensuel_detail VALUES (7121, 'AUTRE2', 9, NULL, 'Autre', NULL, 7056, 'admin', '2019-10-27 19:30:01.744', 'admin', '2020-01-22 18:50:09.492', 'MONTANT', false);

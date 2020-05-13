@@ -30,6 +30,18 @@ export class ImpotAnnuelResolve implements Resolve<IImpotAnnuel> {
 }
 
 @Injectable({ providedIn: 'root' })
+export class ImpotAnnuelAllResolve implements Resolve<IImpotAnnuel[]> {
+    constructor(private service: ImpotAnnuelService) {}
+
+    resolve(): Observable<IImpotAnnuel[]> {
+        return this.service.query().pipe(
+            filter((mayBeOk: HttpResponse<IImpotAnnuel[]>) => mayBeOk.ok),
+            map((response: HttpResponse<IImpotAnnuel[]>) => response.body)
+        );
+    }
+}
+
+@Injectable({ providedIn: 'root' })
 export class ImpotMensuelDetailResolve implements Resolve<IImpotMensuelDetail[]> {
     constructor(private service: ImpotMensuelDetailService) {}
 
@@ -68,7 +80,8 @@ export const impotAnnuelRoute: Routes = [
         component: ImpotAnnuelUpdateComponent,
         resolve: {
             impotAnnuel: ImpotAnnuelResolve,
-            impotMensuelDetails: ImpotMensuelDetailResolve
+            impotMensuelDetails: ImpotMensuelDetailResolve,
+            impotAnnuelEnfants: ImpotAnnuelAllResolve
         },
         data: {
             authorities: ['ROLE_ADMIN'],
@@ -81,7 +94,8 @@ export const impotAnnuelRoute: Routes = [
         component: ImpotAnnuelUpdateComponent,
         resolve: {
             impotAnnuel: ImpotAnnuelResolve,
-            impotMensuelDetails: ImpotMensuelDetailResolve
+            impotMensuelDetails: ImpotMensuelDetailResolve,
+            impotAnnuelEnfants: ImpotAnnuelAllResolve
         },
         data: {
             authorities: ['ROLE_ADMIN'],

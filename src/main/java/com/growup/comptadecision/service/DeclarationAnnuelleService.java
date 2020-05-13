@@ -43,13 +43,16 @@ public class DeclarationAnnuelleService {
 
     private final DeclarationAnnuelleMapper declarationAnnuelleMapper;
 
+    private final AcompteProvisionnelService acompteProvisionnelService;
+
     public DeclarationAnnuelleService(DeclarationAnnuelleRepository declarationAnnuelleRepository, DeclarationAnnuelleMapper declarationAnnuelleMapper,
-                                      FicheClientRepository ficheClientRepository, ImpotAnnuelRepository impotAnnuelRepository, QuittanceMensuelleImpotSousDetailRepository quittanceMensuelleSousDetailRepository) {
+                                      FicheClientRepository ficheClientRepository, ImpotAnnuelRepository impotAnnuelRepository, QuittanceMensuelleImpotSousDetailRepository quittanceMensuelleSousDetailRepository, AcompteProvisionnelService acompteProvisionnelService) {
         this.declarationAnnuelleRepository = declarationAnnuelleRepository;
         this.declarationAnnuelleMapper = declarationAnnuelleMapper;
         this.ficheClientRepository = ficheClientRepository;
         this.impotAnnuelRepository = impotAnnuelRepository;
         this.quittanceMensuelleSousDetailRepository = quittanceMensuelleSousDetailRepository;
+        this.acompteProvisionnelService = acompteProvisionnelService;
     }
 
     /**
@@ -61,8 +64,38 @@ public class DeclarationAnnuelleService {
     public DeclarationAnnuelleDTO save(DeclarationAnnuelleDTO declarationAnnuelleDTO) {
         log.debug("Request to save DeclarationAnnuelle : {}", declarationAnnuelleDTO);
         DeclarationAnnuelle declarationAnnuelle = declarationAnnuelleMapper.toEntity(declarationAnnuelleDTO);
+        declarationAnnuelle.setMontantNet(calculerMontantNet(declarationAnnuelle));
+        StatutDeclaration statut = updateStatut(declarationAnnuelle);
+        declarationAnnuelle.setStatut(statut);
         declarationAnnuelle = declarationAnnuelleRepository.save(declarationAnnuelle);
         return declarationAnnuelleMapper.toDto(declarationAnnuelle);
+    }
+
+
+    private StatutDeclaration updateStatut(DeclarationAnnuelle declarationAnnuelle) {
+        if (declarationAnnuelle.getTypeDeclaration() == TypeDeclaration.DECLARATION_RECTIFICATIVE) {
+            DeclarationAnnuelle declarationAnnuelleInitiale = declarationAnnuelleRepository.
+                findByAnneeAndFicheClientIdAndTypeDeclaration(
+                    declarationAnnuelle.getAnnee(),
+                    declarationAnnuelle.getFicheClient().getId(),
+                    TypeDeclaration.DECLARATION_INITIALE).orElseThrow(() -> new RuntimeException(String.format("Il n'existe pas de déclaration annuelle initiale pour le client %s et l'annee %s",
+                declarationAnnuelle.getFicheClient().getId(), declarationAnnuelle.getAnnee())));
+            declarationAnnuelleInitiale.setStatut(StatutDeclaration.BROUILLON);
+            declarationAnnuelleRepository.save(declarationAnnuelleInitiale);
+            if (declarationAnnuelle.getDatePaiement() != null && declarationAnnuelle.getNumeroQuittance() != null) {
+                return StatutDeclaration.VALIDE;
+            } else {
+                return StatutDeclaration.BROUILLON;
+            }
+        } else {
+            if (declarationAnnuelle.getTypeDeclaration() == TypeDeclaration.DECLARATION_INITIALE &&
+                declarationAnnuelle.getDatePaiement() != null &&
+                declarationAnnuelle.getNumeroQuittance() != null) {
+                return StatutDeclaration.VALIDE;
+            } else {
+                return StatutDeclaration.BROUILLON;
+            }
+        }
     }
 
     /**
@@ -89,8 +122,15 @@ public class DeclarationAnnuelleService {
     @Transactional(readOnly = true)
     public Optional<DeclarationAnnuelleDTO> findOne(Long id) {
         log.debug("Request to get DeclarationAnnuelle : {}", id);
-        return declarationAnnuelleRepository.findById(id)
-            .map(declarationAnnuelleMapper::toDto);
+        Optional<DeclarationAnnuelleDTO> declarationAnnuelleDTOOptional =  declarationAnnuelleRepository.findById(id).map(declarationAnnuelleMapper::toDto);
+        if (declarationAnnuelleDTOOptional.isPresent()) {
+            DeclarationAnnuelleDTO declarationAnnuelleDTO = declarationAnnuelleDTOOptional.get();
+            declarationAnnuelleDTO.setMontantReportAnterieurCalc(calculerMontantReportAnterieur(declarationAnnuelleDTO.getFicheClientId(), declarationAnnuelleDTO.getAnnee()));
+            declarationAnnuelleDTO.setMontantApPayesCalc(calculerMontantAps(declarationAnnuelleDTO.getFicheClientId(), declarationAnnuelleDTO.getAnnee()));
+            return Optional.of(declarationAnnuelleDTO);
+        } else {
+            return declarationAnnuelleDTOOptional;
+        }
     }
 
     /**
@@ -151,8 +191,8 @@ public class DeclarationAnnuelleService {
                                 declarationAnnuelle.getFicheClient().getId(),
                                 declarationAnnuelle.getAnnee(),
                                 impotMensuelDetailToSum);
+                        declarationAnnuelleDetail.setMontantCalcule(montantcalcule);
                     }
-                    declarationAnnuelleDetail.setMontantCalcule(montantcalcule);
                     return declarationAnnuelleDetail;
                 }).collect(Collectors.toList());
         declarationAnnuelle.setDeclarationAnnuelleDetails(declarationAnnuelleDetails);
@@ -179,8 +219,37 @@ public class DeclarationAnnuelleService {
                     annee,
                     TypeDeclaration.DECLARATION_INITIALE);
             initDeclarationAnnuelDetails(declarationAnnuelleInitiale);
-            return declarationAnnuelleMapper.toDto(declarationAnnuelleInitiale);
+            declarationAnnuelleInitiale.setMontantNet(calculerMontantNet(declarationAnnuelleInitiale));
+            DeclarationAnnuelleDTO declarationAnnuelleDTO = declarationAnnuelleMapper.toDto(declarationAnnuelleInitiale);
+            BigDecimal montantAps = calculerMontantAps(declarationAnnuelleDTO.getFicheClientId(), declarationAnnuelleDTO.getAnnee());
+            BigDecimal reportAnterieur = calculerMontantReportAnterieur(declarationAnnuelleDTO.getFicheClientId(), declarationAnnuelleDTO.getAnnee());
+            declarationAnnuelleDTO.setMontantApPayesCalc(montantAps);
+            declarationAnnuelleDTO.setMontantApPayes(montantAps);
+            declarationAnnuelleDTO.setMontantReportAnterieur(reportAnterieur);
+            declarationAnnuelleDTO.setMontantReportAnterieurCalc(montantAps);
+            return declarationAnnuelleDTO;
         }
+    }
+
+    private BigDecimal calculerMontantNet(DeclarationAnnuelle declarationAnnuelle) {
+        return declarationAnnuelle.getMontantImpotAnnuel()
+            .subtract(declarationAnnuelle.getMontantApPayes())
+            .subtract(declarationAnnuelle.getMontantReportAnterieur())
+            .subtract(declarationAnnuelle.getMontantRetenueSource());
+    }
+
+    private BigDecimal calculerMontantAps(Long FicheClientId, Integer annee) {
+        return acompteProvisionnelService.sumpAcomptePrevisionnelPositifs(FicheClientId, annee);
+    }
+
+    private BigDecimal calculerMontantReportAnterieur(Long ficheClientId, Integer annee) {
+        AcompteProvisionnel acompteProvisionnel = acompteProvisionnelService.findByFicheClientIdAndAnneeAndNumeroAndNotArchived(ficheClientId, annee, 1)
+            .orElseGet(() -> {
+                //todo mange error
+                //new RuntimeException("Impossible de calculer le report antérieur car il n'existe pas d'accopte provisionnel numéro 1"));
+                return new AcompteProvisionnel();
+            });
+        return acompteProvisionnel.getMontantReportAnterieur() != null ? acompteProvisionnel.getMontantReportAnterieur() : BigDecimal.ZERO;
     }
 
     private void validateCreationForm(FicheClient ficheClient, Integer annee, TypeDeclaration typeDeclaration) {
@@ -207,4 +276,5 @@ public class DeclarationAnnuelleService {
         validateCreationForm(ficheClient, annee, typeDeclaration);
         return getEmptyDeclarationAnnuelle(ficheClient, annee);
     }
+
 }

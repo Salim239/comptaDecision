@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import {JhiAlertService} from 'ng-jhipster';
-import {IAcompteProvisionnel} from 'app/shared/model/acompte-provisionnel.model';
-import {AcompteProvisionnelService} from './acompte-provisionnel.service';
-import {IFicheClient} from 'app/shared/model/fiche-client.model';
-import {FicheClientService} from 'app/entities/fiche-client';
+import { JhiAlertService } from 'ng-jhipster';
+import { IAcompteProvisionnel } from 'app/shared/model/acompte-provisionnel.model';
+import { AcompteProvisionnelService } from './acompte-provisionnel.service';
+import { IFicheClient } from 'app/shared/model/fiche-client.model';
+import { FicheClientService } from 'app/entities/fiche-client';
 import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
 
 @Component({
@@ -76,25 +76,37 @@ export class AcompteProvisionnelUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    updateMontants() {
+    calculerMontants() {
         this.parseMontants();
+        this.acompteProvisionnel.montantAcompteProvisionnel = this.acompteProvisionnel.montantBase * 0.3;
+        this.acompteProvisionnel.montantNet =
+            this.acompteProvisionnel.montantAcompteProvisionnel -
+            this.acompteProvisionnel.montantReportAnterieur -
+            this.acompteProvisionnel.montantRetenueSource;
         this.formatMontants();
     }
 
     parseMontants() {
-
         this.acompteProvisionnel.montantBase = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantBase);
         this.acompteProvisionnel.montantNet = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantNet);
-        this.acompteProvisionnel.montantReportAnterieur = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantReportAnterieur);
-        this.acompteProvisionnel.montantAcompteProvisionnel = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantAcompteProvisionnel);
+        this.acompteProvisionnel.montantReportAnterieur = ComptaDecisionUtils.parseCurrency(
+            this.acompteProvisionnel.montantReportAnterieur
+        );
+        this.acompteProvisionnel.montantAcompteProvisionnel = ComptaDecisionUtils.parseCurrency(
+            this.acompteProvisionnel.montantAcompteProvisionnel
+        );
         this.acompteProvisionnel.montantRetenueSource = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantRetenueSource);
     }
 
     formatMontants() {
         this.acompteProvisionnel.montantBase = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantBase);
         this.acompteProvisionnel.montantNet = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantNet);
-        this.acompteProvisionnel.montantReportAnterieur = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantReportAnterieur);
-        this.acompteProvisionnel.montantAcompteProvisionnel = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantAcompteProvisionnel);
+        this.acompteProvisionnel.montantReportAnterieur = ComptaDecisionUtils.formatCurrency(
+            this.acompteProvisionnel.montantReportAnterieur
+        );
+        this.acompteProvisionnel.montantAcompteProvisionnel = ComptaDecisionUtils.formatCurrency(
+            this.acompteProvisionnel.montantAcompteProvisionnel
+        );
         this.acompteProvisionnel.montantRetenueSource = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantRetenueSource);
     }
 }

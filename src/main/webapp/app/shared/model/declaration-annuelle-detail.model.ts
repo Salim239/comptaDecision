@@ -13,16 +13,15 @@ export interface IDeclarationAnnuelleDetail {
 
 export class DeclarationAnnuelleDetail implements IDeclarationAnnuelleDetail {
     constructor(
-    public id?: number,
-    public code?: string,
-    public triOrdre?: number,
-    public calcule?: boolean,
-    public montant?: number,
-    public montantCalcule?: number,
-    public libelle?: string,
-    public description?: string,
-    public impotAnnuelId?: number,
-    public declarationAnnuelleId?: number
-    ) {
-    }
+        public id?: number,
+        public code?: string,
+        public triOrdre?: number,
+        public sumAcomptesPrevisonnels?: boolean,
+        public montant?: number,
+        public montantCalcule?: number,
+        public libelle?: string,
+        public description?: string,
+        public impotAnnuelId?: number,
+        public declarationAnnuelleId?: number
+    ) {}
 }

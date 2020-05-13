@@ -16,7 +16,10 @@
                 "title": "Impot Detail"
             },
             "impotMensuel": "Impot Mensuel",
-            "coefficient": "coefficient"
+            "coefficient": "coefficient",
+            "impotAnnuelEnfantId": "Id Impôt Annuel",
+            "impotAnnuelEnfantLibelle": "Libelle Impôt Annuel",
+            "impotAnnuelEnfant": "Impôt Annuel"
         }
     }
 }

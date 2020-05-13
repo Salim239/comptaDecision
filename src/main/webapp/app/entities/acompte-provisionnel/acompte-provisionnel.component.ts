@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
-import {IAcompteProvisionnel} from 'app/shared/model/acompte-provisionnel.model';
-import {AccountService} from 'app/core';
+import { IAcompteProvisionnel } from 'app/shared/model/acompte-provisionnel.model';
+import { AccountService } from 'app/core';
 
-import {ITEMS_PER_PAGE} from 'app/shared';
-import {AcompteProvisionnelService} from './acompte-provisionnel.service';
+import { ITEMS_PER_PAGE } from 'app/shared';
+import { AcompteProvisionnelService } from './acompte-provisionnel.service';
 
 @Component({
     selector: 'jhi-acompte-provisionnel',
@@ -132,7 +132,7 @@ export class AcompteProvisionnelComponent implements OnInit, OnDestroy {
         const id = event.ficheClientId;
         const annee = event.annee;
         const numero = event.numeroAcompte;
-        this.router.navigateByUrl(`/acompte-provisionnel/${id}/${annee}/${numero}/new`);
-
+        const type = event.typeDeclaration;
+        this.router.navigateByUrl(`/acompte-provisionnel/${id}/${annee}/${numero}/${type}/new`);
     }
 }

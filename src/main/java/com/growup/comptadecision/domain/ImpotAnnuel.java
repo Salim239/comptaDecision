@@ -49,10 +49,7 @@ public class ImpotAnnuel extends AbstractAuditingEntity {
     private String description;
 
     @Column(name = "calcule")
-    private Boolean calcule = Boolean.FALSE;    
-    
-    @Column(name = "sum_acomptes_previsionnels")
-    private Boolean sumAcomptesPrevisonnels = Boolean.FALSE;
+    private Boolean calcule = Boolean.FALSE;
 
     @Column(name = "tri_ordre")
     private Integer triOrdre;
@@ -110,14 +107,6 @@ public class ImpotAnnuel extends AbstractAuditingEntity {
 
     public List<ImpotAnnuelDetail> getImpotAnnuelDetails() {
         return impotAnnuelDetails;
-    }
-
-    public Boolean getSumAcomptesPrevisonnels() {
-        return sumAcomptesPrevisonnels;
-    }
-
-    public void setSumAcomptesPrevisonnels(Boolean sumAcomptesPrevisonnels) {
-        this.sumAcomptesPrevisonnels = sumAcomptesPrevisonnels;
     }
 
     public void setImpotAnnuelDetails(List<ImpotAnnuelDetail> impotAnnuelDetails) {

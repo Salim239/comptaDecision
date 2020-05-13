@@ -1,5 +1,17 @@
 import { Moment } from 'moment';
 
+export const enum TypeDeclaration {
+    DECLARATION_INITIALE = 'DECLARATION_INITIALE',
+    DECLARATION_RECTIFICATIVE = 'DECLARATION_RECTIFICATIVE'
+}
+
+export const enum StatutDeclaration {
+    BROULLON = 'BROUILLON',
+    VALIDE = 'VALIDE',
+    ARCHIVE = 'ARCHIVE',
+    RECTIFIE = 'RECTIFIE'
+}
+
 export interface IAcompteProvisionnel {
     id?: number;
     annee?: number;
@@ -16,6 +28,8 @@ export interface IAcompteProvisionnel {
     ficheClientMatriculeFiscale?: string;
     ficheClientRegistreCommerce?: string;
     ficheClientDateCreation?: Moment;
+    type?: TypeDeclaration;
+    statut?: StatutDeclaration;
 }
 
 export class AcompteProvisionnel implements IAcompteProvisionnel {
@@ -32,8 +46,10 @@ export class AcompteProvisionnel implements IAcompteProvisionnel {
         public montantNet?: number,
         public ficheClientId?: number,
         public ficheClientDesignation?: string,
-    public ficheClientMatriculeFiscale?: string,
-    public ficheClientRegistreCommerce?: string,
-    public ficheClientDateCreation?: Moment
+        public ficheClientMatriculeFiscale?: string,
+        public ficheClientRegistreCommerce?: string,
+        public ficheClientDateCreation?: Moment,
+        public type?: TypeDeclaration,
+        public statut?: StatutDeclaration
     ) {}
 }

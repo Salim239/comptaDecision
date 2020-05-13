@@ -10,7 +10,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 /**
- * A ImpotMensuelClient.
+ * A ImpotMensuelClient. Un impot annuel peut être soit la somme d'impot mensuel, soit calculé via les autres impots mensuels
  */
 @Entity
 @Table(name = "impot_annuel_detail")

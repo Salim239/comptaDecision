@@ -18,7 +18,6 @@ public interface ImpotAnnuelDetailMapper extends EntityMapper<ImpotAnnuelDetailD
         return impotMensuelDetail;
     }
 
-
     default ImpotAnnuelDetail fromId(Long id) {
         if (id == null) {
             return null;

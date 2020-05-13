@@ -28,6 +28,13 @@ public interface DeclarationAnnuelleRepository extends JpaRepository<Declaration
             "and ficheClient.id = :ficheClientId")
     List<DeclarationAnnuelle> findByAnneeAndFicheClientId(@Param("annee") Integer annee, @Param("ficheClientId") Long ficheClientId);
 
+    @Query("select declarationAnnuelle from DeclarationAnnuelle declarationAnnuelle " +
+        "left join fetch declarationAnnuelle.ficheClient ficheClient " +
+        "where declarationAnnuelle.annee = :annee " +
+        "and declarationAnnuelle.statut <> 'ARCHIVE' " +
+        "and ficheClient.id = :ficheClientId ")
+    Optional<DeclarationAnnuelle> findValidByAnneeAndFicheClientId(@Param("annee") Integer annee, @Param("ficheClientId") Long ficheClientId);
+
     @Query("SELECT declarationAnnuelle FROM  DeclarationAnnuelle declarationAnnuelle " +
 //            "LEFT JOIN FETCH quittanceMensuelleImpot.ficheClient " +
             "WHERE declarationAnnuelle.annee = :annee " +
@@ -36,5 +43,6 @@ public interface DeclarationAnnuelleRepository extends JpaRepository<Declaration
     Optional<DeclarationAnnuelle> findByAnneeAndFicheClientIdAndTypeDeclaration(@Param("annee") Integer annee,
                                                                                 @Param("ficheClientId") Long ficheClientId,
                                                                                 @Param("typeDeclaration") TypeDeclaration typeDeclaration );
+
 
 }

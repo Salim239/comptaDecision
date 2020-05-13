@@ -1,28 +1,26 @@
 import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
-import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import { IFicheClient } from 'app/shared/model/fiche-client.model';
 import * as moment from 'moment';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FicheClientService} from 'app/entities/fiche-client';
-import {filter, map} from 'rxjs/operators';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {JhiAlertService} from 'ng-jhipster';
-import {TypeDeclaration} from 'app/shared/model/quittance-mensuelle-impot.model';
-import {TypeCnss} from 'app/shared/model/cnss.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FicheClientService } from 'app/entities/fiche-client';
+import { filter, map } from 'rxjs/operators';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { JhiAlertService } from 'ng-jhipster';
+import { TypeDeclaration } from 'app/shared/model/quittance-mensuelle-impot.model';
+import { TypeCnss } from 'app/shared/model/cnss.model';
 
 @Component({
     selector: 'jhi-new-entry',
     templateUrl: './new-entry.component.html'
 })
-
 export class NewEntryComponent implements OnInit {
-
     @Input() ficheClients: IFicheClient[];
     @Output() submitCreationForm = new EventEmitter();
-    @Input() hideTrimestre: boolean;
-    @Input() hideMois: boolean;
-    @Input() hideTypeDeclaration: boolean;
-    @Input() hildeTypeCnss: boolean;
-    @Input() hildeNumeroAcompte: boolean;
+    @Input() hideTrimestre: boolean = true;
+    @Input() hideMois: boolean = true;
+    @Input() hideTypeDeclaration: boolean = true;
+    @Input() hildeTypeCnss: boolean = true;
+    @Input() hildeNumeroAcompte: boolean = true;
 
     typeCnssList: TypeCnss[];
     anneeList: number[];
@@ -38,30 +36,29 @@ export class NewEntryComponent implements OnInit {
     selectedTypeDeclaration: TypeDeclaration;
     selectedTypeCnss: TypeCnss;
 
-    constructor(
-        private jhiAlertService: JhiAlertService,
-        private ficheClientService: FicheClientService) {
-    }
+    constructor(private jhiAlertService: JhiAlertService, private ficheClientService: FicheClientService) {}
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
     ngOnInit() {
-        this.hildeTypeCnss = true;
-        this.hildeNumeroAcompte = true;
         if (this.ficheClients) {
             this.initFormData();
         }
-        this.ficheClientService.query()
+        this.ficheClientService
+            .query()
             .pipe(
                 filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IFicheClient[]>) => response.body)
             )
-            .subscribe((res: IFicheClient[]) => {
-                this.ficheClients = res;
-                this.initFormData();
-            }, (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe(
+                (res: IFicheClient[]) => {
+                    this.ficheClients = res;
+                    this.initFormData();
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     private initFormData() {
@@ -81,31 +78,34 @@ export class NewEntryComponent implements OnInit {
     }
 
     updateAnneeMois() {
-        this.ficheClientService.find(this.selectedFicheClientId)
+        this.ficheClientService
+            .find(this.selectedFicheClientId)
             .pipe(
                 filter((mayBeOk: HttpResponse<IFicheClient>) => mayBeOk.ok),
                 map((response: HttpResponse<IFicheClient>) => response.body)
             )
-            .subscribe((res: IFicheClient) => {
-                const ficheClient = res;
-                // this.moisList = [1,2,3,4,5,6,7,8,9,10,11,12];
-                this.anneeList = ComptaDecisionUtils.getPreviousYears(moment(ficheClient.dateCreation).year());
-                this.selectedFicheClientId = ficheClient.id;
-                this.selectedAnnee = this.anneeList[0];
-                // this.selectedMois = this.moisList[0];
-            }, (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe(
+                (res: IFicheClient) => {
+                    const ficheClient = res;
+                    // this.moisList = [1,2,3,4,5,6,7,8,9,10,11,12];
+                    this.anneeList = ComptaDecisionUtils.getPreviousYears(moment(ficheClient.dateCreation).year());
+                    this.selectedFicheClientId = ficheClient.id;
+                    this.selectedAnnee = this.anneeList[0];
+                    // this.selectedMois = this.moisList[0];
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     submit() {
-
         this.submitCreationForm.emit({
-            'ficheClientId': this.selectedFicheClientId,
-            'typeDeclaration': this.selectedTypeDeclaration,
-            'annee': this.selectedAnnee,
-            'mois': this.selectedMois,
-            'trimestre': this.selectedTrimestre,
-            'typeCnss': this.selectedTypeCnss,
-            'numeroAcompte': this.selectedNumeroAcompte,
+            ficheClientId: this.selectedFicheClientId,
+            typeDeclaration: this.selectedTypeDeclaration,
+            annee: this.selectedAnnee,
+            mois: this.selectedMois,
+            trimestre: this.selectedTrimestre,
+            typeCnss: this.selectedTypeCnss,
+            numeroAcompte: this.selectedNumeroAcompte
         });
     }
 }

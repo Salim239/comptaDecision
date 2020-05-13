@@ -1,5 +1,6 @@
 package com.growup.comptadecision.service.dto;
 
+import com.growup.comptadecision.domain.enumeration.StatutDeclaration;
 import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -28,6 +29,8 @@ public class DeclarationAnnuelleDTO implements Serializable {
     @NotNull
     private TypeDeclaration typeDeclaration;
 
+    private StatutDeclaration status;
+
     @NotNull
     private Integer annee;
 
@@ -35,7 +38,19 @@ public class DeclarationAnnuelleDTO implements Serializable {
 
     private String numeroQuittance;
 
-    private BigDecimal montant;
+    private BigDecimal montantImpotAnnuel;
+
+    private BigDecimal montantApPayes;
+
+    private BigDecimal montantApPayesCalc;
+
+    private BigDecimal montantRetenueSource;
+
+    private BigDecimal montantReportAnterieur;
+
+    private BigDecimal montantReportAnterieurCalc;
+
+    private BigDecimal montantNet;
 
     private LocalDate ficheClientDateCreation;
     private Long ficheClientId;
@@ -77,12 +92,44 @@ public class DeclarationAnnuelleDTO implements Serializable {
         this.numeroQuittance = numeroQuittance;
     }
 
-    public BigDecimal getMontant() {
-        return montant;
+    public BigDecimal getMontantImpotAnnuel() {
+        return montantImpotAnnuel;
     }
 
-    public void setMontant(BigDecimal montant) {
-        this.montant = montant;
+    public void setMontantImpotAnnuel(BigDecimal montantImpotAnnuel) {
+        this.montantImpotAnnuel = montantImpotAnnuel;
+    }
+
+    public BigDecimal getMontantApPayes() {
+        return montantApPayes;
+    }
+
+    public void setMontantApPayes(BigDecimal montantApPayes) {
+        this.montantApPayes = montantApPayes;
+    }
+
+    public BigDecimal getMontantRetenueSource() {
+        return montantRetenueSource;
+    }
+
+    public void setMontantRetenueSource(BigDecimal montantRetenueSource) {
+        this.montantRetenueSource = montantRetenueSource;
+    }
+
+    public BigDecimal getMontantReportAnterieur() {
+        return montantReportAnterieur;
+    }
+
+    public void setMontantReportAnterieur(BigDecimal montantReportAnterieur) {
+        this.montantReportAnterieur = montantReportAnterieur;
+    }
+
+    public BigDecimal getMontantNet() {
+        return montantNet;
+    }
+
+    public void setMontantNet(BigDecimal montantNet) {
+        this.montantNet = montantNet;
     }
 
     public LocalDate getFicheClientDateCreation() {
@@ -113,6 +160,7 @@ public class DeclarationAnnuelleDTO implements Serializable {
         return ficheClientMatriculeFiscale;
     }
 
+
     public void setFicheClientMatriculeFiscale(String ficheClientMatriculeFiscale) {
         this.ficheClientMatriculeFiscale = ficheClientMatriculeFiscale;
     }
@@ -139,5 +187,29 @@ public class DeclarationAnnuelleDTO implements Serializable {
 
     public void setDeclarationAnnuelleDetails(List<DeclarationAnnuelleDetailDTO> declarationAnnuelleDetails) {
         this.declarationAnnuelleDetails = declarationAnnuelleDetails;
+    }
+
+    public BigDecimal getMontantApPayesCalc() {
+        return montantApPayesCalc;
+    }
+
+    public void setMontantApPayesCalc(BigDecimal montantApPayesCalc) {
+        this.montantApPayesCalc = montantApPayesCalc;
+    }
+
+    public BigDecimal getMontantReportAnterieurCalc() {
+        return montantReportAnterieurCalc;
+    }
+
+    public void setMontantReportAnterieurCalc(BigDecimal montantReportAnterieurCalc) {
+        this.montantReportAnterieurCalc = montantReportAnterieurCalc;
+    }
+
+    public StatutDeclaration getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatutDeclaration status) {
+        this.status = status;
     }
 }

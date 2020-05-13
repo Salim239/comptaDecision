@@ -20,8 +20,12 @@
             "annee": "Annee",
             "datePaiement": "Date Paiement",
             "numeroQuittance": "Numéro",
-            "montant": "Montant",
-            "ficheClient": "Fiche Client"
+            "ficheClient": "Fiche Client",
+            "montantImpotAnnuel": "Impôt Annuel",
+            "montantApPayes": "Acomptes Réellement payés",
+            "montantRetenueSource": "RS",
+            "montantReportAnterieur": "Report Antérieur",
+            "montantNet": "Net à Payer"
         }
     }
 }

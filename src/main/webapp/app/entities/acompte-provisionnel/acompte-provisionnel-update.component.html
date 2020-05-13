@@ -7,23 +7,40 @@
                 <input type="text" class="form-control" id="id" name="id"
                        [(ngModel)]="acompteProvisionnel.id" [hidden]="true" />
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label jhiTranslate="comptaDecisionApp.acompteProvisionnel.ficheClient"
                                for="field_ficheClient">Fiche Client</label>
                         <input [disabled]="true" type="text" class="form-control" name="ficheClient"
                                id="field_ficheClient"
                                [(ngModel)]="acompteProvisionnel.ficheClientDesignation"/>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.annee" for="field_annee">Annee</label>
                         <input [disabled]="true" class="form-control" name="annee" id="field_annee"
                                [(ngModel)]="acompteProvisionnel.annee" required/>
                     </div>
+                </div>
 
-                    <div class="form-group col-md-4">
-                        <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.numero" for="field_numero">Numero</label>
 
-                        <select [disabled]="true" required class="form-control" id="field_numero" name="numero" [(ngModel)]="acompteProvisionnel.numero" >
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label
+                            jhiTranslate="comptaDecisionApp.declarationAnnuelle.typeDeclaration"
+                            for="field_type">Type déclaration</label>
+                        <select [disabled]="true" required class="form-control" name="type"
+                                [(ngModel)]="acompteProvisionnel.type" id="field_type">
+                            <option
+                                value="DECLARATION_INITIALE">{{'comptaDecisionApp.typeDeclaration.DECLARATION_INITIALE' | translate}}</option>
+                            <option
+                                value="DECLARATION_RECTIFICATIVE">{{'comptaDecisionApp.typeDeclaration.DECLARATION_RECTIFICATIVE' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.numero"
+                               for="field_numero">Numero</label>
+
+                        <select [disabled]="true" required class="form-control" id="field_numero" name="numero"
+                                [(ngModel)]="acompteProvisionnel.numero">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -41,7 +58,7 @@
                             />
                             <span class="input-group-append">
                             <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon
-                                    [icon]="'calendar-alt'"></fa-icon></button>
+                                [icon]="'calendar-alt'"></fa-icon></button>
                         </span>
                         </div>
                     </div>
@@ -64,35 +81,35 @@
                                    for="field_montantBase">Montant Base</label>
                         </th>
                         <td><input jhiDigitOnly [decimal]="true" class="numeric form-control" name="montantBase" id="field_montantBase"
-                                   [(ngModel)]="acompteProvisionnel.montantBase" (change)="updateMontants()"/></td>
+                                   [(ngModel)]="acompteProvisionnel.montantBase" (change)="calculerMontants()"/></td>
                     </tr>
                     <tr>
                         <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantAcompteProvisionnel"
                                    for="field_montantAcompteProvisionnel">Montant Acompte Provisionnel</label>
                         </th>
                         <td><input jhiDigitOnly [decimal]="true" class="numeric form-control" name="montantAcompteProvisionnel" id="field_montantAcompteProvisionnel"
-                                   [(ngModel)]="acompteProvisionnel.montantAcompteProvisionnel" (change)="updateMontants()"/></td>
+                                   [(ngModel)]="acompteProvisionnel.montantAcompteProvisionnel" [disabled]="true"/></td>
                     </tr>
                     <tr>
                         <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantReportAnterieur"
                                    for="field_montantReportAnterieur">Montant Report Anterieur</label>
                         </th>
                         <td><input jhiDigitOnly [decimal]="true" class="numeric form-control" name="montantReportAnterieur" id="field_montantReportAnterieur"
-                                   [(ngModel)]="acompteProvisionnel.montantReportAnterieur" (change)="updateMontants()"/></td>
+                                   [(ngModel)]="acompteProvisionnel.montantReportAnterieur" [disabled]="true"/></td>
                     </tr>
                     <tr>
                         <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantRetenueSource"
                                    for="field_montantRetenueSource">Montant Retenue Source</label>
                         </th>
                         <td><input jhiDigitOnly [decimal]="true" class="numeric form-control" name="montantRetenueSource" id="field_montantRetenueSource"
-                                   [(ngModel)]="acompteProvisionnel.montantRetenueSource" (change)="updateMontants()"/></td>
+                                   [(ngModel)]="acompteProvisionnel.montantRetenueSource" (change)="calculerMontants()()"/></td>
                     </tr>
                     <tr>
                         <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantNet"
                                    for="field_montantNet">Montant Net</label>
                         </th>
                         <td><input jhiDigitOnly [decimal]="true" class="numeric form-control" name="montantNet" id="field_montantNet"
-                                   [(ngModel)]="acompteProvisionnel.montantNet" (change)="updateMontants()" /></td>
+                                   [(ngModel)]="acompteProvisionnel.montantNet" [disabled]="true" /></td>
                     </tr>
                     </tbody>
                 </table>

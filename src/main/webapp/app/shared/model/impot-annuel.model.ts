@@ -4,7 +4,6 @@ export interface IImpotAnnuel {
     id?: number;
     code?: string;
     libelle?: string;
-    sumAcomptesPrevisonnels?: boolean;
     description?: string;
     calcule?: boolean;
     triOrdre?: number;
@@ -16,7 +15,6 @@ export class ImpotAnnuel implements IImpotAnnuel {
         public id?: number,
         public code?: string,
         public libelle?: string,
-        public sumAcomptesPrevisonnels?: boolean,
         public description?: string,
         public calcule?: boolean,
         public triOrdre?: number,

@@ -76,4 +76,5 @@ public class ImpotAnnuelDetailDTO implements Serializable {
     public void setCoefficient(Integer coefficient) {
         this.coefficient = coefficient;
     }
+
 }

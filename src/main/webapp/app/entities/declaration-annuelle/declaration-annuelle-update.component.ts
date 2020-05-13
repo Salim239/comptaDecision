@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {JhiAlertService} from 'ng-jhipster';
-import {IDeclarationAnnuelle} from 'app/shared/model/declaration-annuelle.model';
-import {DeclarationAnnuelleService} from './declaration-annuelle.service';
-import {IFicheClient} from 'app/shared/model/fiche-client.model';
-import {FicheClientService} from 'app/entities/fiche-client';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { JhiAlertService } from 'ng-jhipster';
+import { IDeclarationAnnuelle } from 'app/shared/model/declaration-annuelle.model';
+import { DeclarationAnnuelleService } from './declaration-annuelle.service';
+import { IFicheClient } from 'app/shared/model/fiche-client.model';
+import { FicheClientService } from 'app/entities/fiche-client';
 import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
 import * as _ from 'lodash';
 
@@ -69,21 +69,58 @@ export class DeclarationAnnuelleUpdateComponent implements OnInit {
     }
 
     calculerMontant(indexDetail) {
-        this.declarationAnnuelle.montant = _.sum(_.map(this.declarationAnnuelle.declarationAnnuelleDetails, function(declarationAnnuelleDetail) {
-            return declarationAnnuelleDetail.montant ? ComptaDecisionUtils.parseCurrency(declarationAnnuelleDetail.montant) : 0;
-        }));
-        this.declarationAnnuelle.declarationAnnuelleDetails[indexDetail].montant = ComptaDecisionUtils.formatCurrency(this.declarationAnnuelle.declarationAnnuelleDetails[indexDetail].montant);
+        this.declarationAnnuelle.montantNet = _.sum(
+            _.map(this.declarationAnnuelle.declarationAnnuelleDetails, function(declarationAnnuelleDetail) {
+                return declarationAnnuelleDetail.montant ? ComptaDecisionUtils.parseCurrency(declarationAnnuelleDetail.montant) : 0;
+            })
+        );
+        this.declarationAnnuelle.declarationAnnuelleDetails[indexDetail].montant = ComptaDecisionUtils.formatCurrency(
+            this.declarationAnnuelle.declarationAnnuelleDetails[indexDetail].montant
+        );
+        this.calculerMontants();
     }
 
     private parseDeclarationAnnuelle() {
         _.each(this.declarationAnnuelle.declarationAnnuelleDetails, function(declarationAnnuelleDetail) {
             declarationAnnuelleDetail.montant = ComptaDecisionUtils.parseCurrency(declarationAnnuelleDetail.montant);
         });
+        this.parseMontants();
     }
 
     private formatDeclarationAnnuelle() {
         _.each(this.declarationAnnuelle.declarationAnnuelleDetails, function(declarationAnnuelleDetail) {
             declarationAnnuelleDetail.montant = ComptaDecisionUtils.formatCurrency(declarationAnnuelleDetail.montant);
         });
+        this.formatMontants();
+    }
+
+    calculerMontants() {
+        this.parseMontants();
+        this.declarationAnnuelle.montantNet =
+            this.declarationAnnuelle.montantImpotAnnuel -
+            this.declarationAnnuelle.montantApPayes -
+            this.declarationAnnuelle.montantRetenueSource -
+            this.declarationAnnuelle.montantReportAnterieur;
+        this.formatMontants();
+    }
+
+    parseMontants() {
+        this.declarationAnnuelle.montantImpotAnnuel = ComptaDecisionUtils.parseCurrency(this.declarationAnnuelle.montantImpotAnnuel);
+        this.declarationAnnuelle.montantApPayes = ComptaDecisionUtils.parseCurrency(this.declarationAnnuelle.montantApPayes);
+        this.declarationAnnuelle.montantReportAnterieur = ComptaDecisionUtils.parseCurrency(
+            this.declarationAnnuelle.montantReportAnterieur
+        );
+        this.declarationAnnuelle.montantRetenueSource = ComptaDecisionUtils.parseCurrency(this.declarationAnnuelle.montantRetenueSource);
+        this.declarationAnnuelle.montantNet = ComptaDecisionUtils.parseCurrency(this.declarationAnnuelle.montantNet);
+    }
+
+    formatMontants() {
+        this.declarationAnnuelle.montantImpotAnnuel = ComptaDecisionUtils.formatCurrency(this.declarationAnnuelle.montantImpotAnnuel);
+        this.declarationAnnuelle.montantApPayes = ComptaDecisionUtils.formatCurrency(this.declarationAnnuelle.montantApPayes);
+        this.declarationAnnuelle.montantReportAnterieur = ComptaDecisionUtils.formatCurrency(
+            this.declarationAnnuelle.montantReportAnterieur
+        );
+        this.declarationAnnuelle.montantRetenueSource = ComptaDecisionUtils.formatCurrency(this.declarationAnnuelle.montantRetenueSource);
+        this.declarationAnnuelle.montantNet = ComptaDecisionUtils.formatCurrency(this.declarationAnnuelle.montantNet);
     }
 }

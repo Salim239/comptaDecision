@@ -89,6 +89,7 @@ spring:
         schemas: public
         user: "sa"
         password: "sa"
+        locations: classpath:/db/migration/h2
 
 server:
     port: 8080

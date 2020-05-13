@@ -18,9 +18,8 @@
             "code": "Code",
             "libelle": "Libelle",
             "description": "Description",
-            "calcule": "Possède une formule de calcul?",
-            "triOrdre": "Ordre de tri",
-            "sumAcomptesPrevisonnels": "Est la somme des APs?"
+            "calcule": "Calculé?",
+            "triOrdre": "Ordre de tri"
         }
     }
 }

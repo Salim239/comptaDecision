@@ -3,7 +3,7 @@
         <span jhiTranslate="comptaDecisionApp.declarationAnnuelle.home.title">Declaration Annuelles</span>
     </h2>
     <jhi-alert></jhi-alert>
-    <jhi-new-entry [hideTrimestre]="true" [hideMois]="true" (submitCreationForm)="addDeclarationAnnuelle($event)"></jhi-new-entry>
+    <jhi-new-entry [hideTypeDeclaration]="false" (submitCreationForm)="addDeclarationAnnuelle($event)"></jhi-new-entry>
     <br/>
     <br/>
     <div class="table-responsive" *ngIf="declarationAnnuelles">
@@ -17,7 +17,11 @@
                 <th jhiSortBy="annee"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.annee">Annee</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="datePaiement"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.datePaiement">Date Paiement</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="numeroQuittance"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.numeroQuittance">Numero Quittance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="montant"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montant">Montant</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantImpotAnnuel"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantImpotAnnuel">Montant Impôt Annuel</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantApPayes"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantApPayes">Montant AP Payés</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantRetenueSource"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantRetenueSource">RS</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantReportAnterieur"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantReportAnterieur">Report Antérieur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantNet"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantNet">Montant Net</span> <fa-icon [icon]="'sort'"></fa-icon></th>
            <th></th>
             </tr>
             </thead>
@@ -33,7 +37,11 @@
                 <td>{{declarationAnnuelle.annee}}</td>
                 <td>{{declarationAnnuelle.datePaiement | date:'mediumDate'}}</td>
                 <td>{{declarationAnnuelle.numeroQuittance}}</td>
-                <td>{{declarationAnnuelle.montant | number:'1.3-3'}}</td>
+                <td>{{declarationAnnuelle.montantImpotAnnuel | number:'1.3-3'}}</td>
+                <td>{{declarationAnnuelle.montantApPayes | number:'1.3-3'}}</td>
+                <td>{{declarationAnnuelle.montantRetenueSource | number:'1.3-3'}}</td>
+                <td>{{declarationAnnuelle.montantReportAnterieur | number:'1.3-3'}}</td>
+                <td>{{declarationAnnuelle.montantNet | number:'1.3-3'}}</td>
 
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
