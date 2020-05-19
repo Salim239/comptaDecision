@@ -2,6 +2,7 @@ export * from './constants/error.constants';
 export * from './constants/pagination.constants';
 export * from './constants/input.constants';
 export * from './alert/alert.component';
+// export * from './business-alert/business-alert.component';
 export * from './alert/alert-error.component';
 export * from './auth/has-any-authority.directive';
 export * from './language/find-language-from-key.pipe';

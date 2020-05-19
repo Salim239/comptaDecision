@@ -1,0 +1,7 @@
+<p *ngFor="let alert of businessAlerts">
+    <ngb-alert [type]="alert.type" (close)="close(alert)"><strong>{{ 'comptaDecisionApp.businessAlert.type.' + alert.type | translate}}</strong>
+        {{ 'comptaDecisionApp.businessAlert.message.' + alert.code | translate : alert.params }}</ngb-alert>
+</p>
+<!--<p>-->
+<!--    <button *ngIf="this.alerts && this.alerts.length > 0" type="button" class="btn btn-primary" (click)="reset()">Reset</button>-->
+<!--</p>-->

@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.List;
 @EqualsAndHashCode
 @Builder
 @ToString
-public class QuittanceMensuelleImpotDTO implements Serializable {
+public class QuittanceMensuelleImpotDTO {
 
     public QuittanceMensuelleImpotDTO() {
     }
@@ -46,32 +45,20 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
     private Long parentQuittanceId;
 
     private String statut;
+
     private String ficheClientDesignation;
+
     private String ficheClientMatriculeFiscale;
+
     private String ficheClientRegistreCommerce;
+
     private LocalDate ficheClientDateCreation;
-    private String typeAlert;
-    private String codeAlert;
-
-    public String getTypeAlert() {
-        return typeAlert;
-    }
-
-    public void setTypeAlert(String typeAlert) {
-        this.typeAlert = typeAlert;
-    }
-
-    public String getCodeAlert() {
-        return codeAlert;
-    }
-
-    public void setCodeAlert(String codeAlert) {
-        this.codeAlert = codeAlert;
-    }
 
     private Float valeurImpot;
 
     private List<QuittanceMensuelleImpotDetailDTO> quittanceMensuelleImpotDetails = new ArrayList<QuittanceMensuelleImpotDetailDTO>();
+
+    private List<BusinessAlertDTO> businessAlerts = new ArrayList<>();
 
     public Float getValeurImpot() {
         return valeurImpot;
@@ -201,5 +188,19 @@ public class QuittanceMensuelleImpotDTO implements Serializable {
 
     public void setStatut(String statut) {
         this.statut = statut;
+    }
+
+    public List<BusinessAlertDTO> getBusinessAlerts() {
+        return businessAlerts;
+    }
+
+    public void setBusinessAlerts(List<BusinessAlertDTO> businessAlerts) {
+        this.businessAlerts = businessAlerts;
+    }
+
+    public void addBusinessAlert(BusinessAlertDTO businessAlert) {
+        if (businessAlert != null) {
+            this.businessAlerts.add(businessAlert);
+        }
     }
 }

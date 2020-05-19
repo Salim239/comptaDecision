@@ -4,7 +4,7 @@
             <h2 id="jhi-cnss-heading" jhiTranslate="comptaDecisionApp.cnss.home.createOrEditLabel">Create or edit a Cnss</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-
+                <jhi-business-alert [businessAlerts]="cnss.businessAlerts"></jhi-business-alert>
                 <div class="form-row">
                     <input [hidden]="true" type="text" class="form-control" id="id" name="id" [(ngModel)]="cnss.id"/>
                     <div class="form-group col-md-6">

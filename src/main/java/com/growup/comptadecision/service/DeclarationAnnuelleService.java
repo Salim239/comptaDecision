@@ -2,12 +2,14 @@ package com.growup.comptadecision.service;
 
 import com.growup.comptadecision.domain.*;
 import com.growup.comptadecision.domain.enumeration.StatutDeclaration;
+import com.growup.comptadecision.domain.enumeration.TypeAlert;
 import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import com.growup.comptadecision.repository.DeclarationAnnuelleRepository;
 import com.growup.comptadecision.repository.FicheClientRepository;
 import com.growup.comptadecision.repository.ImpotAnnuelRepository;
 import com.growup.comptadecision.repository.QuittanceMensuelleImpotSousDetailRepository;
 import com.growup.comptadecision.security.SecurityUtils;
+import com.growup.comptadecision.service.dto.BusinessAlertDTO;
 import com.growup.comptadecision.service.dto.DeclarationAnnuelleDTO;
 import com.growup.comptadecision.service.mapper.DeclarationAnnuelleMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -20,9 +22,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.growup.comptadecision.domain.enumeration.CodeAlert.*;
 
 /**
  * Service Implementation for managing DeclarationAnnuelle.
@@ -252,29 +257,52 @@ public class DeclarationAnnuelleService {
         return acompteProvisionnel.getMontantReportAnterieur() != null ? acompteProvisionnel.getMontantReportAnterieur() : BigDecimal.ZERO;
     }
 
-    private void validateCreationForm(FicheClient ficheClient, Integer annee, TypeDeclaration typeDeclaration) {
+    private List<BusinessAlertDTO> validateCreationForm(FicheClient ficheClient, Integer annee, TypeDeclaration typeDeclaration) {
+
+        List<BusinessAlertDTO> businessAlerts = new ArrayList<>();
+
+        if (ficheClient.getDateCreation().getYear() > annee) {
+            List<DeclarationAnnuelle> declarationAnnuelles = declarationAnnuelleRepository.findByAnneeAndFicheClientId(annee - 1, ficheClient.getId());
+            if (declarationAnnuelles.isEmpty()) {
+                BusinessAlertDTO businessAlert = new BusinessAlertDTO(TypeAlert.warning, WARNING_DECLARATION_ANNUELLE_PRECEDENTE_INNEXISTANTE);
+                businessAlert.addParam("annee", annee - 1);
+                businessAlerts.add(businessAlert);
+            } else {
+                if (declarationAnnuelles.stream().anyMatch(declarationAnnuelle -> declarationAnnuelle.getStatut() == StatutDeclaration.BROUILLON)) {
+                    BusinessAlertDTO  businessAlert = new BusinessAlertDTO(TypeAlert.warning, WARNING_QUITTANCE_PRECEDENTE_NON_VALIDE);
+                    businessAlert.addParam("annee", annee);
+                    businessAlerts.add(businessAlert);
+                }
+            }
+        }
 
         List<DeclarationAnnuelle> declarationAnnuelles = declarationAnnuelleRepository.findByAnneeAndFicheClientId(annee, ficheClient.getId());
         if (declarationAnnuelles.isEmpty() && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE)) {
-            throw new RuntimeException("declaration annuelle initiale not exists. Create quiitance initiale before can create quittantance rectifcative!!");
+            throw new RuntimeException("declaration annuelle initiale not exists. Create qutitance initiale before can create quittantance rectifcative!!");
         }
         if (declarationAnnuelles.size() == 1 && typeDeclaration.equals(TypeDeclaration.DECLARATION_INITIALE)) {
-            throw new RuntimeException("declaration annuelle initiale already exists for this mouth. Edit it or create one for another mounth!");
+            throw new RuntimeException("declaration annuelle initiale already exists for this mounth. Edit it or create one for another mounth!");
         }
         if (declarationAnnuelles.size() == 1 && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE) &&
                 declarationAnnuelles.get(0).getStatut().equals(StatutDeclaration.BROUILLON)) {
-            throw new RuntimeException("declaration annuelle initiale not validated yet. Validate it to can create quittance rectificative!");
+            BusinessAlertDTO businessAlert = new BusinessAlertDTO(TypeAlert.warning, WARNING_QUITTANCE_INITIALE_NON_VALIDE);
+            businessAlert.addParam("annee", annee);
+            businessAlerts.add(businessAlert);
         }
         if (declarationAnnuelles.size() == 2 && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE)) {
             throw new RuntimeException("declaration annuelle rectificative already exists for this mouth. Edit it or create one for another mounth!");
         }
+
+        return businessAlerts;
     }
 
     public DeclarationAnnuelleDTO init(Long ficheClientId, Integer annee, TypeDeclaration typeDeclaration) {
         log.debug("Request to init new DeclarationAnnuelle for year {} client id {} and declaration type {}", annee, ficheClientId,  typeDeclaration);
         FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new RuntimeException(String.format("FicheClient not found with id %s", ficheClientId)));
-        validateCreationForm(ficheClient, annee, typeDeclaration);
-        return getEmptyDeclarationAnnuelle(ficheClient, annee);
+        List<BusinessAlertDTO> businessAlerts = validateCreationForm(ficheClient, annee, typeDeclaration);
+        DeclarationAnnuelleDTO declarationAnnuelle = getEmptyDeclarationAnnuelle(ficheClient, annee);
+        declarationAnnuelle.setBusinessAlerts(businessAlerts);
+        return declarationAnnuelle;
     }
 
 }

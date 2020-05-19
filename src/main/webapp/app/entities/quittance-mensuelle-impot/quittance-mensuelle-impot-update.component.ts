@@ -21,7 +21,6 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
     currentYear: number;
     currentMonth: number;
     previousYears: number[];
-
     ficheClients: IFicheClient[];
     datePaiementDp: any;
 

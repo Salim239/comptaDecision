@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @ToString
-public class DeclarationAnnuelleDTO implements Serializable {
+public class DeclarationAnnuelleDTO {
 
     private Long id;
 
@@ -53,10 +52,16 @@ public class DeclarationAnnuelleDTO implements Serializable {
     private BigDecimal montantNet;
 
     private LocalDate ficheClientDateCreation;
+
     private Long ficheClientId;
+
     private String ficheClientDesignation;
+
     private String ficheClientMatriculeFiscale;
+
     private String ficheClientRegistreCommerce;
+
+    private List<BusinessAlertDTO> businessAlerts = new ArrayList<>();
 
     List<DeclarationAnnuelleDetailDTO> declarationAnnuelleDetails = new ArrayList<>();
 
@@ -211,5 +216,17 @@ public class DeclarationAnnuelleDTO implements Serializable {
 
     public void setStatus(StatutDeclaration status) {
         this.status = status;
+    }
+
+    public List<BusinessAlertDTO> getBusinessAlerts() {
+        return businessAlerts;
+    }
+
+    public void setBusinessAlerts(List<BusinessAlertDTO> businessAlerts) {
+        this.businessAlerts = businessAlerts;
+    }
+
+    public void addBusinessAlert(BusinessAlertDTO businessAlert) {
+        this.businessAlerts.add(businessAlert);
     }
 }

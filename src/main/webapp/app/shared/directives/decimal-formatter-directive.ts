@@ -1,11 +1,10 @@
-import { Directive, Input, HostListener, ElementRef, OnInit } from "@angular/core";
-import { NgModel } from "@angular/forms";
-import ComptaDecisionUtils from "app/shared/util/compta-decision-utils";
-
+import {Directive, ElementRef, HostListener, OnInit} from '@angular/core';
+import {NgModel} from '@angular/forms';
+import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
 
 
 @Directive({
-    selector: "[decimalFormatter][ngModel]",
+    selector: '[decimalFormatter][ngModel]',
     providers: [NgModel]
 })
 export class DecimalFormatterDirective implements OnInit {
@@ -26,14 +25,14 @@ export class DecimalFormatterDirective implements OnInit {
         this.el.value = ComptaDecisionUtils.formatCurrency(this.el.value);
     }
 
-    @HostListener("focus", ["$event.target.value"])
+    @HostListener('focus', ['$event.target.value'])
     onFocus(value) {
 
         console.log(this.el.value, this.decimals);
         this.el.value = this.ngModel.viewModel; //Display the raw value on the model
     }
 
-    @HostListener("blur", ["$event.target.value"])
+    @HostListener('blur', ['$event.target.value'])
     onBlur(value) {
 
         console.log(this.el.value, this.decimals);

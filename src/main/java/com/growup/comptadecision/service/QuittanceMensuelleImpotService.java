@@ -5,11 +5,13 @@ import com.growup.comptadecision.domain.ImpotMensuel;
 import com.growup.comptadecision.domain.QuittanceMensuelleImpot;
 import com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail;
 import com.growup.comptadecision.domain.enumeration.StatutDeclaration;
+import com.growup.comptadecision.domain.enumeration.TypeAlert;
 import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import com.growup.comptadecision.repository.FicheClientRepository;
 import com.growup.comptadecision.repository.ImpotMensuelRepository;
 import com.growup.comptadecision.repository.QuittanceMensuelleImpotRepository;
 import com.growup.comptadecision.security.SecurityUtils;
+import com.growup.comptadecision.service.dto.BusinessAlertDTO;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
 import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotMapper;
 import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotSousDetailMapper;
@@ -32,8 +34,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.text.DateFormatSymbols;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.growup.comptadecision.domain.enumeration.CodeAlert.*;
 
 /**
  * Service Implementation for managing QuittanceMensuelleImpot.
@@ -69,16 +74,6 @@ public class QuittanceMensuelleImpotService {
         this.quittanceMensuelleImpotDetailService = quittanceMensuelleImpotDetailService;
     }
 
-    private QuittanceMensuelleImpot getParentQuittance(QuittanceMensuelleImpot quittanceMensuelleImpot) {
-
-        return quittanceMensuelleImpotRepository.findByAnneeAndMoisAndFicheClientIdAndTypeDeclaration(
-                quittanceMensuelleImpot.getAnnee(),
-                quittanceMensuelleImpot.getMois(),
-                quittanceMensuelleImpot.getFicheClient().getId(),
-                TypeDeclaration.DECLARATION_INITIALE).orElseThrow(() -> new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_INITIALE_INEXISTANTE));
-
-    }
-
     private void updateStatutQuittance(QuittanceMensuelleImpot quittanceMensuelleImpot) {
 
         if (quittanceMensuelleImpot.getTypeDeclaration().equals(TypeDeclaration.DECLARATION_RECTIFICATIVE)) {
@@ -100,7 +95,9 @@ public class QuittanceMensuelleImpotService {
 
     }
 
-    private void validateCreationForm(FicheClient ficheClient, Integer annee, Integer mois, TypeDeclaration typeDeclaration) {
+    private List<BusinessAlertDTO> validateCreationForm(FicheClient ficheClient, Integer annee, Integer mois, TypeDeclaration typeDeclaration) {
+
+        List<BusinessAlertDTO> businessAlerts = new ArrayList<>();
 
         if (ficheClient.getDateCreation().getYear() > annee) throw new BusinessErrorException(ErrorConstants.ERR_ANNEE_NON_VALIDE);
         if (mois > 12 || mois < 1) {
@@ -109,12 +106,18 @@ public class QuittanceMensuelleImpotService {
         if (mois > 1) {
             List<QuittanceMensuelleImpot> previousMounthQuittances = quittanceMensuelleImpotRepository.findByAnneeAndMoisAndFicheClientId(annee,
                     mois - 1, ficheClient.getId());
-            if (previousMounthQuittances.isEmpty()) throw new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_PRECEDENTE_INEXISTANTE);
+            if (previousMounthQuittances.isEmpty()) {
+                BusinessAlertDTO businessAlert = new BusinessAlertDTO(TypeAlert.warning, WARNING_QUITTANCE_PRECEDENTE_INEXISTANTE);
+                businessAlert.addParam("mois", new DateFormatSymbols().getMonths()[mois - 2] + "/" + annee);
+                businessAlerts.add(businessAlert);
+            }
             Optional<QuittanceMensuelleImpot> previousMounthQuittanceOptional = previousMounthQuittances.stream()
                     .filter(previousQuittance -> previousQuittance.getStatut().equals(StatutDeclaration.BROUILLON))
                     .findFirst();
             if (previousMounthQuittanceOptional.isPresent()) {
-                throw new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_PRECEDENTE_NON_VALIDE);
+                BusinessAlertDTO businessAlert = new BusinessAlertDTO(TypeAlert.warning, WARNING_QUITTANCE_PRECEDENTE_NON_VALIDE);
+                businessAlert.addParam("mois", new DateFormatSymbols().getMonths()[mois - 2] + "/" + annee);
+                businessAlerts.add(businessAlert);
             }
         }
         List<QuittanceMensuelleImpot> quittances = quittanceMensuelleImpotRepository.findByAnneeAndMoisAndFicheClientId(annee,
@@ -127,23 +130,25 @@ public class QuittanceMensuelleImpotService {
         }
         if (quittances.size() == 1 && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE) &&
                 quittances.get(0).getStatut().equals(StatutDeclaration.BROUILLON)) {
-            throw new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_INITIALE_NON_VALIDE);
+
+            BusinessAlertDTO businessAlert = new BusinessAlertDTO(TypeAlert.warning, WARNING_QUITTANCE_INITIALE_NON_VALIDE);
+            businessAlert.addParam("mois", new DateFormatSymbols().getMonths()[mois -1] + "/" + annee);
+            businessAlerts.add(businessAlert);
         }
         if (quittances.size() == 2 && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE)) {
             throw new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_RECTIFICATIVE_INEXISTANTE);
         }
+
+        return businessAlerts;
     }
 
     public QuittanceMensuelleImpotDTO init(Long ficheClientId, Integer annee, Integer mois, TypeDeclaration typeDeclaration) {
 
         FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new BusinessErrorException(String.format("Il n'existe pas de fiche client avec l'id %s", ficheClientId)));
-        QuittanceMensuelleImpot quittanceInitiale = new QuittanceMensuelleImpot(
-            ficheClient,
-            annee,
-            mois,
-            TypeDeclaration.DECLARATION_INITIALE);
-        validateCreationForm(ficheClient, annee, mois, typeDeclaration);
-        return getEmptyQuittanceMensuel(ficheClient, annee, mois);
+        List<BusinessAlertDTO> businessAlerts = validateCreationForm(ficheClient, annee, mois, typeDeclaration);
+        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = getEmptyQuittanceMensuel(ficheClient, annee, mois);
+        quittanceMensuelleImpotDTO.setBusinessAlerts(businessAlerts);
+        return quittanceMensuelleImpotDTO;
     }
 
     public QuittanceMensuelleImpotDTO getEmptyQuittanceMensuel(FicheClient ficheClient, Integer annee, Integer mois) {

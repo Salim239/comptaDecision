@@ -6,6 +6,7 @@
             <br>
             <div>
                 <jhi-alert-error></jhi-alert-error>
+                <jhi-business-alert [businessAlerts]="quittanceMensuelleImpot.businessAlerts"></jhi-business-alert>
                     <input [hidden]="true" type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="quittanceMensuelleImpot.id" readonly />
                 <div class="form-row">
