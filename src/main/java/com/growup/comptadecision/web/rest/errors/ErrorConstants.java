@@ -18,6 +18,7 @@ public final class ErrorConstants {
 
     public static final String ERR_ANNEE_NON_VALIDE = "error.quittance.anneeNonValide";
     public static final String ERR_MOIS_NON_VALIDE = "error.quittance.moisNonValide";
+
     //Quittance errors
     public static final String ERR_QUITTANCE_RECTIFICATIVE_SANS_QUITTANCE_INITIALE = "error.quittance.qittanceRectificativeSansQuittanceInitiale";
     public static final String ERR_QUITTANCE_PRECEDENTE_NON_VALIDE = "error.quittance.quittancePrecedenteNonValide";
@@ -28,6 +29,10 @@ public final class ErrorConstants {
     public static final String ERR_QUITTANCE_A_SUPPRIMER_INEXISTANTE = "error.quittance.quittanceASuprimerNonExistante";
     public static final String ERR_QUITTANCEA_SUPPRIMER_VALIDEE = "error.quittance.quittanceASupprimerValidee";
     public static final String ERR_QUITTANCE_RECTIFICATIVE_A_SUPPRIMER_SANS_QUITTANCE_INITIALE = "error.quittance.quittanceRectificativeAsupprimerPossedePasQuittanceInitiale";
+    //Acompte errors
+    public static final String ERR_ACOMPTE_RECTIFICATIVE_EXISTANTE = "error.acompte.acompteRectificativeExistante";
+    public static final String ERR_ACOMPTE_INITIALE_INEXISTANTE = "error.acompte.acompteInitialeInexistante";
+    public static final String ERR_NUM_ACCOMPTE_NON_VALIDE = "error.acompte.numeroNonValide";
 
     private ErrorConstants() {
     }

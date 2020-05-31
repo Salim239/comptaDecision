@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { IActivite } from 'app/shared/model/activite.model';
 import { ActiviteService } from './activite.service';
+import { ISecteurActivite } from 'app/shared/model/secteur-activite.model';
+import { SecteurActiviteService } from 'app/entities/secteur-activite';
 
 @Component({
     selector: 'jhi-activite-update',
@@ -14,7 +16,11 @@ export class ActiviteUpdateComponent implements OnInit {
     activite: IActivite;
     isSaving: boolean;
 
-    constructor(protected activiteService: ActiviteService, protected activatedRoute: ActivatedRoute) {}
+    constructor(
+        protected activiteService: ActiviteService,
+        protected secteurActiviteService: SecteurActiviteService,
+        protected activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
@@ -47,5 +53,12 @@ export class ActiviteUpdateComponent implements OnInit {
 
     protected onSaveError() {
         this.isSaving = false;
+    }
+
+    findSecteursActivites() {
+        return this.secteurActiviteService.query().pipe(
+            filter((response: HttpResponse<ISecteurActivite[]>) => response.ok),
+            map((response: HttpResponse<ISecteurActivite[]>) => response.body)
+        );
     }
 }

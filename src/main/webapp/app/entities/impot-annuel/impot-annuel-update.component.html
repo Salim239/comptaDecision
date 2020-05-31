@@ -69,6 +69,11 @@
                                 <select class="form-control" name="impotMensuelDetailId"  [(ngModel)]="impotAnnuelDetailNew.impotMensuelDetailId">
                                     <option  [ngValue]="impotMensuelDetail.id" *ngFor="let impotMensuelDetail of impotMensuelDetails">{{formatImpotMensuelDetailLibelle(impotMensuelDetail)}}</option>
                                 </select>
+<!--                                <ng-select id="field_region" name="impotMensuelDetailId" [(ngModel)]="impotAnnuelDetailNew.impotMensuelDetailId"-->
+<!--                                           [items]="impotMensuelDetails"-->
+<!--                                           bindLabel="{{formatImpotMensuelDetailLibelle(impotMensuelDetail)}}"-->
+<!--                                           bindValue="id">-->
+<!--                                </ng-select>-->
                             </td>
                             <td >
                                 <input class="form-control"  name="coefficient" type="text" [(ngModel)]="impotAnnuelDetailNew.coefficient"/>

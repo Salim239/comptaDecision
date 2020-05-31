@@ -13,7 +13,10 @@
                 "WARNING_QUITTANCE_PRECEDENTE_NON_VALIDE": "La quittance du mois précédent {{ mois }} n'a pas encore été validée (numéro et date paiement non renseignés)",
                 "WARNING_DECLARATION_ANNUELLE_PRECEDENTE_NON_VALIDE": "La déclaration de l'année précédente {{ annee }} n'a pas encore été validée (numéro et date paiement non renseignés)",
                 "WARNING_QUITTANCE_INITIALE_NON_VALIDE": "La quittance initiale {{ mois }} n'a pas encore été validée (numéro et date paiement non renseignés)",
-                "WARNING_DECLARATION_ANNUELLE_INITIALE_NON_VALIDE": "La déclaration initiale {{ annee }} n'a pas encore été validée (numéro et date paiement non renseignés)"
+                "WARNING_DECLARATION_ANNUELLE_INITIALE_NON_VALIDE": "La déclaration initiale {{ annee }} n'a pas encore été validée (numéro et date paiement non renseignés)",
+                "WARNING_ACOMPTE_PRECEDENTE_INEXISTANTE": "Il n'existe pas d'acompte en {{annee}} avec le numéro précédent à celle ci (numéro {{numero}})",
+                "WARNING_ACOMPTE_PRECEDENTE_NON_VALIDE": "L'acompte précédente de {{annee}} numéro {{numero}} n'a pas encore été validée (numéro et date paiement non renseignés)",
+                "WARNING_ACOMPTE_INITIALE_NON_VALIDE": "L'acompte initiale associé à cette rectification n'a pas encore été validée (numéro et date paiement non renseignés)"
             }
         }
     }

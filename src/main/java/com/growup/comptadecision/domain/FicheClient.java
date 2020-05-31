@@ -2,7 +2,9 @@ package com.growup.comptadecision.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.growup.comptadecision.domain.enumeration.CategorieActivite;
 import com.growup.comptadecision.domain.enumeration.CategorieClient;
+import com.growup.comptadecision.domain.enumeration.CodeTVA;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -11,6 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +79,75 @@ public class FicheClient extends AbstractAuditingEntity {
     @Column(name = "matricule_fiscale", nullable = false)
     private String matriculeFiscale;
 
+    /**
+     * Utilisé dans le matricule
+     */
+    @Column(name = "numero_etablissement_secondaire")
+    private String numeroEtablissementSecondaire = "000";
+
+    /**
+     * Utilisé dans le matricule
+     */
+    @Enumerated
+    @Column(name = "code_categorie")
+    private CategorieActivite categorieActivite;
+
+    @Column(name = "taux_cnss_accident")
+    private Double tauxCnssAccident;
+
+    @JoinColumn(name = "administration_cnss_id")
+    @ManyToOne
+    CentreAdministratif administrationCnss;
+
+    @JoinColumn(name = "administration_fiscale_id")
+    @ManyToOne
+    CentreAdministratif administrationFiscale;
+
+
+    @JoinColumn(name = "administration_impot_id")
+    @ManyToOne
+    CentreAdministratif administrationImpot;
+
+
+    public String getNumeroEtablissementSecondaire() {
+        return numeroEtablissementSecondaire;
+    }
+
+    public void setNumeroEtablissementSecondaire(String numeroEtablissementSecondaire) {
+        this.numeroEtablissementSecondaire = numeroEtablissementSecondaire;
+    }
+
+    public CategorieActivite getCategorieActivite() {
+        return categorieActivite;
+    }
+
+    public void setCategorieActivite(CategorieActivite categorieActivite) {
+        this.categorieActivite = categorieActivite;
+    }
+
+    public Double getTauxCnssAccident() {
+        return tauxCnssAccident;
+    }
+
+    public void setTauxCnssAccident(Double tauxCnssAccident) {
+        this.tauxCnssAccident = tauxCnssAccident;
+    }
+
+    public CodeTVA getCodeTva() {
+        return codeTva;
+    }
+
+    public void setCodeTva(CodeTVA codeTva) {
+        this.codeTva = codeTva;
+    }
+
+    /**
+     * Utilisé dans le matricule
+     */
+    @Enumerated
+    @Column(name = "code_tva")
+    private CodeTVA codeTva;
+
     @Column(name = "registre_commerce")
     private String registreCommerce;
 
@@ -96,34 +168,108 @@ public class FicheClient extends AbstractAuditingEntity {
     private String fichierPatenteContentType;
 
     @ManyToOne
-    @JsonIgnoreProperties("ficheClients")
-    private SecteurActivite secteurActivite;
+    @JoinColumn(name = "activite1_id")
+    private Activite activite1;
 
     @ManyToOne
-    @JsonIgnoreProperties("ficheClients")
-    private Activite activite;
+    @JoinColumn(name = "activite2_id")
+    private Activite activite2;
 
     @ManyToOne
-    @JsonIgnoreProperties("ficheClients")
-    private Activite activiteScondaire;
+    @JoinColumn(name = "activite3_id")
+    private Activite activite3;
 
     @ManyToOne
-    @JsonIgnoreProperties("ficheClients")
+    @JsonIgnoreProperties("secteur_activite1_id")
+    private SecteurActivite secteurActivite1;
+
+    @ManyToOne
+    @JsonIgnoreProperties("secteur_activite2_id")
+    private SecteurActivite secteurActivite2;
+
+    @ManyToOne
+    @JsonIgnoreProperties("secteur_activite3_id")
+    private SecteurActivite secteurActivite3;
+
+    @ManyToOne
     private Region region;
 
     @ManyToOne
-    @JsonIgnoreProperties("ficheClients")
     private Ville ville;
 
     @OneToMany(mappedBy = "ficheClient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImpotMensuelClient> impotMensuelClients = new ArrayList<>();
 
-    public Activite getActiviteScondaire() {
-        return activiteScondaire;
+    public Activite getActivite1() {
+        return activite1;
     }
 
-    public void setActiviteScondaire(Activite activiteScondaire) {
-        this.activiteScondaire = activiteScondaire;
+    public void setActivite1(Activite activite1) {
+        this.activite1 = activite1;
+    }
+
+    public Activite getActivite2() {
+        return activite2;
+    }
+
+    public void setActivite2(Activite activite2) {
+        this.activite2 = activite2;
+    }
+
+    public Activite getActivite3() {
+        return activite3;
+    }
+
+    public void setActivite3(Activite activite3) {
+        this.activite3 = activite3;
+    }
+
+    public SecteurActivite getSecteurActivite1() {
+        return secteurActivite1;
+    }
+
+    public void setSecteurActivite1(SecteurActivite secteurActivite1) {
+        this.secteurActivite1 = secteurActivite1;
+    }
+
+    public SecteurActivite getSecteurActivite2() {
+        return secteurActivite2;
+    }
+
+    public void setSecteurActivite2(SecteurActivite secteurActivite2) {
+        this.secteurActivite2 = secteurActivite2;
+    }
+
+    public SecteurActivite getSecteurActivite3() {
+        return secteurActivite3;
+    }
+
+    public void setSecteurActivite3(SecteurActivite secteurActivite3) {
+        this.secteurActivite3 = secteurActivite3;
+    }
+
+    public CentreAdministratif getAdministrationImpot() {
+        return administrationImpot;
+    }
+
+    public void setAdministrationImpot(CentreAdministratif administrationImpot) {
+        this.administrationImpot = administrationImpot;
+    }
+
+    public CentreAdministratif getAdministrationFiscale() {
+        return administrationFiscale;
+    }
+
+    public void setAdministrationFiscale(CentreAdministratif administrationFiscale) {
+        this.administrationFiscale = administrationFiscale;
+    }
+
+    public CentreAdministratif getAdministrationCnss() {
+        return administrationCnss;
+    }
+
+    public void setAdministrationCnss(CentreAdministratif administrationCnss) {
+        this.administrationCnss = administrationCnss;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -351,37 +497,6 @@ public class FicheClient extends AbstractAuditingEntity {
 
     public void setFichierPatenteContentType(String fichierPatenteContentType) {
         this.fichierPatenteContentType = fichierPatenteContentType;
-    }
-
-    public SecteurActivite getSecteurActivite() {
-        return secteurActivite;
-    }
-
-    public FicheClient secteurActivite(SecteurActivite secteurActivite) {
-        this.secteurActivite = secteurActivite;
-        return this;
-    }
-
-    public void setSecteurActivite(SecteurActivite secteurActivite) {
-        this.secteurActivite = secteurActivite;
-    }
-
-    public Activite getActivite() {
-        return activite;
-    }
-
-    public FicheClient activite(Activite activite) {
-        this.activite = activite;
-        return this;
-    }
-
-    public void setActivite(Activite activite) {
-        this.activite = activite;
-    }
-
-    public FicheClient activiteScondaire(Activite activite) {
-        this.activiteScondaire = activite;
-        return this;
     }
 
     public List<ImpotMensuelClient> getImpotMensuelClients() {

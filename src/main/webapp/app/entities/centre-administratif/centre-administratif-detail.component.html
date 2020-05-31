@@ -1,0 +1,87 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="centreAdministratif">
+            <h2><span jhiTranslate="comptaDecisionApp.centreAdministratif.detail.title">Centre Administratif</span> {{centreAdministratif.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.type">Type</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.type}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.libelle">Libelle</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.libelle}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.description">Description</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.telephone1">Téléphone 1</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.telephone1}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.telephone2">Téléphone 2</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.telephone2}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.telephone3">Téléphone 3</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.telephone3}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.email1">Email 1</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.email1}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.email2">Email 2</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.email2}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.email3">Email 3</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.email3}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.fax">Fax</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.fax}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.adresse">Adresse</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.adresse}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.region">Region</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.regionLibelle}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.ville">Ville</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.villeLibelle}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.codePostale">Code Postale</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.codePostal}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.banque">Banque</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.banque}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.centreAdministratif.rib">RIB</span></dt>
+                <dd>
+                    <span>{{centreAdministratif.rib}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/centre-administratif', centreAdministratif.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

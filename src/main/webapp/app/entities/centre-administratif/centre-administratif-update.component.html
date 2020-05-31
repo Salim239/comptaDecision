@@ -1,0 +1,159 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-centre-administratif-heading" jhiTranslate="comptaDecisionApp.centreAdministratif.home.createOrEditLabel">Create or edit a Centre Administratif</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!centreAdministratif.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="centreAdministratif.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.type" for="field_type">Type</label>
+                    <select required class="form-control" name="type"
+                            [(ngModel)]="centreAdministratif.type" id="field_type">
+                        <option
+                            value="administration_cnss">{{'comptaDecisionApp.centreAdministratif.typeCentreAdministratif.administration_cnss' | translate}}</option>
+                        <option
+                            value="administration_fiscale">{{'comptaDecisionApp.centreAdministratif.typeCentreAdministratif.administration_fiscale' | translate}}</option>
+                        <option
+                            value="administration_impot">{{'comptaDecisionApp.centreAdministratif.typeCentreAdministratif.administration_impot' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.libelle" for="field_libelle">Libelle</label>
+                    <input type="text" class="form-control" name="libelle" id="field_libelle"
+                        [(ngModel)]="centreAdministratif.libelle" required/>
+                    <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.libelle?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="centreAdministratif.description" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.telephone1" for="field_telephone1">Téléphone 1</label>
+                    <input type="text" class="form-control" name="telephone1" id="field_telephone1"
+                           [(ngModel)]="centreAdministratif.telephone1"/>
+                    <div [hidden]="!(editForm.controls.telephone1?.dirty && editForm.controls.telephone1?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.telephone1?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.telephone2" for="field_telephone2">Téléphone 1</label>
+                    <input type="text" class="form-control" name="telephone2" id="field_telephone2"
+                           [(ngModel)]="centreAdministratif.telephone2"/>
+                    <div [hidden]="!(editForm.controls.telephone2?.dirty && editForm.controls.telephone2?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.telephone2?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.telephone3" for="field_telephone3">Téléphone 1</label>
+                    <input type="text" class="form-control" name="telephone3" id="field_telephone3"
+                           [(ngModel)]="centreAdministratif.telephone3"/>
+                    <div [hidden]="!(editForm.controls.telephone3?.dirty && editForm.controls.telephone3?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.telephone3?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.email1" for="field_email1">Téléphone 1</label>
+                    <input type="text" class="form-control" name="email1" id="field_email1"
+                           [(ngModel)]="centreAdministratif.email1"/>
+                    <div [hidden]="!(editForm.controls.email1?.dirty && editForm.controls.email1?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.email1?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.email2" for="field_email2">Téléphone 1</label>
+                    <input type="text" class="form-control" name="email2" id="field_email2"
+                           [(ngModel)]="centreAdministratif.email2"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.email3" for="field_email3">Téléphone 1</label>
+                    <input type="text" class="form-control" name="email3" id="field_email3"
+                           [(ngModel)]="centreAdministratif.email3"/>
+
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.fax" for="field_fax">Téléphone 1</label>
+                    <input type="text" class="form-control" name="fax" id="field_fax"
+                           [(ngModel)]="centreAdministratif.fax" />
+                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.adresse" for="field_adresse">Téléphone 1</label>
+                    <input type="text" class="form-control" name="adresse" id="field_adresse"
+                           [(ngModel)]="centreAdministratif.adresse" required/>
+                    <div [hidden]="!(editForm.controls.adresse?.dirty && editForm.controls.adresse?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.adresse?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label jhiTranslate="comptaDecisionApp.centreAdministratif.region" for="field_region">Region</label>
+                        <select class="form-control" id="field_region" name="region" [(ngModel)]="centreAdministratif.regionId">
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="regionOption.id"
+                                    *ngFor="let regionOption of regions; trackBy: trackRegionById">{{regionOption.libelle}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label jhiTranslate="comptaDecisionApp.centreAdministratif.ville" for="field_ville">Ville</label>
+                        <select class="form-control" id="field_ville" name="ville" [(ngModel)]="centreAdministratif.villeId">
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="villeOption.id"
+                                    *ngFor="let villeOption of villes; trackBy: trackVilleById">{{villeOption.libelle}}</option>
+                        </select>
+                    </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.codePostal" for="field_codePostal">Téléphone 1</label>
+                    <input type="text" class="form-control" name="codePostal" id="field_codePostal"
+                           [(ngModel)]="centreAdministratif.codePostal" required/>
+                    <div [hidden]="!(editForm.controls.codePostal?.dirty && editForm.controls.codePostal?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.codePostal?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.banque" for="field_banque">Téléphone 1</label>
+                    <input type="text" class="form-control" name="banque" id="field_banque"
+                           [(ngModel)]="centreAdministratif.banque" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.centreAdministratif.rib" for="field_rib">Téléphone 1</label>
+                    <input type="text" class="form-control" name="rib" id="field_rib"
+                           [(ngModel)]="centreAdministratif.rib" />
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

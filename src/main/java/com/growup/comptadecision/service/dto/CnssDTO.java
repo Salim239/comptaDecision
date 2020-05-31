@@ -1,6 +1,7 @@
 package com.growup.comptadecision.service.dto;
 
 import com.growup.comptadecision.domain.enumeration.TypeCnss;
+import com.growup.comptadecision.domain.enumeration.TypeDeclarationCnss;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -45,13 +46,19 @@ public class CnssDTO  extends BusinessAlertDTO {
 
     private BigDecimal cnss;
 
-
     private Long ficheClientId;
-
     private String ficheClientDesignation;
     private String ficheClientMatriculeFiscale;
     private String ficheClientRegistreCommerce;
     private LocalDate ficheClientDateCreation;
+    private TypeDeclarationCnss typeDeclaration;
+    private BigDecimal tauxCnssNormal;
+    private BigDecimal tauxCnssKarama;
+    private BigDecimal tauxCnssAccident;
+    private BigDecimal tauxCnssAutre;
+    private BigDecimal montantCnssNormal;
+    private BigDecimal montantCnssKarama;
+    private BigDecimal montantCnssAutre;
 
     public String getFicheClientDesignation() {
         return ficheClientDesignation;
@@ -181,4 +188,67 @@ public class CnssDTO  extends BusinessAlertDTO {
         this.typeCnss = typeCnss;
     }
 
+    public TypeDeclarationCnss getTypeDeclaration() {
+        return typeDeclaration;
+    }
+
+    public void setTypeDeclaration(TypeDeclarationCnss typeDeclaration) {
+        this.typeDeclaration = typeDeclaration;
+    }
+
+    public BigDecimal getTauxCnssNormal() {
+        return tauxCnssNormal;
+    }
+
+    public void setTauxCnssNormal(BigDecimal tauxCnssNormal) {
+        this.tauxCnssNormal = tauxCnssNormal;
+    }
+
+    public BigDecimal getTauxCnssKarama() {
+        return tauxCnssKarama;
+    }
+
+    public void setTauxCnssKarama(BigDecimal tauxCnssKarama) {
+        this.tauxCnssKarama = tauxCnssKarama;
+    }
+
+    public BigDecimal getTauxCnssAccident() {
+        return tauxCnssAccident;
+    }
+
+    public void setTauxCnssAccident(BigDecimal tauxCnssAccident) {
+        this.tauxCnssAccident = tauxCnssAccident;
+    }
+
+    public BigDecimal getTauxCnssAutre() {
+        return tauxCnssAutre;
+    }
+
+    public void setTauxCnssAutre(BigDecimal tauxCnssAutre) {
+        this.tauxCnssAutre = tauxCnssAutre;
+    }
+
+    public BigDecimal getMontantCnssNormal() {
+        return montantCnssNormal;
+    }
+
+    public void setMontantCnssNormal(BigDecimal montantCnssNormal) {
+        this.montantCnssNormal = montantCnssNormal;
+    }
+
+    public BigDecimal getMontantCnssKarama() {
+        return montantCnssKarama;
+    }
+
+    public void setMontantCnssKarama(BigDecimal montantCnssKarama) {
+        this.montantCnssKarama = montantCnssKarama;
+    }
+
+    public BigDecimal getMontantCnssAutre() {
+        return montantCnssAutre;
+    }
+
+    public void setMontantCnssAutre(BigDecimal montantCnssAutre) {
+        this.montantCnssAutre = montantCnssAutre;
+    }
 }

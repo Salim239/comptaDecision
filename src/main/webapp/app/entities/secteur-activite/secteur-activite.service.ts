@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { ISecteurActivite } from 'app/shared/model/secteur-activite.model';
+import { IActivite } from 'app/shared/model/activite.model';
 
 type EntityResponseType = HttpResponse<ISecteurActivite>;
 type EntityArrayResponseType = HttpResponse<ISecteurActivite[]>;
@@ -25,6 +26,10 @@ export class SecteurActiviteService {
 
     find(id: number): Observable<EntityResponseType> {
         return this.http.get<ISecteurActivite>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    findByActiviteId(activiteId: number): Observable<EntityArrayResponseType> {
+        return this.http.get<IActivite[]>(`${this.resourceUrl}/activite/${activiteId}`, { observe: 'response' });
     }
 
     query(req?: any): Observable<EntityArrayResponseType> {

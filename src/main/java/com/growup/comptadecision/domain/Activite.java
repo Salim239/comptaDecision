@@ -1,10 +1,12 @@
 package com.growup.comptadecision.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -40,6 +42,23 @@ public class Activite extends AbstractAuditingEntity {
 
     @Column(name = "description")
     private String description;
+
+    @ManyToOne
+//    @JsonIgnore("activites")
+    private SecteurActivite secteurActivite;
+
+    private Activite secteurActivite(SecteurActivite secteurActivite) {
+        this.secteurActivite = secteurActivite;
+        return this;
+    }
+
+    public SecteurActivite getSecteurActivite() {
+        return secteurActivite;
+    }
+
+    public void setSecteurActivite(SecteurActivite secteurActivite) {
+        this.secteurActivite = secteurActivite;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -88,6 +107,8 @@ public class Activite extends AbstractAuditingEntity {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
 }

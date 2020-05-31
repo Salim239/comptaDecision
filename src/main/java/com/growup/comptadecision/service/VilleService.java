@@ -59,6 +59,19 @@ public class VilleService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    /**
+     * Get villes bu region id.
+     *
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<VilleDTO> findByRegionId(Long regionId) {
+        log.debug("Request Villes by region id");
+        return villeRepository.findVilleByRegionId(regionId).stream()
+            .map(villeMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
 
     /**
      * Get one ville by id.

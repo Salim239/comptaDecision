@@ -27,6 +27,10 @@ export class ActiviteService {
         return this.http.get<IActivite>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
+    findBySecteurActiviteId(secteurActiviteId: number): Observable<EntityArrayResponseType> {
+        return this.http.get<IActivite[]>(`${this.resourceUrl}/secteur-activite/${secteurActiviteId}`, { observe: 'response' });
+    }
+
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IActivite[]>(this.resourceUrl, { params: options, observe: 'response' });

@@ -1,19 +1,22 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-import {JhiAlertService, JhiDataUtils} from 'ng-jhipster';
-import {IFicheClient} from 'app/shared/model/fiche-client.model';
-import {FicheClientService} from './fiche-client.service';
-import {ISecteurActivite} from 'app/shared/model/secteur-activite.model';
-import {SecteurActiviteService} from 'app/entities/secteur-activite';
-import {IActivite} from 'app/shared/model/activite.model';
-import {ActiviteService} from 'app/entities/activite';
-import {IRegion} from 'app/shared/model/region.model';
-import {RegionService} from 'app/entities/region';
-import {IVille} from 'app/shared/model/ville.model';
-import {VilleService} from 'app/entities/ville';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { FicheClient, IFicheClient } from 'app/shared/model/fiche-client.model';
+import { FicheClientService } from './fiche-client.service';
+import { ISecteurActivite } from 'app/shared/model/secteur-activite.model';
+import { SecteurActiviteService } from 'app/entities/secteur-activite';
+import { IActivite } from 'app/shared/model/activite.model';
+import { ActiviteService } from 'app/entities/activite';
+import { IRegion } from 'app/shared/model/region.model';
+import { RegionService } from 'app/entities/region';
+import { IVille } from 'app/shared/model/ville.model';
+import { VilleService } from 'app/entities/ville';
+import { CentreAdministratifService } from 'app/entities/centre-administratif';
+import { ICentreAdministratif, TypeCentreAdministratif } from 'app/shared/model/centre-administratif.model';
+import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
 
 @Component({
     selector: 'jhi-fiche-client-update',
@@ -22,20 +25,23 @@ import {VilleService} from 'app/entities/ville';
 export class FicheClientUpdateComponent implements OnInit {
     ficheClient: IFicheClient;
     isSaving: boolean;
+    villes$: Observable<IVille[]>;
+    activites1$: Observable<IActivite[]>;
+    activites2$: Observable<IActivite[]>;
+    activites3$: Observable<IActivite[]>;
+    secteuractivites$: Observable<ISecteurActivite[]>;
+    centreAdministratifCnsss$: Observable<ICentreAdministratif[]>;
+    centreAdministratifFiscales$: Observable<ICentreAdministratif[]>;
+    centreAdministratifImpots$: Observable<ICentreAdministratif[]>;
+    regions$: Observable<IRegion[]>;
 
-    secteuractivites: ISecteurActivite[];
-
-    activites: IActivite[];
-
-    regions: IRegion[];
-
-    villes: IVille[];
     dateCreationDp: any;
 
     constructor(
         protected dataUtils: JhiDataUtils,
         protected jhiAlertService: JhiAlertService,
         protected ficheClientService: FicheClientService,
+        protected centreAdministratifService: CentreAdministratifService,
         protected secteurActiviteService: SecteurActiviteService,
         protected activiteService: ActiviteService,
         protected regionService: RegionService,
@@ -48,35 +54,17 @@ export class FicheClientUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ ficheClient }) => {
             this.ficheClient = ficheClient;
+            this.formatDecimalFields();
         });
-        this.secteurActiviteService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<ISecteurActivite[]>) => mayBeOk.ok),
-                map((response: HttpResponse<ISecteurActivite[]>) => response.body)
-            )
-            .subscribe((res: ISecteurActivite[]) => (this.secteuractivites = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.activiteService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IActivite[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IActivite[]>) => response.body)
-            )
-            .subscribe((res: IActivite[]) => (this.activites = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.regionService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IRegion[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IRegion[]>) => response.body)
-            )
-            .subscribe((res: IRegion[]) => (this.regions = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.villeService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IVille[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IVille[]>) => response.body)
-            )
-            .subscribe((res: IVille[]) => (this.villes = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.regions$ = this.findRegions();
+        this.secteuractivites$ = this.findSecteursActivites();
+        this.activites1$ = this.findActivites();
+        this.activites2$ = this.findActivites();
+        this.activites3$ = this.findActivites();
+        this.villes$ = this.findVilleByRegionId();
+        this.centreAdministratifCnsss$ = this.findAdministrationsCnss();
+        this.centreAdministratifFiscales$ = this.findAdministrationsFiscale();
+        this.centreAdministratifImpots$ = this.findAdministrationsImpot();
     }
 
     byteSize(field) {
@@ -101,6 +89,7 @@ export class FicheClientUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.parseDecimalFields();
         if (this.ficheClient.id !== undefined && this.ficheClient.id !== null) {
             this.subscribeToSaveResponse(this.ficheClientService.update(this.ficheClient));
         } else {
@@ -133,11 +122,117 @@ export class FicheClientUpdateComponent implements OnInit {
         return item.id;
     }
 
-    trackRegionById(index: number, item: IRegion) {
-        return item.id;
+    findVilleByRegionId(regionId?: number) {
+        return regionId
+            ? this.villeService.findByRegionId(regionId).pipe(
+                  filter((response: HttpResponse<IVille[]>) => response.ok),
+                  map((response: HttpResponse<IVille[]>) => response.body)
+              )
+            : this.villeService.query().pipe(
+                  filter((response: HttpResponse<IVille[]>) => response.ok),
+                  map((response: HttpResponse<IVille[]>) => response.body)
+              );
     }
 
-    trackVilleById(index: number, item: IVille) {
-        return item.id;
+    findVille() {
+        this.villes$ = undefined;
+        this.ficheClient.villeId = undefined;
+        this.ficheClient.villeLibelle = undefined;
+        this.villes$ = this.findVilleByRegionId(this.ficheClient.regionId);
+    }
+
+    findRegions() {
+        return this.regionService.query().pipe(
+            filter((response: HttpResponse<IRegion[]>) => response.ok),
+            map((response: HttpResponse<IRegion[]>) => response.body)
+        );
+    }
+
+    findActivites(secteurActiviteId?: number) {
+        return secteurActiviteId
+            ? this.activiteService.findBySecteurActiviteId(secteurActiviteId).pipe(
+                  filter((response: HttpResponse<IActivite[]>) => response.ok),
+                  map((response: HttpResponse<IActivite[]>) => response.body)
+              )
+            : this.activiteService.query().pipe(
+                  filter((response: HttpResponse<IActivite[]>) => response.ok),
+                  map((response: HttpResponse<IActivite[]>) => {
+                      const data = response.body;
+                      return data;
+                  })
+              );
+    }
+
+    findActivites1() {
+        this.activites1$ = undefined;
+        this.ficheClient.activite1Id = undefined;
+        this.ficheClient.activite1Libelle = undefined;
+        this.activites1$ = this.findActivites(this.ficheClient.secteurActivite1Id);
+    }
+
+    findActivites2() {
+        this.activites2$ = undefined;
+        this.ficheClient.activite2Id = undefined;
+        this.ficheClient.activite2Libelle = undefined;
+        this.activites2$ = this.findActivites(this.ficheClient.secteurActivite2Id);
+    }
+
+    findActivites3() {
+        this.activites3$ = undefined;
+        this.ficheClient.activite3Id = undefined;
+        this.ficheClient.activite3Libelle = undefined;
+        this.activites3$ = this.findActivites(this.ficheClient.secteurActivite3Id);
+    }
+
+    findSecteursActivites() {
+        return this.secteurActiviteService.query().pipe(
+            filter((response: HttpResponse<ISecteurActivite[]>) => response.ok),
+            map((response: HttpResponse<ISecteurActivite[]>) => {
+                const data = response.body;
+                return data;
+            })
+        );
+    }
+
+    findAdministrationsCnss() {
+        return this.centreAdministratifService.findByType(TypeCentreAdministratif.administration_cnss).pipe(
+            filter((response: HttpResponse<ICentreAdministratif[]>) => response.ok),
+            map((response: HttpResponse<ICentreAdministratif[]>) => {
+                const data = response.body;
+                return data;
+            })
+        );
+    }
+
+    findAdministrationsImpot() {
+        return this.centreAdministratifService.findByType(TypeCentreAdministratif.administration_impot).pipe(
+            filter((response: HttpResponse<ICentreAdministratif[]>) => response.ok),
+            map((response: HttpResponse<ICentreAdministratif[]>) => {
+                const data = response.body;
+                return data;
+            })
+        );
+    }
+
+    findAdministrationsFiscale() {
+        return this.centreAdministratifService.findByType(TypeCentreAdministratif.administration_fiscale).pipe(
+            filter((response: HttpResponse<ICentreAdministratif[]>) => response.ok),
+            map((response: HttpResponse<ICentreAdministratif[]>) => {
+                const data = response.body;
+                return data;
+            })
+        );
+    }
+
+    formatDecimalFields() {
+        if (this.ficheClient.tauxCnssAccident) {
+            this.ficheClient.tauxCnssAccident = ComptaDecisionUtils.parseCurrency(this.ficheClient.tauxCnssAccident);
+        }
+    }
+
+    parseDecimalFields() {
+        if (this.ficheClient.tauxCnssAccident) {
+            this.ficheClient.tauxCnssAccident = ComptaDecisionUtils.parseCurrency(this.ficheClient.tauxCnssAccident);
+        }
     }
 }

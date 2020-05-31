@@ -15,7 +15,11 @@
             "detail": {
                 "title": "Cnss"
             },
-            "typeCnss": "Type déclaration CNSS",
+            "typeCnss": {
+                "libelle": "Type déclaration CNSS",
+                "DECLARATION_INITALE": "Déclaration initiale",
+                "DECLARATION_COMPLEMENTAIRE": "Déclaration complémentaire"
+            },
             "annee": "Annee",
             "trimestre": "Trimestre",
             "date": "Date",
@@ -25,7 +29,15 @@
             "montantSalaireBrutAutre": "Montant Salaire Brut Autre",
             "montantTotal": "Montant total",
             "cnss": "Cnss",
-            "ficheClient": "Fiche Client"
+            "ficheClient": "Fiche Client",
+            "typeDeclaration": "Type déclaration",
+            "tauxCnssNormal": "Taux Cnss Normal",
+            "tauxCnssKarama": "Taux CNSS Karma",
+            "tauxCnssAccident": "Taux Cnss Accident",
+            "tauxCnssAutre": "Taux Cnss Autre",
+            "montantCnssNormal": "Montant Cnss Normal",
+            "montantCnssKarama": "Montant Cnss Karma",
+            "montantCnssAutre": "Montant Cnss Autre"
         }
     }
 }

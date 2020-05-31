@@ -20,6 +20,9 @@
                 <th jhiSortBy="typeCnss"><span jhiTranslate="comptaDecisionApp.cnss.typeCnss">Type CNSS</span>
                     <fa-icon [icon]="'sort'"></fa-icon>
                 </th>
+                <th jhiSortBy="typeCnss"><span jhiTranslate="comptaDecisionApp.cnss.typeDeclaration.libelle">Type déclaration</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
                 <th jhiSortBy="annee"><span jhiTranslate="comptaDecisionApp.cnss.annee">Annee</span>
                     <fa-icon [icon]="'sort'"></fa-icon>
                 </th>
@@ -40,8 +43,12 @@
                         jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutKarama">Montant Salaire Brut Karama</span>
                     <fa-icon [icon]="'sort'"></fa-icon>
                 </th>
-                <th jhiSortBy="montantSalaireBrutAutre"><span
-                        jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutAutre">Montant Salaire Brut Autre</span>
+                <th jhiSortBy="montantCnssNormal"><span
+                        jhiTranslate="comptaDecisionApp.cnss.montantCnssNormal">Montant Cnss Normal</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="montantCnssKarama"><span
+                    jhiTranslate="comptaDecisionApp.cnss.montantCnssKarama">Montant Cnss Karama</span>
                     <fa-icon [icon]="'sort'"></fa-icon>
                 </th>
                 <th jhiSortBy="montantTotal"><span jhiTranslate="comptaDecisionApp.cnss.montantTotal">Montant total</span>
@@ -62,6 +69,7 @@
                     </div>
                 </td>
                 <td jhiTranslate="{{'comptaDecisionApp.typeCnss.' + cnss.typeCnss}}">{{cnss.typeCnss}}</td>
+                <td jhiTranslate="{{'comptaDecisionApp.typeDeclaration.' + cnss.typeDeclaration}}">{{cnss.typeDeclaration}}</td>
                 <td>{{cnss.annee}}</td>
                 <td>Trimestre {{cnss.trimestre}}</td>
                 <td>{{cnss.date | date:'mediumDate'}}</td>
@@ -69,6 +77,8 @@
                 <td>{{cnss.montantSalaireBrutNormal | number:'1.3-3'}}</td>
                 <td>{{cnss.montantSalaireBrutKarama | number:'1.3-3'}}</td>
                 <td>{{cnss.montantSalaireBrutAutre | number:'1.3-3'}}</td>
+                <td>{{cnss.montantCnssNormal | number:'1.3-3'}}</td>
+                <td>{{cnss.montantCnssKarama | number:'1.3-3'}}</td>
                 <td>{{cnss.montantTotal | number:'1.3-3'}}</td>
                 <td>{{cnss.cnss}}</td>
 

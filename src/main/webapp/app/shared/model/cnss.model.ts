@@ -1,9 +1,14 @@
-import {Moment} from 'moment';
-import {BusinessAlert} from "app/shared/model/business-alert.model";
+import { Moment } from 'moment';
+import { BusinessAlert } from 'app/shared/model/business-alert.model';
 
 export const enum TypeCnss {
     CNSS_GENERALE = 'CNSS_GENERALE',
     CNSS_EMPLOYEUR = 'CNSS_EMPLOYEUR'
+}
+
+export const enum TypeDeclarationCnss {
+    DECLARATION_INITALE,
+    DECLARATION_COMPLEMENTAIRE
 }
 
 export interface ICnss {
@@ -23,6 +28,14 @@ export interface ICnss {
     ficheClientMatriculeFiscale?: string;
     ficheClientRegistreCommerce?: string;
     ficheClientDateCreation?: Moment;
+    typeDeclaration?: TypeDeclarationCnss;
+    tauxCnssNormal?: number;
+    tauxCnssKarama?: number;
+    tauxCnssAccident?: number;
+    tauxCnssAutre?: number;
+    montantCnssNormal?: number;
+    montantCnssKarama?: number;
+    montantCnssAutre?: number;
     businessAlerts?: BusinessAlert[];
 }
 
@@ -44,7 +57,14 @@ export class Cnss implements ICnss {
         public ficheClientMatriculeFiscale?: string,
         public ficheClientRegistreCommerce?: string,
         public ficheClientDateCreation?: Moment,
+        public typeDeclaration?: TypeDeclarationCnss,
+        public tauxCnssNormal?: number,
+        public tauxCnssKarama?: number,
+        public tauxCnssAccident?: number,
+        public tauxCnssAutre?: number,
+        public montantCnssNormal?: number,
+        public montantCnssKarama?: number,
+        public montantCnssAutre?: number,
         public businessAlerts?: BusinessAlert[]
-    ) {
-    }
+    ) {}
 }

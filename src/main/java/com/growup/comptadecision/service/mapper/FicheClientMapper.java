@@ -1,5 +1,6 @@
 package com.growup.comptadecision.service.mapper;
 
+import com.growup.comptadecision.domain.CentreAdministratifMapper;
 import com.growup.comptadecision.domain.FicheClient;
 import com.growup.comptadecision.service.dto.FicheClientDTO;
 import org.mapstruct.Mapper;
@@ -8,15 +9,20 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity FicheClient and its DTO FicheClientDTO.
  */
-@Mapper(componentModel = "spring", uses = {SecteurActiviteMapper.class, ActiviteMapper.class, RegionMapper.class, VilleMapper.class , ImpotMensuelClientMapper.class})
+@Mapper(componentModel = "spring", uses = {CentreAdministratifMapper.class, SecteurActiviteMapper.class, ActiviteMapper.class, RegionMapper.class, VilleMapper.class , ImpotMensuelClientMapper.class})
 public interface FicheClientMapper extends EntityMapper<FicheClientDTO, FicheClient> {
 
-    @Mapping(source = "secteurActivite.id", target = "secteurActiviteId")
-    @Mapping(source = "secteurActivite.libelle", target = "secteurActiviteLibelle")
-    @Mapping(source = "activite.id", target = "activiteId")
-    @Mapping(source = "activite.libelle", target = "activiteLibelle")
-    @Mapping(source = "activiteScondaire.id", target = "activiteScondaireId")
-    @Mapping(source = "activiteScondaire.libelle", target = "activiteScondaireLibelle")
+    @Mapping(source = "activite1.id", target = "activite1Id")
+    @Mapping(source = "activite1.libelle", target = "activite1Libelle")
+    @Mapping(source = "activite2.id", target = "activite2Id")
+    @Mapping(source = "activite2.libelle", target = "activite2Libelle")
+    @Mapping(source = "activite3.id", target = "activite3Id")
+    @Mapping(source = "activite3.libelle", target = "activite3Libelle")
+    @Mapping(source = "secteurActivite1.id", target = "secteurActivite1Id")
+    @Mapping(source = "secteurActivite1.libelle", target = "secteurActivite1Libelle") @Mapping(source = "secteurActivite2.id", target = "secteurActivite2Id")
+    @Mapping(source = "secteurActivite2.libelle", target = "secteurActivite2Libelle")
+    @Mapping(source = "secteurActivite3.id", target = "secteurActivite3Id")
+    @Mapping(source = "secteurActivite3.libelle", target = "secteurActivite3Libelle")
     @Mapping(source = "impotMensuelClients", target = "impotMensuelClients")
     @Mapping(source = "region.id", target = "regionId")
     @Mapping(source = "region.libelle", target = "regionLibelle")
@@ -24,9 +30,12 @@ public interface FicheClientMapper extends EntityMapper<FicheClientDTO, FicheCli
     @Mapping(source = "ville.libelle", target = "villeLibelle")
     FicheClientDTO toDto(FicheClient ficheClient);
 
-    @Mapping(source = "secteurActiviteId", target = "secteurActivite")
-    @Mapping(source = "activiteId", target = "activite")
-    @Mapping(source = "activiteScondaireId", target = "activiteScondaire")
+    @Mapping(source = "activite1Id", target = "activite1")
+    @Mapping(source = "activite2Id", target = "activite2")
+    @Mapping(source = "activite3Id", target = "activite3")
+    @Mapping(source = "secteurActivite1Id", target = "secteurActivite1")
+    @Mapping(source = "secteurActivite2Id", target = "secteurActivite2")
+    @Mapping(source = "secteurActivite3Id", target = "secteurActivite3")
     @Mapping(source = "regionId", target = "region")
     @Mapping(source = "villeId", target = "ville")
     @Mapping(target = "impotMensuelClients", expression = "java(" +

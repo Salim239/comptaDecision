@@ -59,6 +59,19 @@ public class ActiviteService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    /**
+     * Get  activites by secteur activite id.
+     *
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<ActiviteDTO> findBySecteurActiviteId(Long secteurActiviteId) {
+        log.debug("Request to get Activites by secteur activite id {}", secteurActiviteId);
+        return activiteRepository.findAll().stream()
+            .map(activiteMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
 
     /**
      * Get one activite by id.

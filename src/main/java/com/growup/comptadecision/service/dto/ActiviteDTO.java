@@ -26,8 +26,26 @@ public class ActiviteDTO implements Serializable {
     @NotNull
     private String libelle;
 
+    private Long  secteurActiviteId;
+    private String secteurActiviteLibelle;
+
     private String description;
 
+    public Long getSecteurActiviteId() {
+        return secteurActiviteId;
+    }
+
+    public void setSecteurActiviteId(Long secteurActiviteId) {
+        this.secteurActiviteId = secteurActiviteId;
+    }
+
+    public String getSecteurActiviteLibelle() {
+        return secteurActiviteLibelle;
+    }
+
+    public void setSecteurActiviteLibelle(String secteurActiviteLibelle) {
+        this.secteurActiviteLibelle = secteurActiviteLibelle;
+    }
 
     public Long getId() {
         return id;

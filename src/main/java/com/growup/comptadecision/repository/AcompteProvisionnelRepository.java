@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -25,8 +26,15 @@ public interface AcompteProvisionnelRepository extends JpaRepository<AcompteProv
     @Query("select acompte from AcompteProvisionnel acompte " +
             "where acompte.ficheClient.id = :ficheClientId " +
             "and acompte.annee = :annee " +
-            "and acompte.numero = :numero")
-    Optional<AcompteProvisionnel> findByFicheClientIdAndAnneeAndNumero(@Param("ficheClientId") Long ficheClientId, @Param("annee") Integer annee, @Param("numero") Integer numero);
+            "and acompte.numero = :numero " +
+            "and acompte.statut <> 'ARCHIVE'")
+    Optional<AcompteProvisionnel> findValidByFicheClientIdAndAnneeAndNumero(@Param("ficheClientId") Long ficheClientId, @Param("annee") Integer annee, @Param("numero") Integer numero);
+
+    @Query("select acompte from AcompteProvisionnel acompte " +
+        "where acompte.ficheClient.id = :ficheClientId " +
+        "and acompte.annee = :annee " +
+        "and acompte.numero = :numero")
+    List<AcompteProvisionnel> findByFicheClientIdAndAnneeAndNumero(@Param("ficheClientId") Long ficheClientId, @Param("annee") Integer annee, @Param("numero") Integer numero);
 
     @Query("SELECT SUM(ap.montantAcompteProvisionnel) FROM AcompteProvisionnel  ap WHERE ap.annee = :annee and ap.ficheClient.id = :ficheClientId and ap.montantAcompteProvisionnel > 0")
     BigDecimal sumpAcomptePrevisionnelPositifs(@Param("ficheClientId") Long ficheClientId, @Param("annee") Integer annee);

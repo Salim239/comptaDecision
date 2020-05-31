@@ -1,0 +1,42 @@
+{
+    "comptaDecisionApp": {
+        "centreAdministratif": {
+            "home": {
+                "title": "Centres Administratifs",
+                "createLabel": "Créer un nouveau Centre Administratif",
+                "createOrEditLabel": "Créer ou éditer un Centre Administratif"
+            },
+            "created": "Un nouveau Centre Administratif a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Centre Administratif avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Centre Administratif avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Centre Administratif {{ id }} ?"
+            },
+            "detail": {
+                "title": "Centre Administratif"
+            },
+            "id": "Id",
+            "type": "Type",
+            "typeCentreAdministratif": {
+                "administration_cnss": "Administration CNSS",
+                "administration_fiscale": "Administration Fiscale",
+                "administration_impot": "Centre des Impôts"
+            },
+            "libelle": "Libellé",
+            "telephone1": "Téléphone 1",
+            "telephone2": "Téléphone 2",
+            "telephone3": "Téléphone 3",
+            "email1": "Email 1",
+            "email2": "Email 2",
+            "email3": "Email 3",
+            "fax": "Fax",
+            "rib": "RIB",
+            "banque": "Banque",
+            "adresse": "Adresse",
+            "ville": "Ville",
+            "region": "Région",
+            "codePostal": "Code postale",
+            "description": "Description"
+        }
+    }
+}

@@ -41,10 +41,10 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.ville.region" for="field_region">Region</label>
-                    <select class="form-control" id="field_region" name="region" [(ngModel)]="ville.regionId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="regionOption.id" *ngFor="let regionOption of regions; trackBy: trackRegionById">{{regionOption.libelle}}</option>
-                    </select>
+                    <ng-select id="field_region" name="region" [(ngModel)]="ville.regionId" [items]="regions"
+                               bindLabel="libelle"
+                               bindValue="id">
+                    </ng-select>
                 </div>
 
 

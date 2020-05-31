@@ -41,6 +41,7 @@ public class CacheConfiguration {
             cm.createCache(com.growup.comptadecision.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.Region.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.Ville.class.getName(), jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.CentreAdministratif.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.SecteurActivite.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.Activite.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.ImpotMensuel.class.getName(), jcacheConfiguration);

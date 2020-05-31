@@ -17,7 +17,8 @@
             },
             "code": "Code",
             "libelle": "Libelle",
-            "description": "Description"
+            "description": "Description",
+            "secteurActivite": "Secteur Activité"
         }
     }
 }

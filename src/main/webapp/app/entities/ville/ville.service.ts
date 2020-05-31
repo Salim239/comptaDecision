@@ -27,6 +27,10 @@ export class VilleService {
         return this.http.get<IVille>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
+    findByRegionId(regionId: number): Observable<EntityArrayResponseType> {
+        return this.http.get<IVille[]>(`${this.resourceUrl}/region/${regionId}`, { observe: 'response' });
+    }
+
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IVille[]>(this.resourceUrl, { params: options, observe: 'response' });

@@ -8,8 +8,7 @@
             "405": "Le verbe HTTP que vous avez utilisé n'est pas reconnu par cet URL.",
             "500": "Erreur interne du serveur."
         },
-        "concurrencyFailure":
-            "Un autre utilisateur a modifié ces données en même temps que vous. Vos changements n'ont pas été sauvegardés.",
+        "concurrencyFailure": "Un autre utilisateur a modifié ces données en même temps que vous. Vos changements n'ont pas été sauvegardés.",
         "validation": "Erreur de validation côté serveur.",
         "quittance": {
             "qittanceRectificativeSansQuittanceInitiale": "Cette quittance rectificative ne possède pas de quittance initiale associée",
@@ -23,6 +22,11 @@
             "quittanceASussuprimerNonExistante": "La quittance a supprimée dont l'id est {{id}} n'existe pas!",
             "quittanceASupprimerValidee": "Cette quittance dont l'id est {{id}} ne peut pas être supprimée car elle est déjà validée!",
             "quittanceRectificativeAsupprimerPossedePasQuittanceInitiale": "Cette quittance retificative à supprimer dont l'id est {{id}} ne possède pas d equittance initiale à tort!"
+        },
+        "acompte": {
+            "numeroNonValide": "Numéro acompte non valide",
+            "acompteInitialeInexistante": "Il existe déjà un acompte initiale avec ce numéro. Editer avec ce numéro. Editer le ou créer un acompte avec un autre numéro!",
+            "acompteRectificativeExistante": "Il existe déjà un acompte rectificatif avec ce numéro. Editer le ou créer un acompte avec un autre numéro!"
         }
     }
 }

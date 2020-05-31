@@ -13,6 +13,10 @@ import { RouterModule } from '@angular/router';
                 loadChildren: './ville/ville.module#ComptaDecisionVilleModule'
             },
             {
+                path: 'centre-administratif',
+                loadChildren: './centre-administratif/centre-administratif.module#ComptaDecisionCentreAdministratifModule'
+            },
+            {
                 path: 'secteur-activite',
                 loadChildren: './secteur-activite/secteur-activite.module#ComptaDecisionSecteurActiviteModule'
             },

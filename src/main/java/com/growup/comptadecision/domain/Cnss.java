@@ -3,6 +3,7 @@ package com.growup.comptadecision.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.growup.comptadecision.domain.enumeration.TypeCnss;
+import com.growup.comptadecision.domain.enumeration.TypeDeclarationCnss;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -46,6 +47,9 @@ public class Cnss extends AbstractAuditingEntity {
     @Column(name = "trimestre", nullable = false)
     private Integer trimestre;
 
+    @Column(name = "type_declaration", nullable = false)
+    private TypeDeclarationCnss typeDeclaration = TypeDeclarationCnss.DECLARATION_INITALE;
+
     @Column(name = "jhi_date")
     private LocalDate date;
 
@@ -60,6 +64,27 @@ public class Cnss extends AbstractAuditingEntity {
 
     @Column(name = "montant_salaire_brut_autre", precision = 10, scale = 2)
     private BigDecimal montantSalaireBrutAutre;
+
+    @Column(name = "taux_cnss_normal", precision = 10, scale = 2)
+    private BigDecimal tauxCnssNormal;
+
+    @Column(name = "taux_cnss_karama", precision = 10, scale = 2)
+    private BigDecimal tauxCnssKarama;
+
+    @Column(name = "taux_cnss_accident", precision = 10, scale = 2)
+    private BigDecimal tauxCnssAccident;
+
+    @Column(name = "taux_cnss_autre", precision = 10, scale = 2)
+    private BigDecimal tauxCnssAutre;
+
+    @Column(name = "montant_cnss_normal", precision = 10, scale = 2)
+    private BigDecimal montantCnssNormal;
+
+    @Column(name = "montant_cnss_karama", precision = 10, scale = 2)
+    private BigDecimal montantCnssKarama;
+
+    @Column(name = "montant_cnss_autre", precision = 10, scale = 2)
+    private BigDecimal montantCnssAutre;
 
     @Column(name = "montantTotal", precision = 10, scale = 2)
     private BigDecimal montantTotal;
@@ -218,4 +243,67 @@ public class Cnss extends AbstractAuditingEntity {
         this.typeCnss = typeCnss;
     }
 
+    public TypeDeclarationCnss getTypeDeclaration() {
+        return typeDeclaration;
+    }
+
+    public void setTypeDeclaration(TypeDeclarationCnss typeDeclaration) {
+        this.typeDeclaration = typeDeclaration;
+    }
+
+    public BigDecimal getTauxCnssNormal() {
+        return tauxCnssNormal;
+    }
+
+    public void setTauxCnssNormal(BigDecimal tauxCnssNormal) {
+        this.tauxCnssNormal = tauxCnssNormal;
+    }
+
+    public BigDecimal getTauxCnssKarama() {
+        return tauxCnssKarama;
+    }
+
+    public void setTauxCnssKarama(BigDecimal tauxCnssKarama) {
+        this.tauxCnssKarama = tauxCnssKarama;
+    }
+
+    public BigDecimal getTauxCnssAccident() {
+        return tauxCnssAccident;
+    }
+
+    public void setTauxCnssAccident(BigDecimal tauxCnssAccident) {
+        this.tauxCnssAccident = tauxCnssAccident;
+    }
+
+    public BigDecimal getTauxCnssAutre() {
+        return tauxCnssAutre;
+    }
+
+    public void setTauxCnssAutre(BigDecimal tauxCnssAutre) {
+        this.tauxCnssAutre = tauxCnssAutre;
+    }
+
+    public BigDecimal getMontantCnssNormal() {
+        return montantCnssNormal;
+    }
+
+    public void setMontantCnssNormal(BigDecimal montantCnssNormal) {
+        this.montantCnssNormal = montantCnssNormal;
+    }
+
+    public BigDecimal getMontantCnssKarama() {
+        return montantCnssKarama;
+    }
+
+    public void setMontantCnssKarama(BigDecimal montantCnssKarama) {
+        this.montantCnssKarama = montantCnssKarama;
+    }
+
+    public BigDecimal getMontantCnssAutre() {
+        return montantCnssAutre;
+    }
+
+    public void setMontantCnssAutre(BigDecimal montantCnssAutre) {
+        this.montantCnssAutre = montantCnssAutre;
+    }
 }

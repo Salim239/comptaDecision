@@ -32,9 +32,8 @@
             <th jhiSortBy="cnssEmployeur"><span jhiTranslate="comptaDecisionApp.ficheClient.cnssEmployeur">Cnss Employeur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="cnssGerant"><span jhiTranslate="comptaDecisionApp.ficheClient.cnssGerant">Cnss Gerant</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <!--<th jhiSortBy="fichierPatente"><span jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente">Fichier Patente</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
-            <th jhiSortBy="secteurActiviteLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.secteurActivite">Secteur Activite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="activiteLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.activite">Activite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="activiteScondaireLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.activiteScondaire">Activite Scondaire</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="secteurActiviteLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.secteurActivite1">Secteur Activite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="activiteLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.activite1">Activite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -74,18 +73,13 @@
                     <!--<span *ngIf="ficheClient.fichierPatente">{{ficheClient.fichierPatenteContentType}}, {{byteSize(ficheClient.fichierPatente)}}</span>-->
                 <!--</td>-->
                 <td>
-                    <div *ngIf="ficheClient.secteurActiviteId">
-                        <a [routerLink]="['../secteur-activite', ficheClient.secteurActiviteId , 'view' ]" >{{ficheClient.secteurActiviteLibelle}}</a>
+                    <div *ngIf="ficheClient.secteurActivite1Id">
+                        <a [routerLink]="['../secteur-activite', ficheClient.secteurActivite1Id , 'view' ]" >{{ficheClient.secteurActivite1Libelle}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="ficheClient.activiteId">
-                        <a [routerLink]="['../activite', ficheClient.activiteId , 'view' ]" >{{ficheClient.activiteLibelle}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="ficheClient.activiteScondaireId">
-                        <a [routerLink]="['../activite', ficheClient.activiteScondaireId , 'view' ]" >{{ficheClient.activiteScondaireLibelle}}</a>
+                    <div *ngIf="ficheClient.activite1Id">
+                        <a [routerLink]="['../activite', ficheClient.activite1Id , 'view' ]" >{{ficheClient.activite1Libelle}}</a>
                     </div>
                 </td>
 

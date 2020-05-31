@@ -59,7 +59,6 @@ public class SecteurActiviteService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
-
     /**
      * Get one secteurActivite by id.
      *

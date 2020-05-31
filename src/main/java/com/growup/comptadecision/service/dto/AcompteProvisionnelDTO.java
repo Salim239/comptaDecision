@@ -11,6 +11,8 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A DTO for the AcompteProvisionnel entity.
@@ -47,6 +49,8 @@ public class AcompteProvisionnelDTO implements Serializable {
     private TypeDeclaration type;
 
     private StatutDeclaration statut;
+
+    private List<BusinessAlertDTO>businessAlertDTOs = new ArrayList<>();
 
 
     private Long ficheClientId;
@@ -189,5 +193,13 @@ public class AcompteProvisionnelDTO implements Serializable {
 
     public void setStatut(StatutDeclaration statut) {
         this.statut = statut;
+    }
+
+    public List<BusinessAlertDTO> getBusinessAlertDTOs() {
+        return businessAlertDTOs;
+    }
+
+    public void setBusinessAlertDTOs(List<BusinessAlertDTO> businessAlertDTOs) {
+        this.businessAlertDTOs = businessAlertDTOs;
     }
 }

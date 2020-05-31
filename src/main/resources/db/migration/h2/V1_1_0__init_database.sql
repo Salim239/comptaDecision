@@ -328,7 +328,7 @@ CREATE TABLE public.secteur_activite (
 
 CREATE TABLE public.ville (
     id bigint NOT NULL,
-    code  VARCHAR(255) NOT NULL,
+    code  VARCHAR(255),
     code_postal  VARCHAR(255),
     libelle  VARCHAR(255) NOT NULL,
     description  VARCHAR(255),
@@ -912,33 +912,11 @@ INSERT INTO public.quittance_mensuelle_impot_sous_detail VALUES (18097, 7119, 17
 INSERT INTO public.quittance_mensuelle_impot_sous_detail VALUES (18098, 7120, 17980, 0.000000, 0.000000, 'admin', '2020-02-12 11:54:14.533', 'admin', '2020-02-21 10:35:10.512');
 
 
---
-
---
-
-INSERT INTO public.region VALUES (1101, 'MAHDIA', 'MAHDIA', NULL, 'admin', NULL, NULL, NULL);
-INSERT INTO public.region VALUES (1102, 'SOUSSE', 'SOUSSE', NULL, 'admin', NULL, NULL, NULL);
-INSERT INTO public.region VALUES (1103, 'MONASTIR', 'MONASTIR', 'MONASTIR', 'admin', NULL, NULL, NULL);
-INSERT INTO public.region VALUES (1104, 'TUNIS', 'TUNIS', NULL, 'admin', NULL, NULL, NULL);
-INSERT INTO public.region VALUES (1105, 'ARIANA', 'ARIANA', 'ARIANA', 'admin', NULL, NULL, NULL);
-
-
---
-
---
 
 INSERT INTO public.secteur_activite VALUES (1051, 'COMMERCE', 'Commerce', NULL, 'admin', NULL, NULL, NULL);
 INSERT INTO public.secteur_activite VALUES (1052, 'SERVICE', 'Service', NULL, 'admin', NULL, NULL, NULL);
 INSERT INTO public.secteur_activite VALUES (1053, 'INDUSTRIE', 'Industrie', NULL, 'admin', NULL, NULL, NULL);
 INSERT INTO public.secteur_activite VALUES (1054, 'AUTRES', 'Autres', NULL, 'admin', NULL, NULL, NULL);
-
-
---
-
---
-
-INSERT INTO public.ville VALUES (1201, 'LACHEBBA', '5170', 'LA CHEBBA', NULL, 1101, 'admin', NULL, NULL, NULL);
-
 
 
 --

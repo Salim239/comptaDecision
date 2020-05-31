@@ -29,11 +29,21 @@
             "cnssEmployeur": "Cnss Employeur",
             "cnssGerant": "Cnss Gerant",
             "fichierPatente": "Fichier Patente",
-            "secteurActivite": "Secteur Activite",
-            "activite": "Activite",
-            "activiteScondaire": "Activite Scondaire",
+            "secteurActivite1": "Secteur Activite principale",
+            "activite1": "Activite secteur principal",
+            "secteurActivite2": "Secteur Activite secondaire",
+            "activite2": "Activite secteur secondaire",
+            "secteurActivite3": "Secteur Activite 3",
+            "activite3": "Activite secteur 3",
             "region": "Region",
-            "ville": "Ville"
+            "ville": "Ville",
+            "tauxCnssAccident": "Taux Cnss Accident personnalisé",
+            "administrationCnss": "Administration CNSS affiliée",
+            "administrationFiscale": "Administration Fiscale affiliée",
+            "administrationImpot": "Administration Impôt affiliée",
+            "codeTVA": "Code TVA",
+            "numeroEtablissementSecondaire": "N° Etab. secondaire",
+            "categorieActivite": "Categorie Activité"
         }
     }
 }

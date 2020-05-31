@@ -21,6 +21,7 @@
                 "declarationAnnuelle": "Declaration Annuelle",
                 "declarationEmployeurAnnuelle": "Declaration Employeur Annuelle",
                 "acompteProvisionnel": "Acompte Provisionnel",
+                "centreAdministratif": "Centres Administratifs",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

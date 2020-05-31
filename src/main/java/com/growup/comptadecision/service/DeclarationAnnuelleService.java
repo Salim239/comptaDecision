@@ -244,7 +244,7 @@ public class DeclarationAnnuelleService {
     }
 
     private BigDecimal calculerMontantAps(Long FicheClientId, Integer annee) {
-        return acompteProvisionnelService.sumpAcomptePrevisionnelPositifs(FicheClientId, annee);
+        return acompteProvisionnelService.sumAcomptePrevisionnelPositifs(FicheClientId, annee);
     }
 
     private BigDecimal calculerMontantReportAnterieur(Long ficheClientId, Integer annee) {

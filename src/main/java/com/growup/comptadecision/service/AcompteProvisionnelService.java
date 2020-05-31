@@ -4,13 +4,17 @@ import com.growup.comptadecision.domain.AcompteProvisionnel;
 import com.growup.comptadecision.domain.DeclarationAnnuelle;
 import com.growup.comptadecision.domain.FicheClient;
 import com.growup.comptadecision.domain.enumeration.StatutDeclaration;
+import com.growup.comptadecision.domain.enumeration.TypeAlert;
 import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import com.growup.comptadecision.repository.AcompteProvisionnelRepository;
 import com.growup.comptadecision.repository.DeclarationAnnuelleRepository;
 import com.growup.comptadecision.repository.FicheClientRepository;
 import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.AcompteProvisionnelDTO;
+import com.growup.comptadecision.service.dto.BusinessAlertDTO;
 import com.growup.comptadecision.service.mapper.AcompteProvisionnelMapper;
+import com.growup.comptadecision.web.rest.errors.BusinessErrorException;
+import com.growup.comptadecision.web.rest.errors.ErrorConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,7 +24,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.text.DateFormatSymbols;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import static com.growup.comptadecision.domain.enumeration.CodeAlert.*;
 
 /**
  * Service Implementation for managing AcompteProvisionnel.
@@ -134,12 +143,62 @@ public class AcompteProvisionnelService {
         acompteProvisionnelRepository.deleteById(id);
     }
 
-    private void validateCreationForm(FicheClient ficheClient, Integer annee, Integer numero, TypeDeclaration type) {
+    private List<BusinessAlertDTO> validateCreationForm(FicheClient ficheClient, Integer annee, Integer numeroAcompte, TypeDeclaration typeDeclaration) {
 
-        Optional<AcompteProvisionnel> acompteOptional = acompteProvisionnelRepository.findByFicheClientIdAndAnneeAndNumero(ficheClient.getId(), annee, numero);
-        acompteOptional.ifPresent(acompte -> new RuntimeException(String.format("Il existe déjà un acompte numero %s annee %s pour le client %s", acompte.getNumero(), acompte.getAnnee(), acompte.getFicheClient().getDesignation())));
+        List<BusinessAlertDTO> businessAlerts = new ArrayList<>();
+
+        if (ficheClient.getDateCreation().getYear() > annee) throw new BusinessErrorException(ErrorConstants.ERR_ANNEE_NON_VALIDE);
+        if (numeroAcompte > 3 || numeroAcompte < 1) {
+            throw new BusinessErrorException(ErrorConstants.ERR_NUM_ACCOMPTE_NON_VALIDE);
+        }
+        if (numeroAcompte > 1){
+            List<AcompteProvisionnel> previousAcompte = acompteProvisionnelRepository.findByFicheClientIdAndAnneeAndNumero(ficheClient.getId(), annee,
+                numeroAcompte - 1);
+            if (previousAcompte.isEmpty()) {
+                BusinessAlertDTO businessAlert = new BusinessAlertDTO(TypeAlert.warning, WARNING_ACOMPTE_PRECEDENTE_INEXISTANTE);
+                businessAlert.addParam("annee", annee);
+                businessAlert.addParam("numero", numeroAcompte -1);
+                businessAlerts.add(businessAlert);
+            }
+            Optional<AcompteProvisionnel> previousAcompteOptional = previousAcompte.stream()
+                .filter(previousQuittance -> previousQuittance.getStatut().equals(StatutDeclaration.BROUILLON))
+                .findFirst();
+            if (previousAcompteOptional.isPresent()) {
+                BusinessAlertDTO businessAlert = new BusinessAlertDTO(TypeAlert.warning, WARNING_ACOMPTE_PRECEDENTE_NON_VALIDE);
+                businessAlert.addParam("annee", annee);
+                businessAlert.addParam("numero", numeroAcompte -1);
+                businessAlerts.add(businessAlert);
+            }
+        }
+        List<AcompteProvisionnel> acomptes = acompteProvisionnelRepository.findByFicheClientIdAndAnneeAndNumero(ficheClient.getId(), annee,
+            numeroAcompte);
+
+        if (acomptes.isEmpty() && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE)) {
+            throw new BusinessErrorException(ErrorConstants.ERR_ACOMPTE_INITIALE_INEXISTANTE);
+        }
+        if (acomptes.size() == 1 && typeDeclaration.equals(TypeDeclaration.DECLARATION_INITIALE)) {
+            throw new BusinessErrorException(ErrorConstants.ERR_ACOMPTE_INITIALE_INEXISTANTE);
+        }
+        if (acomptes.size() == 1 && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE) &&
+            acomptes.get(0).getStatut().equals(StatutDeclaration.BROUILLON)) {
+
+            BusinessAlertDTO businessAlert = new BusinessAlertDTO(TypeAlert.warning, WARNING_ACOMPTE_INITIALE_NON_VALIDE);
+            businessAlerts.add(businessAlert);
+        }
+
+        if (acomptes.size() == 2 && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE)) {
+            throw new BusinessErrorException(ErrorConstants.ERR_ACOMPTE_RECTIFICATIVE_EXISTANTE);
+        }
+
+        return businessAlerts;
     }
 
+//    private void validateCreationForm(FicheClient ficheClient, Integer annee, Integer numero, TypeDeclaration type) {
+//
+//        Optional<AcompteProvisionnel> acompteOptional = acompteProvisionnelRepository.findValidByFicheClientIdAndAnneeAndNumero(ficheClient.getId(), annee, numero);
+//        acompteOptional.ifPresent(acompte -> new RuntimeException(String.format("Il existe déjà un acompte numero %s annee %s pour le client %s", acompte.getNumero(), acompte.getAnnee(), acompte.getFicheClient().getDesignation())));
+//    }
+//
     private AcompteProvisionnelDTO getEmptyAcompteProvisionnel(FicheClient ficheClient, Integer annee, Integer numero, TypeDeclaration type) {
 
         AcompteProvisionnel acompteProvisionnel = new AcompteProvisionnel();
@@ -172,7 +231,7 @@ public class AcompteProvisionnelService {
             //Remplacer ce champ par le montant report de la déclaration antérieure
             montantReportAp = declarationAnnuelleAnterieure.getMontantReportAnterieur();
         } else {
-            Optional<AcompteProvisionnel> acompteProvisionnelAnterieureOptional = acompteProvisionnelRepository.findByFicheClientIdAndAnneeAndNumero(ficheClient.getId(), annee, numero -1);
+            Optional<AcompteProvisionnel> acompteProvisionnelAnterieureOptional = acompteProvisionnelRepository.findValidByFicheClientIdAndAnneeAndNumero(ficheClient.getId(), annee, numero -1);
             //Montant Ap antérieur = montant net ap anterier si négatif
             if (acompteProvisionnelAnterieureOptional.isPresent()) {
                 BigDecimal montantNetApAnterieure = acompteProvisionnelAnterieureOptional.get().getMontantNet();
@@ -185,11 +244,13 @@ public class AcompteProvisionnelService {
     public AcompteProvisionnelDTO init(Long ficheClientId, Integer annee, Integer numeroAccompte, TypeDeclaration type) {
         log.debug("Request to init new AcompteProvisionnel number {} for year {} client id {}", numeroAccompte, annee, ficheClientId);
         FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new RuntimeException(String.format("FicheClient not found with id %s", ficheClientId)));
-        validateCreationForm(ficheClient, annee, numeroAccompte, type);
-        return getEmptyAcompteProvisionnel(ficheClient, annee, numeroAccompte, type);
+        List<BusinessAlertDTO> businessAlertDTOs = validateCreationForm(ficheClient, annee, numeroAccompte, type);
+        AcompteProvisionnelDTO acompteProvisionnelDTO = getEmptyAcompteProvisionnel(ficheClient, annee, numeroAccompte, type);
+        acompteProvisionnelDTO.setBusinessAlertDTOs(businessAlertDTOs);
+        return acompteProvisionnelDTO;
     }
 
-    public BigDecimal sumpAcomptePrevisionnelPositifs(Long ficheClientId, Integer annee) {
+    public BigDecimal sumAcomptePrevisionnelPositifs(Long ficheClientId, Integer annee) {
         log.debug("Request to init calculation sum acompte prévisionnel for year {} client id {}", annee, ficheClientId);
         BigDecimal sumAps = acompteProvisionnelRepository.sumpAcomptePrevisionnelPositifs(ficheClientId, annee);
         return sumAps == null ? BigDecimal.ZERO : sumAps;

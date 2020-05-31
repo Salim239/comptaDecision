@@ -27,6 +27,9 @@ import java.util.stream.Collectors;
 @Transactional
 public class FicheClientService {
 
+    //todo ajouter dans fichier properties
+    private static final Double TAUX_CNSS_ACCIDENT_PAR_DEFAUT = 0.05;
+
     private final Logger log = LoggerFactory.getLogger(FicheClientService.class);
 
     private final FicheClientRepository ficheClientRepository;
@@ -66,6 +69,7 @@ public class FicheClientService {
                 impotMensuelClientDTOs.add(impotMensuelClientDTO);
         });
         ficheClientDTO.setImpotMensuelClients(impotMensuelClientDTOs);
+        ficheClientDTO.setTauxCnssAccident(TAUX_CNSS_ACCIDENT_PAR_DEFAUT);
         return ficheClientDTO;
     }
 

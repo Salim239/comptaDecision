@@ -24,7 +24,14 @@ import javax.validation.constraints.NotNull;
 public class SecteurActivite extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
-    
+
+    public SecteurActivite() {
+    }
+
+    public SecteurActivite(Long id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")

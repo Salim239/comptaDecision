@@ -28,14 +28,14 @@ relationship ManyToOne {
 dto Ville with mapstruct
 service Ville with serviceClass
 
-entity SecteurActivite {
+entity CentreAdministratif {
 	id Long required,
 	code String required,
 	libelle String required,
     description String
 }
-dto SecteurActivite with mapstruct
-service SecteurActivite with serviceClass
+dto CentreAdministratif with mapstruct
+service CentreAdministratif with serviceClass
 
 entity Activite {
 	id Long required,
@@ -73,7 +73,7 @@ entity FicheClient {
     fichierPatente Blob
 }
 relationship ManyToOne {
-	FicheClient{secteurActivite(id)} to SecteurActivite,
+	FicheClient{centreAdministratif(id)} to CentreAdministratif,
     FicheClient{activite(id)} to Activite,
     FicheClient{activiteScondaire(id)} to Activite,
     FicheClient{region(id)} to Region,

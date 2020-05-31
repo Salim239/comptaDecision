@@ -1,9 +1,22 @@
-import {Moment} from 'moment';
-import {IImpotMensuelClient} from 'app/shared/model/impot-mensuel-client.model';
+import { Moment } from 'moment';
+import { IImpotMensuelClient } from 'app/shared/model/impot-mensuel-client.model';
+import { CentreAdministratif } from 'app/shared/model/centre-administratif.model';
 
 export const enum CategorieClient {
     PERSONNE_PHYSIQUE = 'PERSONNE_PHYSIQUE',
     PERSONNE_MORALE = 'PERSONNE_MORALE'
+}
+
+export const enum CodeTVA {
+    F = 'F' /*Assujetti forfaitaire*/,
+    N = 'N' /*Non assujetti*/
+}
+
+export const enum CategorieActivite {
+    M = 'M' /*Personne morale*/,
+    C = 'C' /*Personne physique commerçante ou industrielle*/,
+    P = 'P' /*Personne physique profession libérale*/,
+    N = 'N' /*Employeur non soumis aux impôts*/
 }
 
 export interface IFicheClient {
@@ -18,6 +31,9 @@ export interface IFicheClient {
     fax?: string;
     email?: string;
     matriculeFiscale?: string;
+    codeTva?: CodeTVA;
+    numeroEtablissementSecondaire?: string;
+    categorieActivite?: CategorieActivite;
     registreCommerce?: string;
     dateCreation?: Moment;
     cnssEmployeur?: string;
@@ -28,12 +44,22 @@ export interface IFicheClient {
     regionLibelle?: string;
     villeId?: number;
     villeLibelle?: string;
-    secteurActiviteId?: number;
-    secteurActiviteLibelle?: string;
-    activiteId?: number;
-    activiteLibelle?: string;
-    activiteScondaireId?: number;
-    activiteScondaireLibelle?: string;
+    secteurActivite1Id?: number;
+    secteurActivite1Libelle?: string;
+    activite1Id?: number;
+    activite1Libelle?: string;
+    secteurActivite2Id?: number;
+    secteurActivite2Libelle?: string;
+    activite2Id?: number;
+    activite2Libelle?: string;
+    secteurActivite3Id?: number;
+    secteurActivite3Libelle?: string;
+    activite3Id?: number;
+    activite3Libelle?: string;
+    tauxCnssAccident?: number;
+    administrationCnss?: CentreAdministratif;
+    administrationFiscale?: CentreAdministratif;
+    administrationImpot?: CentreAdministratif;
     impotMensuelClients?: IImpotMensuelClient[];
 }
 
@@ -50,6 +76,9 @@ export class FicheClient implements IFicheClient {
         public fax?: string,
         public email?: string,
         public matriculeFiscale?: string,
+        public codeTva?: CodeTVA,
+        public numeroEtablissementSecondaire?: string,
+        public categorieActivite?: CategorieActivite,
         public registreCommerce?: string,
         public dateCreation?: Moment,
         public cnssEmployeur?: string,
@@ -60,12 +89,22 @@ export class FicheClient implements IFicheClient {
         public regionLibelle?: string,
         public villeId?: number,
         public villeLibelle?: string,
-        public secteurActiviteId?: number,
-        public secteurActiviteLibelle?: string,
-        public activiteId?: number,
-        public activiteLibelle?: string,
-        public activiteScondaireId?: number,
-        public activiteScondaireLibelle?: string,
+        public secteurActivite1Id?: number,
+        public secteurActivite1Libelle?: string,
+        public activite1Id?: number,
+        public activite1Libelle?: string,
+        public secteurActivite2Id?: number,
+        public secteurActivite2Libelle?: string,
+        public activite2Id?: number,
+        public activite2Libelle?: string,
+        public secteurActivite3Id?: number,
+        public secteurActivite3Libelle?: string,
+        public activite3Id?: number,
+        public activite3Libelle?: string,
+        public tauxCnssAccident?: number,
+        public administrationCnss?: CentreAdministratif,
+        public administrationFiscale?: CentreAdministratif,
+        public administrationImpot?: CentreAdministratif,
         public impotMensuelClients?: IImpotMensuelClient[]
     ) {}
 }
