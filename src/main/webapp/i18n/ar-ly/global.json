@@ -16,6 +16,7 @@
                 "ficheClient": "Fiche Client",
                 "cnss": "Cnss",
                 "impotMensuelClient": "Impot Mensuel Client",
+                "categorieCnssGerant": "Catégorie CNSS",
                 "quittanceMensuelleImpot": "Quittance Mensuelle Impot",
                 "quittanceMensuelleImpotDetail": "Quittance Mensuelle Impot Line",
                 "declarationAnnuelle": "Declaration Annuelle",

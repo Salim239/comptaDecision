@@ -12,6 +12,9 @@ import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.BusinessAlertDTO;
 import com.growup.comptadecision.service.dto.DeclarationAnnuelleDTO;
 import com.growup.comptadecision.service.mapper.DeclarationAnnuelleMapper;
+import com.growup.comptadecision.web.rest.errors.BusinessErrorException;
+import com.growup.comptadecision.web.rest.errors.ErrorConstants;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +86,7 @@ public class DeclarationAnnuelleService {
                 findByAnneeAndFicheClientIdAndTypeDeclaration(
                     declarationAnnuelle.getAnnee(),
                     declarationAnnuelle.getFicheClient().getId(),
-                    TypeDeclaration.DECLARATION_INITIALE).orElseThrow(() -> new RuntimeException(String.format("Il n'existe pas de déclaration annuelle initiale pour le client %s et l'annee %s",
+                    TypeDeclaration.DECLARATION_INITIALE).orElseThrow(() -> new BusinessErrorException(String.format("Il n'existe pas de déclaration annuelle initiale pour le client %s et l'annee %s",
                 declarationAnnuelle.getFicheClient().getId(), declarationAnnuelle.getAnnee())));
             declarationAnnuelleInitiale.setStatut(StatutDeclaration.BROUILLON);
             declarationAnnuelleRepository.save(declarationAnnuelleInitiale);
@@ -150,26 +153,27 @@ public class DeclarationAnnuelleService {
 
     private DeclarationAnnuelleDTO getDeclarationRectificativeForDeclarationInitiale(DeclarationAnnuelle declarationAnnuelle) {
 
-        Optional<DeclarationAnnuelle> declarationRectificative = declarationAnnuelleRepository.findByAnneeAndFicheClientIdAndTypeDeclaration(
+        Optional<DeclarationAnnuelle> declarationRectificativeOpt = declarationAnnuelleRepository.findByAnneeAndFicheClientIdAndTypeDeclaration(
                 declarationAnnuelle.getAnnee(),
                 declarationAnnuelle.getFicheClient().getId(),
                 TypeDeclaration.DECLARATION_RECTIFICATIVE);
 
-        if (declarationRectificative.isPresent() && StringUtils.isNotBlank(declarationRectificative.get().getNumeroQuittance())) {
-
-            return declarationAnnuelleMapper.toDto(declarationRectificative.get());
+        if (declarationRectificativeOpt.isPresent() && StringUtils.isNotBlank(declarationRectificativeOpt.get().getNumeroQuittance())) {
+            DeclarationAnnuelle declarationRectificative = declarationRectificativeOpt.get();
+            declarationRectificative.setDeclarationAnnuelleDetails(new ArrayList<>());
+            initDeclarationAnnuelDetails(declarationRectificative);
+            return declarationAnnuelleMapper.toDto(declarationRectificative);
         } else {
 
             DeclarationAnnuelleDTO quittanceRectificativeDTO = declarationAnnuelleMapper.toDto(declarationAnnuelle);
-
             quittanceRectificativeDTO.setTypeDeclaration(TypeDeclaration.DECLARATION_RECTIFICATIVE);
             quittanceRectificativeDTO.setId(null);
             quittanceRectificativeDTO.setDatePaiement(null);
             quittanceRectificativeDTO.setNumeroQuittance(null);
-            quittanceRectificativeDTO.getDeclarationAnnuelleDetails().forEach(declarationAnnuelleDetail -> {
-                declarationAnnuelleDetail.setId(null);
-                declarationAnnuelleDetail.setDeclarationAnnuelleId(null);
-                });
+            BigDecimal montantAps = calculerMontantAps(quittanceRectificativeDTO.getFicheClientId(), quittanceRectificativeDTO.getAnnee());
+            BigDecimal reportAnterieur = calculerMontantReportAnterieur(quittanceRectificativeDTO.getFicheClientId(), quittanceRectificativeDTO.getAnnee());
+            quittanceRectificativeDTO.setMontantApPayesCalc(montantAps);
+            quittanceRectificativeDTO.setMontantReportAnterieurCalc(reportAnterieur);
             return quittanceRectificativeDTO;
         }
     }
@@ -191,7 +195,7 @@ public class DeclarationAnnuelleService {
                             .map(ImpotMensuelDetail::getCode)
                             .collect(Collectors.toList());
                     BigDecimal montantcalcule = null;
-                    if (impotAnnuel.getCalcule() && !impotMensuelDetailToSum.isEmpty()) {
+                    if (BooleanUtils.isTrue(impotAnnuel.getCalcule()) && !impotMensuelDetailToSum.isEmpty()) {
                         montantcalcule = quittanceMensuelleSousDetailRepository.sumMontantBaseByFicheClientIdAndByAnneeAndByCodes(
                                 declarationAnnuelle.getFicheClient().getId(),
                                 declarationAnnuelle.getAnnee(),
@@ -231,16 +235,17 @@ public class DeclarationAnnuelleService {
             declarationAnnuelleDTO.setMontantApPayesCalc(montantAps);
             declarationAnnuelleDTO.setMontantApPayes(montantAps);
             declarationAnnuelleDTO.setMontantReportAnterieur(reportAnterieur);
-            declarationAnnuelleDTO.setMontantReportAnterieurCalc(montantAps);
+            declarationAnnuelleDTO.setMontantReportAnterieurCalc(reportAnterieur);
             return declarationAnnuelleDTO;
         }
     }
 
     private BigDecimal calculerMontantNet(DeclarationAnnuelle declarationAnnuelle) {
         return declarationAnnuelle.getMontantImpotAnnuel()
+            .add(declarationAnnuelle.getMontantRetenueSource())
             .subtract(declarationAnnuelle.getMontantApPayes())
             .subtract(declarationAnnuelle.getMontantReportAnterieur())
-            .subtract(declarationAnnuelle.getMontantRetenueSource());
+            ;
     }
 
     private BigDecimal calculerMontantAps(Long FicheClientId, Integer annee) {
@@ -251,7 +256,7 @@ public class DeclarationAnnuelleService {
         AcompteProvisionnel acompteProvisionnel = acompteProvisionnelService.findByFicheClientIdAndAnneeAndNumeroAndNotArchived(ficheClientId, annee, 1)
             .orElseGet(() -> {
                 //todo mange error
-                //new RuntimeException("Impossible de calculer le report antérieur car il n'existe pas d'accopte provisionnel numéro 1"));
+                //new BusinessErrorException("Impossible de calculer le report antérieur car il n'existe pas d'accopte provisionnel numéro 1"));
                 return new AcompteProvisionnel();
             });
         return acompteProvisionnel.getMontantReportAnterieur() != null ? acompteProvisionnel.getMontantReportAnterieur() : BigDecimal.ZERO;
@@ -278,10 +283,13 @@ public class DeclarationAnnuelleService {
 
         List<DeclarationAnnuelle> declarationAnnuelles = declarationAnnuelleRepository.findByAnneeAndFicheClientId(annee, ficheClient.getId());
         if (declarationAnnuelles.isEmpty() && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE)) {
-            throw new RuntimeException("declaration annuelle initiale not exists. Create qutitance initiale before can create quittantance rectifcative!!");
+            throw new BusinessErrorException(ErrorConstants.ERR_DECLARATION_RECTIFICATIVE_SANS_QUITTANCE_INITIALE);
         }
         if (declarationAnnuelles.size() == 1 && typeDeclaration.equals(TypeDeclaration.DECLARATION_INITIALE)) {
-            throw new RuntimeException("declaration annuelle initiale already exists for this mounth. Edit it or create one for another mounth!");
+            throw new BusinessErrorException(ErrorConstants.ERR_DECLARATION_INITIALE_EXISTE);
+        }
+        if (declarationAnnuelles.size() == 0 && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE)) {
+            throw new BusinessErrorException(ErrorConstants.ERR_DECLARATION_RECTIFICATIVE_SANS_QUITTANCE_INITIALE);
         }
         if (declarationAnnuelles.size() == 1 && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE) &&
                 declarationAnnuelles.get(0).getStatut().equals(StatutDeclaration.BROUILLON)) {
@@ -290,7 +298,7 @@ public class DeclarationAnnuelleService {
             businessAlerts.add(businessAlert);
         }
         if (declarationAnnuelles.size() == 2 && typeDeclaration.equals(TypeDeclaration.DECLARATION_RECTIFICATIVE)) {
-            throw new RuntimeException("declaration annuelle rectificative already exists for this mouth. Edit it or create one for another mounth!");
+            throw new BusinessErrorException(ErrorConstants.ERR_DECLARATION_RECTIFICATIVE_INEXISTANTE);
         }
 
         return businessAlerts;
@@ -298,7 +306,7 @@ public class DeclarationAnnuelleService {
 
     public DeclarationAnnuelleDTO init(Long ficheClientId, Integer annee, TypeDeclaration typeDeclaration) {
         log.debug("Request to init new DeclarationAnnuelle for year {} client id {} and declaration type {}", annee, ficheClientId,  typeDeclaration);
-        FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new RuntimeException(String.format("FicheClient not found with id %s", ficheClientId)));
+        FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new BusinessErrorException(String.format("FicheClient not found with id %s", ficheClientId)));
         List<BusinessAlertDTO> businessAlerts = validateCreationForm(ficheClient, annee, typeDeclaration);
         DeclarationAnnuelleDTO declarationAnnuelle = getEmptyDeclarationAnnuelle(ficheClient, annee);
         declarationAnnuelle.setBusinessAlerts(businessAlerts);

@@ -15,9 +15,11 @@ public interface CnssMapper extends EntityMapper<CnssDTO, Cnss> {
 
     default BigDecimal sumMontants(CnssDTO cnssDTO) {
 
-        return cnssDTO.getMontantSalaireBrutKarama()
-                .add(cnssDTO.getMontantSalaireBrutNormal())
-                .add(cnssDTO.getMontantSalaireBrutAutre());
+        BigDecimal tauxCnss = cnssDTO.getTauxCnssNormalAccident().add(cnssDTO.getTauxCnssNormal());
+        BigDecimal tauxCnssKarama = cnssDTO.getTauxCnssKarama().add(cnssDTO.getTauxCnssKarama());
+
+        return cnssDTO.getMontantSalaireBrutNormal().multiply(tauxCnss)
+        .add(cnssDTO.getMontantSalaireBrutKarama().multiply(tauxCnssKarama));
     }
 
     @Mapping(source = "ficheClient.id", target = "ficheClientId")
@@ -25,10 +27,13 @@ public interface CnssMapper extends EntityMapper<CnssDTO, Cnss> {
     @Mapping(source = "ficheClient.matriculeFiscale", target = "ficheClientMatriculeFiscale")
     @Mapping(source = "ficheClient.registreCommerce", target = "ficheClientRegistreCommerce")
     @Mapping(source = "ficheClient.dateCreation", target = "ficheClientDateCreation")
+    @Mapping(source = "ficheClient.cnssGerant", target = "ficheClientCnssGerant")
+    @Mapping(source = "ficheClient.cnssEmployeur", target = "ficheClientCnssEmployeur")
     CnssDTO toDto(Cnss cnss);
 
     @Mapping(source = "ficheClientId", target = "ficheClient")
-    @Mapping(target = "montantTotal", expression = "java(this.sumMontants(cnssDTO))")
+    @Mapping(target = "montantTotalCnss", expression = "java(this.sumMontants(cnssDTO))")
+    @Mapping(target = "montantTotalSalaireBrut", expression = "java(this.sumMontants(cnssDTO))")
     Cnss toEntity(CnssDTO cnssDTO);
 
     default Cnss fromId(Long id) {

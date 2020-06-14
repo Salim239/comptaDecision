@@ -17,6 +17,8 @@ import { VilleService } from 'app/entities/ville';
 import { CentreAdministratifService } from 'app/entities/centre-administratif';
 import { ICentreAdministratif, TypeCentreAdministratif } from 'app/shared/model/centre-administratif.model';
 import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
+import { ICategorieCnssGerant } from 'app/shared/model/categorie-cnss-gerant.model';
+import { CategorieCnssGerantService } from 'app/entities/categorie-cnss-gerant';
 
 @Component({
     selector: 'jhi-fiche-client-update',
@@ -25,6 +27,7 @@ import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
 export class FicheClientUpdateComponent implements OnInit {
     ficheClient: IFicheClient;
     isSaving: boolean;
+    categorieCnssGerants$: Observable<ICategorieCnssGerant[]>;
     villes$: Observable<IVille[]>;
     activites1$: Observable<IActivite[]>;
     activites2$: Observable<IActivite[]>;
@@ -43,6 +46,7 @@ export class FicheClientUpdateComponent implements OnInit {
         protected ficheClientService: FicheClientService,
         protected centreAdministratifService: CentreAdministratifService,
         protected secteurActiviteService: SecteurActiviteService,
+        protected categorieCnssGerantService: CategorieCnssGerantService,
         protected activiteService: ActiviteService,
         protected regionService: RegionService,
         protected villeService: VilleService,
@@ -57,11 +61,12 @@ export class FicheClientUpdateComponent implements OnInit {
             this.formatDecimalFields();
         });
         this.regions$ = this.findRegions();
+        this.villes$ = this.findVilleByRegionId();
         this.secteuractivites$ = this.findSecteursActivites();
+        this.categorieCnssGerants$ = this.findCategorieCnssGerants();
         this.activites1$ = this.findActivites();
         this.activites2$ = this.findActivites();
         this.activites3$ = this.findActivites();
-        this.villes$ = this.findVilleByRegionId();
         this.centreAdministratifCnsss$ = this.findAdministrationsCnss();
         this.centreAdministratifFiscales$ = this.findAdministrationsFiscale();
         this.centreAdministratifImpots$ = this.findAdministrationsImpot();
@@ -182,6 +187,16 @@ export class FicheClientUpdateComponent implements OnInit {
         this.ficheClient.activite3Id = undefined;
         this.ficheClient.activite3Libelle = undefined;
         this.activites3$ = this.findActivites(this.ficheClient.secteurActivite3Id);
+    }
+
+    findCategorieCnssGerants() {
+        return this.categorieCnssGerantService.query().pipe(
+            filter((response: HttpResponse<ICategorieCnssGerant[]>) => response.ok),
+            map((response: HttpResponse<ICategorieCnssGerant[]>) => {
+                const data = response.body;
+                return data;
+            })
+        );
     }
 
     findSecteursActivites() {

@@ -1,6 +1,7 @@
 package com.growup.comptadecision.repository;
 
 import com.growup.comptadecision.domain.Cnss;
+import com.growup.comptadecision.domain.enumeration.TypeDeclarationCnss;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,7 +23,10 @@ public interface CnssRepository extends JpaRepository<Cnss, Long> {
 
     @Query("select cnss from Cnss cnss where cnss.ficheClient.id = :ficheClientId " +
             "and cnss.annee = :annee " +
+            "and cnss.typeDeclaration = :typeDeclarationCnss " +
             "and cnss.trimestre = :trimestre")
-    List<Cnss> findByFicheClientIdAndAnneeAndTrimestre(@Param("ficheClientId") Long ficheClientId, @Param("annee") Integer annee, @Param("trimestre") Integer trimestre);
+    List<Cnss> findByFicheClientIdAndAnneeAndTypeDeclarationAndTrimestre(@Param("ficheClientId") Long ficheClientId, @Param("annee") Integer annee,
+                                                                         @Param("typeDeclarationCnss") TypeDeclarationCnss typeDeclarationCnss,
+                                                                         @Param("trimestre") Integer trimestre);
 
 }

@@ -35,30 +35,58 @@ public class CnssDTO  extends BusinessAlertDTO {
     private LocalDate date;
 
     private String numeroQuittance;
-
-    private BigDecimal montantSalaireBrutNormal;
-
-    private BigDecimal montantSalaireBrutKarama;
-
-    private BigDecimal montantSalaireBrutAutre;
-
-    private BigDecimal montantTotal;
-
-    private BigDecimal cnss;
-
     private Long ficheClientId;
     private String ficheClientDesignation;
     private String ficheClientMatriculeFiscale;
     private String ficheClientRegistreCommerce;
+    private String ficheClientCnssEmployeur;
+    private String ficheClientCnssGerant;
     private LocalDate ficheClientDateCreation;
     private TypeDeclarationCnss typeDeclaration;
+    private BigDecimal montantSalaireBrutNormal;
+    private BigDecimal montantSalaireBrutKarama;
     private BigDecimal tauxCnssNormal;
     private BigDecimal tauxCnssKarama;
-    private BigDecimal tauxCnssAccident;
-    private BigDecimal tauxCnssAutre;
+    private BigDecimal tauxCnssNormalAccident;
+    private BigDecimal tauxCnssKaramaAccident;
+    private BigDecimal totalTauxCnssNormal;
+    private BigDecimal totalTauxCnssKarama;
     private BigDecimal montantCnssNormal;
     private BigDecimal montantCnssKarama;
-    private BigDecimal montantCnssAutre;
+    private BigDecimal montantTotalCnss;
+    private BigDecimal montantTotalSalaireBrut;
+
+    public BigDecimal getTotalTauxCnssNormal() {
+        return this.tauxCnssNormal.add(tauxCnssNormalAccident);
+    }
+
+    public void setTotalTauxCnssNormal(BigDecimal totalTauxCnssNormal) {
+        this.totalTauxCnssNormal = totalTauxCnssNormal;
+    }
+
+    public BigDecimal getTotalTauxCnssKarama() {
+        return this.tauxCnssKarama.add(tauxCnssKaramaAccident);
+    }
+
+    public void setTotalTauxCnssKarama(BigDecimal totalTauxCnssKarama) {
+        this.totalTauxCnssKarama = totalTauxCnssKarama;
+    }
+
+    public BigDecimal getMontantTotalSalaireBrut() {
+        return montantTotalSalaireBrut;
+    }
+
+    public void setMontantTotalSalaireBrut(BigDecimal montantTotalSalaireBrut) {
+        this.montantTotalSalaireBrut = montantTotalSalaireBrut;
+    }
+
+    public BigDecimal getMontantTotalCnss() {
+        return montantTotalCnss;
+    }
+
+    public void setMontantTotalCnss(BigDecimal montantTotalCnss) {
+        this.montantTotalCnss = montantTotalCnss;
+    }
 
     public String getFicheClientDesignation() {
         return ficheClientDesignation;
@@ -140,28 +168,28 @@ public class CnssDTO  extends BusinessAlertDTO {
         this.montantSalaireBrutKarama = montantSalaireBrutKarama;
     }
 
-    public BigDecimal getMontantSalaireBrutAutre() {
-        return montantSalaireBrutAutre;
+    public String getFicheClientCnssEmployeur() {
+        return ficheClientCnssEmployeur;
     }
 
-    public void setMontantSalaireBrutAutre(BigDecimal montantSalaireBrutAutre) {
-        this.montantSalaireBrutAutre = montantSalaireBrutAutre;
+    public void setFicheClientCnssEmployeur(String ficheClientCnssEmployeur) {
+        this.ficheClientCnssEmployeur = ficheClientCnssEmployeur;
     }
 
-    public BigDecimal getMontantTotal() {
-        return montantTotal;
+    public String getFicheClientCnssGerant() {
+        return ficheClientCnssGerant;
     }
 
-    public void setMontantTotal(BigDecimal montantTotal) {
-        this.montantTotal = montantTotal;
+    public void setFicheClientCnssGerant(String ficheClientCnssGerant) {
+        this.ficheClientCnssGerant = ficheClientCnssGerant;
     }
 
-    public BigDecimal getCnss() {
-        return cnss;
+    public BigDecimal getTauxCnssKaramaAccident() {
+        return tauxCnssKaramaAccident;
     }
 
-    public void setCnss(BigDecimal cnss) {
-        this.cnss = cnss;
+    public void setTauxCnssKaramaAccident(BigDecimal tauxCnssKaramaAccident) {
+        this.tauxCnssKaramaAccident = tauxCnssKaramaAccident;
     }
 
     public Long getFicheClientId() {
@@ -212,20 +240,12 @@ public class CnssDTO  extends BusinessAlertDTO {
         this.tauxCnssKarama = tauxCnssKarama;
     }
 
-    public BigDecimal getTauxCnssAccident() {
-        return tauxCnssAccident;
+    public BigDecimal getTauxCnssNormalAccident() {
+        return tauxCnssNormalAccident;
     }
 
-    public void setTauxCnssAccident(BigDecimal tauxCnssAccident) {
-        this.tauxCnssAccident = tauxCnssAccident;
-    }
-
-    public BigDecimal getTauxCnssAutre() {
-        return tauxCnssAutre;
-    }
-
-    public void setTauxCnssAutre(BigDecimal tauxCnssAutre) {
-        this.tauxCnssAutre = tauxCnssAutre;
+    public void setTauxCnssNormalAccident(BigDecimal tauxCnssNormalAccident) {
+        this.tauxCnssNormalAccident = tauxCnssNormalAccident;
     }
 
     public BigDecimal getMontantCnssNormal() {
@@ -244,11 +264,5 @@ public class CnssDTO  extends BusinessAlertDTO {
         this.montantCnssKarama = montantCnssKarama;
     }
 
-    public BigDecimal getMontantCnssAutre() {
-        return montantCnssAutre;
-    }
 
-    public void setMontantCnssAutre(BigDecimal montantCnssAutre) {
-        this.montantCnssAutre = montantCnssAutre;
-    }
 }

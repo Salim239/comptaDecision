@@ -1,6 +1,7 @@
 package com.growup.comptadecision.web.rest;
 
 import com.growup.comptadecision.domain.enumeration.TypeCnss;
+import com.growup.comptadecision.domain.enumeration.TypeDeclarationCnss;
 import com.growup.comptadecision.service.CnssService;
 import com.growup.comptadecision.service.dto.CnssDTO;
 import com.growup.comptadecision.web.rest.errors.BadRequestAlertException;
@@ -39,11 +40,12 @@ public class CnssResource {
     }
 
 
-    @GetMapping("/cnss/init/{id}/{annee}/{typeCnss}/{trimestre}")
+    @GetMapping("/cnss/init/{id}/{annee}/{typeCnss}/{typeDeclarationCnss}/{trimestre}")
     public ResponseEntity<CnssDTO> init(@PathVariable Long id, @PathVariable Integer annee,
                                                        @PathVariable String typeCnss,
+                                                       @PathVariable TypeDeclarationCnss typeDeclarationCnss,
                                                        @PathVariable Integer trimestre) {
-        CnssDTO cnssDTO = cnssService.init(id, annee, TypeCnss.valueOf(typeCnss), trimestre);
+        CnssDTO cnssDTO = cnssService.init(id, annee, TypeCnss.valueOf(typeCnss), typeDeclarationCnss, trimestre);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(cnssDTO);
     }
 

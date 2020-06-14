@@ -63,10 +63,10 @@
         </td>
         <td>
             <div class="form-group">
-                <input type="text" class="form-control numeric"
+                <input type="text" jhiDigitOnly [decimal]="true" class="form-control numeric"
                        name="quittanceMensuelleImpotDetail[{{indexDetail}}].quittanceMensuelleImpotSousDetails[{{indexSousDetail}}].quittanceMensuelleImpotSousDetailMontantTotal"
                        id="field_quittanceMensuelleImpotSousDetailMontantTotal"
-                       [ngModel]="quittanceMensuelleImpotSousDetail.montantTotal | number:'1.3-3'" (ngModelChange)="quittanceMensuelleImpotSousDetail.montantTotal=$event"
+                       [(ngModel)]="quittanceMensuelleImpotSousDetail.montantTotal"
                        [disabled]="!quittanceMensuelleImpotSousDetail.impotMensuelDetailValeurModifiable"/>
             </div>
         </td>

@@ -63,6 +63,7 @@ public class CacheConfiguration {
             cm.createCache(com.growup.comptadecision.domain.DeclarationEmployeurAnnuelle.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.AcompteProvisionnel.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.QuittanceMensuelleImpotSousDetail.class.getName(), jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.CategorieCnssGerant.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

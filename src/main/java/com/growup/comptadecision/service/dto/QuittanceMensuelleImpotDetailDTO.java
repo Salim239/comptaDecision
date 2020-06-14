@@ -48,7 +48,7 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
      */
     private BigDecimal montantReport = BigDecimal.ZERO;
 
-    private BigDecimal montantTotal;
+    private BigDecimal montantTotal = BigDecimal.ZERO;
 
     private Long parentQuittanceMensuelleImpotDetailId;
 

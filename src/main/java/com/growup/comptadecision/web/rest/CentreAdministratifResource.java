@@ -35,7 +35,7 @@ public class CentreAdministratifResource {
     }
 
     /**
-     * POST  /centreAdministratifs : Create a new centreAdministratif.
+     * POST  /centre-administratifs : Create a new centreAdministratif.
      *
      * @param centreAdministratifDTO the centreAdministratifDTO to create
      * @return the ResponseEntity with status 201 (Created) and with body the new centreAdministratifDTO, or with status 400 (Bad Request) if the centreAdministratif has already an ID
@@ -48,13 +48,13 @@ public class CentreAdministratifResource {
             throw new BadRequestAlertException("A new centreAdministratif cannot already have an ID", ENTITY_NAME, "idexists");
         }
         CentreAdministratifDTO result = centreAdministratifService.save(centreAdministratifDTO);
-        return ResponseEntity.created(new URI("/api/centreAdministratifs/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/centre-administratifs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /centreAdministratifs : Updates an existing centreAdministratif.
+     * PUT  /centre-administratifs : Updates an existing centreAdministratif.
      *
      * @param centreAdministratifDTO the centreAdministratifDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated centreAdministratifDTO,
@@ -75,7 +75,7 @@ public class CentreAdministratifResource {
     }
 
     /**
-     * GET  /centreAdministratifs : get all the centreAdministratifs.
+     * GET  /centre-administratifs : get all the centreAdministratifs.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of centreAdministratifs in body
      */
@@ -86,11 +86,11 @@ public class CentreAdministratifResource {
     }
 
     /**
-     * GET  /centreAdministratifs : get centreAdministratifs by type
+     * GET  /centre-administratifs : get centreAdministratifs by type
      *
      * @return the ResponseEntity with status 200 (OK) and the list of centreAdministratifs in body
      */
-    @GetMapping("/centre-administratifs/{type}")
+    @GetMapping("/centre-administratifs/type/{type}")
     public List<CentreAdministratifDTO> getCentreAdministratifsByType(@PathVariable TypeCentreAdministratif type) {
         log.debug("REST request to get CentreAdministratifs by type {}", type);
         return centreAdministratifService.findByType(type);
@@ -98,12 +98,12 @@ public class CentreAdministratifResource {
 
 
     /**
-     * GET  /centreAdministratifs/:id : get the "id" centreAdministratif.
+     * GET  /centre-administratifs/:id : get the "id" centreAdministratif.
      *
      * @param id the id of the centreAdministratifDTO to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the centreAdministratifDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/centreAdministratifs/{id}")
+    @GetMapping("/centre-administratifs/{id}")
     public ResponseEntity<CentreAdministratifDTO> getCentreAdministratif(@PathVariable Long id) {
         log.debug("REST request to get CentreAdministratif : {}", id);
         Optional<CentreAdministratifDTO> centreAdministratifDTO = centreAdministratifService.findOne(id);
@@ -111,12 +111,12 @@ public class CentreAdministratifResource {
     }
 
     /**
-     * DELETE  /centreAdministratifs/:id : delete the "id" centreAdministratif.
+     * DELETE  /centre-administratifs/:id : delete the "id" centreAdministratif.
      *
      * @param id the id of the centreAdministratifDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @DeleteMapping("/centreAdministratifs/{id}")
+    @DeleteMapping("/centre-administratifs/{id}")
     public ResponseEntity<Void> deleteCentreAdministratif(@PathVariable Long id) {
         log.debug("REST request to delete CentreAdministratif : {}", id);
         centreAdministratifService.delete(id);

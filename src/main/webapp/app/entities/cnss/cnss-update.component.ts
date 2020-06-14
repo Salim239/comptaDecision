@@ -18,7 +18,6 @@ export class CnssUpdateComponent implements OnInit {
     isSaving: boolean;
     ficheclients: IFicheClient[];
     trimestres: any[];
-    dateDp: any;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -77,7 +76,10 @@ export class CnssUpdateComponent implements OnInit {
         this.cnss.montantSalaireBrutNormal = ComptaDecisionUtils.parseCurrency(this.cnss.montantSalaireBrutNormal);
         this.cnss.montantCnssNormal = ComptaDecisionUtils.parseCurrency(this.cnss.montantCnssNormal);
         this.cnss.montantCnssKarama = ComptaDecisionUtils.parseCurrency(this.cnss.montantCnssKarama);
-        this.cnss.montantTotal = ComptaDecisionUtils.parseCurrency(this.cnss.montantTotal);
+        this.cnss.montantTotalSalaireBrut = ComptaDecisionUtils.parseCurrency(this.cnss.montantTotalSalaireBrut);
+        this.cnss.montantTotalCnss = ComptaDecisionUtils.parseCurrency(this.cnss.montantTotalCnss);
+        this.cnss.totalTauxCnssNormal = ComptaDecisionUtils.parseCurrency(this.cnss.totalTauxCnssNormal);
+        this.cnss.totalTauxCnssKarama = ComptaDecisionUtils.parseCurrency(this.cnss.totalTauxCnssKarama);
     }
 
     formatMontants() {
@@ -85,14 +87,22 @@ export class CnssUpdateComponent implements OnInit {
         this.cnss.montantSalaireBrutNormal = ComptaDecisionUtils.formatCurrency(this.cnss.montantSalaireBrutNormal);
         this.cnss.montantCnssNormal = ComptaDecisionUtils.formatCurrency(this.cnss.montantCnssNormal);
         this.cnss.montantCnssKarama = ComptaDecisionUtils.formatCurrency(this.cnss.montantCnssKarama);
-        this.cnss.montantTotal = ComptaDecisionUtils.formatCurrency(this.cnss.montantTotal);
+        this.cnss.montantTotalSalaireBrut = ComptaDecisionUtils.formatCurrency(this.cnss.montantTotalSalaireBrut);
+        this.cnss.montantTotalCnss = ComptaDecisionUtils.formatCurrency(this.cnss.montantTotalCnss);
+        this.cnss.totalTauxCnssNormal = ComptaDecisionUtils.formatCurrency(this.cnss.totalTauxCnssNormal);
+        this.cnss.totalTauxCnssKarama = ComptaDecisionUtils.formatCurrency(this.cnss.totalTauxCnssKarama);
     }
 
     calculerMontant() {
         this.parseMontants();
-        this.cnss.montantCnssNormal = this.cnss.montantSalaireBrutNormal * (this.cnss.tauxCnssAccident + this.cnss.tauxCnssNormal);
-        this.cnss.montantCnssKarama = this.cnss.montantSalaireBrutKarama * this.cnss.tauxCnssKarama;
-        this.cnss.montantTotal = this.cnss.montantCnssNormal + this.cnss.montantCnssKarama;
+        this.cnss.montantCnssNormal = this.cnss.montantSalaireBrutNormal * this.cnss.totalTauxCnssNormal;
+        this.cnss.montantCnssKarama = this.cnss.montantSalaireBrutKarama * this.cnss.totalTauxCnssKarama;
+        this.cnss.montantTotalCnss = this.cnss.montantCnssNormal + this.cnss.montantCnssKarama;
+        this.cnss.montantTotalSalaireBrut = this.cnss.montantSalaireBrutKarama + this.cnss.montantSalaireBrutNormal;
         this.formatMontants();
+    }
+
+    calculerTaux(taux1: number, taux2: number) {
+        return taux1 * 100 + taux2 * 100;
     }
 }

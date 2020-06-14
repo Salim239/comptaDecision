@@ -21,13 +21,18 @@ public interface QuittanceMensuelleImpotSousDetailMapper extends EntityMapper<Qu
 
     default BigDecimal sum(QuittanceMensuelleImpotSousDetailDTO quittanceMensuelleSousDetailImpot) {
 
-        if (quittanceMensuelleSousDetailImpot.getMontantBase() == null) return null;
+        if (quittanceMensuelleSousDetailImpot.getMontantBase() == null) return BigDecimal.ZERO;
 
         float impot = quittanceMensuelleSousDetailImpot.getImpotMensuelDetailTypeValeur() == TypeValeur.MONTANT ?
                 quittanceMensuelleSousDetailImpot.getImpotMensuelDetailValeur() :
                 quittanceMensuelleSousDetailImpot.getImpotMensuelDetailValeur() / 100;
         MathContext mc3 = new MathContext(3);
         return quittanceMensuelleSousDetailImpot.getMontantBase().multiply(new BigDecimal(impot, mc3));
+    }
+
+    default BigDecimal getMontantTotal(QuittanceMensuelleImpotSousDetailDTO sousDetailDTO) {
+
+        return sousDetailDTO.getImpotMensuelDetailValeurModifiable() ? sousDetailDTO.getMontantTotal() : sum(sousDetailDTO);
     }
 
     @Mapping(source = "impotMensuelDetail.id", target = "impotMensuelDetailId")
@@ -48,7 +53,7 @@ public interface QuittanceMensuelleImpotSousDetailMapper extends EntityMapper<Qu
     @Mapping(target = "impotMensuelDetail.typeValeur", source = "impotMensuelDetailTypeValeur")
     @Mapping(target = "impotMensuelDetail.valeur", source = "impotMensuelDetailValeur")
     @Mapping(target = "impotMensuelDetail.valeurModifiable", source = "impotMensuelDetailValeurModifiable")
-    @Mapping(target = "montantTotal", expression = "java(sum(quittanceMensuelleImpotSousDetailDTO))")
+    @Mapping(target = "montantTotal", expression = "java(getMontantTotal(quittanceMensuelleImpotSousDetailDTO))")
     QuittanceMensuelleImpotSousDetail toEntity(QuittanceMensuelleImpotSousDetailDTO quittanceMensuelleImpotSousDetailDTO);
 
     default QuittanceMensuelleImpotSousDetail fromId(Long id) {

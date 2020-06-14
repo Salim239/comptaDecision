@@ -1,0 +1,24 @@
+{
+    "comptaDecisionApp": {
+        "categorieCnssGerant": {
+            "home": {
+                "title": "Categorie CNSSs",
+                "createLabel": "Create a new Categorie CNSS",
+                "createOrEditLabel": "Create or edit a Categorie CNSS"
+            },
+            "created": "A new Categorie CNSS is created with identifier {{ param }}",
+            "updated": "A Categorie CNSS is updated with identifier {{ param }}",
+            "deleted": "A Categorie CNSS is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Categorie CNSS {{ id }}?"
+            },
+            "detail": {
+                "title": "Categorie CNSS"
+            },
+            "code": "Code",
+            "libelle": "Libelle",
+            "description": "Description",
+            "montantCotisationCnss": "Montant cotisation CNSS"
+        }
+    }
+}

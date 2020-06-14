@@ -97,8 +97,8 @@
                     <div class="form-group col-md-2">
                         <label jhiTranslate="comptaDecisionApp.ficheClient.codePostal" for="field_codePostal">Code
                             Postal</label>
-                        <input type="text" class="form-control" name="codePostal" id="field_codePostal"
-                               [(ngModel)]="ficheClient.codePostal" required/>
+                        <input class="form-control" type="text" class="form-control" name="codePostal" id="field_codePostal"
+                               [(ngModel)]="ficheClient.codePostal" required maxlength="5"/>
                         <div [hidden]="!(editForm.controls.codePostal?.dirty && editForm.controls.codePostal?.invalid)">
                             <small class="form-text text-danger"
                                    [hidden]="!editForm.controls.codePostal?.errors?.required"
@@ -158,7 +158,7 @@
                         <label jhiTranslate="comptaDecisionApp.ficheClient.codeTVA"
                                for="field_codeTva">Code TVA</label>
                         <ng-select id="field_codeTva" name="codeTva" [(ngModel)]="ficheClient.codeTva" required
-                                   [items]="['F', 'N']">
+                                   [items]="['A', 'N', 'B', 'P']">
                         </ng-select>
                         <div
                             [hidden]="!(editForm.controls.codeTva?.dirty && editForm.controls.codeTva?.invalid)">
@@ -174,7 +174,7 @@
                                for="field_categorieActivite">Catégorie Activité</label>
                         <ng-select id="field_categorieActivite" name="categorieActivite"
                                    [(ngModel)]="ficheClient.categorieActivite" required
-                                   [items]="['M', 'C', 'P','N']">
+                                   [items]="['M', 'P', 'C']">
                         </ng-select>
                         <div
                             [hidden]="!(editForm.controls.categorieActivite?.dirty && editForm.controls.categorieActivite?.invalid)">
@@ -233,25 +233,54 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label jhiTranslate="comptaDecisionApp.ficheClient.cnssEmployeur" for="field_cnssEmployeur">Cnss
                             Employeur</label>
                         <input type="text" class="form-control" name="cnssEmployeur" id="field_cnssEmployeur"
-                               [(ngModel)]="ficheClient.cnssEmployeur"/>
+                               [(ngModel)]="ficheClient.cnssEmployeur" pattern="\d\d\d\d\d\d-\d\d"/>
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.cnssEmployeur?.errors?.pattern"
+                               jhiTranslate="entity.validation.pattern" [translateValues]="{pattern: '6 chiffres, tiret et 2 lettres'}">
+                            This field is required.
+                        </small>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label jhiTranslate="comptaDecisionApp.ficheClient.cnssGerant" for="field_cnssGerant">Cnss
                             Gerant</label>
                         <input type="text" class="form-control" name="cnssGerant" id="field_cnssGerant"
-                               [(ngModel)]="ficheClient.cnssGerant"/>
+                               [(ngModel)]="ficheClient.cnssGerant" pattern="\d\d\d\d\d\d\d\d-\d\d"/>
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.cnssGerant?.errors?.pattern"
+                               jhiTranslate="entity.validation.pattern" [translateValues]="{pattern: '8 chiffres, tiret et 2 lettres'}">
+                            This field is required.
+                        </small>
                     </div>
-                    <div class="form-group col-md-4">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
                         <label jhiTranslate="comptaDecisionApp.ficheClient.tauxCnssAccident"
                                for="field_tauxCnssAccident">Taux CNSS accident
                             Gerant</label>
-                        <input jhiDigitOnly [decimal]="true" type="text" class="form-control"
-                               name="tauxCnssAccident" id="field_tauxCnssAccident"
-                               [(ngModel)]="ficheClient.tauxCnssAccident" (change)="formatDecimalFields()"/>
+                        <div class="input-group mb-3">
+                            <input jhiDigitOnly [decimal]="true" type="text"
+                                   name="tauxCnssNormalAccident" id="field_tauxCnssAccident"
+                                   class="form-control numeric" placeholder="Recipient's username"
+                                   [(ngModel)]="ficheClient.tauxCnssAccident" (change)="formatDecimalFields()"
+                                   aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label jhiTranslate="comptaDecisionApp.ficheClient.categorieCnssGerant"
+                               for="field_tauxCnssAccident">Cetagorie CNSS Gérant</label>
+                        <ng-select required="" id="field_categorieCnssGerant" name="field_categorieCnssGerantId"
+                                   [(ngModel)]="ficheClient.categorieCnssGerantId"
+                                   [items]="categorieCnssGerants$ | async"
+                                   bindLabel="libelle"
+                                   bindValue="id">
+                        </ng-select>
                     </div>
                 </div>
                 <!--<div class="form-row">-->

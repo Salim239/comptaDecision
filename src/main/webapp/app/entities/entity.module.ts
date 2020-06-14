@@ -21,6 +21,10 @@ import { RouterModule } from '@angular/router';
                 loadChildren: './secteur-activite/secteur-activite.module#ComptaDecisionSecteurActiviteModule'
             },
             {
+                path: 'categorie-cnss-gerant',
+                loadChildren: './categorie-cnss-gerant/categorie-cnss-gerant.module#ComptaDecisionCategorieCnssGerantModule'
+            },
+            {
                 path: 'activite',
                 loadChildren: './activite/activite.module#ComptaDecisionActiviteModule'
             },

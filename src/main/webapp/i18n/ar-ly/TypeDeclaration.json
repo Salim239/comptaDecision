@@ -4,6 +4,11 @@
             "null": "",
             "DECLARATION_INITIALE": "Déclaration initiale",
             "DECLARATION_RECTIFICATIVE": "Déclaration rectificative"
+        },
+        "typeDeclarationCnss": {
+            "null": "",
+            "DECLARATION_INITIALE": "Déclaration initiale",
+            "DECLARATION_COMPLEMENTAIRE": "Déclaration complémentaire"
         }
     }
 }

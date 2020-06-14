@@ -31,6 +31,8 @@
             "cnss": "Cnss",
             "ficheClient": "Fiche Client",
             "typeDeclaration": "Type déclaration",
+            "typeDeclarationCNSS_GENERALE": "Générale",
+            "typeDeclarationCNSS_EMployeur": "Employeur",
             "tauxCnssNormal": "Taux Cnss Normal",
             "tauxCnssKarama": "Taux CNSS Karma",
             "tauxCnssAccident": "Taux Cnss Accident",

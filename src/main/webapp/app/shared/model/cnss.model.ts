@@ -7,7 +7,7 @@ export const enum TypeCnss {
 }
 
 export const enum TypeDeclarationCnss {
-    DECLARATION_INITALE,
+    DECLARATION_INITIALE,
     DECLARATION_COMPLEMENTAIRE
 }
 
@@ -20,10 +20,9 @@ export interface ICnss {
     numeroQuittance?: string;
     montantSalaireBrutNormal?: number;
     montantSalaireBrutKarama?: number;
-    montantSalaireBrutAutre?: number;
-    montantTotal?: number;
-    cnss?: number;
     ficheClientId?: number;
+    ficheClientCnssGerant?: string;
+    ficheClientCnssEmployeur?: string;
     ficheClientDesignation?: string;
     ficheClientMatriculeFiscale?: string;
     ficheClientRegistreCommerce?: string;
@@ -31,11 +30,14 @@ export interface ICnss {
     typeDeclaration?: TypeDeclarationCnss;
     tauxCnssNormal?: number;
     tauxCnssKarama?: number;
-    tauxCnssAccident?: number;
-    tauxCnssAutre?: number;
+    tauxCnssKaramaAccident?: number;
+    tauxCnssNormalAccident?: number;
+    totalTauxCnssNormal?: number;
+    totalTauxCnssKarama?: number;
     montantCnssNormal?: number;
     montantCnssKarama?: number;
-    montantCnssAutre?: number;
+    montantTotalCnss?: number;
+    montantTotalSalaireBrut?: number;
     businessAlerts?: BusinessAlert[];
 }
 
@@ -47,24 +49,26 @@ export class Cnss implements ICnss {
         public trimestre?: number,
         public date?: Moment,
         public numeroQuittance?: string,
-        public montantSalaireBrutNormal?: number,
-        public montantSalaireBrutKarama?: number,
-        public montantSalaireBrutAutre?: number,
-        public montantTotal?: number,
-        public cnss?: number,
         public ficheClientId?: number,
         public ficheClientDesignation?: string,
         public ficheClientMatriculeFiscale?: string,
         public ficheClientRegistreCommerce?: string,
+        public ficheClientCnssGerant?: string,
+        public ficheClientCnssEmployeur?: string,
         public ficheClientDateCreation?: Moment,
         public typeDeclaration?: TypeDeclarationCnss,
         public tauxCnssNormal?: number,
         public tauxCnssKarama?: number,
-        public tauxCnssAccident?: number,
-        public tauxCnssAutre?: number,
+        public tauxCnssNormalAccident?: number,
+        public tauxCnssKaramaAccident?: number,
         public montantCnssNormal?: number,
         public montantCnssKarama?: number,
-        public montantCnssAutre?: number,
+        public montantTotalCnss?: number,
+        public montantSalaireBrutNormal?: number,
+        public montantSalaireBrutKarama?: number,
+        public montantTotalSalaireBrut?: number,
+        public totalTauxCnssNormal?: number,
+        public totalTauxCnssKarama?: number,
         public businessAlerts?: BusinessAlert[]
     ) {}
 }

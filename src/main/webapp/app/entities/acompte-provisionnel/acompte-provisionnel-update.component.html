@@ -80,8 +80,16 @@
                         <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantBase"
                                    for="field_montantBase">Montant Base</label>
                         </th>
-                        <td><input jhiDigitOnly [decimal]="true" class="numeric form-control" name="montantBase" id="field_montantBase"
-                                   [(ngModel)]="acompteProvisionnel.montantBase" (change)="calculerMontants()"/></td>
+                        <td><input jhiDigitOnly [decimal]="true" name="montantBase" id="field_montantBase"
+                                   [(ngModel)]="acompteProvisionnel.montantBase" (change)="calculerMontants()"
+                                    [ngClass]="{
+                            'has-sucess' : acompteProvisionnel.montantBase !== acompteProvisionnel.montantBaseCalc,
+                            'has-warning' : acompteProvisionnel.montantBase == acompteProvisionnel.montantBaseCalc,
+                            'form-control numeric': true
+                            }"/>
+                            <small class="form-text info">
+                                Le montant base calculé est de {{acompteProvisionnel.montantBaseCalc}}
+                            </small></td>
                     </tr>
                     <tr>
                         <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantAcompteProvisionnel"
@@ -94,8 +102,15 @@
                         <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantReportAnterieur"
                                    for="field_montantReportAnterieur">Montant Report Anterieur</label>
                         </th>
-                        <td><input jhiDigitOnly [decimal]="true" class="numeric form-control" name="montantReportAnterieur" id="field_montantReportAnterieur"
-                                   [(ngModel)]="acompteProvisionnel.montantReportAnterieur" [disabled]="true"/></td>
+                        <td><input jhiDigitOnly [decimal]="true" name="montantReportAnterieur" id="field_montantReportAnterieur"
+                                   [(ngModel)]="acompteProvisionnel.montantReportAnterieur"
+                                   [ngClass]="{ 'form-control numeric': true,
+                            'has-sucess' : acompteProvisionnel.montantReportAnterieur !== acompteProvisionnel.montantReportAnterieur,
+                            'has-warning' : acompteProvisionnel.montantReportAnterieur == acompteProvisionnel.montantReportAnterieur }"/>
+                            <small class="form-text info">
+                                Le montant report intérieur calculé est de {{acompteProvisionnel.montantReportAnterieurCalc}}
+                            </small>
+                        </td>
                     </tr>
                     <tr>
                         <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantRetenueSource"

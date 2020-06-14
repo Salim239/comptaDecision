@@ -40,9 +40,9 @@ public class QuittanceMensuelleImpotSousDetailDTO implements Serializable, Clone
 
     private String impotMensuelDetailDescription;
 
-    private BigDecimal montantBase;
+    private BigDecimal montantBase = BigDecimal.ZERO;
 
-    private BigDecimal montantTotal;
+    private BigDecimal montantTotal = BigDecimal.ZERO;
 
     public Long getId() {
         return id;

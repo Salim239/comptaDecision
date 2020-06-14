@@ -2,15 +2,15 @@
     "comptaDecisionApp": {
         "ficheClient": {
             "home": {
-                "title": "Fiches Clients",
-                "createLabel": "Créer une nouvelle fiche Client",
-                "createOrEditLabel": "Créer ou éditer une fiche Client"
+                "title": "Fiche Clients",
+                "createLabel": "Create a new Fiche Client",
+                "createOrEditLabel": "Create or edit a Fiche Client"
             },
-            "created": "Un nouvelle Fiche Client a été créée avec l'identifiant {{ param }}",
-            "updated": "La fiche Client avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "La fiche Client avec l'identifiant {{ param }} a été supprimée",
+            "created": "A new Fiche Client is created with identifier {{ param }}",
+            "updated": "A Fiche Client is updated with identifier {{ param }}",
+            "deleted": "A Fiche Client is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Fiche Client {{ id }} ?"
+                "question": "Are you sure you want to delete Fiche Client {{ id }}?"
             },
             "detail": {
                 "title": "Fiche Client"
@@ -28,6 +28,7 @@
             "dateCreation": "Date Creation",
             "cnssEmployeur": "Cnss Employeur",
             "cnssGerant": "Cnss Gerant",
+            "categorieCnssGerant": "Catégoeir Cnss Gérant",
             "fichierPatente": "Fichier Patente",
             "secteurActivite1": "Secteur Activite principale",
             "activite1": "Activite secteur principal",

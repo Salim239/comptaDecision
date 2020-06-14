@@ -18,8 +18,8 @@ import { JhiAlertService } from 'ng-jhipster';
 export class CentreAdministratifUpdateComponent implements OnInit {
     centreAdministratif: ICentreAdministratif;
     isSaving: boolean;
-    regions: IRegion[];
-    villes: IVille[];
+    regions$: Observable<IRegion[]>;
+    villes$: Observable<IVille[]>;
 
     constructor(
         protected centreAdministratifService: CentreAdministratifService,
@@ -33,21 +33,23 @@ export class CentreAdministratifUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ centreAdministratif }) => {
             this.centreAdministratif = centreAdministratif;
+            this.regions$ = this.findRegions();
+            this.villes$ = this.findVilleByRegionId();
         });
-        this.regionService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IRegion[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IRegion[]>) => response.body)
-            )
-            .subscribe((res: IRegion[]) => (this.regions = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.villeService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IVille[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IVille[]>) => response.body)
-            )
-            .subscribe((res: IVille[]) => (this.villes = res), (res: HttpErrorResponse) => this.onError(res.message));
+        // this.regionService
+        //     .query()
+        //     .pipe(
+        //         filter((mayBeOk: HttpResponse<IRegion[]>) => mayBeOk.ok),
+        //         map((response: HttpResponse<IRegion[]>) => response.body)
+        //     )
+        //     .subscribe((res: IRegion[]) => (this.regions = res), (res: HttpErrorResponse) => this.onError(res.message));
+        // this.villeService
+        //     .query()
+        //     .pipe(
+        //         filter((mayBeOk: HttpResponse<IVille[]>) => mayBeOk.ok),
+        //         map((response: HttpResponse<IVille[]>) => response.body)
+        //     )
+        //     .subscribe((res: IVille[]) => (this.villes = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -80,11 +82,29 @@ export class CentreAdministratifUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackRegionById(index: number, item: IRegion) {
-        return item.id;
+    private findVilleByRegionId(regionId?: number) {
+        return regionId
+            ? this.villeService.findByRegionId(regionId).pipe(
+                  filter((response: HttpResponse<IVille[]>) => response.ok),
+                  map((response: HttpResponse<IVille[]>) => response.body)
+              )
+            : this.villeService.query().pipe(
+                  filter((response: HttpResponse<IVille[]>) => response.ok),
+                  map((response: HttpResponse<IVille[]>) => response.body)
+              );
     }
 
-    trackVilleById(index: number, item: IVille) {
-        return item.id;
+    findVille() {
+        this.villes$ = undefined;
+        this.centreAdministratif.villeId = undefined;
+        this.centreAdministratif.villeLibelle = undefined;
+        this.villes$ = this.findVilleByRegionId(this.centreAdministratif.regionId);
+    }
+
+    findRegions() {
+        return this.regionService.query().pipe(
+            filter((response: HttpResponse<IRegion[]>) => response.ok),
+            map((response: HttpResponse<IRegion[]>) => response.body)
+        );
     }
 }

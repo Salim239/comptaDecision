@@ -19,6 +19,16 @@ public final class ErrorConstants {
     public static final String ERR_ANNEE_NON_VALIDE = "error.quittance.anneeNonValide";
     public static final String ERR_MOIS_NON_VALIDE = "error.quittance.moisNonValide";
 
+    //Declaration annuelle errors
+    public static final String ERR_DECLARATION_RECTIFICATIVE_SANS_QUITTANCE_INITIALE = "error.declaration.declarationRectificativeSansdeclarationInitiale";
+    public static final String ERR_DECLARATION_PRECEDENTE_NON_VALIDE = "error.declaration.declarationPrecedenteNonValide";
+    public static final String ERR_DECLARATION_INITIALE_EXISTE = "error.declaration.declarationInitialeExistante";
+    public static final String ERR_DECLARATION_RECTIFICATIVE_INEXISTANTE = "error.declaration.declarationRectificativeInexistante";
+    public static final String ERR_DECLARATION_PRECEDENTE_INEXISTANTE = "error.declaration.declarationPrecedenteInexistante";
+    public static final String ERR_DECLARATION_A_SUPPRIMER_INEXISTANTE = "error.declaration.declarationASuprimerNonExistante";
+    public static final String ERR_DECLARATIONA_SUPPRIMER_VALIDEE = "error.declaration.declarationASupprimerValidee";
+    public static final String ERR_DECLARATION_RECTIFICATIVE_A_SUPPRIMER_SANS_QUITTANCE_INITIALE = "error.declaration.declarationRectificativeAsupprimerPossedePasQuittanceInitiale";
+
     //Quittance errors
     public static final String ERR_QUITTANCE_RECTIFICATIVE_SANS_QUITTANCE_INITIALE = "error.quittance.qittanceRectificativeSansQuittanceInitiale";
     public static final String ERR_QUITTANCE_PRECEDENTE_NON_VALIDE = "error.quittance.quittancePrecedenteNonValide";

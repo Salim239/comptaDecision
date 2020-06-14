@@ -15,6 +15,7 @@ import { SecteurActiviteService } from 'app/entities/secteur-activite';
 export class ActiviteUpdateComponent implements OnInit {
     activite: IActivite;
     isSaving: boolean;
+    secteurActivite$: Observable<ISecteurActivite[]>;
 
     constructor(
         protected activiteService: ActiviteService,
@@ -27,6 +28,7 @@ export class ActiviteUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ activite }) => {
             this.activite = activite;
         });
+        this.secteurActivite$ = this.findSecteursActivites();
     }
 
     previousState() {
@@ -55,7 +57,7 @@ export class ActiviteUpdateComponent implements OnInit {
         this.isSaving = false;
     }
 
-    findSecteursActivites() {
+    private findSecteursActivites() {
         return this.secteurActiviteService.query().pipe(
             filter((response: HttpResponse<ISecteurActivite[]>) => response.ok),
             map((response: HttpResponse<ISecteurActivite[]>) => response.body)

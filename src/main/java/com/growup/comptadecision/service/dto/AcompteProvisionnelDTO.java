@@ -37,10 +37,12 @@ public class AcompteProvisionnelDTO implements Serializable {
     private String numeroQuittance;
 
     private BigDecimal montantBase;
+    private BigDecimal montantBaseCal;
 
     private BigDecimal montantAcompteProvisionnel;
 
     private BigDecimal montantReportAnterieur;
+    private BigDecimal montantReportAnterieurCalc;
 
     private BigDecimal montantRetenueSource;
 
@@ -201,5 +203,21 @@ public class AcompteProvisionnelDTO implements Serializable {
 
     public void setBusinessAlertDTOs(List<BusinessAlertDTO> businessAlertDTOs) {
         this.businessAlertDTOs = businessAlertDTOs;
+    }
+
+    public BigDecimal getMontantBaseCal() {
+        return montantBaseCal;
+    }
+
+    public void setMontantBaseCal(BigDecimal montantBaseCal) {
+        this.montantBaseCal = montantBaseCal;
+    }
+
+    public BigDecimal getMontantReportAnterieurCalc() {
+        return montantReportAnterieurCalc;
+    }
+
+    public void setMontantReportAnterieurCalc(BigDecimal montantReportAnterieurCalc) {
+        this.montantReportAnterieurCalc = montantReportAnterieurCalc;
     }
 }

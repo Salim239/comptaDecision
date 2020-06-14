@@ -67,7 +67,7 @@ public class ActiviteService {
     @Transactional(readOnly = true)
     public List<ActiviteDTO> findBySecteurActiviteId(Long secteurActiviteId) {
         log.debug("Request to get Activites by secteur activite id {}", secteurActiviteId);
-        return activiteRepository.findAll().stream()
+        return activiteRepository.findBySecteurActiviteId(secteurActiviteId).stream()
             .map(activiteMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }

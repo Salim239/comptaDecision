@@ -33,7 +33,7 @@ export class CentreAdministratifService {
     }
 
     findByType(type: TypeCentreAdministratif): Observable<EntityArrayResponseType> {
-        return this.http.get<ICentreAdministratif[]>(`${this.resourceUrl}/${type}`, { observe: 'response' });
+        return this.http.get<ICentreAdministratif[]>(`${this.resourceUrl}/type/${type}`, { observe: 'response' });
     }
 
     delete(id: number): Observable<HttpResponse<any>> {

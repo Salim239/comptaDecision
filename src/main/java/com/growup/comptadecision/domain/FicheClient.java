@@ -108,6 +108,10 @@ public class FicheClient extends AbstractAuditingEntity {
     @ManyToOne
     CentreAdministratif administrationImpot;
 
+    @JoinColumn(name = "categorie_cnss_gerant_id")
+    @ManyToOne
+    CategorieCnssGerant categorieCnssGerant;
+
 
     public String getNumeroEtablissementSecondaire() {
         return numeroEtablissementSecondaire;
@@ -534,4 +538,12 @@ public class FicheClient extends AbstractAuditingEntity {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
+
+    public CategorieCnssGerant getCategorieCnssGerant() {
+        return categorieCnssGerant;
+    }
+
+    public void setCategorieCnssGerant(CategorieCnssGerant categorieCnssGerant) {
+        this.categorieCnssGerant = categorieCnssGerant;
+    }
 }

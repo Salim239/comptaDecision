@@ -63,6 +63,10 @@ public class FicheClientDTO implements Serializable {
 
     private String cnssGerant;
 
+    private Long categorieCnssGerantId;
+
+    private String categorieCnssGerantLibelle;
+
     @Lob
     private byte[] fichierPatente;
 
@@ -451,5 +455,21 @@ public class FicheClientDTO implements Serializable {
 
     public void setSecteurActivite3Libelle(String secteurActivite3Libelle) {
         this.secteurActivite3Libelle = secteurActivite3Libelle;
+    }
+
+    public Long getCategorieCnssGerantId() {
+        return categorieCnssGerantId;
+    }
+
+    public void setCategorieCnssGerantId(Long categorieCnssGerantId) {
+        this.categorieCnssGerantId = categorieCnssGerantId;
+    }
+
+    public String getCategorieCnssGerantLibelle() {
+        return categorieCnssGerantLibelle;
+    }
+
+    public void setCategorieCnssGerantLibelle(String categorieCnssGerantLibelle) {
+        this.categorieCnssGerantLibelle = categorieCnssGerantLibelle;
     }
 }

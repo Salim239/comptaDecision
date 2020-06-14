@@ -3,6 +3,7 @@ package com.growup.comptadecision.service;
 import com.growup.comptadecision.domain.Cnss;
 import com.growup.comptadecision.domain.FicheClient;
 import com.growup.comptadecision.domain.enumeration.TypeCnss;
+import com.growup.comptadecision.domain.enumeration.TypeDeclarationCnss;
 import com.growup.comptadecision.repository.CnssRepository;
 import com.growup.comptadecision.repository.FicheClientRepository;
 import com.growup.comptadecision.security.SecurityUtils;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +35,14 @@ public class CnssService {
     private final FicheClientRepository ficheClientRepository;
 
     private final CnssMapper cnssMapper;
+
+    static final BigDecimal TAUX_CNSS_NORMAL = new BigDecimal(0.2575);
+    static final BigDecimal TAUX_CNSS_ACCIDENT_NORMAL = new BigDecimal(0.005);
+    static final BigDecimal TAUX_CNSS_KARAMA = new BigDecimal(0.005);
+    static final BigDecimal TAUX_CNSS_KARAMA_ACCIDENT = new BigDecimal(0.005);
+    static final BigDecimal TAUX_CNSS_AUTRE = new BigDecimal(0.2575);
+    static final BigDecimal TAUX_CNSS_AUTRE_ACCIDENT = new BigDecimal(0.005);
+
 
     public CnssService(CnssRepository cnssRepository, FicheClientRepository ficheClientRepository, CnssMapper cnssMapper) {
         this.cnssRepository = cnssRepository;
@@ -91,28 +101,36 @@ public class CnssService {
         cnssRepository.deleteById(id);
     }
 
-    private void validateCreationForm(FicheClient ficheClient, TypeCnss typeCnss, Integer annee, Integer trimestre) {
+    private void validateCreationForm(FicheClient ficheClient, TypeCnss typeCnss, Integer annee, TypeDeclarationCnss typeDeclarationCnss, Integer trimestre) {
 
-        List<Cnss> cnss = cnssRepository.findByFicheClientIdAndAnneeAndTrimestre(ficheClient.getId(), annee, trimestre);
-        if (cnss.stream().anyMatch(c -> c.getTypeCnss() == typeCnss)) {
-            new RuntimeException(String.format("Il existe déjà une déclaration cnss de type %s pour le trimestre %s/%s", typeCnss.toString(), annee, trimestre));
+        List<Cnss> cnss = cnssRepository.findByFicheClientIdAndAnneeAndTypeDeclarationAndTrimestre(ficheClient.getId(), annee, typeDeclarationCnss, trimestre);
+        if (!cnss.isEmpty() && typeDeclarationCnss.DECLARATION_INITALE == typeDeclarationCnss) {
+            new RuntimeException(String.format("Il existe déjà une déclaration cnss iniatiale de type %s pour le trimestre %s/%s", typeCnss.toString(), annee, trimestre));
         }
     }
 
-    private CnssDTO getEmptyCnss(FicheClient ficheClient, TypeCnss typeCnss, Integer annee, Integer trimestre) {
+    private CnssDTO getEmptyCnss(FicheClient ficheClient, TypeCnss typeCnss, Integer annee, TypeDeclarationCnss typeDeclarationCnss, Integer trimestre) {
 
         Cnss cnss = new Cnss();
         cnss.setFicheClient(ficheClient);
         cnss.setAnnee(annee);
+        cnss.setTypeDeclaration(typeDeclarationCnss);
         cnss.setTrimestre(trimestre);
         cnss.setTypeCnss(typeCnss);
-        return cnssMapper.toDto(cnss);
+        cnss.setTauxCnssNormal(TAUX_CNSS_NORMAL);
+        cnss.setTauxCnssNormalAccident(ficheClient.getTauxCnssAccident() == null ? TAUX_CNSS_ACCIDENT_NORMAL : new BigDecimal(ficheClient.getTauxCnssAccident()));
+        cnss.setTauxCnssKarama(TAUX_CNSS_KARAMA);
+        cnss.setTauxCnssKaramaAccident(TAUX_CNSS_KARAMA);
+        CnssDTO cnssDTO = cnssMapper.toDto(cnss);
+        cnssDTO.setTotalTauxCnssNormal(cnss.getTauxCnssNormal().add(cnss.getTauxCnssNormalAccident()));
+        cnssDTO.setTotalTauxCnssKarama(cnss.getTauxCnssKarama().add(cnss.getTauxCnssKaramaAccident()));
+        return cnssDTO;
     }
 
-    public CnssDTO init(Long ficheClientId, Integer annee, TypeCnss typeCnss, Integer trimestre) {
+    public CnssDTO init(Long ficheClientId, Integer annee, TypeCnss typeCnss, TypeDeclarationCnss typeDeclaration, Integer trimestre) {
         log.debug("Request to init new Cnss type %s for year {} client id {} and trimestre {}", typeCnss.toString(), annee, ficheClientId,  trimestre);
         FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new RuntimeException(String.format("FicheClient not found with id %s", ficheClientId)));
-        validateCreationForm(ficheClient, typeCnss, annee, trimestre);
-        return getEmptyCnss(ficheClient, typeCnss, annee, trimestre);
+        validateCreationForm(ficheClient, typeCnss, annee, typeDeclaration, trimestre);
+        return getEmptyCnss(ficheClient, typeCnss, annee, typeDeclaration, trimestre);
     }
 }

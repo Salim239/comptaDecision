@@ -56,41 +56,35 @@ public class Cnss extends AbstractAuditingEntity {
     @Column(name = "numero_quittance")
     private String numeroQuittance;
 
-    @Column(name = "montant_salaire_brut_normal", precision = 10, scale = 2)
+    @Column(name = "montant_salaire_brut_normal")
     private BigDecimal montantSalaireBrutNormal;
 
-    @Column(name = "montant_salaire_brut_karama", precision = 10, scale = 2)
+    @Column(name = "montant_salaire_brut_karama")
     private BigDecimal montantSalaireBrutKarama;
 
-    @Column(name = "montant_salaire_brut_autre", precision = 10, scale = 2)
-    private BigDecimal montantSalaireBrutAutre;
-
-    @Column(name = "taux_cnss_normal", precision = 10, scale = 2)
+    @Column(name = "taux_cnss_normal")
     private BigDecimal tauxCnssNormal;
 
-    @Column(name = "taux_cnss_karama", precision = 10, scale = 2)
+    @Column(name = "taux_cnss_karama")
     private BigDecimal tauxCnssKarama;
 
-    @Column(name = "taux_cnss_accident", precision = 10, scale = 2)
-    private BigDecimal tauxCnssAccident;
+    @Column(name = "taux_cnss_accident")
+    private BigDecimal tauxCnssNormalAccident;    
+    
+    @Column(name = "taux_cnss_accident_karama")
+    private BigDecimal tauxCnssKaramaAccident;
 
-    @Column(name = "taux_cnss_autre", precision = 10, scale = 2)
-    private BigDecimal tauxCnssAutre;
-
-    @Column(name = "montant_cnss_normal", precision = 10, scale = 2)
+    @Column(name = "montant_cnss_normal")
     private BigDecimal montantCnssNormal;
 
-    @Column(name = "montant_cnss_karama", precision = 10, scale = 2)
+    @Column(name = "montant_cnss_karama")
     private BigDecimal montantCnssKarama;
 
-    @Column(name = "montant_cnss_autre", precision = 10, scale = 2)
-    private BigDecimal montantCnssAutre;
+    @Column(name = "montant_total_cnss")
+    private BigDecimal montantTotalCnss;
 
-    @Column(name = "montantTotal", precision = 10, scale = 2)
-    private BigDecimal montantTotal;
-
-    @Column(name = "cnss", precision = 10, scale = 2)
-    private BigDecimal cnss;
+    @Column(name = "montant_total_salaire_brut")
+    private BigDecimal montantTotalSalaireBrut;
 
     @ManyToOne
     @JsonIgnoreProperties("cnss")
@@ -183,44 +177,7 @@ public class Cnss extends AbstractAuditingEntity {
         this.montantSalaireBrutKarama = montantSalaireBrutKarama;
     }
 
-    public BigDecimal getMontantSalaireBrutAutre() {
-        return montantSalaireBrutAutre;
-    }
-
-    public Cnss montantSalaireBrutAutre(BigDecimal montantSalaireBrutAutre) {
-        this.montantSalaireBrutAutre = montantSalaireBrutAutre;
-        return this;
-    }
-
-    public void setMontantSalaireBrutAutre(BigDecimal montantSalaireBrutAutre) {
-        this.montantSalaireBrutAutre = montantSalaireBrutAutre;
-    }
-
-    public BigDecimal getMontantTotal() {
-        return montantTotal;
-    }
-
-    public Cnss tot(BigDecimal tot) {
-        this.montantTotal = tot;
-        return this;
-    }
-
-    public void setMontantTotal(BigDecimal montantTotal) {
-        this.montantTotal = montantTotal;
-    }
-
-    public BigDecimal getCnss() {
-        return cnss;
-    }
-
-    public Cnss cnss(BigDecimal cnss) {
-        this.cnss = cnss;
-        return this;
-    }
-
-    public void setCnss(BigDecimal cnss) {
-        this.cnss = cnss;
-    }
+    
 
     public FicheClient getFicheClient() {
         return ficheClient;
@@ -229,6 +186,14 @@ public class Cnss extends AbstractAuditingEntity {
     public Cnss ficheClient(FicheClient ficheClient) {
         this.ficheClient = ficheClient;
         return this;
+    }
+
+    public BigDecimal getTauxCnssKaramaAccident() {
+        return tauxCnssKaramaAccident;
+    }
+
+    public void setTauxCnssKaramaAccident(BigDecimal tauxCnssKaramaAccident) {
+        this.tauxCnssKaramaAccident = tauxCnssKaramaAccident;
     }
 
     public void setFicheClient(FicheClient ficheClient) {
@@ -267,20 +232,12 @@ public class Cnss extends AbstractAuditingEntity {
         this.tauxCnssKarama = tauxCnssKarama;
     }
 
-    public BigDecimal getTauxCnssAccident() {
-        return tauxCnssAccident;
+    public BigDecimal getTauxCnssNormalAccident() {
+        return tauxCnssNormalAccident;
     }
 
-    public void setTauxCnssAccident(BigDecimal tauxCnssAccident) {
-        this.tauxCnssAccident = tauxCnssAccident;
-    }
-
-    public BigDecimal getTauxCnssAutre() {
-        return tauxCnssAutre;
-    }
-
-    public void setTauxCnssAutre(BigDecimal tauxCnssAutre) {
-        this.tauxCnssAutre = tauxCnssAutre;
+    public void setTauxCnssNormalAccident(BigDecimal tauxCnssNormalAccident) {
+        this.tauxCnssNormalAccident = tauxCnssNormalAccident;
     }
 
     public BigDecimal getMontantCnssNormal() {
@@ -299,11 +256,19 @@ public class Cnss extends AbstractAuditingEntity {
         this.montantCnssKarama = montantCnssKarama;
     }
 
-    public BigDecimal getMontantCnssAutre() {
-        return montantCnssAutre;
+    public BigDecimal getMontantTotalCnss() {
+        return montantTotalCnss;
     }
 
-    public void setMontantCnssAutre(BigDecimal montantCnssAutre) {
-        this.montantCnssAutre = montantCnssAutre;
+    public void setMontantTotalCnss(BigDecimal montantTotalCnss) {
+        this.montantTotalCnss = montantTotalCnss;
+    }
+
+    public BigDecimal getMontantTotalSalaireBrut() {
+        return montantTotalSalaireBrut;
+    }
+
+    public void setMontantTotalSalaireBrut(BigDecimal montantTotalSalaireBrut) {
+        this.montantTotalSalaireBrut = montantTotalSalaireBrut;
     }
 }

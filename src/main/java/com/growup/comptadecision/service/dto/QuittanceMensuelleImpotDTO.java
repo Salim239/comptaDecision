@@ -38,7 +38,7 @@ public class QuittanceMensuelleImpotDTO {
 
     private LocalDate datePaiement;
 
-    private BigDecimal montantTotal;
+    private BigDecimal montantTotal = BigDecimal.ZERO;
 
     private Long ficheClientId;
 

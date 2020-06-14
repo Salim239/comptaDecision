@@ -65,12 +65,34 @@
                 <table class="table table-hover">
                     <tbody>
                         <tr>
-                            <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutNormal"
-                                       for="field_montantSalaireBrutNormal">Montant Salaire Brut Normal</label></th>
-                            <td><input jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantSalaireBrutNormal" id="field_montantSalaireBrutNormal"
-                                       [(ngModel)]="cnss.montantSalaireBrutNormal" (change)="calculerMontant()" /></td>
-                            <td><input jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantCnssNormal" id="field_montantCnssNormal"
-                                       [(ngModel)]="cnss.montantCnssNormal" [disabled]="true"/></td>
+                            <th></th>
+                            <th>Taux</th>
+                            <th>Salaire</th>
+                            <th>Cnss</th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutNormal"
+                                       for="field_montantSalaireBrutNormal">Montant Salaire Brut Normal</label>
+                            </th>
+                            <td>
+                                <input jhiDigitOnly [decimal]="true" class="form-control numeric"
+                                       name="totalTauxCnssNormal" id="totalTauxCnssNormal_field"
+                                       [(ngModel)]="cnss.totalTauxCnssNormal"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </td>
+                            <td>
+                                <input jhiDigitOnly [decimal]="true" class="form-control numeric"
+                                       name="montantSalaireBrutNormal" id="field_montantSalaireBrutNormal"
+                                       [(ngModel)]="cnss.montantSalaireBrutNormal" [disabled]="true"/>
+                            </td>
+                            <td>
+                                <input jhiDigitOnly [decimal]="true" class="form-control numeric"
+                                       name="montantCnssNormal" id="field_montantCnssNormal"
+                                       [(ngModel)]="cnss.montantCnssNormal" [disabled]="true"/>
+                            </td>
                         </tr>
                     <tr>
                         <th>
@@ -78,28 +100,32 @@
                                    for="field_montantSalaireBrutKarama">Montant Salaire Brut Karama</label>
                         </th>
                         <td>
+                            <input jhiDigitOnly [decimal]="true" class="form-control numeric"
+                                   name="totalTauxCnssKarama" id="field_totalTauxCnssKarama"
+                                   [(ngModel)]="cnss.totalTauxCnssKarama" [disabled]="true"/>
+                            <div class="input-group-append">
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </td>
+                        <td>
                             <input jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantSalaireBrutKarama" id="field_montantSalaireBrutKarama"
                                    [(ngModel)]="cnss.montantSalaireBrutKarama" (change)="calculerMontant()"/>
                         </td>
-                        <td><input jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantCnssKarama" id="field_montantCnssKarama"
-                                   [(ngModel)]="cnss.montantCnssKarama" [disabled]="true"/></td>
+                        <td>
+                                <input jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantCnssKarama" id="field_montantCnssKarama"
+                                       [(ngModel)]="cnss.montantCnssKarama" [disabled]="true"/>
+                       </td>
                     </tr>
                         <tr>
                             <th>
-                                <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.montantTotal" for="field_tot">Montant total</label>
-
+                                <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.montantTotal" for="field_montantTotalCnss">Montant total</label>
                             </th>
+                            <td><input [disabled]="true" jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantTotalSalaireBrut" id="field_montantTotalSalaireBrut"
+                                       [(ngModel)]="cnss.montantTotalSalaireBrut"/></td>
+                            <td></td>
                             <td>
-                                <input [disabled]="true" jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantTotal" id="field_tot"
-                                       [(ngModel)]="cnss.montantTotal"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.cnss" for="field_cnss">Cnss</label>
-                            </th>
-                            <td>
-                                <input class="form-control" name="cnss" id="field_cnss" [(ngModel)]="cnss.cnss" />
+                                <input [disabled]="true" jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantTotalCnss" id="field_montantTotalCnss"
+                                       [(ngModel)]="cnss.montantTotalCnss"/>
                             </td>
                         </tr>
                     </tbody>

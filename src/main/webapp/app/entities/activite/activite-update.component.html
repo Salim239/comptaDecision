@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.activite.secteurActivite" for="field_secteurActivite">Secteur Activite</label>
                     <ng-select required="" id="field_secteurActivite" name="secteurActiviteId" [(ngModel)]="activite.secteurActiviteId" required
-                               [items]="findSecteursActivites() | async"
+                               [items]="secteurActivite$ | async"
                                bindLabel="libelle"
                                bindValue="id">
                     </ng-select>

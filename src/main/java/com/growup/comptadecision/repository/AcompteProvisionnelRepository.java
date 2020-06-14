@@ -36,7 +36,7 @@ public interface AcompteProvisionnelRepository extends JpaRepository<AcompteProv
         "and acompte.numero = :numero")
     List<AcompteProvisionnel> findByFicheClientIdAndAnneeAndNumero(@Param("ficheClientId") Long ficheClientId, @Param("annee") Integer annee, @Param("numero") Integer numero);
 
-    @Query("SELECT SUM(ap.montantAcompteProvisionnel) FROM AcompteProvisionnel  ap WHERE ap.annee = :annee and ap.ficheClient.id = :ficheClientId and ap.montantAcompteProvisionnel > 0")
+    @Query("SELECT SUM(ap.montantNet) FROM AcompteProvisionnel  ap WHERE ap.annee = :annee and ap.ficheClient.id = :ficheClientId and ap.montantNet > 0")
     BigDecimal sumpAcomptePrevisionnelPositifs(@Param("ficheClientId") Long ficheClientId, @Param("annee") Integer annee);
 
     @Query("select acompte from AcompteProvisionnel acompte " +

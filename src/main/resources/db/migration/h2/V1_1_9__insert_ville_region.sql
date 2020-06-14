@@ -1,5 +1,3 @@
-delete from public.ville where 1 = 1;
-delete from public.region where 1 = 1;
 -- alter table public.ville add column region_id bigint not null;
 -- ALTER TABLE public.ville ADD CONSTRAINT fk_region_ville FOREIGN KEY (region_id) REFERENCES public.region(id);
 

@@ -8,15 +8,16 @@ export const enum CategorieClient {
 }
 
 export const enum CodeTVA {
-    F = 'F' /*Assujetti forfaitaire*/,
-    N = 'N' /*Non assujetti*/
+    A = 'A',
+    N = 'N',
+    B = 'B',
+    P = 'P'
 }
 
 export const enum CategorieActivite {
-    M = 'M' /*Personne morale*/,
-    C = 'C' /*Personne physique commerçante ou industrielle*/,
-    P = 'P' /*Personne physique profession libérale*/,
-    N = 'N' /*Employeur non soumis aux impôts*/
+    M = 'M',
+    P = 'P',
+    C = 'C'
 }
 
 export interface IFicheClient {
@@ -57,6 +58,8 @@ export interface IFicheClient {
     activite3Id?: number;
     activite3Libelle?: string;
     tauxCnssAccident?: number;
+    categorieCnssGerantId?: number;
+    categorieCnssGerantLibelle?: string;
     administrationCnss?: CentreAdministratif;
     administrationFiscale?: CentreAdministratif;
     administrationImpot?: CentreAdministratif;
@@ -83,6 +86,8 @@ export class FicheClient implements IFicheClient {
         public dateCreation?: Moment,
         public cnssEmployeur?: string,
         public cnssGerant?: string,
+        public categorieCnssGerantId?: number,
+        public categorieCnssGerantLibelle?: string,
         public fichierPatenteContentType?: string,
         public fichierPatente?: any,
         public regionId?: number,

@@ -97,9 +97,9 @@ export class DeclarationAnnuelleUpdateComponent implements OnInit {
     calculerMontants() {
         this.parseMontants();
         this.declarationAnnuelle.montantNet =
-            this.declarationAnnuelle.montantImpotAnnuel -
-            this.declarationAnnuelle.montantApPayes -
+            this.declarationAnnuelle.montantImpotAnnuel +
             this.declarationAnnuelle.montantRetenueSource -
+            this.declarationAnnuelle.montantApPayes -
             this.declarationAnnuelle.montantReportAnterieur;
         this.formatMontants();
     }

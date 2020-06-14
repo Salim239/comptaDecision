@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity FicheClient and its DTO FicheClientDTO.
  */
-@Mapper(componentModel = "spring", uses = {CentreAdministratifMapper.class, SecteurActiviteMapper.class, ActiviteMapper.class, RegionMapper.class, VilleMapper.class , ImpotMensuelClientMapper.class})
+@Mapper(componentModel = "spring", uses = {CategorieCnssGerantMapper.class, CentreAdministratifMapper.class, SecteurActiviteMapper.class, ActiviteMapper.class, RegionMapper.class, VilleMapper.class , ImpotMensuelClientMapper.class})
 public interface FicheClientMapper extends EntityMapper<FicheClientDTO, FicheClient> {
 
     @Mapping(source = "activite1.id", target = "activite1Id")
@@ -28,6 +28,9 @@ public interface FicheClientMapper extends EntityMapper<FicheClientDTO, FicheCli
     @Mapping(source = "region.libelle", target = "regionLibelle")
     @Mapping(source = "ville.id", target = "villeId")
     @Mapping(source = "ville.libelle", target = "villeLibelle")
+    @Mapping(source = "categorieCnssGerant.libelle", target = "categorieCnssGerantLibelle")
+    @Mapping(source = "categorieCnssGerant.id", target = "categorieCnssGerantId")
+    @Mapping(target = "tauxCnssAccident", expression = "java(ficheClient.getTauxCnssAccident() != null ? ficheClient.getTauxCnssAccident()/100 : null)")
     FicheClientDTO toDto(FicheClient ficheClient);
 
     @Mapping(source = "activite1Id", target = "activite1")
@@ -38,6 +41,8 @@ public interface FicheClientMapper extends EntityMapper<FicheClientDTO, FicheCli
     @Mapping(source = "secteurActivite3Id", target = "secteurActivite3")
     @Mapping(source = "regionId", target = "region")
     @Mapping(source = "villeId", target = "ville")
+    @Mapping(source = "categorieCnssGerantId", target = "categorieCnssGerant")
+    @Mapping(target = "tauxCnssAccident", expression = "java(ficheClientDTO.getTauxCnssAccident() != null ? ficheClientDTO.getTauxCnssAccident() * 100 : null)")
     @Mapping(target = "impotMensuelClients", expression = "java(" +
             "ficheClientDTO.getImpotMensuelClients().stream().map(impotMensuelClientDto ->  {" +
             "com.growup.comptadecision.domain.ImpotMensuelClient impotMensuelClient = impotMensuelClientMapper.toEntity(impotMensuelClientDto);" +

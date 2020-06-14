@@ -19,7 +19,7 @@
             "quittanceInitialeNonValidee": "Impossible de créer une quittance rectificative pour ce mois avant de valider la quittance initiale par saisie du numéro et de la date de paiement!",
             "quittanceRectificativeInexistante": "Il existe déjà une quittance rectificative pour ce mois. Editer la ou créer une quittance pour un autre mois!",
             "quittancePrecedenteInexistante": "Il n'existe pas de quittance pour le mois précédent",
-            "quittanceASussuprimerNonExistante": "La quittance a supprimée dont l'id est {{id}} n'existe pas!",
+            "quittanceASussuprimerNonExistante": "La quittance à supprimer dont l'id est {{id}} n'existe pas!",
             "quittanceASupprimerValidee": "Cette quittance dont l'id est {{id}} ne peut pas être supprimée car elle est déjà validée!",
             "quittanceRectificativeAsupprimerPossedePasQuittanceInitiale": "Cette quittance retificative à supprimer dont l'id est {{id}} ne possède pas d equittance initiale à tort!"
         },
@@ -27,6 +27,18 @@
             "numeroNonValide": "Numéro acompte non valide",
             "acompteInitialeInexistante": "Il existe déjà un acompte initiale avec ce numéro. Editer avec ce numéro. Editer le ou créer un acompte avec un autre numéro!",
             "acompteRectificativeExistante": "Il existe déjà un acompte rectificatif avec ce numéro. Editer le ou créer un acompte avec un autre numéro!"
+        },
+        "declaration": {
+            "declarationRectificativeSansDeclarationInitiale": "Cette déclaration rectificative ne possède pas de déclaration initiale associée",
+            "anneeNonValide": "Annee non valide",
+            "declarationPrecedenteNonValide": "La déclaration de l'année précédente n'est pas validée! Valider la en saisissant son numéro et la date de paiement pour continuer!",
+            "declarationInitialeExistante": "Il existe déjà une déclaration initiale pour cette annee. Editer la ou créer une déclaration pour une autre année!",
+            "declarationInitialeNonValidee": "Impossible de créer une déclaration rectificative pour cette année avant de valider la déclaration initiale par saisie du numéro et de la date de paiement!",
+            "declarationRectificativeInexistante": "Il existe déjà une déclaration rectificative pour cette année. Editer la ou créer une déclaration pour une autre année!",
+            "declarationPrecedenteInexistante": "Il n'existe pas de déclaration pour l'année précédente",
+            "declarationASussuprimerNonExistante": "La déclaration à supprimer dont l'id est {{id}} n'existe pas!",
+            "declarationASupprimerValidee": "Cette déclaration dont l'id est {{id}} ne peut pas être supprimée car elle est déjà validée!",
+            "declarationRectificativeAsupprimerPossedePasDeclarationInitiale": "Cette déclaration retificative à supprimer dont l'id est {{id}} ne possède pas de déclaration initiale à tort!"
         }
     }
 }
