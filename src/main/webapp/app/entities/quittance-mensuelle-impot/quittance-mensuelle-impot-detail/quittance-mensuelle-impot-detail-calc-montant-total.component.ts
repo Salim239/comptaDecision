@@ -1,7 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IQuittanceMensuelleImpotDetail } from 'app/shared/model/quittance-mensuelle-impot-detail.model';
-import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
-import * as _ from 'lodash';
 
 @Component({
     selector: 'jhi-quittance-mensuelle-impot-detail-calc-montant-total',
@@ -9,29 +7,20 @@ import * as _ from 'lodash';
 })
 export class QuittanceMensuelleImpotDetailCalcMontantTotalComponent implements OnInit {
     @Input() quittanceMensuelleImpotDetail: IQuittanceMensuelleImpotDetail;
+    @Output() calculerMontants = new EventEmitter();
 
     constructor() {}
 
-    ngOnInit() {
-        this.parseMontants();
-        this.formatMontants();
+    ngOnInit() {}
+
+    isMontantReportChanged() {
+        return (
+            this.quittanceMensuelleImpotDetail.appliquerReportMontant &&
+            this.quittanceMensuelleImpotDetail.montantReportCalc !== this.quittanceMensuelleImpotDetail.montantReport
+        );
     }
 
-    private formatMontants() {
-        this.quittanceMensuelleImpotDetail.montantReport = ComptaDecisionUtils.formatCurrency(
-            this.quittanceMensuelleImpotDetail.montantReport
-        );
-        _.each(this.quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails, function(child) {
-            child.montantTotal = ComptaDecisionUtils.formatCurrency(child.montantTotal);
-        });
-    }
-
-    private parseMontants() {
-        this.quittanceMensuelleImpotDetail.montantReport = ComptaDecisionUtils.parseCurrency(
-            this.quittanceMensuelleImpotDetail.montantReport
-        );
-        _.each(this.quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails, function(child) {
-            child.montantTotal = ComptaDecisionUtils.parseCurrency(child.montantTotal);
-        });
+    onChangeMontantReport() {
+        this.calculerMontants.emit();
     }
 }

@@ -4,6 +4,7 @@ import com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail;
 import com.growup.comptadecision.domain.QuittanceMensuelleImpotSousDetail;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDetailDTO;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotSousDetailDTO;
+import org.apache.commons.lang3.BooleanUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -25,20 +26,22 @@ public interface QuittanceMensuelleImpotDetailMapper extends EntityMapper<Quitta
     }
 
     default BigDecimal sumWithChildren(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail) {
+
         BigDecimal montant = quittanceMensuelleImpotDetail.getChildQuittanceMensuelleImpotDetails().stream()
                 .map(childQuittanceMensuelleImpotDetail ->
                         childQuittanceMensuelleImpotDetail.getMontantTotal().multiply(new BigDecimal(childQuittanceMensuelleImpotDetail.getCoefficientMontant())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         //Add report amount
-        if (quittanceMensuelleImpotDetail.getAppliquerReportMontant()) {
-            //todo
+        if (BooleanUtils.isTrue(quittanceMensuelleImpotDetail.getAppliquerReportMontant())) {
+            return montant.add(quittanceMensuelleImpotDetail.getMontantReport());
+        } else {
+            return montant;
         }
-        return montant;
     }
 
-    default BigDecimal sum(QuittanceMensuelleImpotDetailDTO QuittanceMensuelleImpotDetail) {
+    default BigDecimal sum(QuittanceMensuelleImpotDetailDTO quittanceMensuelleImpotDetail) {
 
-        return QuittanceMensuelleImpotDetail.getQuittanceMensuelleImpotSousDetails().stream()
+        return quittanceMensuelleImpotDetail.getQuittanceMensuelleImpotSousDetails().stream()
                 .filter(quittanceMensuelleImpotSousDetail -> quittanceMensuelleImpotSousDetail.getMontantTotal() != null)
                 .map(QuittanceMensuelleImpotSousDetailDTO::getMontantTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
@@ -53,12 +56,16 @@ public interface QuittanceMensuelleImpotDetailMapper extends EntityMapper<Quitta
 
     default BigDecimal getMontantTotal(QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail) {
 
-        return quittanceMensuelleImpotDetail.getParent() ? sumWithChildren(quittanceMensuelleImpotDetail) : sum(quittanceMensuelleImpotDetail);
+        return BooleanUtils.isTrue(quittanceMensuelleImpotDetail.getParent()) ?
+            sumWithChildren(quittanceMensuelleImpotDetail) :
+            sum(quittanceMensuelleImpotDetail);
     }
 
     default BigDecimal getMontantTotal(QuittanceMensuelleImpotDetailDTO quittanceMensuelleImpotDetail) {
 
-        return quittanceMensuelleImpotDetail.getParent() ? sumWithChildren(quittanceMensuelleImpotDetail) : sum(quittanceMensuelleImpotDetail);
+        return BooleanUtils.isTrue(quittanceMensuelleImpotDetail.getParent()) ?
+            sumWithChildren(quittanceMensuelleImpotDetail) :
+            sum(quittanceMensuelleImpotDetail);
     }
 
     default List<QuittanceMensuelleImpotSousDetail> getQuittanceMensuelleImpotSousDetails(QuittanceMensuelleImpotDetailDTO quittanceMensuelleImpotDetailDTO,

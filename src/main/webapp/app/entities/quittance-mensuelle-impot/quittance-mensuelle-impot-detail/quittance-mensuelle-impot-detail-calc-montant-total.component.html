@@ -1,14 +1,26 @@
 <div class="panel panel-default"
      *ngIf="quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails.length > 0">
     <div class="panel-body">
-        <span>{{quittanceMensuelleImpotDetail.libelle}} =</span>
-        <span *ngFor="let child of quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails; let childIndex = index">
-                                        {{childIndex !== 0 ? child.coefficientMontant > 0 ? ' + ' : ' - ' : ''}}
-            <span>{{child.libelle}}</span>
-                                        <span class="badge badge-pill badge-primary">{{child.montantTotal}}</span>
-                                    </span>
-        <span> + report
-                                        <span class="badge badge-pill badge-primary">{{quittanceMensuelleImpotDetail.montantReport}}</span>
-                                    </span>
+        <form>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="field_montantReport">Montant Report</label>
+                <div class="col-sm-4">
+                    <input jhiDigitOnly [decimal]="true" type="text" class="form-control numeric" name="montantReport"
+                           id="field_montantReport"
+                           [(ngModel)]="quittanceMensuelleImpotDetail.montantReport" (change)="onChangeMontantReport()"
+                           aria-label="" aria-describedby="basic-report"/>
+                    <div >
+                        <small class="form-text text-info">
+                        Le montant report calculé est de {{quittanceMensuelleImpotDetail.montantReportCalc}}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="alert alert-warning" role="alert" [hidden]="!isMontantReportChanged()">
+            Alerte! Le montant du report a été modifié par rapport à celui calculé
+        </div>
     </div>
 </div>
+
+

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { CategorieCnssGerantUpdateComponent } from './categorie-cnss-gerant-upda
 import { categorieCnssGerantDeletePopupComponent } from './categorie-cnss-gerant-delete-dialog.component';
 
 @Injectable({ providedIn: 'root' })
-export class categorieCnssGerantResolve implements Resolve<ICategorieCnssGerant> {
+export class CategorieCnssGerantResolve implements Resolve<ICategorieCnssGerant> {
     constructor(private service: CategorieCnssGerantService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICategorieCnssGerant> {
@@ -41,7 +41,7 @@ export const categorieCnssGerantRoute: Routes = [
         path: ':id/view',
         component: CategorieCnssGerantDetailComponent,
         resolve: {
-            categorieCnssGerant: categorieCnssGerantResolve
+            categorieCnssGerant: CategorieCnssGerantResolve
         },
         data: {
             authorities: ['ROLE_ADMIN'],
@@ -53,7 +53,7 @@ export const categorieCnssGerantRoute: Routes = [
         path: 'new',
         component: CategorieCnssGerantUpdateComponent,
         resolve: {
-            categorieCnssGerant: categorieCnssGerantResolve
+            categorieCnssGerant: CategorieCnssGerantResolve
         },
         data: {
             authorities: ['ROLE_ADMIN'],
@@ -65,7 +65,7 @@ export const categorieCnssGerantRoute: Routes = [
         path: ':id/edit',
         component: CategorieCnssGerantUpdateComponent,
         resolve: {
-            categorieCnssGerant: categorieCnssGerantResolve
+            categorieCnssGerant: CategorieCnssGerantResolve
         },
         data: {
             authorities: ['ROLE_ADMIN'],
@@ -80,7 +80,7 @@ export const categorieCnssGerantPopupRoute: Routes = [
         path: ':id/delete',
         component: categorieCnssGerantDeletePopupComponent,
         resolve: {
-            categorieCnssGerant: categorieCnssGerantResolve
+            categorieCnssGerant: CategorieCnssGerantResolve
         },
         data: {
             authorities: ['ROLE_ADMIN'],

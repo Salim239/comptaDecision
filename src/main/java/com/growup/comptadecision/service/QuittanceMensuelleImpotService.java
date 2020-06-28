@@ -4,6 +4,7 @@ import com.growup.comptadecision.domain.FicheClient;
 import com.growup.comptadecision.domain.ImpotMensuel;
 import com.growup.comptadecision.domain.QuittanceMensuelleImpot;
 import com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail;
+import com.growup.comptadecision.domain.enumeration.CodeAlert;
 import com.growup.comptadecision.domain.enumeration.StatutDeclaration;
 import com.growup.comptadecision.domain.enumeration.TypeAlert;
 import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
@@ -13,6 +14,7 @@ import com.growup.comptadecision.repository.QuittanceMensuelleImpotRepository;
 import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.BusinessAlertDTO;
 import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDTO;
+import com.growup.comptadecision.service.dto.QuittanceMensuelleImpotDetailDTO;
 import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotMapper;
 import com.growup.comptadecision.service.mapper.QuittanceMensuelleImpotSousDetailMapper;
 import com.growup.comptadecision.web.rest.errors.BusinessErrorException;
@@ -147,12 +149,13 @@ public class QuittanceMensuelleImpotService {
         FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new BusinessErrorException(String.format("Il n'existe pas de fiche client avec l'id %s", ficheClientId)));
         List<BusinessAlertDTO> businessAlerts = validateCreationForm(ficheClient, annee, mois, typeDeclaration);
         QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = getEmptyQuittanceMensuel(ficheClient, annee, mois);
-        quittanceMensuelleImpotDTO.setBusinessAlerts(businessAlerts);
+        quittanceMensuelleImpotDTO.addBusinessAlerts(businessAlerts);
         return quittanceMensuelleImpotDTO;
     }
 
     public QuittanceMensuelleImpotDTO getEmptyQuittanceMensuel(FicheClient ficheClient, Integer annee, Integer mois) {
 
+        QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = new QuittanceMensuelleImpotDTO();
         Optional<QuittanceMensuelleImpot> quittanceInitialeOptional = quittanceMensuelleImpotRepository.findByAnneeAndMoisAndFicheClientIdAndTypeDeclaration(annee,
                 mois, ficheClient.getId(), TypeDeclaration.DECLARATION_INITIALE);
 
@@ -161,7 +164,7 @@ public class QuittanceMensuelleImpotService {
         //Enfin si pas de quittance initiale trouvée alors créé une nouvelle
         if (quittanceInitialeOptional.isPresent()) {
 
-            return StringUtils.isNotBlank(quittanceInitialeOptional.get().getNumeroQuittance()) ?
+            quittanceMensuelleImpotDTO = StringUtils.isNotBlank(quittanceInitialeOptional.get().getNumeroQuittance()) ?
                     getQuittanceRectificativeForQuittanceInitiale(quittanceInitialeOptional.get()) :
                     quittanceMensuelleImpotMapper.toDto(quittanceInitialeOptional.get());
 
@@ -173,8 +176,36 @@ public class QuittanceMensuelleImpotService {
                     mois,
                     TypeDeclaration.DECLARATION_INITIALE);
             initQuittanceImpotMensuelDetails(quittanceInitiale);
-            return quittanceMensuelleImpotMapper.toDto(quittanceInitiale);
+            quittanceMensuelleImpotDTO = quittanceMensuelleImpotMapper.toDto(quittanceInitiale);
+
         }
+        initMontantReportCalc(quittanceMensuelleImpotDTO);
+        return quittanceMensuelleImpotDTO;
+    }
+
+    /**
+     * Init montant report calculé et init montant report si c'est une déclaration initiale et que c'est une création
+     * @param quittanceMensuelleImpotDTO
+     */
+    private void initMontantReportCalc(QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO) {
+        TypeDeclaration typeDeclarationQuittanceToCreate = quittanceMensuelleImpotDTO.getTypeDeclaration();
+        quittanceMensuelleImpotDTO.getQuittanceMensuelleImpotDetails().stream()
+            .filter(QuittanceMensuelleImpotDetailDTO::getAppliquerReportMontant)
+            .forEach(quittanceDetail -> {
+                BigDecimal montantReport = BigDecimal.ZERO;
+                try {
+                 montantReport = calculerMontantReport(quittanceMensuelleImpotDTO.getFicheClientId(),
+                     quittanceMensuelleImpotDTO.getAnnee(), quittanceMensuelleImpotDTO.getMois(), quittanceDetail.getCode());
+                } catch (BusinessErrorException be) {
+                    BusinessAlertDTO businessAlertDTO = new BusinessAlertDTO(TypeAlert.warning, CodeAlert.WARNING_QUITTANCE_PRECEDENTE_INEXISTANTE);
+                    quittanceMensuelleImpotDTO.addBusinessAlert(businessAlertDTO);
+                }
+                quittanceDetail.setMontantReportCalc(montantReport);
+                if (quittanceMensuelleImpotDTO.getId() == null &&
+                    typeDeclarationQuittanceToCreate == TypeDeclaration.DECLARATION_INITIALE) {
+                    quittanceDetail.setMontantReport(quittanceDetail.getMontantReportCalc());
+                }
+            });
     }
 
     /**
@@ -252,6 +283,28 @@ public class QuittanceMensuelleImpotService {
         return getQuittanceMensuelImpotDetail(quittanceMensuelleImpot, impotMensuel, null);
     }
 
+    private BigDecimal calculerMontantReport (Long ficheClientId, Integer annee, Integer mois, String impotMensuelCode) throws BusinessErrorException {
+        Integer anneeReport, moisReport;
+        if (mois == 1) {
+            anneeReport = annee - 1;
+            moisReport = 12;
+        } else {
+            anneeReport = annee;
+            moisReport = mois - 1;
+        }
+        //S'il s'agit du mois de Janvier le report est 0 sinon récupérer le report du mois précédent
+            QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetailPrecedente = quittanceMensuelleImpotDetailService.findByFicheClientIdAndQuittanceStatutAndAnneeAndMoisAndCode(
+                ficheClientId,
+                Arrays.asList(StatutDeclaration.VALIDE, StatutDeclaration.BROUILLON),
+                anneeReport,
+                moisReport,
+                impotMensuelCode).orElseThrow(() -> new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_PRECEDENTE_INEXISTANTE));
+            return quittanceMensuelleImpotDetailPrecedente.getMontantTotal().compareTo(BigDecimal.ZERO) < 0 ?
+                quittanceMensuelleImpotDetailPrecedente.getMontantTotal() :
+                BigDecimal.ZERO;
+
+    }
+
     private QuittanceMensuelleImpotDetail getQuittanceMensuelImpotDetail(QuittanceMensuelleImpot quittanceMensuelleImpot, ImpotMensuel impotMensuel, QuittanceMensuelleImpotDetail parentQuittanceMensuelleImpotDetail) {
         QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetail = new QuittanceMensuelleImpotDetail();
         quittanceMensuelleImpotDetail.setQuittanceMensuelleImpot(quittanceMensuelleImpot);
@@ -261,23 +314,7 @@ public class QuittanceMensuelleImpotService {
         quittanceMensuelleImpotDetail.setLibelle(impotMensuel.getLibelle());
         quittanceMensuelleImpotDetail.setChild(impotMensuel.getChild());
         quittanceMensuelleImpotDetail.setAppliquerReportMontant(impotMensuel.getAppliquerReportMontant());
-        if (impotMensuel.getAppliquerReportMontant()) {
-            //S'il s'agit du mois de Janvier le report est 0 sinon récupérer le report du mois précédent
-            if (quittanceMensuelleImpot.getMois() > 1) {
-                QuittanceMensuelleImpotDetail quittanceMensuelleImpotDetailPrecedente = quittanceMensuelleImpotDetailService.findByFicheClientIdAndQuittanceStatutAndAnneeAndMoisAndCode(
-                        quittanceMensuelleImpot.getFicheClient().getId(),
-                        Arrays.asList(StatutDeclaration.VALIDE, StatutDeclaration.BROUILLON),
-                        quittanceMensuelleImpot.getAnnee(),
-                        quittanceMensuelleImpot.getMois() - 1,
-                        impotMensuel.getCode()).orElseThrow(() -> new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_PRECEDENTE_INEXISTANTE));
-                quittanceMensuelleImpotDetail.setMontantReport(quittanceMensuelleImpotDetailPrecedente.getMontantTotal().compareTo(BigDecimal.ZERO) == -1 ?
-                        quittanceMensuelleImpotDetailPrecedente.getMontantTotal() :
-                        BigDecimal.ZERO);
-            } else {
-                quittanceMensuelleImpotDetail.setMontantReport(BigDecimal.ZERO);
-            }
-
-        }
+        quittanceMensuelleImpotDetail.setMontantReport(BigDecimal.ZERO);
         quittanceMensuelleImpotDetail.setCoefficientMontant(impotMensuel.getCoefficientMontant());
         quittanceMensuelleImpotDetail.setChild(impotMensuel.getChild());
         quittanceMensuelleImpotDetail.setParentQuittanceMensuelleImpotDetail(parentQuittanceMensuelleImpotDetail);
@@ -324,8 +361,15 @@ public class QuittanceMensuelleImpotService {
     @Transactional(readOnly = true)
     public Optional<QuittanceMensuelleImpotDTO> findOne(Long id) {
         log.debug("Request to get QuittanceMensuelleImpot : {}", id);
-        return quittanceMensuelleImpotRepository.findById(id)
+        Optional<QuittanceMensuelleImpotDTO> quittanceMensuelleImpotDTOOptional = quittanceMensuelleImpotRepository.findById(id)
             .map(quittanceMensuelleImpotMapper::toDto);
+        if (quittanceMensuelleImpotDTOOptional.isPresent()) {
+            QuittanceMensuelleImpotDTO quittanceMensuelleImpotDTO = quittanceMensuelleImpotDTOOptional.get();
+            initMontantReportCalc(quittanceMensuelleImpotDTO);
+            return Optional.of(quittanceMensuelleImpotDTO);
+        } else {
+            return quittanceMensuelleImpotDTOOptional;
+        }
     }
 
     /**

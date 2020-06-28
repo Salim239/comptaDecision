@@ -1,4 +1,4 @@
-import {IQuittanceMensuelleImpotSousDetail} from 'app/shared/model/quittance-mensuelle-impot-sous-detail.model';
+import { IQuittanceMensuelleImpotSousDetail } from 'app/shared/model/quittance-mensuelle-impot-sous-detail.model';
 
 export interface IQuittanceMensuelleImpotDetail {
     id?: number;
@@ -16,6 +16,7 @@ export interface IQuittanceMensuelleImpotDetail {
     coefficientMontant?: number;
     appliquerReportMontant?: boolean;
     montantReport?: number;
+    montantReportCalc?: number;
     montantTotal?: number;
     quittanceMensuelleImpotSousDetails?: [IQuittanceMensuelleImpotSousDetail];
 }
@@ -37,9 +38,8 @@ export class QuittanceMensuelleImpotDetail implements IQuittanceMensuelleImpotDe
         public impotMensuelId?: number,
         public appliquerReportMontant?: boolean,
         public montantReport?: number,
+        public montantReportCalc?: number,
         public coefficientMontant?: number,
-        public quittanceMensuelleImpotSousDetails?: [IQuittanceMensuelleImpotSousDetail],
-    ) {
-
-    }
+        public quittanceMensuelleImpotSousDetails?: [IQuittanceMensuelleImpotSousDetail]
+    ) {}
 }

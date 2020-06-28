@@ -48,6 +48,8 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
      */
     private BigDecimal montantReport = BigDecimal.ZERO;
 
+    private BigDecimal montantReportCalc = BigDecimal.ZERO;
+
     private BigDecimal montantTotal = BigDecimal.ZERO;
 
     private Long parentQuittanceMensuelleImpotDetailId;
@@ -159,6 +161,7 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
         this.montantReport = montantReport;
     }
 
+
     public String getCode() {
         return code;
     }
@@ -191,4 +194,11 @@ public class QuittanceMensuelleImpotDetailDTO implements Serializable {
         this.parentQuittanceMensuelleImpotDetailCode = parentQuittanceMensuelleImpotDetailCode;
     }
 
+    public BigDecimal getMontantReportCalc() {
+        return montantReportCalc;
+    }
+
+    public void setMontantReportCalc(BigDecimal montantReportCalc) {
+        this.montantReportCalc = montantReportCalc;
+    }
 }

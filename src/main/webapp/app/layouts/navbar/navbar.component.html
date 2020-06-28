@@ -22,59 +22,11 @@
                     <span>
                         <fa-icon icon="th-list"></fa-icon>
                         <span jhiTranslate="global.menu.entities.main">
-                            Entities
+                            Comptabilité
                         </span>
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-                        <a class="dropdown-item" routerLink="region" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.region">Region</span>
-                        </a>
-                    </li>
-                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-                        <a class="dropdown-item" routerLink="ville" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.ville">Ville</span>
-                        </a>
-                    </li>
-                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-                        <a class="dropdown-item" routerLink="secteur-activite" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.secteurActivite">Secteur Activite</span>
-                        </a>
-                    </li>
-                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-                        <a class="dropdown-item" routerLink="activite" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.activite">Activite</span>
-                        </a>
-                    </li>
-                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-                        <a class="dropdown-item" routerLink="categorie-cnss-gerant" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.categorieCnssGerant">Catégorie CNSS</span>
-                        </a>
-                    </li>
-                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-                        <a class="dropdown-item" routerLink="centre-administratif" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.centreAdministratif">Centres Administratifs</span>
-                        </a>
-                    </li>
-                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-                        <a class="dropdown-item" routerLink="impot-mensuel" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.impotMensuel">Impot Mensuel</span>
-                        </a>
-                    </li>
-                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
-                        <a class="dropdown-item" routerLink="impot-annuel" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.impotAnnuel">Impot Annuel</span>
-                        </a>
-                    </li>
                     <li>
                         <a class="dropdown-item" routerLink="fiche-client" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
@@ -90,22 +42,21 @@
                     <li>
                         <a class="dropdown-item" routerLink="cnss" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.cnss">Cnss</span>
+                            <span jhiTranslate="global.menu.entities.cnssEmployeur">Cnss Employeur</span>
                         </a>
                     </li>
-                    <!--<li>-->
-                        <!--<a class="dropdown-item" routerLink="impot-mensuel-client" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">-->
-                            <!--<fa-icon icon="asterisk" fixedWidth="true"></fa-icon>-->
-                            <!--<span jhiTranslate="global.menu.entities.impotMensuelClient">Impot Mensuel Client</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
-
-                    <!--<li>-->
-                        <!--<a class="dropdown-item" routerLink="quittance-mensuelle-impot-detail" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">-->
-                            <!--<fa-icon icon="asterisk" fixedWidth="true"></fa-icon>-->
-                            <!--<span jhiTranslate="global.menu.entities.quittanceMensuelleImpotDetail">Quittance Mensuelle Impot Line</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
+                    <li>
+                        <a class="dropdown-item" routerLink="cnss" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.cnssGerant">Cnss Gérant</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="acompte-provisionnel" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.acompteProvisionnel">Acompte Provisionnel</span>
+                        </a>
+                    </li>
                     <li>
                         <a class="dropdown-item" routerLink="declaration-annuelle" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
@@ -118,13 +69,67 @@
                             <span jhiTranslate="global.menu.entities.declarationEmployeurAnnuelle">Declaration Employeur Annuelle</span>
                         </a>
                     </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="acompte-provisionnel" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+                </ul>
+            </li>
+            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="parameter-menu">
+                    <span>
+                        <fa-icon icon="th-list"></fa-icon>
+                        <span jhiTranslate="global.menu.configuration.main">
+                            Configuration
+                        </span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="parameter-menu">
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                        <a class="dropdown-item" routerLink="region" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.acompteProvisionnel">Acompte Provisionnel</span>
+                            <span jhiTranslate="global.menu.configuration.region">Region</span>
                         </a>
                     </li>
-                    <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                        <a class="dropdown-item" routerLink="ville" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.configuration.ville">Ville</span>
+                        </a>
+                    </li>
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                        <a class="dropdown-item" routerLink="secteur-activite" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.configuration.secteurActivite">Secteur Activite</span>
+                        </a>
+                    </li>
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                        <a class="dropdown-item" routerLink="activite" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.configuration.activite">Activite</span>
+                        </a>
+                    </li>
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                        <a class="dropdown-item" routerLink="categorie-cnss-gerant" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.configuration.categorieCnssGerant">Catégorie CNSS</span>
+                        </a>
+                    </li>
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                        <a class="dropdown-item" routerLink="centre-administratif" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.configuration.centreAdministratif">Centres Administratifs</span>
+                        </a>
+                    </li>
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                        <a class="dropdown-item" routerLink="impot-mensuel" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.configuration.impotMensuel">Impot Mensuel</span>
+                        </a>
+                    </li>
+                    <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                        <a class="dropdown-item" routerLink="impot-annuel" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.configuration.impotAnnuel">Impot Annuel</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">

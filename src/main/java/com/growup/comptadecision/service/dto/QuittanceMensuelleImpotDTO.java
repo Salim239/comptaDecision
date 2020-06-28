@@ -203,4 +203,10 @@ public class QuittanceMensuelleImpotDTO {
             this.businessAlerts.add(businessAlert);
         }
     }
+
+    public void addBusinessAlerts(List<BusinessAlertDTO> businessAlerts) {
+        if (businessAlerts != null) {
+            this.businessAlerts.addAll(businessAlerts);
+        }
+    }
 }

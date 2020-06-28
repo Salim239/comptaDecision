@@ -1,15 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {JhiAlertService} from 'ng-jhipster';
-import {IQuittanceMensuelleImpot, QuittanceMensuelleImpot} from 'app/shared/model/quittance-mensuelle-impot.model';
-import {QuittanceMensuelleImpotService} from './quittance-mensuelle-impot.service';
-import {IFicheClient} from 'app/shared/model/fiche-client.model';
-import {FicheClientService} from 'app/entities/fiche-client';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { JhiAlertService } from 'ng-jhipster';
+import { IQuittanceMensuelleImpot, QuittanceMensuelleImpot } from 'app/shared/model/quittance-mensuelle-impot.model';
+import { QuittanceMensuelleImpotService } from './quittance-mensuelle-impot.service';
+import { IFicheClient } from 'app/shared/model/fiche-client.model';
+import { FicheClientService } from 'app/entities/fiche-client';
 import * as _ from 'lodash';
-import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
-import {filter, map} from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
     selector: 'jhi-quittance-mensuelle-impot-update',
@@ -30,13 +29,12 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         protected ficheClientService: FicheClientService,
         protected activatedRoute: ActivatedRoute,
         protected router: Router
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ quittanceMensuelleImpot, ficheClients }) => {
-            this.quittanceMensuelleImpot = quittanceMensuelleImpot;
+            this.quittanceMensuelleImpot = this.quittanceMensuelleImpotService.formatMontants(quittanceMensuelleImpot);
             this.ficheClients = ficheClients;
         });
     }
@@ -45,25 +43,9 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         this.router.navigateByUrl('/quittance-mensuelle-impot');
     }
 
-    private unformatDetail(quittanceMensuelleImpotDetail) {
-        _.each(quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails, function(quittanceMensuelleImpotSousDetail) {
-            quittanceMensuelleImpotSousDetail.montantBase = ComptaDecisionUtils.parseCurrency(quittanceMensuelleImpotSousDetail.montantBase);
-        });
-    }
-
-    private unformat(quittanceMensuelleImpot) {
-        const that = this;
-        _.each(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function(quittanceMensuelleImpotDetail) {
-            that.unformatDetail(quittanceMensuelleImpotDetail);
-            _.each(quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails, function(childQuittanceMensuelleImpotDetail) {
-                that.unformatDetail(childQuittanceMensuelleImpotDetail);
-            });
-        });
-    }
-
     save(withoutExist) {
         this.isSaving = !withoutExist;
-        this.unformat(this.quittanceMensuelleImpot);
+        this.quittanceMensuelleImpot = this.quittanceMensuelleImpotService.parseMontants(this.quittanceMensuelleImpot);
         if (this.quittanceMensuelleImpot.id !== undefined && this.quittanceMensuelleImpot.id !== null) {
             this.subscribeToSaveResponse(this.quittanceMensuelleImpotService.update(this.quittanceMensuelleImpot), withoutExist);
         } else {
@@ -72,17 +54,23 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
     }
 
     initByParams() {
-        if (this.quittanceMensuelleImpot.ficheClientId !== undefined &&
+        if (
+            this.quittanceMensuelleImpot.ficheClientId !== undefined &&
             // this.quittanceMensuelleImpot.ficheClientId !== '' &&
-            this.quittanceMensuelleImpot.ficheClientId !== null) {
-            this.quittanceMensuelleImpotService.initByParams(this.quittanceMensuelleImpot.ficheClientId)
+            this.quittanceMensuelleImpot.ficheClientId !== null
+        ) {
+            this.quittanceMensuelleImpotService
+                .initByParams(this.quittanceMensuelleImpot.ficheClientId)
                 .pipe(
                     filter((response: HttpResponse<QuittanceMensuelleImpot>) => response.ok),
                     map((quittanceMensuelleImpot: HttpResponse<QuittanceMensuelleImpot>) => quittanceMensuelleImpot.body)
                 )
-                .subscribe((res: QuittanceMensuelleImpot) => {
-                    this.quittanceMensuelleImpot = res;
-                    }, (res: HttpErrorResponse) => this.onError(res.message));
+                .subscribe(
+                    (res: QuittanceMensuelleImpot) => {
+                        this.quittanceMensuelleImpot = res;
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
         }
     }
 
@@ -90,8 +78,8 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         result.subscribe(
             (res: HttpResponse<IQuittanceMensuelleImpot>) => {
                 if (withoutExist) {
-
-                    this.quittanceMensuelleImpot = res.body;
+                    this.quittanceMensuelleImpot = _.cloneDeep(res.body);
+                    this.quittanceMensuelleImpot = this.quittanceMensuelleImpotService.formatMontants(this.quittanceMensuelleImpot);
                 } else {
                     this.onSaveSuccess();
                 }
@@ -117,37 +105,10 @@ export class QuittanceMensuelleImpotUpdateComponent implements OnInit {
         return item.id;
     }
 
-    protected calculerMontantTotalDetail(quittanceMensuelleImpotDetail) {
-
-        return _.sum(_.map(quittanceMensuelleImpotDetail.quittanceMensuelleImpotSousDetails, function(quittanceMensuelleImpotSousDetail) {
-            return quittanceMensuelleImpotSousDetail.montantTotal;
-        }));
-    }
-
-    protected calculerMontantTotalDetailWithChildren(quittanceMensuelleImpotDetail) {
-
-        console.log('report ', quittanceMensuelleImpotDetail.montantReport);
-        return _.sum(_.map(quittanceMensuelleImpotDetail.childQuittanceMensuelleImpotDetails, function(child) {
-            return (child.montantTotal ? child.montantTotal : 0) * child.coefficientMontant;
-        })) + quittanceMensuelleImpotDetail.montantReport;
-    }
-
-    updateMontantTotal(quittanceMensuelleImpotDetail) {
-
-        quittanceMensuelleImpotDetail.montantTotal = this.calculerMontantTotalDetail(quittanceMensuelleImpotDetail);
-
-        if (quittanceMensuelleImpotDetail.parentQuittanceMensuelleImpotDetailCode) {
-            console.log('parentQuittanceMensuelleImpotDetailCode ', quittanceMensuelleImpotDetail.parentQuittanceMensuelleImpotDetailCode);
-            const parentDetail = _.find(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function(detail) {
-                return detail.code === quittanceMensuelleImpotDetail.parentQuittanceMensuelleImpotDetailCode;
-            });
-            parentDetail.montantTotal = this.calculerMontantTotalDetailWithChildren(parentDetail);
-        }
-
-        const montantTotadetails = _.map(this.quittanceMensuelleImpot.quittanceMensuelleImpotDetails, function(detail) {
-            return detail.montantTotal;
+    calculerMontants(event) {
+        this.quittanceMensuelleImpotService.save(this.quittanceMensuelleImpot).subscribe((res: IQuittanceMensuelleImpot) => {
+            this.quittanceMensuelleImpotService.updateQuittanceModel(this.quittanceMensuelleImpot, res);
+            console.log('quittanceMensuelleImpot ', this.quittanceMensuelleImpot);
         });
-        // Sum only positive montant total details
-        this.quittanceMensuelleImpot.montantTotal = _.sum(_.filter(montantTotadetails, montantTotal => montantTotal > 0));
     }
 }
