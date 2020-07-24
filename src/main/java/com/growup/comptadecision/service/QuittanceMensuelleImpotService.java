@@ -197,8 +197,11 @@ public class QuittanceMensuelleImpotService {
                  montantReport = calculerMontantReport(quittanceMensuelleImpotDTO.getFicheClientId(),
                      quittanceMensuelleImpotDTO.getAnnee(), quittanceMensuelleImpotDTO.getMois(), quittanceDetail.getCode());
                 } catch (BusinessErrorException be) {
-                    BusinessAlertDTO businessAlertDTO = new BusinessAlertDTO(TypeAlert.warning, CodeAlert.WARNING_QUITTANCE_PRECEDENTE_INEXISTANTE);
-                    quittanceMensuelleImpotDTO.addBusinessAlert(businessAlertDTO);
+                    BusinessAlertDTO businessAlert = new BusinessAlertDTO(TypeAlert.warning, CodeAlert.WARNING_QUITTANCE_PRECEDENTE_INEXISTANTE);
+                    String moisSansQuittance = new DateFormatSymbols().getMonths()[quittanceMensuelleImpotDTO.getMois() == 1 ? 11 : quittanceMensuelleImpotDTO.getMois() - 2];
+                    Integer anneeMoisSansQuittance = quittanceMensuelleImpotDTO.getMois() == 1 ? quittanceMensuelleImpotDTO.getAnnee() - 1 : quittanceMensuelleImpotDTO.getAnnee();
+                    businessAlert.addParam("mois", moisSansQuittance + "/" + anneeMoisSansQuittance);
+                    quittanceMensuelleImpotDTO.addBusinessAlert(businessAlert);
                 }
                 quittanceDetail.setMontantReportCalc(montantReport);
                 if (quittanceMensuelleImpotDTO.getId() == null &&

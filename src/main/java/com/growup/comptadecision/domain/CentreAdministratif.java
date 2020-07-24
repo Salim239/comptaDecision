@@ -33,6 +33,7 @@ public class CentreAdministratif extends AbstractAuditingEntity {
     private Long id;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private TypeCentreAdministratif type;
 

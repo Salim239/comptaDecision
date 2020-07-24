@@ -22,6 +22,8 @@ CREATE TABLE public.centre_administratif (
     last_modified_date timestamp
 );
 
+alter table public.centre_administratif add constraint centre_administratif_pk PRIMARY KEY (id);
+
 Alter table public.fiche_client add column administration_cnss_id bigint;
 Alter table public.fiche_client add column administration_fiscale_id bigint;
 Alter table public.fiche_client add column administration_impot_id bigint;

@@ -36,12 +36,11 @@ public class CnssService {
 
     private final CnssMapper cnssMapper;
 
-    static final BigDecimal TAUX_CNSS_NORMAL = new BigDecimal(0.2575);
-    static final BigDecimal TAUX_CNSS_ACCIDENT_NORMAL = new BigDecimal(0.005);
+    //TODO place in configuration table or application.yml
+    static final BigDecimal TAUX_CNSS_NORMAL = new BigDecimal(25.75);
+    static final BigDecimal TAUX_CNSS_ACCIDENT_NORMAL = new BigDecimal(0.05);
     static final BigDecimal TAUX_CNSS_KARAMA = new BigDecimal(0.005);
-    static final BigDecimal TAUX_CNSS_KARAMA_ACCIDENT = new BigDecimal(0.005);
-    static final BigDecimal TAUX_CNSS_AUTRE = new BigDecimal(0.2575);
-    static final BigDecimal TAUX_CNSS_AUTRE_ACCIDENT = new BigDecimal(0.005);
+    static final BigDecimal TAUX_CNSS_KARAMA_ACCIDENT = new BigDecimal(0.05);
 
 
     public CnssService(CnssRepository cnssRepository, FicheClientRepository ficheClientRepository, CnssMapper cnssMapper) {
@@ -120,7 +119,7 @@ public class CnssService {
         cnss.setTauxCnssNormal(TAUX_CNSS_NORMAL);
         cnss.setTauxCnssNormalAccident(ficheClient.getTauxCnssAccident() == null ? TAUX_CNSS_ACCIDENT_NORMAL : new BigDecimal(ficheClient.getTauxCnssAccident()));
         cnss.setTauxCnssKarama(TAUX_CNSS_KARAMA);
-        cnss.setTauxCnssKaramaAccident(TAUX_CNSS_KARAMA);
+        cnss.setTauxCnssKaramaAccident(TAUX_CNSS_KARAMA_ACCIDENT);
         CnssDTO cnssDTO = cnssMapper.toDto(cnss);
         cnssDTO.setTotalTauxCnssNormal(cnss.getTauxCnssNormal().add(cnss.getTauxCnssNormalAccident()));
         cnssDTO.setTotalTauxCnssKarama(cnss.getTauxCnssKarama().add(cnss.getTauxCnssKaramaAccident()));

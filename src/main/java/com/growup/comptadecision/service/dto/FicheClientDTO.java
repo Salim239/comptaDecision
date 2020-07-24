@@ -1,6 +1,5 @@
 package com.growup.comptadecision.service.dto;
 
-import com.growup.comptadecision.domain.CentreAdministratif;
 import com.growup.comptadecision.domain.enumeration.CategorieActivite;
 import com.growup.comptadecision.domain.enumeration.CategorieClient;
 import com.growup.comptadecision.domain.enumeration.CodeTVA;
@@ -9,11 +8,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Enumerated;
 import javax.persistence.Lob;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -119,6 +116,7 @@ public class FicheClientDTO implements Serializable {
      */
     private CodeTVA codeTva;
 
+    @Min(value = 0)
     private Double tauxCnssAccident;
 
     private CentreAdministratifDTO administrationCnss;
@@ -126,10 +124,6 @@ public class FicheClientDTO implements Serializable {
     private CentreAdministratifDTO administrationFiscale;
 
     private CentreAdministratifDTO administrationImpot;
-
-    public Double getTauxCnssAccident() {
-        return tauxCnssAccident;
-    }
 
     public void setTauxCnssAccident(Double tauxCnssAccident) {
         this.tauxCnssAccident = tauxCnssAccident;
@@ -471,5 +465,9 @@ public class FicheClientDTO implements Serializable {
 
     public void setCategorieCnssGerantLibelle(String categorieCnssGerantLibelle) {
         this.categorieCnssGerantLibelle = categorieCnssGerantLibelle;
+    }
+
+    public Double getTauxCnssAccident() {
+        return tauxCnssAccident;
     }
 }

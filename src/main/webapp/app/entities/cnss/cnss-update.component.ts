@@ -95,14 +95,10 @@ export class CnssUpdateComponent implements OnInit {
 
     calculerMontant() {
         this.parseMontants();
-        this.cnss.montantCnssNormal = this.cnss.montantSalaireBrutNormal * this.cnss.totalTauxCnssNormal;
-        this.cnss.montantCnssKarama = this.cnss.montantSalaireBrutKarama * this.cnss.totalTauxCnssKarama;
+        this.cnss.montantCnssNormal = this.cnss.montantSalaireBrutNormal * (this.cnss.totalTauxCnssNormal / 100);
+        this.cnss.montantCnssKarama = this.cnss.montantSalaireBrutKarama * (this.cnss.totalTauxCnssKarama / 100);
         this.cnss.montantTotalCnss = this.cnss.montantCnssNormal + this.cnss.montantCnssKarama;
         this.cnss.montantTotalSalaireBrut = this.cnss.montantSalaireBrutKarama + this.cnss.montantSalaireBrutNormal;
         this.formatMontants();
-    }
-
-    calculerTaux(taux1: number, taux2: number) {
-        return taux1 * 100 + taux2 * 100;
     }
 }

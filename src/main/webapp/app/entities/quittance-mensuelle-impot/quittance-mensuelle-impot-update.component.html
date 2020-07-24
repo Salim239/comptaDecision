@@ -25,6 +25,7 @@
                     <div class="form-group col-md-6">
                         <label jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.typeDeclaration"
                                for="field_typeDeclaration">Type déclaration</label>
+
                         <select [disabled]="true" required class="form-control" name="typeDeclaration"
                                 [(ngModel)]="quittanceMensuelleImpot.typeDeclaration" id="field_typeDeclaration">
                             <option
@@ -39,7 +40,7 @@
                                    jhiTranslate="entity.validation.required">
                                 This field is required.
                             </small>
-                        </div>
+                        </div>          
                     </div>
                 </div>
 

@@ -34,33 +34,28 @@ spring:
     jackson:
         serialization:
             indent-output: true
-    #    datasource:
-    #        type: com.zaxxer.hikari.HikariDataSource
-    #        url: jdbc:postgresql://localhost:5432/compta-decision2
-    #        username: postgres
-    #        password: postgres
-    #        hikari:
-    #            poolName: Hikari
-    #            auto-commit: false
-    #    jpa:
-    #        database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
-    #        database: POSTGRESQL
-    #    show-sql: true
     datasource:
-        driverClassName: org.h2.Driver
-        url: jdbc:h2:file:/c:/data/compta-decision
-        #        url: jdbc:h2:file:/c:/compta-decision2
-        #        url: jdbc:h2:mem:compta-decision2
-        username: sa
-        password: sa
-    h2:
-        console:
-            enabled: true
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:postgresql://localhost:5432/compta-decision
+        username: postgres
+        password: postgres
+        hikari:
+            poolName: Hikari
+            auto-commit: false
     jpa:
-        #        database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
-        #        database: POSTGRESQL
-        database-platform: org.hibernate.dialect.H2Dialect
-        database: h2
+        database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
+        database: POSTGRESQL
+#    datasource:
+#        driverClassName: org.h2.Driver
+#        url: jdbc:h2:file:/c:/data/compta-decision
+#        username: sa
+#        password: sa
+#    h2:
+#        console:
+#            enabled: true
+#    jpa:
+#        database-platform: org.hibernate.dialect.H2Dialect
+#        database: h2
         show-sql: true
         properties:
             hibernate.id.new_generator_mappings: true
@@ -79,17 +74,17 @@ spring:
     thymeleaf:
         cache: false
 
-    #    flyway:
-    #        url: jdbc:postgresql://localhost:5432/compta-decision2
-    #        schemas: public
-    #        user: "postgres"
-    #        password: "postgres"
     flyway:
-        url: jdbc:h2:file:/c:/data/compta-decision
+        url: jdbc:postgresql://localhost:5432/compta-decision
         schemas: public
-        user: "sa"
-        password: "sa"
-        locations: classpath:/db/migration/h2
+        user: "postgres"
+        password: "postgres"
+        locations: classpath:/db/migration/postgres
+#        url: jdbc:h2:file:/c:/data/compta-decision
+#        schemas: public
+#        user: "sa"
+#        password: "sa"
+#        locations: classpath:/db/migration/h2
 
 server:
     port: 8080

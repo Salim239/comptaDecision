@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
-import {JhiResolvePagingParams} from 'ng-jhipster';
-import {UserRouteAccessService} from 'app/core';
-import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-import {Cnss, ICnss} from 'app/shared/model/cnss.model';
-import {CnssService} from './cnss.service';
-import {CnssComponent} from './cnss.component';
-import {CnssDetailComponent} from './cnss-detail.component';
-import {CnssUpdateComponent} from './cnss-update.component';
-import {CnssDeletePopupComponent} from './cnss-delete-dialog.component';
+import { Injectable } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
+import { JhiResolvePagingParams } from 'ng-jhipster';
+import { UserRouteAccessService } from 'app/core';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { Cnss, ICnss } from 'app/shared/model/cnss.model';
+import { CnssService } from './cnss.service';
+import { CnssComponent } from './cnss.component';
+import { CnssDetailComponent } from './cnss-detail.component';
+import { CnssUpdateComponent } from './cnss-update.component';
+import { CnssDeletePopupComponent } from './cnss-delete-dialog.component';
 
 @Injectable({ providedIn: 'root' })
 export class CnssResolve implements Resolve<ICnss> {
@@ -19,22 +19,20 @@ export class CnssResolve implements Resolve<ICnss> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICnss> {
         const id = route.params['id'] ? route.params['id'] : null;
         const annee = route.params['annee'] ? route.params['annee'] : null;
-        const typeCnss = route.params['typeCnss'] ? route.params['typeCnss'] : null;
         const trimestre = route.params['trimestre'] ? route.params['trimestre'] : null;
-        if (id && !annee && !typeCnss && !trimestre) {
+        if (id && !annee && !trimestre) {
             return this.service.find(id).pipe(
                 filter((response: HttpResponse<Cnss>) => response.ok),
                 map((cnss: HttpResponse<Cnss>) => cnss.body)
             );
         }
-        if (id && annee && typeCnss && trimestre) {
-            return this.service.initEmpty(id, annee, typeCnss, trimestre)
-                .pipe(
-                    filter((response: HttpResponse<Cnss>) => response.ok),
-                    map((cnss: HttpResponse<Cnss>) => {
-                        return cnss.body;
-                    })
-                );
+        if (id && annee && trimestre) {
+            return this.service.initEmpty(id, annee, 'CNSS_EMPLOYEUR', trimestre).pipe(
+                filter((response: HttpResponse<Cnss>) => response.ok),
+                map((cnss: HttpResponse<Cnss>) => {
+                    return cnss.body;
+                })
+            );
         }
         // return of(new Cnss());
     }
