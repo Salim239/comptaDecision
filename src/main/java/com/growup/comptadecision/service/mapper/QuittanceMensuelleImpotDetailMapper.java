@@ -33,7 +33,7 @@ public interface QuittanceMensuelleImpotDetailMapper extends EntityMapper<Quitta
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         //Add report amount
         if (BooleanUtils.isTrue(quittanceMensuelleImpotDetail.getAppliquerReportMontant())) {
-            return montant.add(quittanceMensuelleImpotDetail.getMontantReport());
+            return montant.subtract(quittanceMensuelleImpotDetail.getMontantReport());
         } else {
             return montant;
         }

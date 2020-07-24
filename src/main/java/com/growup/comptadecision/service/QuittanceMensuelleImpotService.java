@@ -303,7 +303,7 @@ public class QuittanceMensuelleImpotService {
                 moisReport,
                 impotMensuelCode).orElseThrow(() -> new BusinessErrorException(ErrorConstants.ERR_QUITTANCE_PRECEDENTE_INEXISTANTE));
             return quittanceMensuelleImpotDetailPrecedente.getMontantTotal().compareTo(BigDecimal.ZERO) < 0 ?
-                quittanceMensuelleImpotDetailPrecedente.getMontantTotal() :
+                quittanceMensuelleImpotDetailPrecedente.getMontantTotal().multiply(new BigDecimal("-1")) :
                 BigDecimal.ZERO;
 
     }
