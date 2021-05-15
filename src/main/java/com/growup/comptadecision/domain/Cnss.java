@@ -36,6 +36,7 @@ public class Cnss extends AbstractAuditingEntity {
     private Long id;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "type_cnss", nullable = false)
     private TypeCnss typeCnss;
 
@@ -48,7 +49,8 @@ public class Cnss extends AbstractAuditingEntity {
     private Integer trimestre;
 
     @Column(name = "type_declaration", nullable = false)
-    private TypeDeclarationCnss typeDeclaration = TypeDeclarationCnss.DECLARATION_INITALE;
+    @Enumerated(EnumType.STRING)
+    private TypeDeclarationCnss typeDeclaration = TypeDeclarationCnss.DECLARATION_INITIALE;
 
     @Column(name = "jhi_date")
     private LocalDate date;

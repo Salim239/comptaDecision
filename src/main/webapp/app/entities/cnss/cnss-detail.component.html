@@ -1,8 +1,8 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="cnss">
-            <h2><span jhiTranslate="comptaDecisionApp.cnss.detail.title">Cnss</span> {{cnss.ficheClientDesignation}} / Annee {{cnss.annee}} / Trimestre {{cnss.trimestre}}</h2>
-            <hr>
+            <h2><span [jhiTranslate]="'comptaDecisionApp.' + (isTypeCnssGerant ? 'cnssGerant' : 'cnss') + '.detail.title'">Cnss</span> {{cnss.ficheClientDesignation}} / Annee {{cnss.annee}} / Trimestre {{cnss.trimestre}}</h2>
+           <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="comptaDecisionApp.cnss.ficheClient">Fiche Client</span></dt>
@@ -11,11 +11,7 @@
                         <a [routerLink]="['/fiche-client', cnss.ficheClientId, 'view']">{{cnss.ficheClientDesignation}}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="comptaDecisionApp.cnss.typeCnss">Type CNSS</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'comptaDecisionApp.typeCnss.' + cnss.typeCnss}}">{{cnss.typeCnss}}></span>
-                </dd>
-                <dt><span jhiTranslate="comptaDecisionApp.cnss.typeDeclaration.libelle">Type Déclaration</span></dt>
+                <dt><span jhiTranslate="comptaDecisionApp.cnss.typeDeclaration">Type Déclaration</span></dt>
                 <dd>
                     <span jhiTranslate="{{'comptaDecisionApp.typeDeclaration.' + cnss.typeDeclaration}}">{{cnss.typeDeclaration}}></span>
                 </dd>

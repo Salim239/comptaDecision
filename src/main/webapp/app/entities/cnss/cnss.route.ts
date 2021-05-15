@@ -20,14 +20,16 @@ export class CnssResolve implements Resolve<ICnss> {
         const id = route.params['id'] ? route.params['id'] : null;
         const annee = route.params['annee'] ? route.params['annee'] : null;
         const trimestre = route.params['trimestre'] ? route.params['trimestre'] : null;
+        const typeCnss = route.params['typeCnss'] ? route.params['typeCnss'] : null;
+        const typeDeclarationCnss = route.params['typeDeclarationCnss'] ? route.params['typeDeclarationCnss'] : null;
         if (id && !annee && !trimestre) {
             return this.service.find(id).pipe(
                 filter((response: HttpResponse<Cnss>) => response.ok),
                 map((cnss: HttpResponse<Cnss>) => cnss.body)
             );
         }
-        if (id && annee && trimestre) {
-            return this.service.initEmpty(id, annee, 'CNSS_EMPLOYEUR', trimestre).pipe(
+        if (id && annee && trimestre && typeCnss && typeDeclarationCnss) {
+            return this.service.initEmpty(id, annee, typeCnss, typeDeclarationCnss, trimestre).pipe(
                 filter((response: HttpResponse<Cnss>) => response.ok),
                 map((cnss: HttpResponse<Cnss>) => {
                     return cnss.body;
@@ -53,6 +55,19 @@ export const cnssRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
+        path: 'type/cnss-gerant',
+        component: CnssComponent,
+        resolve: {
+            pagingParams: JhiResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            defaultSort: 'id,asc',
+            pageTitle: 'comptaDecisionApp.cnss.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
         path: ':id/view',
         component: CnssDetailComponent,
         resolve: {
@@ -65,7 +80,7 @@ export const cnssRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/:annee/:typeCnss/:trimestre/new',
+        path: ':id/:annee/:typeCnss/:typeDeclarationCnss/:trimestre/new',
         component: CnssUpdateComponent,
         resolve: {
             cnss: CnssResolve

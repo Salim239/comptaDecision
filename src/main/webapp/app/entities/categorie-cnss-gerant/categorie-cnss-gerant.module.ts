@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
@@ -6,12 +6,12 @@ import { JhiLanguageHelper } from 'app/core';
 import { ComptaDecisionSharedModule } from 'app/shared';
 import {
     CategorieCnssGerantComponent,
-    CategorieCnssGerantDetailComponent,
-    CategorieCnssGerantUpdateComponent,
-    categorieCnssGerantDeletePopupComponent,
     CategorieCnssGerantDeleteDialogComponent,
+    CategorieCnssGerantDeletePopupComponent,
+    CategorieCnssGerantDetailComponent,
+    categorieCnssGerantPopupRoute,
     categorieCnssGerantRoute,
-    categorieCnssGerantPopupRoute
+    CategorieCnssGerantUpdateComponent
 } from './';
 
 const ENTITY_STATES = [...categorieCnssGerantRoute, ...categorieCnssGerantPopupRoute];
@@ -23,13 +23,13 @@ const ENTITY_STATES = [...categorieCnssGerantRoute, ...categorieCnssGerantPopupR
         CategorieCnssGerantDetailComponent,
         CategorieCnssGerantUpdateComponent,
         CategorieCnssGerantDeleteDialogComponent,
-        categorieCnssGerantDeletePopupComponent
+        CategorieCnssGerantDeletePopupComponent
     ],
     entryComponents: [
         CategorieCnssGerantComponent,
         CategorieCnssGerantUpdateComponent,
         CategorieCnssGerantDeleteDialogComponent,
-        categorieCnssGerantDeletePopupComponent
+        CategorieCnssGerantDeletePopupComponent
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

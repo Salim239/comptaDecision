@@ -9,7 +9,7 @@ import { CategorieCnssGerantService } from './categorie-cnss-gerant.service';
 import { CategorieCnssGerantComponent } from './categorie-cnss-gerant.component';
 import { CategorieCnssGerantDetailComponent } from './categorie-cnss-gerant-detail.component';
 import { CategorieCnssGerantUpdateComponent } from './categorie-cnss-gerant-update.component';
-import { categorieCnssGerantDeletePopupComponent } from './categorie-cnss-gerant-delete-dialog.component';
+import { CategorieCnssGerantDeletePopupComponent } from './categorie-cnss-gerant-delete-dialog.component';
 
 @Injectable({ providedIn: 'root' })
 export class CategorieCnssGerantResolve implements Resolve<ICategorieCnssGerant> {
@@ -78,7 +78,7 @@ export const categorieCnssGerantRoute: Routes = [
 export const categorieCnssGerantPopupRoute: Routes = [
     {
         path: ':id/delete',
-        component: categorieCnssGerantDeletePopupComponent,
+        component: CategorieCnssGerantDeletePopupComponent,
         resolve: {
             categorieCnssGerant: CategorieCnssGerantResolve
         },

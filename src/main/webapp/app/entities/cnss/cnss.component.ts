@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
-import { ICnss } from 'app/shared/model/cnss.model';
+import { ICnss, TypeCnss } from 'app/shared/model/cnss.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
@@ -16,6 +16,8 @@ import { CnssService } from './cnss.service';
 })
 export class CnssComponent implements OnInit, OnDestroy {
     currentAccount: any;
+    cnssGerant: TypeCnss = TypeCnss.CNSS_EMPLOYEUR;
+    isCurrentTypeCnssGerant: boolean;
     cnss: ICnss[];
     error: any;
     success: any;
@@ -49,11 +51,14 @@ export class CnssComponent implements OnInit, OnDestroy {
 
     loadAll() {
         this.cnssService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            })
+            .query(
+                {
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                },
+                this.isCurrentTypeCnssGerant
+            )
             .subscribe(
                 (res: HttpResponse<ICnss[]>) => this.paginateCnss(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -91,6 +96,7 @@ export class CnssComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.isCurrentTypeCnssGerant = this.router.url.includes('gerant');
         this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
@@ -132,8 +138,8 @@ export class CnssComponent implements OnInit, OnDestroy {
         const ficheClientId = event.ficheClientId;
         const annee = event.annee;
         const trimestre = event.trimestre;
-        const typeCnss = event.typeCnss;
         const typeDeclarationCnss = event.typeDeclarationCnss;
+        const typeCnss = this.isCurrentTypeCnssGerant ? 'CNSS_EMPLOYEUR' : 'CNSS_GENERALE';
         this.router.navigateByUrl(`/cnss/${ficheClientId}/${annee}/${typeCnss}/${typeDeclarationCnss}/${trimestre}/new`);
     }
 }

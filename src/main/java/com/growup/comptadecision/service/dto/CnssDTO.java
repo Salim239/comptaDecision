@@ -57,7 +57,7 @@ public class CnssDTO  extends BusinessAlertDTO {
     private BigDecimal montantTotalSalaireBrut;
 
     public BigDecimal getTotalTauxCnssNormal() {
-        return this.tauxCnssNormal.add(tauxCnssNormalAccident);
+        return this.tauxCnssNormal != null ? this.tauxCnssNormal.add(tauxCnssNormalAccident) : null;
     }
 
     public void setTotalTauxCnssNormal(BigDecimal totalTauxCnssNormal) {
@@ -65,7 +65,7 @@ public class CnssDTO  extends BusinessAlertDTO {
     }
 
     public BigDecimal getTotalTauxCnssKarama() {
-        return this.tauxCnssKarama.add(tauxCnssKaramaAccident);
+        return this.tauxCnssKarama != null ? this.tauxCnssKarama.add(tauxCnssKaramaAccident) : null;
     }
 
     public void setTotalTauxCnssKarama(BigDecimal totalTauxCnssKarama) {

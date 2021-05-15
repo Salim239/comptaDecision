@@ -101,6 +101,7 @@ export class NewEntryComponent implements OnInit {
         this.submitCreationForm.emit({
             ficheClientId: this.selectedFicheClientId,
             typeDeclaration: this.selectedTypeDeclaration,
+            typeDeclarationCnss: this.selectedTypeDeclarationCnss,
             annee: this.selectedAnnee,
             mois: this.selectedMois,
             trimestre: this.selectedTrimestre,

@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import {DATE_FORMAT} from 'app/shared/constants/input.constants';
-import {map} from 'rxjs/operators';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { map } from 'rxjs/operators';
 
-import {SERVER_API_URL} from 'app/app.constants';
-import {createRequestOption} from 'app/shared';
-import {ICnss} from 'app/shared/model/cnss.model';
+import { SERVER_API_URL } from 'app/app.constants';
+import { createRequestOption } from 'app/shared';
+import { ICnss } from 'app/shared/model/cnss.model';
 
 type EntityResponseType = HttpResponse<ICnss>;
 type EntityArrayResponseType = HttpResponse<ICnss[]>;
@@ -18,9 +18,9 @@ export class CnssService {
 
     constructor(protected http: HttpClient) {}
 
-    initEmpty(id, annee, typeCnss, trimestre): Observable<EntityResponseType> {
+    initEmpty(id, annee, typeCnss, typeDeclarationCnss, trimestre): Observable<EntityResponseType> {
         return this.http
-            .get<ICnss>(this.resourceUrl + `/init/${id}/${annee}/${typeCnss}/${trimestre}`, {observe: 'response'})
+            .get<ICnss>(this.resourceUrl + `/init/${id}/${annee}/${typeCnss}/${typeDeclarationCnss}/${trimestre}`, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
@@ -44,10 +44,11 @@ export class CnssService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    query(req?: any): Observable<EntityArrayResponseType> {
+    query(req?: any, isCnssGerant?: boolean): Observable<EntityArrayResponseType> {
+        const url = isCnssGerant ? this.resourceUrl + '/type/cnss-gerant' : this.resourceUrl;
         const options = createRequestOption(req);
         return this.http
-            .get<ICnss[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .get<ICnss[]>(url, { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 

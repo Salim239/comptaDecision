@@ -43,9 +43,9 @@ public class CnssResource {
     @GetMapping("/cnss/init/{id}/{annee}/{typeCnss}/{typeDeclarationCnss}/{trimestre}")
     public ResponseEntity<CnssDTO> init(@PathVariable Long id, @PathVariable Integer annee,
                                                        @PathVariable String typeCnss,
-                                                       @PathVariable TypeDeclarationCnss typeDeclarationCnss,
+                                                       @PathVariable String typeDeclarationCnss,
                                                        @PathVariable Integer trimestre) {
-        CnssDTO cnssDTO = cnssService.init(id, annee, TypeCnss.valueOf(typeCnss), typeDeclarationCnss, trimestre);
+        CnssDTO cnssDTO = cnssService.init(id, annee, TypeCnss.valueOf(typeCnss), TypeDeclarationCnss.valueOf(typeDeclarationCnss), trimestre);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(cnssDTO);
     }
 
@@ -98,8 +98,22 @@ public class CnssResource {
     @GetMapping("/cnss")
     public ResponseEntity<List<CnssDTO>> getAllCnss(Pageable pageable) {
         log.debug("REST request to get a page of Cnss");
-        Page<CnssDTO> page = cnssService.findAll(pageable);
+        Page<CnssDTO> page = cnssService.findByCnssType(TypeCnss.CNSS_GENERALE, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cnss");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET  /cnss : get all the cnss.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of cnss in body
+     */
+    @GetMapping("/cnss/type/cnss-gerant")
+    public ResponseEntity<List<CnssDTO>> getAllCnssGerant(Pageable pageable) {
+        log.debug("REST request to get a page of Cnss");
+        Page<CnssDTO> page = cnssService.findByCnssType(TypeCnss.CNSS_EMPLOYEUR, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cnss/cnss-gerant");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
-import { ICnss } from 'app/shared/model/cnss.model';
+import { ICnss, TypeCnss } from 'app/shared/model/cnss.model';
 import { CnssService } from './cnss.service';
 import { IFicheClient } from 'app/shared/model/fiche-client.model';
 import { FicheClientService } from 'app/entities/fiche-client';
@@ -18,6 +18,7 @@ export class CnssUpdateComponent implements OnInit {
     isSaving: boolean;
     ficheclients: IFicheClient[];
     trimestres: any[];
+    isTypeCnssGerant: boolean;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -30,6 +31,7 @@ export class CnssUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ cnss }) => {
             this.cnss = cnss;
+            this.isTypeCnssGerant = this.cnss.typeCnss === TypeCnss.CNSS_EMPLOYEUR;
             this.formatMontants();
         });
         this.trimestres = [

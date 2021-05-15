@@ -7,8 +7,8 @@ export const enum TypeCnss {
 }
 
 export const enum TypeDeclarationCnss {
-    DECLARATION_INITIALE,
-    DECLARATION_COMPLEMENTAIRE
+    DECLARATION_INITIALE = 'DECLARATION_INITIALE',
+    DECLARATION_COMPLEMENTAIRE = 'DECLARATION_COMPLEMENTAIRE'
 }
 
 export interface ICnss {

@@ -19,6 +19,16 @@
             </option>
         </select>
     </div>
+    <div class="form-group mx-sm-3 mb-2" [hidden]="hideTypeDeclarationCnss">
+        <label for="field_typeDeclarationCnss" jhiTranslate="comptaDecisionApp.form.inputLabel.typeDeclaration">Type
+            déclaration</label><span style="color: red">*</span>&nbsp;&nbsp;&nbsp;
+        <select required class="form-control" name="typeDeclaration" [(ngModel)]="selectedTypeDeclarationCnss"
+                id="field_typeDeclarationCnss">
+            <option [ngValue]="typeDeclarationOption" *ngFor="let typeDeclarationOption of typeDeclarationCnssList;">
+                {{'comptaDecisionApp.typeDeclarationCnss.' + typeDeclarationOption | translate}}
+            </option>
+        </select>
+    </div>
     <div class="form-group mx-sm-3 mb-2">
         <label for="field_annee" jhiTranslate="comptaDecisionApp.form.inputLabel.annee">Annee</label><span
             style="color: red">*</span>&nbsp;&nbsp;&nbsp;

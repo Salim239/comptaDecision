@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -39,7 +39,7 @@ export class CategorieCnssGerantDeleteDialogComponent {
     selector: 'jhi-secteur-activite-delete-popup',
     template: ''
 })
-export class categorieCnssGerantDeletePopupComponent implements OnInit, OnDestroy {
+export class CategorieCnssGerantDeletePopupComponent implements OnInit, OnDestroy {
     protected ngbModalRef: NgbModalRef;
 
     constructor(protected activatedRoute: ActivatedRoute, protected router: Router, protected modalService: NgbModal) {}

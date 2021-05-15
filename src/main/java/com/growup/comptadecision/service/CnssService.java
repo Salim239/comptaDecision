@@ -76,6 +76,20 @@ public class CnssService {
             .map(cnssMapper::toDto);
     }
 
+    /**
+     * Get all the cnss by type.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<CnssDTO> findByCnssType(TypeCnss typeCnss, Pageable pageable) {
+        log.debug("Request to get all Cnss {}", typeCnss);
+        String creator = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new UsernameNotFoundException("Only loggued user can access"));
+        return cnssRepository.findAllByTypeAndByCreatedBy(typeCnss, creator, pageable)
+            .map(cnssMapper::toDto);
+    }
+
 
     /**
      * Get one cnss by id.
@@ -103,7 +117,7 @@ public class CnssService {
     private void validateCreationForm(FicheClient ficheClient, TypeCnss typeCnss, Integer annee, TypeDeclarationCnss typeDeclarationCnss, Integer trimestre) {
 
         List<Cnss> cnss = cnssRepository.findByFicheClientIdAndAnneeAndTypeDeclarationAndTrimestre(ficheClient.getId(), annee, typeDeclarationCnss, trimestre);
-        if (!cnss.isEmpty() && typeDeclarationCnss.DECLARATION_INITALE == typeDeclarationCnss) {
+        if (!cnss.isEmpty() && typeDeclarationCnss.DECLARATION_INITIALE == typeDeclarationCnss) {
             new RuntimeException(String.format("Il existe déjà une déclaration cnss iniatiale de type %s pour le trimestre %s/%s", typeCnss.toString(), annee, trimestre));
         }
     }
@@ -116,13 +130,19 @@ public class CnssService {
         cnss.setTypeDeclaration(typeDeclarationCnss);
         cnss.setTrimestre(trimestre);
         cnss.setTypeCnss(typeCnss);
-        cnss.setTauxCnssNormal(TAUX_CNSS_NORMAL);
-        cnss.setTauxCnssNormalAccident(ficheClient.getTauxCnssAccident() == null ? TAUX_CNSS_ACCIDENT_NORMAL : new BigDecimal(ficheClient.getTauxCnssAccident()));
-        cnss.setTauxCnssKarama(TAUX_CNSS_KARAMA);
-        cnss.setTauxCnssKaramaAccident(TAUX_CNSS_KARAMA_ACCIDENT);
+        if (cnss.getTypeCnss() == TypeCnss.CNSS_GENERALE) {
+            cnss.setTauxCnssNormal(TAUX_CNSS_NORMAL);
+            cnss.setTauxCnssNormalAccident(ficheClient.getTauxCnssAccident() == null ? TAUX_CNSS_ACCIDENT_NORMAL : new BigDecimal(ficheClient.getTauxCnssAccident()));
+            cnss.setTauxCnssKarama(TAUX_CNSS_KARAMA);
+            cnss.setTauxCnssKaramaAccident(TAUX_CNSS_KARAMA_ACCIDENT);
+        }
         CnssDTO cnssDTO = cnssMapper.toDto(cnss);
-        cnssDTO.setTotalTauxCnssNormal(cnss.getTauxCnssNormal().add(cnss.getTauxCnssNormalAccident()));
-        cnssDTO.setTotalTauxCnssKarama(cnss.getTauxCnssKarama().add(cnss.getTauxCnssKaramaAccident()));
+        if (cnss.getTypeCnss() == TypeCnss.CNSS_GENERALE) {
+            cnssDTO.setTotalTauxCnssNormal(cnss.getTauxCnssNormal().add(cnss.getTauxCnssNormalAccident()));
+            cnssDTO.setTotalTauxCnssKarama(cnss.getTauxCnssKarama().add(cnss.getTauxCnssKaramaAccident()));
+        } else {
+            cnssDTO.setMontantTotalCnss(ficheClient.getCategorieCnssGerant().getMontantCotisationCnss());
+        }
         return cnssDTO;
     }
 

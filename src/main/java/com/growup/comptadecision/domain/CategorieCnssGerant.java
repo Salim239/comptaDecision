@@ -43,7 +43,7 @@ public class CategorieCnssGerant extends AbstractAuditingEntity {
     private String description;
 
     @Column(name = "montant_cotisation_cnss")
-    private Double montantCotisationCnss;
+    private BigDecimal montantCotisationCnss;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -93,12 +93,11 @@ public class CategorieCnssGerant extends AbstractAuditingEntity {
         this.description = description;
     }
 
-    public Double getMontantCotisationCnss() {
+    public BigDecimal getMontantCotisationCnss() {
         return montantCotisationCnss;
     }
 
-    public void setMontantCotisationCnss(Double montantCotisationCnss) {
+    public void setMontantCotisationCnss(BigDecimal montantCotisationCnss) {
         this.montantCotisationCnss = montantCotisationCnss;
     }
-
 }

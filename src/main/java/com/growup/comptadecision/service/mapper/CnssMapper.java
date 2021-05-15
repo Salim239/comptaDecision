@@ -1,6 +1,7 @@
 package com.growup.comptadecision.service.mapper;
 
 import com.growup.comptadecision.domain.Cnss;
+import com.growup.comptadecision.domain.enumeration.TypeCnss;
 import com.growup.comptadecision.service.dto.CnssDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,11 +16,14 @@ public interface CnssMapper extends EntityMapper<CnssDTO, Cnss> {
 
     default BigDecimal sumMontants(CnssDTO cnssDTO) {
 
-        BigDecimal tauxCnss = cnssDTO.getTauxCnssNormalAccident().add(cnssDTO.getTauxCnssNormal());
-        BigDecimal tauxCnssKarama = cnssDTO.getTauxCnssKarama().add(cnssDTO.getTauxCnssKarama());
-
-        return cnssDTO.getMontantSalaireBrutNormal().multiply(tauxCnss)
-        .add(cnssDTO.getMontantSalaireBrutKarama().multiply(tauxCnssKarama));
+        if (cnssDTO.getTypeCnss() == TypeCnss.CNSS_EMPLOYEUR) {
+            return cnssDTO.getMontantTotalCnss();
+        } else {
+            BigDecimal tauxCnss = cnssDTO.getTauxCnssNormalAccident().add(cnssDTO.getTauxCnssNormal());
+            BigDecimal tauxCnssKarama = cnssDTO.getTauxCnssKarama().add(cnssDTO.getTauxCnssKarama());
+            return cnssDTO.getMontantSalaireBrutNormal().multiply(tauxCnss)
+                .add(cnssDTO.getMontantSalaireBrutKarama().multiply(tauxCnssKarama));
+        }
     }
 
     @Mapping(source = "ficheClient.id", target = "ficheClientId")

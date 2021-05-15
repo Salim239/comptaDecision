@@ -1,0 +1,35 @@
+{
+    "comptaDecisionApp": {
+        "cnssGerant": {
+            "home": {
+                "title": "Quittances Cnss Gérant",
+                "createLabel": "Créer une nouvelle quittance Cnss Gérant",
+                "createOrEditLabel": "Créer ou éditer une quittance Cnss Gérant"
+            },
+            "created": "Une nouvelle quittance Cnss Gérant a été créée avec l'identifiant {{ param }}",
+            "updated": "La quittance Cnss Gérant avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "La quittance Cnss Gérant avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer La quittance Cnss Gérant {{ id }} ?"
+            },
+            "detail": {
+                "title": "Quittance Cnss Gérant"
+            },
+            "typeCnss": {
+                "libelle": "Type déclaration CNSS",
+                "DECLARATION_INITALE": "Déclaration initiale",
+                "DECLARATION_COMPLEMENTAIRE": "Déclaration complémentaire"
+            },
+            "annee": "Annee",
+            "trimestre": "Trimestre",
+            "date": "Date",
+            "numeroQuittance": "Numéro",
+            "montantTotal": "Montant total",
+            "cnss": "Cnss",
+            "ficheClient": "Fiche Client",
+            "typeDeclaration": "Type déclaration",
+            "typeDeclarationCNSS_GENERALE": "Générale",
+            "typeDeclarationCNSS_EMployeur": "Employeur"
+        }
+    }
+}

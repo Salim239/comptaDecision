@@ -35,6 +35,7 @@ CREATE TABLE public.cnss (
     type_cnss  VARCHAR(255)
 );
 
+ALTER TABLE public.categorie_cnss_gerant add constraint cnss_gerant_pk PRIMARY KEY (id);
 ALTER TABLE public.cnss add column taux_cnss_accident_karama numeric(6,3);
-alter table public.fiche_client add column categorie_cnss_gerant_id bigint NOT NULL;
+alter table public.fiche_client add column categorie_cnss_gerant_id bigint;
 ALTER TABLE public.fiche_client  ADD CONSTRAINT fk_fiche_client_categorie_cnss_gerant FOREIGN KEY (categorie_cnss_gerant_id) REFERENCES public.categorie_cnss_gerant(id);
