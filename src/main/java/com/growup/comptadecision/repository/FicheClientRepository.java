@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 
 
 /**
@@ -16,5 +17,7 @@ import org.springframework.stereotype.Repository;
 public interface FicheClientRepository extends JpaRepository<FicheClient, Long> {
 
     Page<FicheClient> findAllByCreatedBy(String creator, Pageable pageable);
+
+    List<FicheClient> findAllByCreatedBy(String creator);
 
 }

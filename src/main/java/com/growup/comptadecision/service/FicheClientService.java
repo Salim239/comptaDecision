@@ -113,6 +113,18 @@ public class FicheClientService {
             .map(ficheClientMapper::toDto);
     }
 
+    /**
+     * Get all the ficheClients.
+     *
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<FicheClientDTO> findAll() {
+        log.debug("Request to get all FicheClients");
+        String creator = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new UsernameNotFoundException("Only loggued user can access"));
+        return ficheClientRepository.findAllByCreatedBy(creator).stream().map(ficheClientMapper::toDto).collect(Collectors.toList());
+    }
+
 
     /**
      * Get one ficheClient by id.

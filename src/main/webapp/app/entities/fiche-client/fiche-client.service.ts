@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import {DATE_FORMAT} from 'app/shared/constants/input.constants';
-import {map} from 'rxjs/operators';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { map } from 'rxjs/operators';
 
-import {SERVER_API_URL} from 'app/app.constants';
-import {createRequestOption} from 'app/shared';
-import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import { SERVER_API_URL } from 'app/app.constants';
+import { createRequestOption } from 'app/shared';
+import { IFicheClient } from 'app/shared/model/fiche-client.model';
 
 type EntityResponseType = HttpResponse<IFicheClient>;
 type EntityArrayResponseType = HttpResponse<IFicheClient[]>;
@@ -48,6 +48,12 @@ export class FicheClientService {
         const options = createRequestOption(req);
         return this.http
             .get<IFicheClient[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    queryAll(): Observable<EntityArrayResponseType> {
+        return this.http
+            .get<IFicheClient[]>(this.resourceUrl + '/all', { observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 

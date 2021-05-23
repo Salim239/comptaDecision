@@ -47,7 +47,7 @@ export class NewEntryComponent implements OnInit {
             this.initFormData();
         }
         this.ficheClientService
-            .query()
+            .queryAll()
             .pipe(
                 filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IFicheClient[]>) => response.body)

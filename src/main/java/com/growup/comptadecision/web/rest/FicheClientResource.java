@@ -99,6 +99,17 @@ public class FicheClientResource {
     }
 
     /**
+     * GET  /fiche-clients/all : get all the ficheClients.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of ficheClients in body
+     */
+    @GetMapping("/fiche-clients/all")
+    public ResponseEntity<List<FicheClientDTO>> getAllFicheClients() {
+        log.debug("REST request to all FicheClients");
+        return ResponseEntity.ok().body(ficheClientService.findAll());
+    }
+
+    /**
      * GET  /fiche-clients/:id : get the "id" ficheClient.
      *
      * @param id the id of the ficheClientDTO to retrieve
