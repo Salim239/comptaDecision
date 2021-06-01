@@ -40,15 +40,6 @@ public class CnssResource {
     }
 
 
-    @GetMapping("/cnss/init/{id}/{annee}/{typeCnss}/{typeDeclarationCnss}/{trimestre}")
-    public ResponseEntity<CnssDTO> init(@PathVariable Long id, @PathVariable Integer annee,
-                                                       @PathVariable String typeCnss,
-                                                       @PathVariable String typeDeclarationCnss,
-                                                       @PathVariable Integer trimestre) {
-        CnssDTO cnssDTO = cnssService.init(id, annee, TypeCnss.valueOf(typeCnss), TypeDeclarationCnss.valueOf(typeDeclarationCnss), trimestre);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(cnssDTO);
-    }
-
     /**
      * POST  /cnss : Create a new cnss.
      *
@@ -104,20 +95,6 @@ public class CnssResource {
     }
 
     /**
-     * GET  /cnss : get all the cnss.
-     *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of cnss in body
-     */
-    @GetMapping("/cnss/type/cnss-gerant")
-    public ResponseEntity<List<CnssDTO>> getAllCnssGerant(Pageable pageable) {
-        log.debug("REST request to get a page of Cnss");
-        Page<CnssDTO> page = cnssService.findByCnssType(TypeCnss.CNSS_EMPLOYEUR, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cnss/cnss-gerant");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
-    /**
      * GET  /cnss/:id : get the "id" cnss.
      *
      * @param id the id of the cnssDTO to retrieve
@@ -141,5 +118,29 @@ public class CnssResource {
         log.debug("REST request to delete Cnss : {}", id);
         cnssService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/cnss/init/{id}/{annee}/{typeCnss}/{typeDeclarationCnss}/{trimestre}")
+    public ResponseEntity<CnssDTO> init(@PathVariable Long id, @PathVariable Integer annee,
+                                        @PathVariable String typeCnss,
+                                        @PathVariable String typeDeclarationCnss,
+                                        @PathVariable Integer trimestre) {
+        CnssDTO cnssDTO = cnssService.init(id, annee, TypeCnss.valueOf(typeCnss), TypeDeclarationCnss.valueOf(typeDeclarationCnss), trimestre);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(cnssDTO);
+    }
+
+
+    /**
+     * GET  /cnss : get all the cnss.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of cnss in body
+     */
+    @GetMapping("/cnss/type/cnss-gerant")
+    public ResponseEntity<List<CnssDTO>> getAllCnssGerant(Pageable pageable) {
+        log.debug("REST request to get a page of Cnss");
+        Page<CnssDTO> page = cnssService.findByCnssType(TypeCnss.CNSS_EMPLOYEUR, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cnss/cnss-gerant");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }

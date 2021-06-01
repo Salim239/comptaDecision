@@ -85,17 +85,6 @@ public class VilleResource {
     }
 
     /**
-     * GET  /villes : get all the villes.
-     *
-     * @return the ResponseEntity with status 200 (OK) and the list of villes in body
-     */
-    @GetMapping("/villes/region/{regionId}")
-    public List<VilleDTO> getVillesByRegion(@PathVariable Long regionId) {
-        log.debug("REST request to get Villes by region id", regionId);
-        return villeService.findByRegionId(regionId);
-    }
-
-    /**
      * GET  /villes/:id : get the "id" ville.
      *
      * @param id the id of the villeDTO to retrieve
@@ -119,5 +108,16 @@ public class VilleResource {
         log.debug("REST request to delete Ville : {}", id);
         villeService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * GET  /villes : get all the villes.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of villes in body
+     */
+    @GetMapping("/villes/region/{regionId}")
+    public List<VilleDTO> getVillesByRegion(@PathVariable Long regionId) {
+        log.debug("REST request to get Villes by region id {}", regionId);
+        return villeService.findByRegionId(regionId);
     }
 }

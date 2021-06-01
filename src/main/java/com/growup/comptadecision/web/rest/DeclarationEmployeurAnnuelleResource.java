@@ -37,13 +37,6 @@ public class DeclarationEmployeurAnnuelleResource {
         this.declarationEmployeurAnnuelleService = declarationEmployeurAnnuelleService;
     }
 
-    @GetMapping("/declaration-employeur-annuelles/init/{id}/{annee}")
-    public ResponseEntity<DeclarationEmployeurAnnuelleDTO> init(@PathVariable Long id, @PathVariable Integer annee) {
-        log.debug("REST request to init empty DeclarationEmployeurAnnuelle");
-        DeclarationEmployeurAnnuelleDTO quittanceMensuelleImpotDTO = declarationEmployeurAnnuelleService.init(id, annee);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
-    }
-
     /**
      * POST  /declaration-employeur-annuelles : Create a new declarationEmployeurAnnuelle.
      *
@@ -122,5 +115,12 @@ public class DeclarationEmployeurAnnuelleResource {
         log.debug("REST request to delete DeclarationEmployeurAnnuelle : {}", id);
         declarationEmployeurAnnuelleService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/declaration-employeur-annuelles/init/{id}/{annee}")
+    public ResponseEntity<DeclarationEmployeurAnnuelleDTO> init(@PathVariable Long id, @PathVariable Integer annee) {
+        log.debug("REST request to init empty DeclarationEmployeurAnnuelle");
+        DeclarationEmployeurAnnuelleDTO quittanceMensuelleImpotDTO = declarationEmployeurAnnuelleService.init(id, annee);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(quittanceMensuelleImpotDTO);
     }
 }

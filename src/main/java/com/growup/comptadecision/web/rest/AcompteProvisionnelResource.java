@@ -38,13 +38,6 @@ public class AcompteProvisionnelResource {
         this.acompteProvisionnelService = acompteProvisionnelService;
     }
 
-    @GetMapping("/acompte-provisionnels/init/{id}/{annee}/{numeroAccompte}/{type}")
-    public ResponseEntity<AcompteProvisionnelDTO> init(@PathVariable Long id, @PathVariable Integer annee,
-                                                       @PathVariable Integer numeroAccompte, @PathVariable TypeDeclaration type) {
-        AcompteProvisionnelDTO acompteProvisionnelDTO = acompteProvisionnelService.init(id, annee, numeroAccompte, type);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(acompteProvisionnelDTO);
-    }
-
     /**
      * POST  /acompte-provisionnels : Create a new acompteProvisionnel.
      *
@@ -123,5 +116,12 @@ public class AcompteProvisionnelResource {
         log.debug("REST request to delete AcompteProvisionnel : {}", id);
         acompteProvisionnelService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/acompte-provisionnels/init/{id}/{annee}/{numeroAccompte}/{type}")
+    public ResponseEntity<AcompteProvisionnelDTO> init(@PathVariable Long id, @PathVariable Integer annee,
+                                                       @PathVariable Integer numeroAccompte, @PathVariable TypeDeclaration type) {
+        AcompteProvisionnelDTO acompteProvisionnelDTO = acompteProvisionnelService.init(id, annee, numeroAccompte, type);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(acompteProvisionnelDTO);
     }
 }

@@ -4,6 +4,6 @@ package com.growup.comptadecision.domain.enumeration;
  */
 public enum CategorieActivite {
 
-    M, P, C
+    M, P, C, E
 
 }

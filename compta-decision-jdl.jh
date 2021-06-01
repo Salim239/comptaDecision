@@ -1,7 +1,76 @@
-enum CategorieClient {
-	PERSONNE_PHYSIQUE, 
-    PERSONNE_MORALE
+enum TypeCentreAdministratif {
+    administration_cnss, administration_fiscale, administration_impot
 }
+
+enum CategorieActivite {
+	M, 
+	P, 
+	C
+}
+
+enum CodeTVA {
+    A, N, B, P
+}
+
+enum TypeDeclaration {
+    DECLARATION_INITIALE, DECLARATION_RECTIFICATIVE
+}
+
+enum TypeDeclarationCnss {
+    DECLARATION_INITIALE, DECLARATION_COMPLEMENTAIRE
+}
+
+
+enum TypeCnss {
+    CNSS_GENERALE, CNSS_EMPLOYEUR
+}
+
+enum CodeAlert {
+	//Declaration
+    WARNING_DECLARATION_ANNUELLE_PRECEDENTE_INNEXISTANTE,
+    WARNING_DECLARATION_ANNUELLE_PRECEDENTE_NON_VALIDE,
+    WARNING_DECLARATION_ANNUELLE_INITIALE_NON_VALIDE,
+    //Quittance
+    WARNING_QUITTANCE_INITIALE_NON_VALIDE,
+    WARNING_QUITTANCE_PRECEDENTE_NON_VALIDE,
+    WARNING_QUITTANCE_PRECEDENTE_INEXISTANTE,
+    //Acompte
+    WARNING_ACOMPTE_PRECEDENTE_INEXISTANTE,
+    WARNING_ACOMPTE_PRECEDENTE_NON_VALIDE,
+    WARNING_ACOMPTE_INITIALE_NON_VALIDE
+}
+
+enum TypeAlert {
+    error, warning, info, succss
+}
+
+enum CategorieClient {
+	PERSONNE_PHYSIQUE, PERSONNE_MORALE
+}
+
+enum StatutDeclaration {
+    BROUILLON, VALIDE, ARCHIVE, RECTIFIE
+}
+
+enum TypeValeur {
+    TAUX, MONTANT
+}
+
+/**
+* Region
+*/
+
+entity Comptable {
+	id Long required,
+	code String required unique,
+	libelle String required,
+    description String
+}
+
+
+/**
+* Region
+*/
 
 entity Region {
 	id Long required,
@@ -13,6 +82,10 @@ entity Region {
 dto Region with mapstruct
 service Region with serviceClass
 
+/**
+* Ville
+*/
+
 entity Ville {
 	id Long required,
 	code String required,
@@ -22,66 +95,142 @@ entity Ville {
 }
 
 relationship ManyToOne {
-	Ville{region(id)} to Region
+	Ville{region(id required)} to Region
 }
 
 dto Ville with mapstruct
 service Ville with serviceClass
 
+/**
+* Centre Adminiqtratif
+*/
+
 entity CentreAdministratif {
 	id Long required,
-	code String required,
 	libelle String required,
     description String
+	type TypeCentreAdministratif required,
+    telephone1 String,
+    telephone2 String,
+    telephone3 String,
+    email1 String,
+    email2 String,
+    email3 String,
+    fax String,
+    rib String,
+    banque String,
+    adresse String required,
+    codePostal String required
+}
+relationship ManyToOne {
+	CentreAdministratif{ville(id required)} to Ville required,
+	CentreAdministratif{region(id required)} to Region required
 }
 dto CentreAdministratif with mapstruct
 service CentreAdministratif with serviceClass
+
+/**
+* Activite
+*/
 
 entity Activite {
 	id Long required,
 	code String required,
 	libelle String required,
     description String
+    secteurActivite SecteurActivite required
+}
+relationship ManyToOne {
+	Activite{SecteurActivite(id required)} to SecteurActivite required
 }
 dto Activite with mapstruct
 service Activite with serviceClass
+
+/**
+* Impot Mensuel
+*/
 
 entity ImpotMensuel {
 	id Long required,
 	code String required,
     libelle String required,
-    description String
+    description String,
+    parent Boolean , //default false,
+    child Boolean , //default false,
+    appliquerReportMontant Boolean , //default false,
+    coefficientMontant Folat , //default 1f,
+    //private List<ImpotMensuelDetail> impotMensuelDetails = new ArrayList<>();
+    //private List<ImpotMensuel> childImpotMensuels = new ArrayList<>();
 }
+relationship ManyToOne {
+	ImpotMensuel{parentImpotMensuel(id)} to ImpotMensuel
+}
+relationship OneToMany{
+     ImpotMensuel{impotMensuelDetails(id)} to ImpotMensuelDetail,
+     ImpotMensuel{childImpotMensuels(id)} to ImpotMensuel	 
+}
+
 dto ImpotMensuel with mapstruct
 service ImpotMensuel with serviceClass
 
+/**
+* Fiche Client
+*/
+
 entity FicheClient {
 	id Long required,
-	categorieClient CategorieClient,
+	categorieClient CategorieClient required,
     designation String required,
     logo ImageBlob,
+    copieCIN ImageBlob,
+	copiePatente ImageBlob,
+	copieRC ImageBlob,
+    cinGerant pattern(/^\d{5,}$/) ,
+    dateDelivranceCINGerant LocalDate,
     adresse String required,
     codePostal String required,
-    telephone String,
+    telephone1 String,
+    telephone2 String,
+    telephone3 String,
     fax String,
-    email String,
+    email1 String,
+    email2 String,
+    email3 String,
     matriculeFiscale String required,
     registreCommerce String,  
     dateCreation LocalDate,
     cnssEmployeur String,
     cnssGerant String,
-    fichierPatente Blob
+    fichierPatente Blob	,
+	categorieActivite CategorieActivite required,
+	codeTva CodeTVA required,		
+    numeroEtablissementSecondaire String , //default "000",
+    tauxCnssAccident Double required,
+    fichierPatenteContentType String required,
+    //private List<ImpotMensuelClient> impotMensuelClients = new ArrayList<>();
 }
 relationship ManyToOne {
-	FicheClient{centreAdministratif(id)} to CentreAdministratif,
-    FicheClient{activite(id)} to Activite,
-    FicheClient{activiteScondaire(id)} to Activite,
-    FicheClient{region(id)} to Region,
-    FicheClient{ville(id)} to Ville
+	FicheClient{centreAdministratif(libelle)} to CentreAdministratif,
+    FicheClient{activite1(libelle required)} to Activite,
+    FicheClient{activite2(libelle)} to Activite,
+    FicheClient{activite3(libelle)} to Activite,
+    FicheClient{secteurActivite1(libelle required)} to SecteurActivite,
+    FicheClient{secteurActivite2(libelle)} to SecteurActivite,
+    FicheClient{secteurActivite3(libelle)} to SecteurActivite,
+    FicheClient{region(libelle required)} to Region,
+    FicheClient{ville(libelle required)} to Ville,
+    FicheClient{categorieCnssGerant(libelle required)} to CategorieCnssGerant
+}
+relationship OneToMany{
+     FicheClient{impotMensuelClients(id)} to ImpotMensuelClient 
 }
 dto FicheClient with mapstruct
 service FicheClient with serviceClass
 paginate FicheClient with pagination
+
+/**
+* CNSS
+*/
 
 entity Cnss {
 	id Long required,
@@ -91,31 +240,44 @@ entity Cnss {
     numeroQuittance String,
 	montantSalaireBrutNormal BigDecimal,
     montantSalaireBrutKarama BigDecimal,
-    montantSalaireBrutAutre BigDecimal,
-    montantChiffreAffaireTTC BigDecimal,
-    montantTotal BigDecimal,
-    cnss BigDecimal
+	typeCnss TypeCnss required,
+    typeDeclaration TypeDeclarationCnss required defaut TypeDeclarationCnss.DECLARATION_INITIALE,   
+    tauxCnssNormal BigDecimal,
+    tauxCnssKarama BigDecimal,
+    tauxCnssNormalAccident BigDecimal,    
+    tauxCnssKaramaAccident BigDecimal,
+    montantCnssNormal BigDecimal,
+    montantCnssKarama BigDecimal,
+    montantTotalCnss BigDecimal,
+    montantTotalSalaireBrut BigDecimal
 }
 relationship ManyToOne {
-    Cnss{ficheClient(id)} to FicheClient,
+    Cnss{ficheClient(id required)} to FicheClient,
 }
 dto Cnss with mapstruct
 service Cnss with serviceClass
 paginate Cnss with pagination
 
+/**
+* Impot Mensuel Client
+*/
 
 entity ImpotMensuelClient {
 	id Long required,
 	mois Integer required,
-	applicable Boolean
+	applicable Boolean , //default true
 }
 relationship ManyToOne {
-    ImpotMensuelClient{ficheClient(id)} to FicheClient,
-    ImpotMensuelClient{impotMensuel(id)} to ImpotMensuel,
+    ImpotMensuelClient{ficheClient(id required)} to FicheClient,
+    ImpotMensuelClient{impotMensuel(id required)} to ImpotMensuel,
 }
 dto ImpotMensuelClient with mapstruct
 service ImpotMensuelClient with serviceClass
 paginate ImpotMensuelClient with pagination
+
+/**
+* Quittance Mensuelle Impot
+*/
 
 entity QuittanceMensuelleImpot {
 	id Long required,
@@ -123,32 +285,78 @@ entity QuittanceMensuelleImpot {
 	mois Integer required,
     numeroQuittance String,
     datePaiement LocalDate,
-    montantTotal BigDecimal
+    montantTotal BigDecimal,	
+    typeDeclaration TypeDeclaration , //default TypeDeclaration.DECLARATION_INITIALE required,	
+    statut StatutDeclaration required  , //default StatutDeclaration.BROUILLON,
+    //private List<QuittanceMensuelleImpotLine> quittanceMensuelleImpotLines = new ArrayList<>();
 }
 relationship ManyToOne {
-    QuittanceMensuelleImpot{ficheClient(id)} to FicheClient
+    QuittanceMensuelleImpot{ficheClient(id required)} to FicheClient,
+    QuittanceMensuelleImpot{parentQuittance(id)} to QuittanceMensuelleImpot,
 }
+relationship OneToMany{
+     QuittanceMensuelleImpot{quittanceMensuelleImpotLines(id)} to QuittanceMensuelleImpotLine 
+}
+
 dto QuittanceMensuelleImpot with mapstruct
 service QuittanceMensuelleImpot with serviceClass
 paginate QuittanceMensuelleImpot with pagination
 
-entity QuittanceMensuelleImpotDetail {
+/**
+* Quittance Mensuelle Impot Line
+*/
+
+entity QuittanceMensuelleImpotLine {
 	id Long required,
+    montantTotal BigDecimal,
+    code String,
+    libelle String,
+    description String,
+    parent Boolean , //default Boolean.FALSE,
+    child Boolean , //default Boolean.FALSE,
+    appliquerReportMontant Boolean , //default Boolean.FALSE,
+    montantReport BigDecimal , //default BigDecimal.ZERO,
+    coefficientMontant Float , //default 1f
+	//private List<QuittanceMensuelleImpotLine> childQuittanceMensuelleImpotLines = new ArrayList<>();
+    //private List<QuittanceMensuelleImpotSousLine> quittanceMensuelleImpotSousLines = new ArrayList<>();
+}
+
+relationship ManyToOne {
+    QuittanceMensuelleImpotLine{parentQuittanceMensuelleImpotLine(id)} to QuittanceMensuelleImpot,
+    QuittanceMensuelleImpotLine{impotMensuel(id required)} to ImpotMensuel
+}
+relationship OneToMany{
+     QuittanceMensuelleImpotLine{quittanceMensuelleImpotSousLines(id)} to QuittanceMensuelleImpotSousLine,
+     QuittanceMensuelleImpotLine{childQuittanceMensuelleImpotLines(id)} to QuittanceMensuelleImpotLine 
+}
+
+dto QuittanceMensuelleImpotLine with mapstruct
+service QuittanceMensuelleImpotLine with serviceClass
+paginate QuittanceMensuelleImpotLine with pagination
+
+
+/**
+* Quittance Mensuelle Impot Sous Line
+*/
+
+entity QuittanceMensuelleImpotSousLine {
+	id Long required,
+    montantBase BigDecimal,
     montantTotal BigDecimal
 }
 
 relationship ManyToOne {
-    QuittanceMensuelleImpotDetail{quittanceMensuelleImpot(id)} to QuittanceMensuelleImpot
+    QuittanceMensuelleImpotSousLine{quittanceMensuelleImpotLine(id required)} to QuittanceMensuelleImpotLine,
+    QuittanceMensuelleImpotSousLine{impotMensuelLine(id required)} to ImpotMensuelLine
 }
 
-relationship OneToMany {
-  QuittanceMensuelleImpotDetail{impotMensuelClient} to ImpotMensuelClient
-}
+dto QuittanceMensuelleImpotSousLine with mapstruct
+service QuittanceMensuelleImpotSousLine with serviceClass
+paginate QuittanceMensuelleImpotSousLine with pagination
 
-dto QuittanceMensuelleImpotDetail with mapstruct
-service QuittanceMensuelleImpotDetail with serviceClass
-paginate QuittanceMensuelleImpotDetail with pagination
-
+/**
+* Declaration Annuelle
+*/
 
 entity DeclarationAnnuelle {
 	id Long required,
@@ -168,12 +376,18 @@ entity DeclarationAnnuelle {
     montantRetenueSource BigDecimal,
     montantNetAPaye BigDecimal,
 }
+
 relationship ManyToOne {
-    DeclarationAnnuelle{ficheClient(id)} to FicheClient,
+    DeclarationAnnuelle{ficheClient(id required)} to FicheClient,
 }
+
 dto DeclarationAnnuelle with mapstruct
 service DeclarationAnnuelle with serviceClass
 paginate DeclarationAnnuelle with pagination
+
+/**
+* Declaration Employeur Annuelle
+*/
 
 entity DeclarationEmployeurAnnuelle {
 	id Long required,
@@ -189,17 +403,90 @@ entity DeclarationEmployeurAnnuelle {
     montantAnnexe9 BigDecimal,
     montantAnnexe10 BigDecimal,
     montantAnnexe11 BigDecimal,
-    montantAnnexe12 BigDecimal,
+    montantAnnexe12 BigDecimal
 }
+
 relationship ManyToOne {
-    DeclarationEmployeurAnnuelle{ficheClient(id)} to FicheClient
+    DeclarationEmployeurAnnuelle{ficheClient(id required)} to FicheClient,
 }
+
 dto DeclarationEmployeurAnnuelle with mapstruct
 service DeclarationEmployeurAnnuelle with serviceClass
 paginate DeclarationEmployeurAnnuelle with pagination
 
+/**
+* Categorie Cnss Gerant
+*/
+
+entity CategorieCnssGerant {
+	id Long required,
+    code String required,
+    String libelle code String required,
+    String description code String,
+    montantCotisationCnss BigDecimal
+}
+dto CategorieCnssGerant with mapstruct
+service CategorieCnssGerant with serviceClass
+paginate CategorieCnssGerant with pagination
+
+/**
+* Decalration Annuelle
+*/
+
+entity DeclarationAnnuelle {
+	id Long required,
+    typeDeclaration TypeDeclaration , //default TypeDeclaration.DECLARATION_INITIALE required,
+    annee Integer required,
+    datePaiement LocalDate,
+    numeroQuittance String,
+    montantImpotAnnuel  BigDecimal , //default BigDecimal.ZERO,
+    montantApPayes  BigDecimal , //default BigDecimal.ZERO,
+    montantRetenueSource  BigDecimal , //default BigDecimal.ZERO,
+    montantReportAnterieur  BigDecimal , //default BigDecimal.ZERO,
+    montantNet  BigDecimal , //default BigDecimal.ZERO,
+    statut StatutDeclaration required  , //default StatutDeclaration.BROUILLON,
+    //private List<DecalrationAnnuelleLine> declarationAnnuelleLines = new ArrayList<>();
+}
+relationship ManyToOne {
+    DeclarationAnnuelle{ficheClient(id required)} to FicheClient
+}
+
+relationship OneToMany{
+     DeclarationAnnuelle{declarationAnnuelleLines(id)} to DecalrationAnnuelleLine
+}
+
+dto DeclarationAnnuelle with mapstruct
+service DeclarationAnnuelle with serviceClass
+paginate DeclarationAnnuelle with pagination
+
+/**
+* Decalration Annuelle Line
+*/
+
+entity DecalrationAnnuelleLine {
+	id Long required,
+    code String required,
+    triOrdre Integer,
+    calcule Boolean,
+    montant BigDecimal,
+    montantCalcule BigDecimal,
+    libelle String required,
+    description String
+}
+relationship ManyToOne {
+    DecalrationAnnuelleLine{impotAnnuel(id required)} to ImpotAnnuel,
+    DecalrationAnnuelleLine{declarationAnnuelle(id required)} to DeclarationAnnuelle,
+}
+dto DecalrationAnnuelleLine with mapstruct
+service DecalrationAnnuelleLine with serviceClass
+paginate DecalrationAnnuelleLine with pagination
+
+/**
+* Acompte Provisionnel
+*/
+
 entity AcompteProvisionnel {
-	id Long 
+	id Long required,
 	annee Integer required,
     numero Integer required,
     date LocalDate,
@@ -209,10 +496,84 @@ entity AcompteProvisionnel {
     montantReportAnterieur BigDecimal,
     montantRetenueSource BigDecimal,
     montantNet BigDecimal,
+	typeDeclaration TypeDeclaration , //default TypeDeclaration.DECLARATION_INITIALE required,
+    montantNet BigDecimal,
+    statut StatutDeclaration required  , //default StatutDeclaration.BROUILLON,
 }
 relationship ManyToOne {
-    AcompteProvisionnel{ficheClient(id)} to FicheClient
+    AcompteProvisionnel{ficheClient(id required)} to FicheClient
 }
 dto AcompteProvisionnel with mapstruct
 service AcompteProvisionnel with serviceClass
 paginate AcompteProvisionnel with pagination
+
+/**
+* ImpotAnnuel
+*/
+
+entity ImpotAnnuel {
+	id Long required,
+    code String required,
+    libelle String required,
+    description String,
+    calcule Boolean , //default false,
+    triOrdre Integer,
+    //private List<ImpotAnnuelLine> impotAnnuelLines = new ArrayList<>();
+}
+relationship OneToMany{
+     ImpotAnnuel{impotAnnuelLines(id required)} to ImpotAnnuelLine
+}
+
+dto ImpotAnnuel with mapstruct
+service ImpotAnnuel with serviceClass
+paginate ImpotAnnuel with pagination
+
+/**
+* ImpotAnnuelLine
+*/
+entity ImpotAnnuelLine {
+	id Long required,
+    coefficient Float required , //default 1f
+}
+relationship ManyToOne {
+    ImpotAnnuelLine{impotAnnuel(id required)} to ImpotAnnuel,
+    ImpotAnnuelLine{impotMensuelLine(id required)} to ImpotMensuelLine
+}
+dto ImpotAnnuelLine with mapstruct
+service ImpotAnnuelLine with serviceClass
+paginate ImpotAnnuelLine with pagination
+
+/**
+* ImpotMensuelLine
+*/
+
+entity ImpotMensuelLine {
+	id Long required,
+    code String required,
+	libelle String required,
+	description description,
+    triOrdre Integer,
+    valeur Float,
+    typeValeur TypeValeur required , //default TypeValeur.TAUX,
+    valeurModifiable Boolean , //default false
+}
+relationship ManyToOne {
+    ImpotMensuelLine{impotMensuel(id required)} to ImpotMensuel
+}
+dto ImpotMensuelLine with mapstruct
+service ImpotMensuelLine with serviceClass
+paginate ImpotMensuelLine with pagination
+
+/**
+* Secteur activite
+*/
+
+entity SecteurActivite {
+	id Long required,
+    code String required,
+    libelle String required,
+    description String
+}
+dto SecteurActivite with mapstruct
+service SecteurActivite with serviceClass
+paginate SecteurActivite with pagination

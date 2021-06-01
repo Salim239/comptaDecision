@@ -37,13 +37,6 @@ public class FicheClientResource {
         this.ficheClientService = ficheClientService;
     }
 
-    @GetMapping("/fiche-clients/init")
-    public ResponseEntity<FicheClientDTO> init() {
-        log.debug("REST request to init empty FicheClient");
-        FicheClientDTO ficheClientDTO = ficheClientService.init();
-        return ResponseEntity.ok().headers(HeaderUtil.initEmptyEntityAlert(ENTITY_NAME, null)).body(ficheClientDTO);
-    }
-
     /**
      * POST  /fiche-clients : Create a new ficheClient.
      *
@@ -99,17 +92,6 @@ public class FicheClientResource {
     }
 
     /**
-     * GET  /fiche-clients/all : get all the ficheClients.
-     *
-     * @return the ResponseEntity with status 200 (OK) and the list of ficheClients in body
-     */
-    @GetMapping("/fiche-clients/all")
-    public ResponseEntity<List<FicheClientDTO>> getAllFicheClients() {
-        log.debug("REST request to all FicheClients");
-        return ResponseEntity.ok().body(ficheClientService.findAll());
-    }
-
-    /**
      * GET  /fiche-clients/:id : get the "id" ficheClient.
      *
      * @param id the id of the ficheClientDTO to retrieve
@@ -133,5 +115,23 @@ public class FicheClientResource {
         log.debug("REST request to delete FicheClient : {}", id);
         ficheClientService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/fiche-clients/init")
+    public ResponseEntity<FicheClientDTO> init() {
+        log.debug("REST request to init empty FicheClient");
+        FicheClientDTO ficheClientDTO = ficheClientService.init();
+        return ResponseEntity.ok().headers(HeaderUtil.initEmptyEntityAlert(ENTITY_NAME, null)).body(ficheClientDTO);
+    }
+
+    /**
+     * GET  /fiche-clients/all : get all the ficheClients.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of ficheClients in body
+     */
+    @GetMapping("/fiche-clients/all")
+    public ResponseEntity<List<FicheClientDTO>> getAllFicheClients() {
+        log.debug("REST request to all FicheClients");
+        return ResponseEntity.ok().body(ficheClientService.findAll());
     }
 }

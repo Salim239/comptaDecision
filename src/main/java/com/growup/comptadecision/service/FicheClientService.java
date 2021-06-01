@@ -34,70 +34,16 @@ public class FicheClientService {
 
     private final FicheClientRepository ficheClientRepository;
 
-    private final ImpotMensuelClientService impotMensuelClientService;
-
     private final ImpotMensuelService impotMensuelService;
 
     private final FicheClientMapper ficheClientMapper;
 
-    public FicheClientService(FicheClientRepository ficheClientRepository, ImpotMensuelService impotMensuelService, ImpotMensuelClientService impotMensuelClientService, FicheClientMapper ficheClientMapper) {
+    public FicheClientService(FicheClientRepository ficheClientRepository, ImpotMensuelService impotMensuelService, FicheClientMapper ficheClientMapper) {
         this.ficheClientRepository = ficheClientRepository;
-        this.impotMensuelClientService = impotMensuelClientService;
         this.impotMensuelService = impotMensuelService;
         this.ficheClientMapper = ficheClientMapper;
     }
 
-    /**
-     * Init empty fiche client
-     * @return
-     */
-    public FicheClientDTO init() {
-
-        log.debug("REST to init empty FicheClient");
-        FicheClientDTO ficheClientDTO = new FicheClientDTO();
-        List<ImpotMensuelDTO> impotMensuelDTOs = impotMensuelService.findWithoutChildren();
-        List<ImpotMensuelClientDTO> impotMensuelClientDTOs = new ArrayList<>();
-        impotMensuelDTOs.forEach(impotMensuelDTO -> {
-                ImpotMensuelClientDTO impotMensuelClientDTO = new ImpotMensuelClientDTO();
-                impotMensuelClientDTO.setApplicable(false);
-                impotMensuelClientDTO.setImpotMensuelId(impotMensuelDTO.getId());
-                impotMensuelClientDTO.setImpotMensuelDescription(impotMensuelDTO.getDescription());
-                impotMensuelClientDTO.setImpotMensuelLibelle(impotMensuelDTO.getLibelle());
-                impotMensuelClientDTO.setImpotMensuelChild(impotMensuelDTO.getChild());
-                impotMensuelClientDTO.setImpotMensuelParent(impotMensuelDTO.getParent());
-                impotMensuelClientDTO.setImpotMensuelParentId(impotMensuelDTO.getParentImpotMensuelId());
-                impotMensuelClientDTOs.add(impotMensuelClientDTO);
-        });
-        ficheClientDTO.setImpotMensuelClients(impotMensuelClientDTOs);
-        ficheClientDTO.setTauxCnssAccident(TAUX_CNSS_ACCIDENT_PAR_DEFAUT);
-        return ficheClientDTO;
-    }
-
-    /**
-     * Save a ficheClient.
-     *
-     * @param ficheClientDTO the entity to save
-     * @return the persisted entity
-     */
-    public FicheClientDTO save(FicheClientDTO ficheClientDTO) {
-        log.debug("Request to save FicheClient : {}", ficheClientDTO);
-        updateImpotMensuelClientChildren(ficheClientDTO);
-        FicheClient ficheClient = ficheClientMapper.toEntity(ficheClientDTO);
-        ficheClient = ficheClientRepository.save(ficheClient);
-        return ficheClientMapper.toDto(ficheClient);
-    }
-
-    private void updateImpotMensuelClientChildren(FicheClientDTO ficheClientDTO) {
-        List<ImpotMensuelClientDTO> parentImpotMensuelClientDtos = ficheClientDTO.getImpotMensuelClients().stream()
-                .filter(impotMensuelClientDTO -> impotMensuelClientDTO.getImpotMensuelParentId() != null)
-                .collect(Collectors.toList());
-
-        parentImpotMensuelClientDtos.forEach(parentImpotMensuelClientDto -> {
-            ficheClientDTO.getImpotMensuelClients().stream()
-                    .filter(impotMensuelClientDTO -> impotMensuelClientDTO.getImpotMensuelParentId().equals(parentImpotMensuelClientDto.getId()))
-                    .forEach(impotMensuelClientDTO -> impotMensuelClientDTO.setApplicable(parentImpotMensuelClientDto.getApplicable()));
-        });
-    }
 
     /**
      * Get all the ficheClients.
@@ -148,5 +94,57 @@ public class FicheClientService {
     public void delete(Long id) {
         log.debug("Request to delete FicheClient : {}", id);
         ficheClientRepository.deleteById(id);
+    }
+
+    /**
+     * Init empty fiche client
+     * @return
+     */
+    public FicheClientDTO init() {
+
+        log.debug("REST to init empty FicheClient");
+        FicheClientDTO ficheClientDTO = new FicheClientDTO();
+        List<ImpotMensuelDTO> impotMensuelDTOs = impotMensuelService.findWithoutChildren();
+        List<ImpotMensuelClientDTO> impotMensuelClientDTOs = new ArrayList<>();
+        impotMensuelDTOs.forEach(impotMensuelDTO -> {
+            ImpotMensuelClientDTO impotMensuelClientDTO = new ImpotMensuelClientDTO();
+            impotMensuelClientDTO.setApplicable(false);
+            impotMensuelClientDTO.setImpotMensuelId(impotMensuelDTO.getId());
+            impotMensuelClientDTO.setImpotMensuelDescription(impotMensuelDTO.getDescription());
+            impotMensuelClientDTO.setImpotMensuelLibelle(impotMensuelDTO.getLibelle());
+            impotMensuelClientDTO.setImpotMensuelChild(impotMensuelDTO.getChild());
+            impotMensuelClientDTO.setImpotMensuelParent(impotMensuelDTO.getParent());
+            impotMensuelClientDTO.setImpotMensuelParentId(impotMensuelDTO.getParentImpotMensuelId());
+            impotMensuelClientDTOs.add(impotMensuelClientDTO);
+        });
+        ficheClientDTO.setImpotMensuelClients(impotMensuelClientDTOs);
+        ficheClientDTO.setTauxCnssAccident(TAUX_CNSS_ACCIDENT_PAR_DEFAUT);
+        return ficheClientDTO;
+    }
+
+    /**
+     * Save a ficheClient.
+     *
+     * @param ficheClientDTO the entity to save
+     * @return the persisted entity
+     */
+    public FicheClientDTO save(FicheClientDTO ficheClientDTO) {
+        log.debug("Request to save FicheClient : {}", ficheClientDTO);
+        updateImpotMensuelClientChildren(ficheClientDTO);
+        FicheClient ficheClient = ficheClientMapper.toEntity(ficheClientDTO);
+        ficheClient = ficheClientRepository.save(ficheClient);
+        return ficheClientMapper.toDto(ficheClient);
+    }
+
+    private void updateImpotMensuelClientChildren(FicheClientDTO ficheClientDTO) {
+        List<ImpotMensuelClientDTO> parentImpotMensuelClientDtos = ficheClientDTO.getImpotMensuelClients().stream()
+            .filter(impotMensuelClientDTO -> impotMensuelClientDTO.getImpotMensuelParentId() != null)
+            .collect(Collectors.toList());
+
+        parentImpotMensuelClientDtos.forEach(parentImpotMensuelClientDto -> {
+            ficheClientDTO.getImpotMensuelClients().stream()
+                .filter(impotMensuelClientDTO -> impotMensuelClientDTO.getImpotMensuelParentId().equals(parentImpotMensuelClientDto.getId()))
+                .forEach(impotMensuelClientDTO -> impotMensuelClientDTO.setApplicable(parentImpotMensuelClientDto.getApplicable()));
+        });
     }
 }

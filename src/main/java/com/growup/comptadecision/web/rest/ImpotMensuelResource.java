@@ -84,12 +84,6 @@ public class ImpotMensuelResource {
         return impotMensuelService.findAll();
     }
 
-    @GetMapping("/impot-mensuels/parents")
-    public List<ImpotMensuelDTO> getParentsImpotMensuels() {
-        log.debug("REST request to get all parents ImpotMensuels without children");
-        return impotMensuelService.findParentsWithoutChildren();
-    }
-
     /**
      * GET  /impot-mensuels/:id : get the "id" impotMensuel.
      *
@@ -114,5 +108,11 @@ public class ImpotMensuelResource {
         log.debug("REST request to delete ImpotMensuel : {}", id);
         impotMensuelService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/impot-mensuels/parents")
+    public List<ImpotMensuelDTO> getParentsImpotMensuels() {
+        log.debug("REST request to get all parents ImpotMensuels without children");
+        return impotMensuelService.findParentsWithoutChildren();
     }
 }

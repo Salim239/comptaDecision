@@ -79,17 +79,6 @@ public class DeclarationAnnuelleResource {
     }
 
     /**
-     *
-     */
-    @GetMapping("/declaration-annuelles/init/{id}/{annee}/{typeDeclaration}")
-    public ResponseEntity<DeclarationAnnuelleDTO> init(@PathVariable Long id, @PathVariable Integer annee,
-                                                           @PathVariable String typeDeclaration) {
-        log.debug("REST request to init empty DeclarationAnnuelle");
-        DeclarationAnnuelleDTO declarationAnnuelleDTO = declarationAnnuelleService.init(id, annee, TypeDeclaration.valueOf(typeDeclaration));
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(declarationAnnuelleDTO);
-    }
-
-    /**
      * GET  /declaration-annuelles : get all the declarationAnnuelles.
      *
      * @param pageable the pagination information
@@ -127,5 +116,16 @@ public class DeclarationAnnuelleResource {
         log.debug("REST request to delete DeclarationAnnuelle : {}", id);
         declarationAnnuelleService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     *
+     */
+    @GetMapping("/declaration-annuelles/init/{id}/{annee}/{typeDeclaration}")
+    public ResponseEntity<DeclarationAnnuelleDTO> init(@PathVariable Long id, @PathVariable Integer annee,
+                                                       @PathVariable String typeDeclaration) {
+        log.debug("REST request to init empty DeclarationAnnuelle");
+        DeclarationAnnuelleDTO declarationAnnuelleDTO = declarationAnnuelleService.init(id, annee, TypeDeclaration.valueOf(typeDeclaration));
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).body(declarationAnnuelleDTO);
     }
 }

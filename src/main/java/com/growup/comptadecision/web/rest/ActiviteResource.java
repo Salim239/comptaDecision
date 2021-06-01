@@ -85,17 +85,6 @@ public class ActiviteResource {
     }
 
     /**
-     * GET  /activites : get activites by secteur activite id.
-     *
-     * @return the ResponseEntity with status 200 (OK) and the list of activites in body
-     */
-    @GetMapping("/activites/secteur-activite/{secteurActiviteId}")
-    public List<ActiviteDTO> getActivitesBySecteurActivite(@PathVariable Long secteurActiviteId) {
-        log.debug("REST request to get Activites by secteur activite id {}", secteurActiviteId);
-        return activiteService.findBySecteurActiviteId(secteurActiviteId);
-    }
-
-    /**
      * GET  /activites/:id : get the "id" activite.
      *
      * @param id the id of the activiteDTO to retrieve
@@ -119,5 +108,16 @@ public class ActiviteResource {
         log.debug("REST request to delete Activite : {}", id);
         activiteService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * GET  /activites : get activites by secteur activite id.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of activites in body
+     */
+    @GetMapping("/activites/secteur-activite/{secteurActiviteId}")
+    public List<ActiviteDTO> getActivitesBySecteurActivite(@PathVariable Long secteurActiviteId) {
+        log.debug("REST request to get Activites by secteur activite id {}", secteurActiviteId);
+        return activiteService.findBySecteurActiviteId(secteurActiviteId);
     }
 }

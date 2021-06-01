@@ -86,18 +86,6 @@ public class CentreAdministratifResource {
     }
 
     /**
-     * GET  /centre-administratifs : get centreAdministratifs by type
-     *
-     * @return the ResponseEntity with status 200 (OK) and the list of centreAdministratifs in body
-     */
-    @GetMapping("/centre-administratifs/type/{type}")
-    public List<CentreAdministratifDTO> getCentreAdministratifsByType(@PathVariable TypeCentreAdministratif type) {
-        log.debug("REST request to get CentreAdministratifs by type {}", type);
-        return centreAdministratifService.findByType(type);
-    }
-
-
-    /**
      * GET  /centre-administratifs/:id : get the "id" centreAdministratif.
      *
      * @param id the id of the centreAdministratifDTO to retrieve
@@ -121,5 +109,16 @@ public class CentreAdministratifResource {
         log.debug("REST request to delete CentreAdministratif : {}", id);
         centreAdministratifService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * GET  /centre-administratifs : get centreAdministratifs by type
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of centreAdministratifs in body
+     */
+    @GetMapping("/centre-administratifs/type/{type}")
+    public List<CentreAdministratifDTO> getCentreAdministratifsByType(@PathVariable TypeCentreAdministratif type) {
+        log.debug("REST request to get CentreAdministratifs by type {}", type);
+        return centreAdministratifService.findByType(type);
     }
 }
