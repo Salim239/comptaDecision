@@ -7,7 +7,7 @@ import { IAcompteProvisionnel } from 'app/shared/model/acompte-provisionnel.mode
     selector: 'jhi-acompte-provisionnel-detail',
     templateUrl: './acompte-provisionnel-detail.component.html'
 })
-export class AcompteProvisionnelDetailComponent implements OnInit {
+export class AcompteProvisionnelLigneComponent implements OnInit {
     acompteProvisionnel: IAcompteProvisionnel;
 
     constructor(protected activatedRoute: ActivatedRoute) {}

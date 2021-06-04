@@ -9,7 +9,7 @@ type EntityResponseType = HttpResponse<IImpotMensuel>;
 type EntityArrayResponseType = HttpResponse<IImpotMensuel[]>;
 
 @Injectable({ providedIn: 'root' })
-export class ImpotMensuelDetailService {
+export class ImpotMensuelLigneService {
     public resourceUrl = SERVER_API_URL + 'api/impot-mensuel-details';
 
     constructor(protected http: HttpClient) {}

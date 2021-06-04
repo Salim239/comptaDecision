@@ -36,7 +36,7 @@ public class ImpotAnnuelDTO implements Serializable {
     @NotNull
     private Integer triOrdre;
 
-    private List<ImpotAnnuelDetailDTO> impotAnnuelDetails = new ArrayList<>();
+    private List<ImpotAnnuelLigneDTO> impotAnnuelLignes = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -78,12 +78,12 @@ public class ImpotAnnuelDTO implements Serializable {
         this.calcule = calcule;
     }
 
-    public List<ImpotAnnuelDetailDTO> getImpotAnnuelDetails() {
-        return impotAnnuelDetails;
+    public List<ImpotAnnuelLigneDTO> getImpotAnnuelLignes() {
+        return impotAnnuelLignes;
     }
 
-    public void setImpotAnnuelDetails(List<ImpotAnnuelDetailDTO> impotAnnuelDetails) {
-        this.impotAnnuelDetails = impotAnnuelDetails;
+    public void setImpotAnnuelLignes(List<ImpotAnnuelLigneDTO> impotAnnuelLignes) {
+        this.impotAnnuelLignes = impotAnnuelLignes;
     }
 
     public Integer getTriOrdre() {

@@ -6,7 +6,7 @@ import { JhiLanguageHelper } from 'app/core';
 import { ComptaDecisionSharedModule } from 'app/shared';
 import {
     AcompteProvisionnelComponent,
-    AcompteProvisionnelDetailComponent,
+    AcompteProvisionnelLigneComponent,
     AcompteProvisionnelUpdateComponent,
     AcompteProvisionnelDeletePopupComponent,
     AcompteProvisionnelDeleteDialogComponent,
@@ -20,7 +20,7 @@ const ENTITY_STATES = [...acompteProvisionnelRoute, ...acompteProvisionnelPopupR
     imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         AcompteProvisionnelComponent,
-        AcompteProvisionnelDetailComponent,
+        AcompteProvisionnelLigneComponent,
         AcompteProvisionnelUpdateComponent,
         AcompteProvisionnelDeleteDialogComponent,
         AcompteProvisionnelDeletePopupComponent

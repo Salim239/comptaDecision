@@ -7,7 +7,7 @@ import { IDeclarationEmployeurAnnuelle } from 'app/shared/model/declaration-empl
     selector: 'jhi-declaration-employeur-annuelle-detail',
     templateUrl: './declaration-employeur-annuelle-detail.component.html'
 })
-export class DeclarationEmployeurAnnuelleDetailComponent implements OnInit {
+export class DeclarationEmployeurAnnuelleLigneComponent implements OnInit {
     declarationEmployeurAnnuelle: IDeclarationEmployeurAnnuelle;
 
     constructor(protected activatedRoute: ActivatedRoute) {}

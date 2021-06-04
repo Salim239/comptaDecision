@@ -7,7 +7,7 @@ import { IImpotAnnuel } from 'app/shared/model/impot-annuel.model';
     selector: 'jhi-impot-annuel-detail',
     templateUrl: './impot-annuel-detail.component.html'
 })
-export class ImpotAnnuelDetailComponent implements OnInit {
+export class ImpotAnnuelLigneComponent implements OnInit {
     impotAnnuel: IImpotAnnuel;
 
     constructor(protected activatedRoute: ActivatedRoute) {}

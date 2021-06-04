@@ -7,7 +7,7 @@ import { filter, map } from 'rxjs/operators';
 import { SecteurActivite } from 'app/shared/model/secteur-activite.model';
 import { SecteurActiviteService } from './secteur-activite.service';
 import { SecteurActiviteComponent } from './secteur-activite.component';
-import { SecteurActiviteDetailComponent } from './secteur-activite-detail.component';
+import { SecteurActiviteLigneComponent } from './secteur-activite-detail.component';
 import { SecteurActiviteUpdateComponent } from './secteur-activite-update.component';
 import { SecteurActiviteDeletePopupComponent } from './secteur-activite-delete-dialog.component';
 import { ISecteurActivite } from 'app/shared/model/secteur-activite.model';
@@ -40,7 +40,7 @@ export const secteurActiviteRoute: Routes = [
     },
     {
         path: ':id/view',
-        component: SecteurActiviteDetailComponent,
+        component: SecteurActiviteLigneComponent,
         resolve: {
             secteurActivite: SecteurActiviteResolve
         },

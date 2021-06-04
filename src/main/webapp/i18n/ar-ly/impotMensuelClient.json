@@ -18,7 +18,7 @@
             "applicable": "Applicable",
             "ficheClient": "Fiche Client",
             "impotMensuel": "Impot Mensuel",
-            "quittanceMensuelleImpotDetail": "Quittance Mensuelle Impot Line"
+            "quittanceMensuelleLigne": "Quittance Mensuelle Impot Line"
         }
     }
 }

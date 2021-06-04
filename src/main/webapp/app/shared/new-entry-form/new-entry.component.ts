@@ -6,7 +6,7 @@ import { FicheClientService } from 'app/entities/fiche-client';
 import { filter, map } from 'rxjs/operators';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
-import { TypeDeclaration } from 'app/shared/model/quittance-mensuelle-impot.model';
+import { TypeDeclaration } from 'app/shared/model/quittance-mensuelle.model';
 import { TypeDeclarationCnss } from 'app/shared/model/cnss.model';
 
 @Component({

@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate #editForm="ngForm">
             <h2 id="jhi-impot-annuel-heading" jhiTranslate="comptaDecisionApp.impotAnnuel.home.createOrEditLabel">Create
                 or edit a Impot Annuel</h2>
             <div>
@@ -59,46 +59,46 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th jhiTranslate="comptaDecisionApp.impotAnnuelDetail.impotMensuel">Impot Mensuel</th>
-                            <th jhiTranslate="comptaDecisionApp.impotAnnuelDetail.coefficient">Coefficient</th>
+                            <th jhiTranslate="comptaDecisionApp.impotAnnuelLigne.impotMensuel">Impot Mensuel</th>
+                            <th jhiTranslate="comptaDecisionApp.impotAnnuelLigne.coefficient">Coefficient</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td >
-                                <select class="form-control" name="impotMensuelDetailId"  [(ngModel)]="impotAnnuelDetailNew.impotMensuelDetailId">
-                                    <option  [ngValue]="impotMensuelDetail.id" *ngFor="let impotMensuelDetail of impotMensuelDetails">{{formatImpotMensuelDetailLibelle(impotMensuelDetail)}}</option>
+                                <select class="form-control" name="impotMensuelLigneId"  [(ngModel)]="impotAnnuelLigneNew.impotMensuelLigneId">
+                                    <option  [ngValue]="impotMensuelLigne.id" *ngFor="let impotMensuelLigne of impotMensuelLignes">{{formatImpotMensuelLigneLibelle(impotMensuelLigne)}}</option>
                                 </select>
-<!--                                <ng-select id="field_region" name="impotMensuelDetailId" [(ngModel)]="impotAnnuelDetailNew.impotMensuelDetailId"-->
-<!--                                           [items]="impotMensuelDetails"-->
-<!--                                           bindLabel="{{formatImpotMensuelDetailLibelle(impotMensuelDetail)}}"-->
+<!--                                <ng-select id="field_region" name="impotMensuelLigneId" [(ngModel)]="impotAnnuelLigneNew.impotMensuelLigneId"-->
+<!--                                           [items]="impotMensuelLignes"-->
+<!--                                           bindLabel="{{formatImpotMensuelLigneLibelle(impotMensuelLigne)}}"-->
 <!--                                           bindValue="id">-->
 <!--                                </ng-select>-->
                             </td>
                             <td >
-                                <input class="form-control"  name="coefficient" type="text" [(ngModel)]="impotAnnuelDetailNew.coefficient"/>
+                                <input class="form-control"  name="coefficient" type="text" [(ngModel)]="impotAnnuelLigneNew.coefficient"/>
                             </td>
                             <td>
-                                <button [title]="'entity.action.add'" type="button" id="add-impotAnnuelDetail" [disabled]="!isValidImpotAnnuelDetail(impotAnnuelDetailNew)" class="btn btn-primary" (click)="addImpotAnnuelDetail(impotAnnuelDetailNew)">
+                                <button [title]="'entity.action.add'" type="button" id="add-impotAnnuelLigne" [disabled]="!isValidImpotAnnuelLigne(impotAnnuelLigneNew)" class="btn btn-primary" (click)="addImpotAnnuelLigne(impotAnnuelLigneNew)">
                                     <fa-icon [icon]="'plus'"></fa-icon>
                                 </button>
                             </td>
                         </tr>
-                        <tr *ngFor="let impotAnnuelDetail of impotAnnuel.impotAnnuelDetails;let i=index">
+                        <tr *ngFor="let impotAnnuelLigne of impotAnnuel.impotAnnuelLignes;let i=index">
                             <td >
-                                <select class="form-control" name="impotAnnuelDetail[{{i}}].impotMensuelDetailId"  [(ngModel)]="impotAnnuelDetail.impotMensuelDetailId">
-                                    <option  [ngValue]="impotMensuelDetail.id" *ngFor="let impotMensuelDetail of impotMensuelDetails">{{formatImpotMensuelDetailLibelle(impotMensuelDetail)}}</option>
+                                <select class="form-control" name="impotAnnuelLigne[{{i}}].impotMensuelLigneId"  [(ngModel)]="impotAnnuelLigne.impotMensuelLigneId">
+                                    <option  [ngValue]="impotMensuelLigne.id" *ngFor="let impotMensuelLigne of impotMensuelLignes">{{formatImpotMensuelLigneLibelle(impotMensuelLigne)}}</option>
                                 </select>
                             </td>
                             <td >
-                                <input class="form-control" name="impotAnnuuelDetail[{{i}}].coefficient" type="text" [(ngModel)]="impotAnnuelDetail.coefficient"/>
+                                <input class="form-control" name="impotAnnuuelLigne[{{i}}].coefficient" type="text" [(ngModel)]="impotAnnuelLigne.coefficient"/>
                             </td>
                             <td>
-<!--                                <button [title]="'entity.action.edit'" type="button" class="btn btn-warning" (click)="editImpotMensuelDetail(impotMensuelDetail, i)">-->
+<!--                                <button [title]="'entity.action.edit'" type="button" class="btn btn-warning" (click)="editImpotMensuelLigne(impotMensuelLigne, i)">-->
 <!--                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>-->
 <!--                                </button>-->
                                 &nbsp;
-                                <button [title]="'entity.action.delete'" type="button" class="btn btn-danger" (click)="deleteImpotAnnuelDetail(i)">
+                                <button [title]="'entity.action.delete'" type="button" class="btn btn-danger" (click)="deleteImpotAnnuelLigne(i)">
                                     <fa-icon [icon]="'times'"></fa-icon>
                                 </button>
                             </td>
@@ -110,7 +110,7 @@
                     <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                         <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                     </button>
-                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <button type="button" (click)="save()" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
                         <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                     </button>
                 </div>

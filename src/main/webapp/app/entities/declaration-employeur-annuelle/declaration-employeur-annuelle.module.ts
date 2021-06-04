@@ -6,7 +6,7 @@ import { JhiLanguageHelper } from 'app/core';
 import { ComptaDecisionSharedModule } from 'app/shared';
 import {
     DeclarationEmployeurAnnuelleComponent,
-    DeclarationEmployeurAnnuelleDetailComponent,
+    DeclarationEmployeurAnnuelleLigneComponent,
     DeclarationEmployeurAnnuelleUpdateComponent,
     DeclarationEmployeurAnnuelleDeletePopupComponent,
     DeclarationEmployeurAnnuelleDeleteDialogComponent,
@@ -20,7 +20,7 @@ const ENTITY_STATES = [...declarationEmployeurAnnuelleRoute, ...declarationEmplo
     imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         DeclarationEmployeurAnnuelleComponent,
-        DeclarationEmployeurAnnuelleDetailComponent,
+        DeclarationEmployeurAnnuelleLigneComponent,
         DeclarationEmployeurAnnuelleUpdateComponent,
         DeclarationEmployeurAnnuelleDeleteDialogComponent,
         DeclarationEmployeurAnnuelleDeletePopupComponent

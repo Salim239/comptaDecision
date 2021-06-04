@@ -7,7 +7,7 @@ import { ICnss, TypeCnss } from 'app/shared/model/cnss.model';
     selector: 'jhi-cnss-detail',
     templateUrl: './cnss-detail.component.html'
 })
-export class CnssDetailComponent implements OnInit {
+export class CnssLigneComponent implements OnInit {
     cnss: ICnss;
     isTypeCnssGerant: Boolean;
 

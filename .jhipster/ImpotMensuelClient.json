@@ -29,8 +29,8 @@
             "otherEntityField": "id"
         },
         {
-            "relationshipName": "quittanceMensuelleImpotDetail",
-            "otherEntityName": "quittanceMensuelleImpotDetail",
+            "relationshipName": "quittanceMensuelleLigne",
+            "otherEntityName": "quittanceMensuelleLigne",
             "relationshipType": "many-to-one",
             "otherEntityField": "id"
         }

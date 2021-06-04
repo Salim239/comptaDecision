@@ -1,5 +1,6 @@
 package com.growup.comptadecision.config;
 
+import com.growup.comptadecision.domain.QuittanceMensuelle;
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.config.jcache.BeanClassLoaderAwareJCacheRegionFactory;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
@@ -45,24 +46,24 @@ public class CacheConfiguration {
             cm.createCache(com.growup.comptadecision.domain.SecteurActivite.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.Activite.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.ImpotMensuel.class.getName(), jcacheConfiguration);
-            cm.createCache(com.growup.comptadecision.domain.ImpotMensuelDetail.class.getName(), jcacheConfiguration);
-            cm.createCache(com.growup.comptadecision.domain.ImpotMensuel.class.getName() + ".impotMensuelDetails", jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.ImpotMensuelLigne.class.getName(), jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.ImpotMensuel.class.getName() + ".impotMensuelLignes", jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.FicheClient.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.FicheClient.class.getName() + ".impotMensuelClients", jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.Cnss.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.ImpotMensuelClient.class.getName(), jcacheConfiguration);
-            cm.createCache(com.growup.comptadecision.domain.QuittanceMensuelleImpot.class.getName(), jcacheConfiguration);
-            cm.createCache(com.growup.comptadecision.domain.QuittanceMensuelleImpot.class.getName() + ".quittanceMensuelleImpotDetails", jcacheConfiguration);
-            cm.createCache(com.growup.comptadecision.domain.QuittanceMensuelleImpotDetail.class.getName(), jcacheConfiguration);
+            cm.createCache(QuittanceMensuelle.class.getName(), jcacheConfiguration);
+            cm.createCache(QuittanceMensuelle.class.getName() + ".quittanceMensuelleLignes", jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.QuittanceMensuelleLigne.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.ImpotAnnuel.class.getName(), jcacheConfiguration);
-            cm.createCache(com.growup.comptadecision.domain.ImpotAnnuel.class.getName() + ".impotAnnuelDetails", jcacheConfiguration);
-            cm.createCache(com.growup.comptadecision.domain.ImpotAnnuelDetail.class.getName(), jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.ImpotAnnuel.class.getName() + ".impotAnnuelLignes", jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.ImpotAnnuelLigne.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.DeclarationAnnuelle.class.getName(), jcacheConfiguration);
-            cm.createCache(com.growup.comptadecision.domain.DeclarationAnnuelle.class.getName() + ".declarationAnnuelleDetails", jcacheConfiguration);
-            cm.createCache(com.growup.comptadecision.domain.DecalrationAnnuelleDetail.class.getName(), jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.DeclarationAnnuelle.class.getName() + ".declarationAnnuelleLignes", jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.DecalrationAnnuelleLigne.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.DeclarationEmployeurAnnuelle.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.AcompteProvisionnel.class.getName(), jcacheConfiguration);
-            cm.createCache(com.growup.comptadecision.domain.QuittanceMensuelleImpotSousDetail.class.getName(), jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.QuittanceMensuelleSousLigne.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.CategorieCnssGerant.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };

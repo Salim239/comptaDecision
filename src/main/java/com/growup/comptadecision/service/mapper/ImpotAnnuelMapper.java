@@ -8,14 +8,14 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity ImpotAnnuel and its DTO ImpotAnnuelDTO.
  */
-@Mapper(componentModel = "spring", uses = {ImpotAnnuelDetailMapper.class})
+@Mapper(componentModel = "spring", uses = {ImpotAnnuelLigneMapper.class})
 public interface ImpotAnnuelMapper extends EntityMapper<ImpotAnnuelDTO, ImpotAnnuel> {
 
-    @Mapping(target = "impotAnnuelDetails", expression = "java(" +
-            "impotAnnuelDTO.getImpotAnnuelDetails().stream().map(impotAnnuelDetailDto ->  {" +
-            "com.growup.comptadecision.domain.ImpotAnnuelDetail impotAnnuelDetail = impotAnnuelDetailMapper.toEntity(impotAnnuelDetailDto);" +
-            "impotAnnuelDetail.setImpotAnnuel(impotAnnuel);" +
-            "return impotAnnuelDetail;})" +
+    @Mapping(target = "impotAnnuelLignes", expression = "java(" +
+            "impotAnnuelDTO.getImpotAnnuelLignes().stream().map(impotAnnuelLigneDto ->  {" +
+            "com.growup.comptadecision.domain.ImpotAnnuelLigne impotAnnuelLigne = impotAnnuelLigneMapper.toEntity(impotAnnuelLigneDto);" +
+            "impotAnnuelLigne.setImpotAnnuel(impotAnnuel);" +
+            "return impotAnnuelLigne;})" +
             ".collect(java.util.stream.Collectors.toList()))")
     ImpotAnnuel toEntity(ImpotAnnuelDTO impotAnnuelDTO);
 

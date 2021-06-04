@@ -7,7 +7,7 @@ import { ICategorieCnssGerant } from 'app/shared/model/categorie-cnss-gerant.mod
     selector: 'jhi-secteur-activite-detail',
     templateUrl: './categorie-cnss-gerant-detail.component.html'
 })
-export class CategorieCnssGerantDetailComponent implements OnInit {
+export class CategorieCnssGerantLigneComponent implements OnInit {
     categorieCnssGerant: ICategorieCnssGerant;
 
     constructor(protected activatedRoute: ActivatedRoute) {}

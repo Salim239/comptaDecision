@@ -6,7 +6,7 @@ import { JhiLanguageHelper } from 'app/core';
 import { ComptaDecisionSharedModule } from 'app/shared';
 import {
     RegionComponent,
-    RegionDetailComponent,
+    RegionLigneComponent,
     RegionUpdateComponent,
     RegionDeletePopupComponent,
     RegionDeleteDialogComponent,
@@ -18,7 +18,7 @@ const ENTITY_STATES = [...regionRoute, ...regionPopupRoute];
 
 @NgModule({
     imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [RegionComponent, RegionDetailComponent, RegionUpdateComponent, RegionDeleteDialogComponent, RegionDeletePopupComponent],
+    declarations: [RegionComponent, RegionLigneComponent, RegionUpdateComponent, RegionDeleteDialogComponent, RegionDeletePopupComponent],
     entryComponents: [RegionComponent, RegionUpdateComponent, RegionDeleteDialogComponent, RegionDeletePopupComponent],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

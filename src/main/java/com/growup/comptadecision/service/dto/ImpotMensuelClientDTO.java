@@ -41,7 +41,7 @@ public class ImpotMensuelClientDTO implements Serializable {
 
     private Long ficheClientId;
 
-    private Long quittanceMensuelleImpotDetailId;
+    private Long quittanceMensuelleLigneId;
 
     public Long getId() {
         return id;
@@ -75,12 +75,12 @@ public class ImpotMensuelClientDTO implements Serializable {
         this.impotMensuelId = impotMensuelId;
     }
 
-    public Long getQuittanceMensuelleImpotDetailId() {
-        return quittanceMensuelleImpotDetailId;
+    public Long getQuittanceMensuelleLigneId() {
+        return quittanceMensuelleLigneId;
     }
 
-    public void setQuittanceMensuelleImpotDetailId(Long quittanceMensuelleImpotDetailId) {
-        this.quittanceMensuelleImpotDetailId = quittanceMensuelleImpotDetailId;
+    public void setQuittanceMensuelleLigneId(Long quittanceMensuelleLigneId) {
+        this.quittanceMensuelleLigneId = quittanceMensuelleLigneId;
     }
 
     public String getFicheClientDesignation() {

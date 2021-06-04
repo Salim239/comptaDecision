@@ -29,17 +29,17 @@ public interface ImpotMensuelRepository extends JpaRepository<ImpotMensuel, Long
     List<ImpotMensuel> findWithoutChildren();
 
     @Query("select impotMensuel from ImpotMensuel impotMensuel " +
-            "left join fetch impotMensuel.impotMensuelDetails impotMensuelDetail " +
+            "left join fetch impotMensuel.impotMensuelLignes impotMensuelLigne " +
             "where impotMensuel.parentImpotMensuel.id in :parentIds ")
     List<ImpotMensuel> findByParentIds(@Param("parentIds") List<Long> parentIds);
 
     @Query("select impotMensuel from ImpotMensuel impotMensuel " +
-            "left join fetch impotMensuel.impotMensuelDetails impotMensuelDetail " +
+            "left join fetch impotMensuel.impotMensuelLignes impotMensuelLigne " +
             "where impotMensuel.parentImpotMensuel.id = :parentId")
     List<ImpotMensuel> findByParentId(@Param("parentId") Long parentId);
 
     @Query("select distinct impotMensuel from ImpotMensuel impotMensuel " +
-            "left join fetch impotMensuel.impotMensuelDetails impotMensuelDetail " +
+            "left join fetch impotMensuel.impotMensuelLignes impotMensuelLigne " +
             "where impotMensuel.id in :ids " +
             "or impotMensuel.parentImpotMensuel.id in :ids")
     List<ImpotMensuel> findAndChildByIds(@Param("ids") List<Long> ids);

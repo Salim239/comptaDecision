@@ -6,7 +6,7 @@ import { JhiLanguageHelper } from 'app/core';
 import { ComptaDecisionSharedModule } from 'app/shared';
 import {
     CnssComponent,
-    CnssDetailComponent,
+    CnssLigneComponent,
     CnssUpdateComponent,
     CnssDeletePopupComponent,
     CnssDeleteDialogComponent,
@@ -18,7 +18,7 @@ const ENTITY_STATES = [...cnssRoute, ...cnssPopupRoute];
 
 @NgModule({
     imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [CnssComponent, CnssDetailComponent, CnssUpdateComponent, CnssDeleteDialogComponent, CnssDeletePopupComponent],
+    declarations: [CnssComponent, CnssLigneComponent, CnssUpdateComponent, CnssDeleteDialogComponent, CnssDeletePopupComponent],
     entryComponents: [CnssComponent, CnssUpdateComponent, CnssDeleteDialogComponent, CnssDeletePopupComponent],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

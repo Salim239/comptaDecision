@@ -8,7 +8,7 @@ import { filter, map } from 'rxjs/operators';
 import { Cnss, ICnss } from 'app/shared/model/cnss.model';
 import { CnssService } from './cnss.service';
 import { CnssComponent } from './cnss.component';
-import { CnssDetailComponent } from './cnss-detail.component';
+import { CnssLigneComponent } from './cnss-detail.component';
 import { CnssUpdateComponent } from './cnss-update.component';
 import { CnssDeletePopupComponent } from './cnss-delete-dialog.component';
 
@@ -69,7 +69,7 @@ export const cnssRoute: Routes = [
     },
     {
         path: ':id/view',
-        component: CnssDetailComponent,
+        component: CnssLigneComponent,
         resolve: {
             cnss: CnssResolve
         },

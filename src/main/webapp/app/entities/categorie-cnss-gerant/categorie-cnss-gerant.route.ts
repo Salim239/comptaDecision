@@ -7,7 +7,7 @@ import { filter, map } from 'rxjs/operators';
 import { CategorieCnssGerant, ICategorieCnssGerant } from 'app/shared/model/categorie-cnss-gerant.model';
 import { CategorieCnssGerantService } from './categorie-cnss-gerant.service';
 import { CategorieCnssGerantComponent } from './categorie-cnss-gerant.component';
-import { CategorieCnssGerantDetailComponent } from './categorie-cnss-gerant-detail.component';
+import { CategorieCnssGerantLigneComponent } from './categorie-cnss-gerant-detail.component';
 import { CategorieCnssGerantUpdateComponent } from './categorie-cnss-gerant-update.component';
 import { CategorieCnssGerantDeletePopupComponent } from './categorie-cnss-gerant-delete-dialog.component';
 
@@ -39,7 +39,7 @@ export const categorieCnssGerantRoute: Routes = [
     },
     {
         path: ':id/view',
-        component: CategorieCnssGerantDetailComponent,
+        component: CategorieCnssGerantLigneComponent,
         resolve: {
             categorieCnssGerant: CategorieCnssGerantResolve
         },

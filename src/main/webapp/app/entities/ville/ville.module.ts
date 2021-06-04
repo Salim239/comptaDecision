@@ -6,7 +6,7 @@ import { JhiLanguageHelper } from 'app/core';
 import { ComptaDecisionSharedModule } from 'app/shared';
 import {
     VilleComponent,
-    VilleDetailComponent,
+    VilleLigneComponent,
     VilleUpdateComponent,
     VilleDeletePopupComponent,
     VilleDeleteDialogComponent,
@@ -18,7 +18,7 @@ const ENTITY_STATES = [...villeRoute, ...villePopupRoute];
 
 @NgModule({
     imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [VilleComponent, VilleDetailComponent, VilleUpdateComponent, VilleDeleteDialogComponent, VilleDeletePopupComponent],
+    declarations: [VilleComponent, VilleLigneComponent, VilleUpdateComponent, VilleDeleteDialogComponent, VilleDeletePopupComponent],
     entryComponents: [VilleComponent, VilleUpdateComponent, VilleDeleteDialogComponent, VilleDeletePopupComponent],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

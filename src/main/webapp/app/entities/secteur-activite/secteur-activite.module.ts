@@ -6,7 +6,7 @@ import { JhiLanguageHelper } from 'app/core';
 import { ComptaDecisionSharedModule } from 'app/shared';
 import {
     SecteurActiviteComponent,
-    SecteurActiviteDetailComponent,
+    SecteurActiviteLigneComponent,
     SecteurActiviteUpdateComponent,
     SecteurActiviteDeletePopupComponent,
     SecteurActiviteDeleteDialogComponent,
@@ -20,7 +20,7 @@ const ENTITY_STATES = [...secteurActiviteRoute, ...secteurActivitePopupRoute];
     imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         SecteurActiviteComponent,
-        SecteurActiviteDetailComponent,
+        SecteurActiviteLigneComponent,
         SecteurActiviteUpdateComponent,
         SecteurActiviteDeleteDialogComponent,
         SecteurActiviteDeletePopupComponent

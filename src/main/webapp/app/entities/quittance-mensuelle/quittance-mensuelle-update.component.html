@@ -1,0 +1,189 @@
+<div class="row justify-content-center submit-d">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate #editForm="ngForm">
+            <h2 id="jhi-quittance-mensuelle-heading"
+                jhiTranslate="comptaDecisionApp.quittanceMensuelle.home.createOrEditLabel">Create or edit a
+                Quittance Mensuelle Impot</h2>
+            <br>
+            <br>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <jhi-business-alert [businessAlerts]="quittanceMensuelle.businessAlerts"></jhi-business-alert>
+                <input [hidden]="true" type="text" class="form-control" id="id" name="id"
+                       [(ngModel)]="quittanceMensuelle.id" readonly/>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label jhiTranslate="comptaDecisionApp.quittanceMensuelle.ficheClient"
+                               for="field_ficheClient">Fiche Client</label>
+                        <select [disabled]="true" class="form-control" id="field_ficheClient" name="ficheClient"
+                                [(ngModel)]="quittanceMensuelle.ficheClientId" (change)="initByParams()">
+                            <option [ngValue]=""></option>
+                            <option [ngValue]="ficheClientOption.id"
+                                    *ngFor="let ficheClientOption of ficheClients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label jhiTranslate="comptaDecisionApp.quittanceMensuelle.typeDeclaration"
+                               for="field_typeDeclaration">Type déclaration</label>
+
+                        <select [disabled]="true" required class="form-control" name="typeDeclaration"
+                                [(ngModel)]="quittanceMensuelle.typeDeclaration" id="field_typeDeclaration">
+                            <option
+                                value="DECLARATION_INITIALE">{{'comptaDecisionApp.typeDeclaration.DECLARATION_INITIALE' | translate}}</option>
+                            <option
+                                value="DECLARATION_RECTIFICATIVE">{{'comptaDecisionApp.typeDeclaration.DECLARATION_RECTIFICATIVE' | translate}}</option>
+                        </select>
+                        <div
+                            [hidden]="!(editForm.controls.typeDeclaration?.dirty && editForm.controls.typeDeclaration?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!editForm.controls.typeDeclaration?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>          
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label jhiTranslate="comptaDecisionApp.quittanceMensuelle.annee"
+                               for="field_annee">Annee</label>
+                        <select [disabled]="true" required class="form-control" name="annee"
+                                [(ngModel)]="quittanceMensuelle.annee"
+                                id="field_annee">
+                            <option [ngValue]="quittanceMensuelle.annee">{{quittanceMensuelle.annee}}</option>
+                        </select>
+                        <div [hidden]="!(editForm.controls.annee?.dirty && editForm.controls.annee?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!editForm.controls.annee?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                   [hidden]="!editForm.controls.annee?.errors?.number"
+                                   jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label jhiTranslate="comptaDecisionApp.quittanceMensuelle.mois"
+                               for="field_mois">Mois</label>
+                        <select [disabled]="true" required class="form-control" name="mois"
+                                [(ngModel)]="quittanceMensuelle.mois"
+                                id="field_mois">
+                            <option
+                                [ngValue]="quittanceMensuelle.mois">{{'comptaDecisionApp.mois.' + quittanceMensuelle.mois | translate}}</option>
+                        </select>
+                        <div [hidden]="!(editForm.controls.mois?.dirty && editForm.controls.mois?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!editForm.controls.mois?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                   [hidden]="!editForm.controls.mois?.errors?.number"
+                                   jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label
+                            jhiTranslate="comptaDecisionApp.quittanceMensuelle.numeroQuittance"
+                            for="field_numeroQuittance">Numero Quittance</label>
+                        <input type="text" class="form-control" name="numeroQuittance" id="field_numeroQuittance"
+                               [(ngModel)]="quittanceMensuelle.numeroQuittance" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label
+                            jhiTranslate="comptaDecisionApp.quittanceMensuelle.datePaiement"
+                            for="field_datePaiement">Date Paiement</label>
+                        <div class="input-group">
+                            <input id="field_datePaiement" type="text" class="form-control" name="datePaiement"
+                                   ngbDatepicker #datePaiementDp="ngbDatepicker"
+                                   [(ngModel)]="quittanceMensuelle.datePaiement"
+                            />
+                            <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="datePaiementDp.toggle()"><fa-icon
+                                [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label jhiTranslate="comptaDecisionApp.quittanceMensuelle.montantTotal"
+                           for="field_montantTotal">Montant Paye</label>
+                    <input class="form-control numeric" name="montantTotal" id="field_montantTotal" [readOnly]="true"
+                           jhiDigitOnly
+                           [ngModel]="quittanceMensuelle.montantTotal"
+                           (ngModelChange)="quittanceMensuelle.montantTotal=$event"/>
+                </div>
+
+                <br>
+                <br>
+                <ngb-tabset [destroyOnHide]="false">
+                    <ngb-tab
+                        *ngFor="let quittanceMensuelleLigne of quittanceMensuelle.quittanceMensuelleLignes; let indexLigne=index">
+                        <ng-template ngbTabTitle>{{quittanceMensuelleLigne.libelle}}
+                            <span class="badge badge-pill badge-primary"
+                                  *ngIf="quittanceMensuelleLigne.montantTotal">{{quittanceMensuelleLigne.montantTotal}}</span>
+                        </ng-template>
+                        <ng-template ngbTabContent>
+                            <br>
+                            <jhi-quittance-mensuelle-ligne-list
+                                                                       *ngIf="quittanceMensuelleLigne.childQuittanceMensuelleLignes.length === 0"
+                                                                       [indexLigne]="indexLigne"
+                                                                       [quittanceMensuelleLigne]="quittanceMensuelleLigne"
+                                                                       (calculerMontants)="calculerMontants($event)">
+                            </jhi-quittance-mensuelle-ligne-list>
+
+                            <!-- Childs -->
+                            <jhi-quittance-mensuelle-ligne-calc-montant-total
+                                [quittanceMensuelleLigne]="quittanceMensuelleLigne"
+                                (calculerMontants)="calculerMontants($event)">
+
+                            </jhi-quittance-mensuelle-ligne-calc-montant-total>
+
+                            <br>
+                            <ngb-tabset
+                                *ngIf="quittanceMensuelleLigne.childQuittanceMensuelleLignes.length > 0">
+                                <ngb-tab
+                                    *ngFor="let childQuittanceMensuelleLigne of quittanceMensuelleLigne.childQuittanceMensuelleLignes;let indexChildLigne = index;">
+                                    <ng-template ngbTabTitle>
+                                        <span>{{childQuittanceMensuelleLigne.libelle}}</span>
+                                        <span class="badge badge-pill badge-primary"
+                                              *ngIf="childQuittanceMensuelleLigne.montantTotal">{{childQuittanceMensuelleLigne.montantTotal}}</span>
+                                    </ng-template>
+                                    <ng-template ngbTabContent>
+                                        <jhi-quittance-mensuelle-ligne-list
+                                            [indexLigne]="indexChildLigne"
+                                            [quittanceMensuelleLigne]="childQuittanceMensuelleLigne"
+                                            (calculerMontants)="calculerMontants($event)">
+                                        </jhi-quittance-mensuelle-ligne-list>
+                                    </ng-template>
+                                </ngb-tab>
+                            </ngb-tabset>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+            </div>
+            <br>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="button" (click)="save(false)" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                        class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

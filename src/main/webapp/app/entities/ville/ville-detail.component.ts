@@ -7,7 +7,7 @@ import { IVille } from 'app/shared/model/ville.model';
     selector: 'jhi-ville-detail',
     templateUrl: './ville-detail.component.html'
 })
-export class VilleDetailComponent implements OnInit {
+export class VilleLigneComponent implements OnInit {
     ville: IVille;
 
     constructor(protected activatedRoute: ActivatedRoute) {}

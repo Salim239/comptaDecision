@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
-import {JhiResolvePagingParams} from 'ng-jhipster';
-import {UserRouteAccessService} from 'app/core';
-import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-import {DeclarationAnnuelle, IDeclarationAnnuelle} from 'app/shared/model/declaration-annuelle.model';
-import {DeclarationAnnuelleService} from './declaration-annuelle.service';
-import {DeclarationAnnuelleComponent} from './declaration-annuelle.component';
-import {DeclarationAnnuelleDetailComponent} from './declaration-annuelle-detail.component';
-import {DeclarationAnnuelleUpdateComponent} from './declaration-annuelle-update.component';
-import {DeclarationAnnuelleDeletePopupComponent} from './declaration-annuelle-delete-dialog.component';
+import { Injectable } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
+import { JhiResolvePagingParams } from 'ng-jhipster';
+import { UserRouteAccessService } from 'app/core';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { DeclarationAnnuelle, IDeclarationAnnuelle } from 'app/shared/model/declaration-annuelle.model';
+import { DeclarationAnnuelleService } from './declaration-annuelle.service';
+import { DeclarationAnnuelleComponent } from './declaration-annuelle.component';
+import { DeclarationAnnuelleLigneComponent } from './declaration-annuelle-detail.component';
+import { DeclarationAnnuelleUpdateComponent } from './declaration-annuelle-update.component';
+import { DeclarationAnnuelleDeletePopupComponent } from './declaration-annuelle-delete-dialog.component';
 
 @Injectable({ providedIn: 'root' })
 export class DeclarationAnnuelleResolve implements Resolve<IDeclarationAnnuelle> {
@@ -27,13 +27,12 @@ export class DeclarationAnnuelleResolve implements Resolve<IDeclarationAnnuelle>
             );
         }
         if (id && annee && typeDeclaration) {
-            return this.service.initEmpty(id, annee, typeDeclaration)
-                .pipe(
-                    filter((response: HttpResponse<DeclarationAnnuelle>) => response.ok),
-                    map((declarationAnnuelle: HttpResponse<DeclarationAnnuelle>) => {
-                        return declarationAnnuelle.body;
-                    })
-                );
+            return this.service.initEmpty(id, annee, typeDeclaration).pipe(
+                filter((response: HttpResponse<DeclarationAnnuelle>) => response.ok),
+                map((declarationAnnuelle: HttpResponse<DeclarationAnnuelle>) => {
+                    return declarationAnnuelle.body;
+                })
+            );
         }
 
         // return of(new DeclarationAnnuelle());
@@ -56,7 +55,7 @@ export const declarationAnnuelleRoute: Routes = [
     },
     {
         path: ':id/view',
-        component: DeclarationAnnuelleDetailComponent,
+        component: DeclarationAnnuelleLigneComponent,
         resolve: {
             declarationAnnuelle: DeclarationAnnuelleResolve
         },

@@ -8,7 +8,7 @@ import { filter, map } from 'rxjs/operators';
 import { AcompteProvisionnel, IAcompteProvisionnel } from 'app/shared/model/acompte-provisionnel.model';
 import { AcompteProvisionnelService } from './acompte-provisionnel.service';
 import { AcompteProvisionnelComponent } from './acompte-provisionnel.component';
-import { AcompteProvisionnelDetailComponent } from './acompte-provisionnel-detail.component';
+import { AcompteProvisionnelLigneComponent } from './acompte-provisionnel-detail.component';
 import { AcompteProvisionnelUpdateComponent } from './acompte-provisionnel-update.component';
 import { AcompteProvisionnelDeletePopupComponent } from './acompte-provisionnel-delete-dialog.component';
 import { IFicheClient } from 'app/shared/model/fiche-client.model';
@@ -67,7 +67,7 @@ export const acompteProvisionnelRoute: Routes = [
     },
     {
         path: ':id/view',
-        component: AcompteProvisionnelDetailComponent,
+        component: AcompteProvisionnelLigneComponent,
         resolve: {
             acompteProvisionnel: AcompteProvisionnelResolve
         },

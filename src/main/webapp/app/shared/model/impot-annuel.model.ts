@@ -1,4 +1,4 @@
-import { IImpotAnnuelDetail } from 'app/shared/model/impot-annuel-detail.model';
+import { IImpotAnnuelLigne } from 'app/shared/model/impot-annuel-ligne.model';
 
 export interface IImpotAnnuel {
     id?: number;
@@ -7,7 +7,7 @@ export interface IImpotAnnuel {
     description?: string;
     calcule?: boolean;
     triOrdre?: number;
-    impotAnnuelDetails?: IImpotAnnuelDetail[];
+    impotAnnuelLignes?: IImpotAnnuelLigne[];
 }
 
 export class ImpotAnnuel implements IImpotAnnuel {
@@ -18,6 +18,6 @@ export class ImpotAnnuel implements IImpotAnnuel {
         public description?: string,
         public calcule?: boolean,
         public triOrdre?: number,
-        public impotAnnuelDetails?: IImpotAnnuelDetail[]
+        public impotAnnuelLignes?: IImpotAnnuelLigne[]
     ) {}
 }

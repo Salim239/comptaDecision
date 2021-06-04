@@ -36,7 +36,7 @@ public interface DeclarationAnnuelleRepository extends JpaRepository<Declaration
     Optional<DeclarationAnnuelle> findValidByAnneeAndFicheClientId(@Param("annee") Integer annee, @Param("ficheClientId") Long ficheClientId);
 
     @Query("SELECT declarationAnnuelle FROM  DeclarationAnnuelle declarationAnnuelle " +
-//            "LEFT JOIN FETCH quittanceMensuelleImpot.ficheClient " +
+//            "LEFT JOIN FETCH quittanceMensuelle.ficheClient " +
             "WHERE declarationAnnuelle.annee = :annee " +
             "and declarationAnnuelle.ficheClient.id = :ficheClientId " +
             "and declarationAnnuelle.typeDeclaration = :typeDeclaration")

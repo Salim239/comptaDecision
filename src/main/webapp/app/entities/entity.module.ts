@@ -49,13 +49,12 @@ import { RouterModule } from '@angular/router';
                 loadChildren: './impot-mensuel-client/impot-mensuel-client.module#ComptaDecisionImpotMensuelClientModule'
             },
             {
-                path: 'quittance-mensuelle-impot',
-                loadChildren: './quittance-mensuelle-impot/quittance-mensuelle-impot.module#ComptaDecisionQuittanceMensuelleImpotModule'
+                path: 'quittance-mensuelle',
+                loadChildren: './quittance-mensuelle/quittance-mensuelle.module#ComptaDecisionQuittanceMensuelleModule'
             },
             {
-                path: 'quittance-mensuelle-impot-detail',
-                loadChildren:
-                    './quittance-mensuelle-impot-detail/quittance-mensuelle-impot-detail.module#ComptaDecisionQuittanceMensuelleImpotDetailModule'
+                path: 'quittance-mensuelle-ligne',
+                loadChildren: './quittance-mensuelle-ligne/quittance-mensuelle-ligne.module#ComptaDecisionQuittanceMensuelleLigneModule'
             },
             {
                 path: 'declaration-annuelle',

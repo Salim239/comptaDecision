@@ -1,21 +1,18 @@
-import {Injectable} from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
-import {JhiResolvePagingParams} from 'ng-jhipster';
-import {UserRouteAccessService} from 'app/core';
-import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-import {
-    DeclarationEmployeurAnnuelle,
-    IDeclarationEmployeurAnnuelle
-} from 'app/shared/model/declaration-employeur-annuelle.model';
-import {DeclarationEmployeurAnnuelleService} from './declaration-employeur-annuelle.service';
-import {DeclarationEmployeurAnnuelleComponent} from './declaration-employeur-annuelle.component';
-import {DeclarationEmployeurAnnuelleDetailComponent} from './declaration-employeur-annuelle-detail.component';
-import {DeclarationEmployeurAnnuelleUpdateComponent} from './declaration-employeur-annuelle-update.component';
-import {DeclarationEmployeurAnnuelleDeletePopupComponent} from './declaration-employeur-annuelle-delete-dialog.component';
-import {IFicheClient} from 'app/shared/model/fiche-client.model';
-import {FicheClientService} from 'app/entities/fiche-client';
+import { Injectable } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
+import { JhiResolvePagingParams } from 'ng-jhipster';
+import { UserRouteAccessService } from 'app/core';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { DeclarationEmployeurAnnuelle, IDeclarationEmployeurAnnuelle } from 'app/shared/model/declaration-employeur-annuelle.model';
+import { DeclarationEmployeurAnnuelleService } from './declaration-employeur-annuelle.service';
+import { DeclarationEmployeurAnnuelleComponent } from './declaration-employeur-annuelle.component';
+import { DeclarationEmployeurAnnuelleLigneComponent } from './declaration-employeur-annuelle-detail.component';
+import { DeclarationEmployeurAnnuelleUpdateComponent } from './declaration-employeur-annuelle-update.component';
+import { DeclarationEmployeurAnnuelleDeletePopupComponent } from './declaration-employeur-annuelle-delete-dialog.component';
+import { IFicheClient } from 'app/shared/model/fiche-client.model';
+import { FicheClientService } from 'app/entities/fiche-client';
 
 @Injectable({ providedIn: 'root' })
 export class DeclarationEmployeurAnnuelleResolve implements Resolve<IDeclarationEmployeurAnnuelle> {
@@ -45,13 +42,10 @@ export class FicheClientResolve implements Resolve<IFicheClient[]> {
     constructor(private service: FicheClientService) {}
 
     resolve(): Observable<IFicheClient[]> {
-
-        return this.service
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IFicheClient[]>) => response.body)
-            );
+        return this.service.query().pipe(
+            filter((mayBeOk: HttpResponse<IFicheClient[]>) => mayBeOk.ok),
+            map((response: HttpResponse<IFicheClient[]>) => response.body)
+        );
     }
 }
 
@@ -71,7 +65,7 @@ export const declarationEmployeurAnnuelleRoute: Routes = [
     },
     {
         path: ':id/view',
-        component: DeclarationEmployeurAnnuelleDetailComponent,
+        component: DeclarationEmployeurAnnuelleLigneComponent,
         resolve: {
             declarationEmployeurAnnuelle: DeclarationEmployeurAnnuelleResolve
         },

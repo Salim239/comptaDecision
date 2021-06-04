@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="quittanceMensuelle">
+            <h2><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.detail.title">Quittance Mensuelle Impot</span>
+                <span title="MF: {{quittanceMensuelle.ficheClientMatriculeFiscale}}">{{quittanceMensuelle.ficheClientDesignation}}</span>
+                <span>{{quittanceMensuelle.annee}}/{{quittanceMensuelle.mois}}</span>
+            </h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.ficheClient">Fiche Client</span></dt>
+                <dd>
+                    <div *ngIf="quittanceMensuelle.ficheClientId">
+                        <a [routerLink]="['/fiche-client', quittanceMensuelle.ficheClientId, 'view']">{{quittanceMensuelle.ficheClientDesignation}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.annee">Annee</span></dt>
+                <dd>
+                    <span>{{quittanceMensuelle.annee}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.mois">Mois</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'comptaDecisionApp.mois.' + quittanceMensuelle.mois}}">{{quittanceMensuelle.mois}}></span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.typeDeclaration">Type déclaration</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'comptaDecisionApp.typeDeclaration.' + quittanceMensuelle.typeDeclaration}}">{{quittanceMensuelle.typeDeclaration}}></span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.numeroQuittance">Numero Quittance</span></dt>
+                <dd>
+                    <span>{{quittanceMensuelle.numeroQuittance}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.datePaiement">Date Paiement</span></dt>
+                <dd>
+                    <span>{{quittanceMensuelle.datePaiement}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.montantTotal">Montant Paye</span></dt>
+                <dd>
+                    <span>{{quittanceMensuelle.montantTotal}}</span>
+                </dd>
+            </dl>
+
+            <br/>
+            <h3 jhiTranslate="comptaDecisionApp.quittanceMensuelleLigne.detail.title">Quittance Mensuelle Impot Line</h3>
+            <div class="table-responsive" *ngIf="quittanceMensuelle.quittanceMensuelleLignes.length > 0">
+                <table class="table table-striped">
+                    <tbody>
+                    <tr *ngFor="let quittanceMensuelleLigne of quittanceMensuelle.quittanceMensuelleLignes">
+                        <td><span>{{quittanceMensuelleLigne.libelle}}</span></td>
+                        <td style="text-align: right"><span><strong>{{quittanceMensuelleLigne.montantTotal}}</strong></span></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td><strong><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.montantTotal">Total</span></strong></td>
+                        <td style="text-align: right"><span><strong>{{quittanceMensuelle.montantTotal}}</strong></span></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/quittance-mensuelle', quittanceMensuelle.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
