@@ -6,7 +6,7 @@ import { JhiLanguageHelper } from 'app/core';
 import { ComptaDecisionSharedModule } from 'app/shared';
 import {
     ImpotMensuelClientComponent,
-    ImpotMensuelClientDetailComponent,
+    ImpotMensuelClientLigneComponent,
     ImpotMensuelClientUpdateComponent,
     ImpotMensuelClientDeletePopupComponent,
     ImpotMensuelClientDeleteDialogComponent,
@@ -20,7 +20,7 @@ const ENTITY_STATES = [...impotMensuelClientRoute, ...impotMensuelClientPopupRou
     imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         ImpotMensuelClientComponent,
-        ImpotMensuelClientDetailComponent,
+        ImpotMensuelClientLigneComponent,
         ImpotMensuelClientUpdateComponent,
         ImpotMensuelClientDeleteDialogComponent,
         ImpotMensuelClientDeletePopupComponent

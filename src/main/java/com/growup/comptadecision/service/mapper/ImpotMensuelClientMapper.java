@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity ImpotMensuelClient and its DTO ImpotMensuelClientDTO.
  */
-@Mapper(componentModel = "spring", uses = {FicheClientMapper.class, ImpotMensuelMapper.class, QuittanceMensuelleImpotDetailMapper.class})
+@Mapper(componentModel = "spring", uses = {FicheClientMapper.class, ImpotMensuelMapper.class, QuittanceMensuelleLigneMapper.class})
 public interface ImpotMensuelClientMapper extends EntityMapper<ImpotMensuelClientDTO, ImpotMensuelClient> {
 
     @Mapping(source = "ficheClient.id", target = "ficheClientId")

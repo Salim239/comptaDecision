@@ -1,5 +1,5 @@
 <div class="form-group {{displayType}}">
-    <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelleImpot.mois" for="field_mois">Mois</label>
+    <label class="form-control-label" jhiTranslate="comptaDecisionApp.quittanceMensuelle.mois" for="field_mois">Mois</label>
     <select [disabled]="disabled === true" required class="form-control" name="mois" [(ngModel)]="model.mois"
             id="field_mois" (change)="onChange()">
         <option value="1">{{'comptaDecisionApp.mois.1' | translate}}</option>

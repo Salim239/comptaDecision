@@ -8,15 +8,15 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity ImpotMensuel and its DTO ImpotMensuelDTO.
  */
-@Mapper(componentModel = "spring", uses = {ImpotMensuelDetailMapper.class})
+@Mapper(componentModel = "spring", uses = {ImpotMensuelLigneMapper.class})
 public interface ImpotMensuelMapper extends EntityMapper<ImpotMensuelDTO, ImpotMensuel> {
 
     @Mapping(target = "parentImpotMensuel", expression = "java(impotMensuelDTO.getParentImpotMensuelId() == null ? null : new com.growup.comptadecision.domain.ImpotMensuel(impotMensuelDTO.getParentImpotMensuelId()))" )
-    @Mapping(target = "impotMensuelDetails", expression = "java(" +
-            "impotMensuelDTO.getImpotMensuelDetails().stream().map(impotMensuelDetailDto ->  {" +
-            "com.growup.comptadecision.domain.ImpotMensuelDetail impotMensuelDetail = impotMensuelDetailMapper.toEntity(impotMensuelDetailDto);" +
-            "impotMensuelDetail.setImpotMensuel(impotMensuel);" +
-            "return impotMensuelDetail;})" +
+    @Mapping(target = "impotMensuelLignes", expression = "java(" +
+            "impotMensuelDTO.getImpotMensuelLignes().stream().map(impotMensuelLigneDto ->  {" +
+            "com.growup.comptadecision.domain.ImpotMensuelLigne impotMensuelLigne = impotMensuelLigneMapper.toEntity(impotMensuelLigneDto);" +
+            "impotMensuelLigne.setImpotMensuel(impotMensuel);" +
+            "return impotMensuelLigne;})" +
             ".collect(java.util.stream.Collectors.toList()))")
     ImpotMensuel toEntity(ImpotMensuelDTO impotMensuelDTO);
 

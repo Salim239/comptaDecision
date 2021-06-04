@@ -1,60 +1,66 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {IImpotMensuelDetail, ImpotMensuelDetail} from 'app/shared/model/impot-mensuel-detail.model';
-import {IImpotMensuel} from 'app/shared/model/impot-mensuel.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { IImpotMensuelLigne, ImpotMensuelLigne } from 'app/shared/model/impot-mensuel-ligne.model';
+import { IImpotMensuel } from 'app/shared/model/impot-mensuel.model';
 
 @Component({
-  selector: 'jhi-impot-mensuel-line',
-  templateUrl: './impot-mensuel-line.component.html',
-  styles: []
+    selector: 'jhi-impot-mensuel-line',
+    templateUrl: './impot-mensuel-line.component.html',
+    styles: []
 })
 export class ImpotMensuelLineComponent implements OnInit {
-  @Input() impotMensuel: IImpotMensuel;
-  impotMensuelDetailNew: IImpotMensuelDetail;
+    @Input() impotMensuel: IImpotMensuel;
+    impotMensuelLigneNew: IImpotMensuelLigne;
 
-  newImpotMensuelDetail() {
-    return new ImpotMensuelDetail(undefined, this.impotMensuel.impotMensuelDetails.length === 0 ? 1 : this.impotMensuel.impotMensuelDetails.length + 1);
-  }
+    newImpotMensuelLigne() {
+        return new ImpotMensuelLigne(
+            undefined,
+            this.impotMensuel.impotMensuelLignes.length === 0 ? 1 : this.impotMensuel.impotMensuelLignes.length + 1
+        );
+    }
 
-  isValidImpotMensuelDetail(impotMensuelDetail) {
-    return impotMensuelDetail.code && impotMensuelDetail.code !== '' && impotMensuelDetail.libelle && impotMensuelDetail.libelle !== '' && impotMensuelDetail.triOrdre && impotMensuelDetail.triOrdre !== '';
-  }
+    isValidImpotMensuelLigne(impotMensuelLigne) {
+        return (
+            impotMensuelLigne.code &&
+            impotMensuelLigne.code !== '' &&
+            impotMensuelLigne.libelle &&
+            impotMensuelLigne.libelle !== '' &&
+            impotMensuelLigne.triOrdre &&
+            impotMensuelLigne.triOrdre !== ''
+        );
+    }
 
-  /**
-   * Recalculate tri ordre of impotMensuelDetail for elements since given index in the array
-   * @param recalFromIndex
-   */
-  recalculateImpotMensuelDetailTriOrdre(recalFromIndex) {
-      this.impotMensuel.impotMensuelDetails.forEach(impotMensuelDetail => {
-              if (impotMensuelDetail.triOrdre - 1 > recalFromIndex) {
-                  impotMensuelDetail.triOrdre = impotMensuelDetail.triOrdre - 1;
-                  return impotMensuelDetail;
-              }
-          }
-      );
-  }
+    /**
+     * Recalculate tri ordre of impotMensuelLigne for elements since given index in the array
+     * @param recalFromIndex
+     */
+    recalculateImpotMensuelLigneTriOrdre(recalFromIndex) {
+        this.impotMensuel.impotMensuelLignes.forEach(impotMensuelLigne => {
+            if (impotMensuelLigne.triOrdre - 1 > recalFromIndex) {
+                impotMensuelLigne.triOrdre = impotMensuelLigne.triOrdre - 1;
+                return impotMensuelLigne;
+            }
+        });
+    }
 
-  addImpotMensuelDetail(impotMensuelDetailNew) {
-    this.impotMensuel.impotMensuelDetails.push(impotMensuelDetailNew);
-    this.impotMensuelDetailNew = this.newImpotMensuelDetail();
-  }
+    addImpotMensuelLigne(impotMensuelLigneNew) {
+        this.impotMensuel.impotMensuelLignes.push(impotMensuelLigneNew);
+        this.impotMensuelLigneNew = this.newImpotMensuelLigne();
+    }
 
-  editImpotMensuelDetail(impotMensuelDetail, impotMensuelDetailIndex) {
-    this.impotMensuelDetailNew = impotMensuelDetail;
-    this.impotMensuel.impotMensuelDetails.splice(impotMensuelDetailIndex, 1);
-  }
+    editImpotMensuelLigne(impotMensuelLigne, impotMensuelLigneIndex) {
+        this.impotMensuelLigneNew = impotMensuelLigne;
+        this.impotMensuel.impotMensuelLignes.splice(impotMensuelLigneIndex, 1);
+    }
 
-  deleteImpotMensuelDetail(impotMensuelDetailIndex) {
-    this.impotMensuel.impotMensuelDetails.splice(impotMensuelDetailIndex, 1);
-    this.recalculateImpotMensuelDetailTriOrdre(impotMensuelDetailIndex);
-    this.impotMensuelDetailNew = this.newImpotMensuelDetail();
-  }
+    deleteImpotMensuelLigne(impotMensuelLigneIndex) {
+        this.impotMensuel.impotMensuelLignes.splice(impotMensuelLigneIndex, 1);
+        this.recalculateImpotMensuelLigneTriOrdre(impotMensuelLigneIndex);
+        this.impotMensuelLigneNew = this.newImpotMensuelLigne();
+    }
 
-  constructor() {
+    constructor() {}
 
-  }
-
-  ngOnInit() {
-    this.impotMensuelDetailNew = this.newImpotMensuelDetail();
-  }
-
+    ngOnInit() {
+        this.impotMensuelLigneNew = this.newImpotMensuelLigne();
+    }
 }

@@ -7,7 +7,7 @@ import { ComptaDecisionSharedModule } from 'app/shared';
 import {} from './';
 import { centreAdministratifPopupRoute, centreAdministratifRoute } from 'app/entities/centre-administratif/centre-administratif.route';
 import { CentreAdministratifComponent } from 'app/entities/centre-administratif/centre-administratif.component';
-import { CentreAdministratifDetailComponent } from 'app/entities/centre-administratif/centre-administratif-detail.component';
+import { CentreAdministratifLigneComponent } from 'app/entities/centre-administratif/centre-administratif-detail.component';
 import {
     CentreAdministratifDeleteDialogComponent,
     CentreAdministratifDeletePopupComponent
@@ -20,7 +20,7 @@ const ENTITY_STATES = [...centreAdministratifRoute, ...centreAdministratifPopupR
     imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         CentreAdministratifComponent,
-        CentreAdministratifDetailComponent,
+        CentreAdministratifLigneComponent,
         CentreAdministratifUpdateComponent,
         CentreAdministratifDeleteDialogComponent,
         CentreAdministratifDeletePopupComponent

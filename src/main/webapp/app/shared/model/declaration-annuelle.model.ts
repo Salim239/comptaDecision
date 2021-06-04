@@ -1,6 +1,6 @@
-import {Moment} from 'moment';
-import {IDeclarationAnnuelleDetail} from 'app/shared/model/declaration-annuelle-detail.model';
-import {BusinessAlert} from "app/shared/model/business-alert.model";
+import { Moment } from 'moment';
+import { IDeclarationAnnuelleLigne } from 'app/shared/model/declaration-annuelle-ligne.model';
+import { BusinessAlert } from 'app/shared/model/business-alert.model';
 
 export const enum TypeDeclaration {
     DECLARATION_INITIALE = 'DECLARATION_INITIALE',
@@ -33,7 +33,7 @@ export interface IDeclarationAnnuelle {
     ficheClientMatriculeFiscale?: string;
     ficheClientRegistreCommerce?: string;
     ficheClientDateCreation?: Moment;
-    declarationAnnuelleDetails?: [IDeclarationAnnuelleDetail],
+    declarationAnnuelleLignes?: [IDeclarationAnnuelleLigne];
     businessAlerts?: BusinessAlert[];
 }
 
@@ -57,7 +57,7 @@ export class DeclarationAnnuelle implements IDeclarationAnnuelle {
         public ficheClientMatriculeFiscale?: string,
         public ficheClientRegistreCommerce?: string,
         public ficheClientDateCreation?: Moment,
-        declarationAnnuelleDetails?: [IDeclarationAnnuelleDetail],
+        declarationAnnuelleLignes?: [IDeclarationAnnuelleLigne],
         public businessAlerts?: BusinessAlert[]
     ) {}
 }

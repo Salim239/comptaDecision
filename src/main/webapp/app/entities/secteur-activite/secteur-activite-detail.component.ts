@@ -7,7 +7,7 @@ import { ISecteurActivite } from 'app/shared/model/secteur-activite.model';
     selector: 'jhi-secteur-activite-detail',
     templateUrl: './secteur-activite-detail.component.html'
 })
-export class SecteurActiviteDetailComponent implements OnInit {
+export class SecteurActiviteLigneComponent implements OnInit {
     secteurActivite: ISecteurActivite;
 
     constructor(protected activatedRoute: ActivatedRoute) {}

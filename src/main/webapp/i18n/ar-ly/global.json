@@ -8,7 +8,7 @@
             "entities": {
                 "main": "Comptabilité",
                 "ficheClient": "Fiche Client",
-                "quittanceMensuelleImpot": "Quittance Mensuelle",
+                "quittanceMensuelle": "Quittance Mensuelle",
                 "cnssEmployeur": "Cnss Employeur",
                 "cnssGerant": "Cnss Gérant",
                 "acompteProvisionnel": "Acompte Provisionnel",

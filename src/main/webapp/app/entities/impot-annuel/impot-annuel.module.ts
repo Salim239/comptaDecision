@@ -8,7 +8,7 @@ import {
     ImpotAnnuelComponent,
     ImpotAnnuelDeleteDialogComponent,
     ImpotAnnuelDeletePopupComponent,
-    ImpotAnnuelDetailComponent,
+    ImpotAnnuelLigneComponent,
     impotAnnuelPopupRoute,
     impotAnnuelRoute,
     ImpotAnnuelUpdateComponent
@@ -20,7 +20,7 @@ const ENTITY_STATES = [...impotAnnuelRoute, ...impotAnnuelPopupRoute];
     imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         ImpotAnnuelComponent,
-        ImpotAnnuelDetailComponent,
+        ImpotAnnuelLigneComponent,
         ImpotAnnuelUpdateComponent,
         ImpotAnnuelDeleteDialogComponent,
         ImpotAnnuelDeletePopupComponent

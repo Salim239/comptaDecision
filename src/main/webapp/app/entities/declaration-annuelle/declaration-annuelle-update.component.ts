@@ -68,28 +68,28 @@ export class DeclarationAnnuelleUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    calculerMontant(indexDetail) {
+    calculerMontant(indexLigne) {
         this.declarationAnnuelle.montantNet = _.sum(
-            _.map(this.declarationAnnuelle.declarationAnnuelleDetails, function(declarationAnnuelleDetail) {
-                return declarationAnnuelleDetail.montant ? ComptaDecisionUtils.parseCurrency(declarationAnnuelleDetail.montant) : 0;
+            _.map(this.declarationAnnuelle.declarationAnnuelleLignes, function(declarationAnnuelleLigne) {
+                return declarationAnnuelleLigne.montant ? ComptaDecisionUtils.parseCurrency(declarationAnnuelleLigne.montant) : 0;
             })
         );
-        this.declarationAnnuelle.declarationAnnuelleDetails[indexDetail].montant = ComptaDecisionUtils.formatCurrency(
-            this.declarationAnnuelle.declarationAnnuelleDetails[indexDetail].montant
+        this.declarationAnnuelle.declarationAnnuelleLignes[indexLigne].montant = ComptaDecisionUtils.formatCurrency(
+            this.declarationAnnuelle.declarationAnnuelleLignes[indexLigne].montant
         );
         this.calculerMontants();
     }
 
     private parseDeclarationAnnuelle() {
-        _.each(this.declarationAnnuelle.declarationAnnuelleDetails, function(declarationAnnuelleDetail) {
-            declarationAnnuelleDetail.montant = ComptaDecisionUtils.parseCurrency(declarationAnnuelleDetail.montant);
+        _.each(this.declarationAnnuelle.declarationAnnuelleLignes, function(declarationAnnuelleLigne) {
+            declarationAnnuelleLigne.montant = ComptaDecisionUtils.parseCurrency(declarationAnnuelleLigne.montant);
         });
         this.parseMontants();
     }
 
     private formatDeclarationAnnuelle() {
-        _.each(this.declarationAnnuelle.declarationAnnuelleDetails, function(declarationAnnuelleDetail) {
-            declarationAnnuelleDetail.montant = ComptaDecisionUtils.formatCurrency(declarationAnnuelleDetail.montant);
+        _.each(this.declarationAnnuelle.declarationAnnuelleLignes, function(declarationAnnuelleLigne) {
+            declarationAnnuelleLigne.montant = ComptaDecisionUtils.formatCurrency(declarationAnnuelleLigne.montant);
         });
         this.formatMontants();
     }

@@ -24,7 +24,7 @@ public interface ImpotMensuelClientRepository extends JpaRepository<ImpotMensuel
     @Query("select distinct impotMensuelClient.impotMensuel from ImpotMensuelClient impotMensuelClient " +
             "where impotMensuelClient.ficheClient.id = :ficheClientId " +
             "and impotMensuelClient.applicable = true")
-    List<ImpotMensuel> findImpotMensuelDetailIdApplicableByFicheClientId(@Param("ficheClientId")Long ficheClientId);
+    List<ImpotMensuel> findImpotMensuelLigneIdApplicableByFicheClientId(@Param("ficheClientId")Long ficheClientId);
 
     Page<ImpotMensuelClient> findAllByCreatedBy(String creator, Pageable pageable);
 

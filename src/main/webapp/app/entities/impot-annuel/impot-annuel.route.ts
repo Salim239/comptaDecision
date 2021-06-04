@@ -7,11 +7,11 @@ import { filter, map } from 'rxjs/operators';
 import { IImpotAnnuel, ImpotAnnuel } from 'app/shared/model/impot-annuel.model';
 import { ImpotAnnuelService } from './impot-annuel.service';
 import { ImpotAnnuelComponent } from './impot-annuel.component';
-import { ImpotAnnuelDetailComponent } from './impot-annuel-detail.component';
+import { ImpotAnnuelLigneComponent } from './impot-annuel-detail.component';
 import { ImpotAnnuelUpdateComponent } from './impot-annuel-update.component';
 import { ImpotAnnuelDeletePopupComponent } from './impot-annuel-delete-dialog.component';
-import { IImpotMensuelDetail } from 'app/shared/model/impot-mensuel-detail.model';
-import { ImpotMensuelDetailService } from 'app/entities/impot-mensuel/impot-mensuel-line/impot-detail.service';
+import { IImpotMensuelLigne } from 'app/shared/model/impot-mensuel-ligne.model';
+import { ImpotMensuelLigneService } from 'app/entities/impot-mensuel/impot-mensuel-line/impot-detail.service';
 
 @Injectable({ providedIn: 'root' })
 export class ImpotAnnuelResolve implements Resolve<IImpotAnnuel> {
@@ -42,13 +42,13 @@ export class ImpotAnnuelAllResolve implements Resolve<IImpotAnnuel[]> {
 }
 
 @Injectable({ providedIn: 'root' })
-export class ImpotMensuelDetailResolve implements Resolve<IImpotMensuelDetail[]> {
-    constructor(private service: ImpotMensuelDetailService) {}
+export class ImpotMensuelLigneResolve implements Resolve<IImpotMensuelLigne[]> {
+    constructor(private service: ImpotMensuelLigneService) {}
 
-    resolve(): Observable<IImpotMensuelDetail[]> {
+    resolve(): Observable<IImpotMensuelLigne[]> {
         return this.service.findAll().pipe(
-            filter((mayBeOk: HttpResponse<IImpotMensuelDetail[]>) => mayBeOk.ok),
-            map((response: HttpResponse<IImpotMensuelDetail[]>) => response.body)
+            filter((mayBeOk: HttpResponse<IImpotMensuelLigne[]>) => mayBeOk.ok),
+            map((response: HttpResponse<IImpotMensuelLigne[]>) => response.body)
         );
     }
 }
@@ -65,7 +65,7 @@ export const impotAnnuelRoute: Routes = [
     },
     {
         path: ':id/view',
-        component: ImpotAnnuelDetailComponent,
+        component: ImpotAnnuelLigneComponent,
         resolve: {
             impotAnnuel: ImpotAnnuelResolve
         },
@@ -80,7 +80,7 @@ export const impotAnnuelRoute: Routes = [
         component: ImpotAnnuelUpdateComponent,
         resolve: {
             impotAnnuel: ImpotAnnuelResolve,
-            impotMensuelDetails: ImpotMensuelDetailResolve,
+            impotMensuelLignes: ImpotMensuelLigneResolve,
             impotAnnuelEnfants: ImpotAnnuelAllResolve
         },
         data: {
@@ -94,7 +94,7 @@ export const impotAnnuelRoute: Routes = [
         component: ImpotAnnuelUpdateComponent,
         resolve: {
             impotAnnuel: ImpotAnnuelResolve,
-            impotMensuelDetails: ImpotMensuelDetailResolve,
+            impotMensuelLignes: ImpotMensuelLigneResolve,
             impotAnnuelEnfants: ImpotAnnuelAllResolve
         },
         data: {

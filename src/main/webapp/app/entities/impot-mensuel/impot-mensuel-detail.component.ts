@@ -7,7 +7,7 @@ import { IImpotMensuel } from 'app/shared/model/impot-mensuel.model';
     selector: 'jhi-impot-mensuel-detail',
     templateUrl: './impot-mensuel-detail.component.html'
 })
-export class ImpotMensuelDetailComponent implements OnInit {
+export class ImpotMensuelLigneComponent implements OnInit {
     impotMensuel: IImpotMensuel;
 
     constructor(protected activatedRoute: ActivatedRoute) {}

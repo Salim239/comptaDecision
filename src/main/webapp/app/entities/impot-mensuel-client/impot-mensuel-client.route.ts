@@ -8,7 +8,7 @@ import { filter, map } from 'rxjs/operators';
 import { ImpotMensuelClient } from 'app/shared/model/impot-mensuel-client.model';
 import { ImpotMensuelClientService } from './impot-mensuel-client.service';
 import { ImpotMensuelClientComponent } from './impot-mensuel-client.component';
-import { ImpotMensuelClientDetailComponent } from './impot-mensuel-client-detail.component';
+import { ImpotMensuelClientLigneComponent } from './impot-mensuel-client-detail.component';
 import { ImpotMensuelClientUpdateComponent } from './impot-mensuel-client-update.component';
 import { ImpotMensuelClientDeletePopupComponent } from './impot-mensuel-client-delete-dialog.component';
 import { IImpotMensuelClient } from 'app/shared/model/impot-mensuel-client.model';
@@ -45,7 +45,7 @@ export const impotMensuelClientRoute: Routes = [
     },
     {
         path: ':id/view',
-        component: ImpotMensuelClientDetailComponent,
+        component: ImpotMensuelClientLigneComponent,
         resolve: {
             impotMensuelClient: ImpotMensuelClientResolve
         },

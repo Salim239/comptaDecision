@@ -1,26 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {JhiAlertService, JhiDataUtils} from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IFicheClient } from 'app/shared/model/fiche-client.model';
-import {IImpotMensuelClient} from 'app/shared/model/impot-mensuel-client.model';
-import {ImpotMensuelClientService} from 'app/entities/impot-mensuel-client';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { IImpotMensuelClient } from 'app/shared/model/impot-mensuel-client.model';
+import { ImpotMensuelClientService } from 'app/entities/impot-mensuel-client';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'jhi-fiche-client-detail',
     templateUrl: './fiche-client-detail.component.html'
 })
-export class FicheClientDetailComponent implements OnInit {
+export class FicheClientLigneComponent implements OnInit {
     ficheClient: IFicheClient;
     impotMensuelClient: IImpotMensuelClient;
     isSaving: boolean;
 
-    constructor(protected dataUtils: JhiDataUtils,
-                protected activatedRoute: ActivatedRoute,
-                protected impotMensuelClientService: ImpotMensuelClientService,
-                protected jhiAlertService: JhiAlertService) {}
+    constructor(
+        protected dataUtils: JhiDataUtils,
+        protected activatedRoute: ActivatedRoute,
+        protected impotMensuelClientService: ImpotMensuelClientService,
+        protected jhiAlertService: JhiAlertService
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;

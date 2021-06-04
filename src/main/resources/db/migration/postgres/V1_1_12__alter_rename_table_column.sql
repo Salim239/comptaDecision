@@ -1,0 +1,20 @@
+alter table quittance_mensuelle_impot_detail rename column quittance_mensuelle_impot_id to quittance_mensuelle_id;
+alter table quittance_mensuelle_impot_detail rename column parent_quittance_mensuelle_impot_detail_id to parent_quittance_mensuelle_ligne_id;
+alter table quittance_mensuelle_impot_sous_detail rename column impot_mensuel_detail_id to impot_mensuel_ligne_id;
+alter table quittance_mensuelle_impot_sous_detail rename column quittance_mensuelle_impot_detail_id to quittance_mensuelle_detail_id;
+alter table declaration_annuelle_detail rename to declaration_annuelle_ligne;
+alter table impot_annuel_detail rename to impot_annuel_ligne;
+alter table impot_mensuel_detail rename to impot_mensuel_ligne;
+alter table quittance_mensuelle_impot rename to quittance_mensuelle;
+alter table quittance_mensuelle_impot_detail rename to quittance_mensuelle_ligne;
+alter table quittance_mensuelle_impot_sous_detail rename to quittance_mensuelle_sous_ligne;
+
+
+
+
+
+
+
+
+
+

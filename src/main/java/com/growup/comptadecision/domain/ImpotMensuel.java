@@ -67,7 +67,7 @@ public class ImpotMensuel extends AbstractAuditingEntity {
     private Float coefficientMontant = 1f;
 
     @OneToMany(mappedBy = "impotMensuel", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ImpotMensuelDetail> impotMensuelDetails = new ArrayList<>();
+    private List<ImpotMensuelLigne> impotMensuelLignes = new ArrayList<>();
 
     @OneToMany(mappedBy = "parentImpotMensuel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ImpotMensuel> childImpotMensuels = new ArrayList<>();
@@ -126,12 +126,12 @@ public class ImpotMensuel extends AbstractAuditingEntity {
         this.description = description;
     }
 
-    public List<ImpotMensuelDetail> getImpotMensuelDetails() {
-        return impotMensuelDetails;
+    public List<ImpotMensuelLigne> getImpotMensuelLignes() {
+        return impotMensuelLignes;
     }
 
-    public void setImpotMensuelDetails(List<ImpotMensuelDetail> impotMensuelDetails) {
-        this.impotMensuelDetails = impotMensuelDetails;
+    public void setImpotMensuelLignes(List<ImpotMensuelLigne> impotMensuelLignes) {
+        this.impotMensuelLignes = impotMensuelLignes;
     }
 
     public ImpotMensuel code(String code) {
@@ -148,14 +148,14 @@ public class ImpotMensuel extends AbstractAuditingEntity {
         return this;
     }
 
-    public void addImpotMensuelDetail(ImpotMensuelDetail impotMensuelDetail) {
-        impotMensuelDetails.add(impotMensuelDetail);
-        impotMensuelDetail.setImpotMensuel(this);
+    public void addImpotMensuelLigne(ImpotMensuelLigne impotMensuelLigne) {
+        impotMensuelLignes.add(impotMensuelLigne);
+        impotMensuelLigne.setImpotMensuel(this);
     }
 
-    public void removeImpotMensuelDetail(ImpotMensuelDetail impotMensuelDetail) {
-        impotMensuelDetails.remove(impotMensuelDetail);
-        impotMensuelDetail.setImpotMensuel(null);
+    public void removeImpotMensuelLigne(ImpotMensuelLigne impotMensuelLigne) {
+        impotMensuelLignes.remove(impotMensuelLigne);
+        impotMensuelLigne.setImpotMensuel(null);
     }
 
     public ImpotMensuel getParentImpotMensuel() {

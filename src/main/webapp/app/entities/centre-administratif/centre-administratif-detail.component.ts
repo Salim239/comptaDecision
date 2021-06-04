@@ -7,7 +7,7 @@ import { ICentreAdministratif } from 'app/shared/model/centre-administratif.mode
     selector: 'jhi-centre-administratif-detail',
     templateUrl: './centre-administratif-detail.component.html'
 })
-export class CentreAdministratifDetailComponent implements OnInit {
+export class CentreAdministratifLigneComponent implements OnInit {
     centreAdministratif: ICentreAdministratif;
 
     constructor(protected activatedRoute: ActivatedRoute) {}

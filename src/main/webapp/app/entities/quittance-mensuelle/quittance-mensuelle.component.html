@@ -1,0 +1,108 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="comptaDecisionApp.quittanceMensuelle.home.title">Quittance Mensuelle Impots</span>
+    </h2>
+    <br>
+    <br>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-new-entry [hideMois]="false" [hideTypeDeclaration]="false" (submitCreationForm)="addNewQuittance($event)"></jhi-new-entry>
+    <br>
+    <br>
+        <div class="row">
+            <div class="text-right offset-md-8 col-md-4">
+<!--                    <button type="submit" [disabled]="!this.selectedQuittanceMensuelle"-->
+<!--                            [routerLink]="['/quittance-mensuelle', selectedQuittanceMensuelle ? selectedQuittanceMensuelle.id : '', 'view' ]"-->
+<!--                            class="btn btn-info btn-sm">-->
+<!--                        <fa-icon [icon]="'eye'"></fa-icon>-->
+<!--                        <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>-->
+<!--                    </button>-->
+                    <button type="submit" [disabled]="!this.selectedQuittanceMensuelle"
+                            [routerLink]="['/quittance-mensuelle', selectedQuittanceMensuelle ? selectedQuittanceMensuelle.id : '', 'edit']"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                    </button>
+                    <button type="submit" [disabled]="!this.selectedQuittanceMensuelle"
+                            [routerLink]="['/', 'quittance-mensuelle', { outlets: { popup: (selectedQuittanceMensuelle ? selectedQuittanceMensuelle.id : '') + '/delete'} }]"
+                            replaceUrl="true"
+                            queryParamsHandling="merge"
+                            class="btn btn-danger btn-sm">
+                        <fa-icon [icon]="'times'"></fa-icon>
+                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                    </button>
+<!--                <button type="button" [disabled]="!this.selectedQuittanceMensuelle"-->
+<!--                        (click)="print()"-->
+<!--                        class="btn btn-warning btn-sm">-->
+<!--                    <fa-icon [icon]="'print-alt'"></fa-icon>-->
+<!--                    <span class="d-none d-md-inline" jhiTranslate="entity.action.print">Print</span>-->
+<!--                </button>-->
+            </div>
+        </div>
+        <br>
+        <table class="table table-responsive-sm table-bordered" *ngIf="quittanceMensuelles">
+            <thead>
+            <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+<!--            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th></th>
+            <th jhiSortBy="ficheClientDesignation"><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.ficheClient">Fiche Client</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="annee"><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.annee">Annee</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mois"><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.mois">Mois</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="typeDeclaration"><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.typeDeclaration">Type déclaration</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="numeroQuittance"><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.numeroQuittance">Numero Quittance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="datePaiement"><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.datePaiement">Date Paiement</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantTotal"><span jhiTranslate="comptaDecisionApp.quittanceMensuelle.montantTotal">Montant</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+<!--            <th></th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr [ngClass]="isTrSelected(quittanceMensuelle) && 'selected'" *ngFor="let quittanceMensuelle of quittanceMensuelles ;trackBy: trackId">
+<!--               <td><a [routerLink]="['/quittance-mensuelle', quittanceMensuelle.id, 'view' ]">{{quittanceMensuelle.id}}</a></td>-->
+                <td><input type="checkbox" (click)="selectRow(quittanceMensuelle)" [checked]="selectedQuittanceMensuelle && quittanceMensuelle.id === selectedQuittanceMensuelle.id"></td>
+                <td>
+                    <div *ngIf="quittanceMensuelle.ficheClientId">
+                        <a [routerLink]="['../fiche-client', quittanceMensuelle.ficheClientId , 'view' ]" >{{quittanceMensuelle.ficheClientDesignation}}</a>
+                    </div>
+                </td>
+                <td>{{quittanceMensuelle.annee}}</td>
+                <td jhiTranslate="{{'comptaDecisionApp.mois.' + quittanceMensuelle.mois}}">{{quittanceMensuelle.mois}}></td>
+                <td jhiTranslate="{{'comptaDecisionApp.typeDeclaration.' + quittanceMensuelle.typeDeclaration}}">{{quittanceMensuelle.typeDeclaration}}></td>
+                <td class="text-right">{{quittanceMensuelle.numeroQuittance}}</td>
+                <td class="text-right">{{quittanceMensuelle.datePaiement | date:'mediumDate'}}</td>
+                <td class="text-right">{{quittanceMensuelle.montantTotal | number:'1.3-3'}}</td>
+
+<!--                <td class="text-right">-->
+<!--                    <div class="btn-group flex-btn-group-container">-->
+<!--                        <button type="submit"-->
+<!--                                [routerLink]="['/quittance-mensuelle', quittanceMensuelle.id, 'view' ]"-->
+<!--                                class="btn btn-info btn-sm">-->
+<!--                            <fa-icon [icon]="'eye'"></fa-icon>-->
+<!--                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>-->
+<!--                        </button>-->
+<!--                        <button type="submit"-->
+<!--                                [routerLink]="['/quittance-mensuelle', quittanceMensuelle.id, 'edit']"-->
+<!--                                class="btn btn-primary btn-sm">-->
+<!--                            <fa-icon [icon]="'pencil-alt'"></fa-icon>-->
+<!--                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>-->
+<!--                        </button>-->
+<!--                        <button type="submit"-->
+<!--                                [routerLink]="['/', 'quittance-mensuelle', { outlets: { popup: quittanceMensuelle.id + '/delete'} }]"-->
+<!--                                replaceUrl="true"-->
+<!--                                queryParamsHandling="merge"-->
+<!--                                class="btn btn-danger btn-sm">-->
+<!--                            <fa-icon [icon]="'times'"></fa-icon>-->
+<!--                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </td>-->
+            </tr>
+            </tbody>
+        </table>
+    <div *ngIf="quittanceMensuelles && quittanceMensuelles.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

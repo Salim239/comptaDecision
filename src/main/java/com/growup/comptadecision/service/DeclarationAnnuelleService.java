@@ -7,7 +7,7 @@ import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import com.growup.comptadecision.repository.DeclarationAnnuelleRepository;
 import com.growup.comptadecision.repository.FicheClientRepository;
 import com.growup.comptadecision.repository.ImpotAnnuelRepository;
-import com.growup.comptadecision.repository.QuittanceMensuelleImpotSousDetailRepository;
+import com.growup.comptadecision.repository.QuittanceMensuelleSousLigneRepository;
 import com.growup.comptadecision.security.SecurityUtils;
 import com.growup.comptadecision.service.dto.BusinessAlertDTO;
 import com.growup.comptadecision.service.dto.DeclarationAnnuelleDTO;
@@ -47,19 +47,19 @@ public class DeclarationAnnuelleService {
 
     private final ImpotAnnuelRepository impotAnnuelRepository;
 
-    private final QuittanceMensuelleImpotSousDetailRepository quittanceMensuelleSousDetailRepository;
+    private final QuittanceMensuelleSousLigneRepository quittanceMensuelleSousLigneRepository;
 
     private final DeclarationAnnuelleMapper declarationAnnuelleMapper;
 
     private final AcompteProvisionnelService acompteProvisionnelService;
 
     public DeclarationAnnuelleService(DeclarationAnnuelleRepository declarationAnnuelleRepository, DeclarationAnnuelleMapper declarationAnnuelleMapper,
-                                      FicheClientRepository ficheClientRepository, ImpotAnnuelRepository impotAnnuelRepository, QuittanceMensuelleImpotSousDetailRepository quittanceMensuelleSousDetailRepository, AcompteProvisionnelService acompteProvisionnelService) {
+                                      FicheClientRepository ficheClientRepository, ImpotAnnuelRepository impotAnnuelRepository, QuittanceMensuelleSousLigneRepository quittanceMensuelleSousLigneRepository, AcompteProvisionnelService acompteProvisionnelService) {
         this.declarationAnnuelleRepository = declarationAnnuelleRepository;
         this.declarationAnnuelleMapper = declarationAnnuelleMapper;
         this.ficheClientRepository = ficheClientRepository;
         this.impotAnnuelRepository = impotAnnuelRepository;
-        this.quittanceMensuelleSousDetailRepository = quittanceMensuelleSousDetailRepository;
+        this.quittanceMensuelleSousLigneRepository = quittanceMensuelleSousLigneRepository;
         this.acompteProvisionnelService = acompteProvisionnelService;
     }
 
@@ -160,8 +160,8 @@ public class DeclarationAnnuelleService {
 
         if (declarationRectificativeOpt.isPresent() && StringUtils.isNotBlank(declarationRectificativeOpt.get().getNumeroQuittance())) {
             DeclarationAnnuelle declarationRectificative = declarationRectificativeOpt.get();
-            declarationRectificative.setDeclarationAnnuelleDetails(new ArrayList<>());
-            initDeclarationAnnuelDetails(declarationRectificative);
+            declarationRectificative.setDeclarationAnnuelleLignes(new ArrayList<>());
+            initDeclarationAnnuelLignes(declarationRectificative);
             return declarationAnnuelleMapper.toDto(declarationRectificative);
         } else {
 
@@ -178,33 +178,33 @@ public class DeclarationAnnuelleService {
         }
     }
 
-    private void initDeclarationAnnuelDetails(DeclarationAnnuelle declarationAnnuelle) {
+    private void initDeclarationAnnuelLignes(DeclarationAnnuelle declarationAnnuelle) {
 
         List<ImpotAnnuel> impotAnnuels = impotAnnuelRepository.findAll();
-        List<DecalrationAnnuelleDetail> declarationAnnuelleDetails = impotAnnuels.stream()
+        List<DecalrationAnnuelleLigne> declarationAnnuelleLignes = impotAnnuels.stream()
                 .map(impotAnnuel -> {
-                    DecalrationAnnuelleDetail declarationAnnuelleDetail = new DecalrationAnnuelleDetail();
-                    declarationAnnuelleDetail.setCode(impotAnnuel.getCode());
-                    declarationAnnuelleDetail.setDescription(impotAnnuel.getDescription());
-                    declarationAnnuelleDetail.setLibelle(impotAnnuel.getLibelle());
-                    declarationAnnuelleDetail.setCalcule(impotAnnuel.getCalcule());
-                    declarationAnnuelleDetail.setTriOrdre(impotAnnuel.getTriOrdre());
-                    declarationAnnuelleDetail.setImpotAnnuel(impotAnnuel);
-                    List<String> impotMensuelDetailToSum = impotAnnuel.getImpotAnnuelDetails().stream()
-                            .map(ImpotAnnuelDetail::getImpotMensuelDetail)
-                            .map(ImpotMensuelDetail::getCode)
+                    DecalrationAnnuelleLigne declarationAnnuelleLigne = new DecalrationAnnuelleLigne();
+                    declarationAnnuelleLigne.setCode(impotAnnuel.getCode());
+                    declarationAnnuelleLigne.setDescription(impotAnnuel.getDescription());
+                    declarationAnnuelleLigne.setLibelle(impotAnnuel.getLibelle());
+                    declarationAnnuelleLigne.setCalcule(impotAnnuel.getCalcule());
+                    declarationAnnuelleLigne.setTriOrdre(impotAnnuel.getTriOrdre());
+                    declarationAnnuelleLigne.setImpotAnnuel(impotAnnuel);
+                    List<String> impotMensuelLigneToSum = impotAnnuel.getImpotAnnuelLignes().stream()
+                            .map(ImpotAnnuelLigne::getImpotMensuelLigne)
+                            .map(ImpotMensuelLigne::getCode)
                             .collect(Collectors.toList());
                     BigDecimal montantcalcule = null;
-                    if (BooleanUtils.isTrue(impotAnnuel.getCalcule()) && !impotMensuelDetailToSum.isEmpty()) {
-                        montantcalcule = quittanceMensuelleSousDetailRepository.sumMontantBaseByFicheClientIdAndByAnneeAndByCodes(
+                    if (BooleanUtils.isTrue(impotAnnuel.getCalcule()) && !impotMensuelLigneToSum.isEmpty()) {
+                        montantcalcule = quittanceMensuelleSousLigneRepository.sumMontantBaseByFicheClientIdAndByAnneeAndByCodes(
                                 declarationAnnuelle.getFicheClient().getId(),
                                 declarationAnnuelle.getAnnee(),
-                                impotMensuelDetailToSum);
-                        declarationAnnuelleDetail.setMontantCalcule(montantcalcule);
+                                impotMensuelLigneToSum);
+                        declarationAnnuelleLigne.setMontantCalcule(montantcalcule);
                     }
-                    return declarationAnnuelleDetail;
+                    return declarationAnnuelleLigne;
                 }).collect(Collectors.toList());
-        declarationAnnuelle.setDeclarationAnnuelleDetails(declarationAnnuelleDetails);
+        declarationAnnuelle.setDeclarationAnnuelleLignes(declarationAnnuelleLignes);
     }
 
     private DeclarationAnnuelleDTO getEmptyDeclarationAnnuelle(FicheClient ficheClient, Integer annee) {
@@ -227,7 +227,7 @@ public class DeclarationAnnuelleService {
                     ficheClient,
                     annee,
                     TypeDeclaration.DECLARATION_INITIALE);
-            initDeclarationAnnuelDetails(declarationAnnuelleInitiale);
+            initDeclarationAnnuelLignes(declarationAnnuelleInitiale);
             declarationAnnuelleInitiale.setMontantNet(calculerMontantNet(declarationAnnuelleInitiale));
             DeclarationAnnuelleDTO declarationAnnuelleDTO = declarationAnnuelleMapper.toDto(declarationAnnuelleInitiale);
             BigDecimal montantAps = calculerMontantAps(declarationAnnuelleDTO.getFicheClientId(), declarationAnnuelleDTO.getAnnee());

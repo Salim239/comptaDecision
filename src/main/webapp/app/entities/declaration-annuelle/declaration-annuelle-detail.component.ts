@@ -7,7 +7,7 @@ import { IDeclarationAnnuelle } from 'app/shared/model/declaration-annuelle.mode
     selector: 'jhi-declaration-annuelle-detail',
     templateUrl: './declaration-annuelle-detail.component.html'
 })
-export class DeclarationAnnuelleDetailComponent implements OnInit {
+export class DeclarationAnnuelleLigneComponent implements OnInit {
     declarationAnnuelle: IDeclarationAnnuelle;
 
     constructor(protected activatedRoute: ActivatedRoute) {}

@@ -7,7 +7,7 @@ import { filter, map } from 'rxjs/operators';
 import { Region } from 'app/shared/model/region.model';
 import { RegionService } from './region.service';
 import { RegionComponent } from './region.component';
-import { RegionDetailComponent } from './region-detail.component';
+import { RegionLigneComponent } from './region-detail.component';
 import { RegionUpdateComponent } from './region-update.component';
 import { RegionDeletePopupComponent } from './region-delete-dialog.component';
 import { IRegion } from 'app/shared/model/region.model';
@@ -40,7 +40,7 @@ export const regionRoute: Routes = [
     },
     {
         path: ':id/view',
-        component: RegionDetailComponent,
+        component: RegionLigneComponent,
         resolve: {
             region: RegionResolve
         },

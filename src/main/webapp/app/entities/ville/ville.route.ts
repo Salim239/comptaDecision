@@ -7,7 +7,7 @@ import { filter, map } from 'rxjs/operators';
 import { Ville } from 'app/shared/model/ville.model';
 import { VilleService } from './ville.service';
 import { VilleComponent } from './ville.component';
-import { VilleDetailComponent } from './ville-detail.component';
+import { VilleLigneComponent } from './ville-detail.component';
 import { VilleUpdateComponent } from './ville-update.component';
 import { VilleDeletePopupComponent } from './ville-delete-dialog.component';
 import { IVille } from 'app/shared/model/ville.model';
@@ -40,7 +40,7 @@ export const villeRoute: Routes = [
     },
     {
         path: ':id/view',
-        component: VilleDetailComponent,
+        component: VilleLigneComponent,
         resolve: {
             ville: VilleResolve
         },

@@ -8,7 +8,7 @@ import {
     CategorieCnssGerantComponent,
     CategorieCnssGerantDeleteDialogComponent,
     CategorieCnssGerantDeletePopupComponent,
-    CategorieCnssGerantDetailComponent,
+    CategorieCnssGerantLigneComponent,
     categorieCnssGerantPopupRoute,
     categorieCnssGerantRoute,
     CategorieCnssGerantUpdateComponent
@@ -20,7 +20,7 @@ const ENTITY_STATES = [...categorieCnssGerantRoute, ...categorieCnssGerantPopupR
     imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         CategorieCnssGerantComponent,
-        CategorieCnssGerantDetailComponent,
+        CategorieCnssGerantLigneComponent,
         CategorieCnssGerantUpdateComponent,
         CategorieCnssGerantDeleteDialogComponent,
         CategorieCnssGerantDeletePopupComponent

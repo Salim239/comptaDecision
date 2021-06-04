@@ -55,7 +55,7 @@ public class ImpotAnnuel extends AbstractAuditingEntity {
     private Integer triOrdre;
 
     @OneToMany(mappedBy = "impotAnnuel", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ImpotAnnuelDetail> impotAnnuelDetails = new ArrayList<>();
+    private List<ImpotAnnuelLigne> impotAnnuelLignes = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -105,11 +105,11 @@ public class ImpotAnnuel extends AbstractAuditingEntity {
         this.triOrdre = triOrdre;
     }
 
-    public List<ImpotAnnuelDetail> getImpotAnnuelDetails() {
-        return impotAnnuelDetails;
+    public List<ImpotAnnuelLigne> getImpotAnnuelLignes() {
+        return impotAnnuelLignes;
     }
 
-    public void setImpotAnnuelDetails(List<ImpotAnnuelDetail> impotAnnuelDetails) {
-        this.impotAnnuelDetails = impotAnnuelDetails;
+    public void setImpotAnnuelLignes(List<ImpotAnnuelLigne> impotAnnuelLignes) {
+        this.impotAnnuelLignes = impotAnnuelLignes;
     }
 }

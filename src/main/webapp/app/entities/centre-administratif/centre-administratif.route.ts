@@ -7,7 +7,7 @@ import { filter, map } from 'rxjs/operators';
 import { CentreAdministratif } from 'app/shared/model/centre-administratif.model';
 import { CentreAdministratifService } from './centre-administratif.service';
 import { CentreAdministratifComponent } from './centre-administratif.component';
-import { CentreAdministratifDetailComponent } from './centre-administratif-detail.component';
+import { CentreAdministratifLigneComponent } from './centre-administratif-detail.component';
 import { CentreAdministratifUpdateComponent } from './centre-administratif-update.component';
 import { CentreAdministratifDeletePopupComponent } from './centre-administratif-delete-dialog.component';
 import { ICentreAdministratif } from 'app/shared/model/centre-administratif.model';
@@ -40,7 +40,7 @@ export const centreAdministratifRoute: Routes = [
     },
     {
         path: ':id/view',
-        component: CentreAdministratifDetailComponent,
+        component: CentreAdministratifLigneComponent,
         resolve: {
             centreAdministratif: CentreAdministratifResolve
         },

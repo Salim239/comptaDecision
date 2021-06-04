@@ -159,14 +159,14 @@ entity ImpotMensuel {
     child Boolean , //default false,
     appliquerReportMontant Boolean , //default false,
     coefficientMontant Folat , //default 1f,
-    //private List<ImpotMensuelDetail> impotMensuelDetails = new ArrayList<>();
+    //private List<ImpotMensuelLigne> impotMensuelLignes = new ArrayList<>();
     //private List<ImpotMensuel> childImpotMensuels = new ArrayList<>();
 }
 relationship ManyToOne {
 	ImpotMensuel{parentImpotMensuel(id)} to ImpotMensuel
 }
 relationship OneToMany{
-     ImpotMensuel{impotMensuelDetails(id)} to ImpotMensuelDetail,
+     ImpotMensuel{impotMensuelLignes(id)} to ImpotMensuelLigne,
      ImpotMensuel{childImpotMensuels(id)} to ImpotMensuel	 
 }
 
@@ -279,7 +279,7 @@ paginate ImpotMensuelClient with pagination
 * Quittance Mensuelle Impot
 */
 
-entity QuittanceMensuelleImpot {
+entity QuittanceMensuelle {
 	id Long required,
     annee Integer required,
 	mois Integer required,
@@ -288,25 +288,25 @@ entity QuittanceMensuelleImpot {
     montantTotal BigDecimal,	
     typeDeclaration TypeDeclaration , //default TypeDeclaration.DECLARATION_INITIALE required,	
     statut StatutDeclaration required  , //default StatutDeclaration.BROUILLON,
-    //private List<QuittanceMensuelleImpotLine> quittanceMensuelleImpotLines = new ArrayList<>();
+    //private List<QuittanceMensuelleLine> quittanceMensuelleLines = new ArrayList<>();
 }
 relationship ManyToOne {
-    QuittanceMensuelleImpot{ficheClient(id required)} to FicheClient,
-    QuittanceMensuelleImpot{parentQuittance(id)} to QuittanceMensuelleImpot,
+    QuittanceMensuelle{ficheClient(id required)} to FicheClient,
+    QuittanceMensuelle{parentQuittance(id)} to QuittanceMensuelle,
 }
 relationship OneToMany{
-     QuittanceMensuelleImpot{quittanceMensuelleImpotLines(id)} to QuittanceMensuelleImpotLine 
+     QuittanceMensuelle{quittanceMensuelleLines(id)} to QuittanceMensuelleLine
 }
 
-dto QuittanceMensuelleImpot with mapstruct
-service QuittanceMensuelleImpot with serviceClass
-paginate QuittanceMensuelleImpot with pagination
+dto QuittanceMensuelle with mapstruct
+service QuittanceMensuelle with serviceClass
+paginate QuittanceMensuelle with pagination
 
 /**
 * Quittance Mensuelle Impot Line
 */
 
-entity QuittanceMensuelleImpotLine {
+entity QuittanceMensuelleLine {
 	id Long required,
     montantTotal BigDecimal,
     code String,
@@ -317,42 +317,42 @@ entity QuittanceMensuelleImpotLine {
     appliquerReportMontant Boolean , //default Boolean.FALSE,
     montantReport BigDecimal , //default BigDecimal.ZERO,
     coefficientMontant Float , //default 1f
-	//private List<QuittanceMensuelleImpotLine> childQuittanceMensuelleImpotLines = new ArrayList<>();
-    //private List<QuittanceMensuelleImpotSousLine> quittanceMensuelleImpotSousLines = new ArrayList<>();
+	//private List<QuittanceMensuelleLine> childQuittanceMensuelleLines = new ArrayList<>();
+    //private List<QuittanceMensuelleSousLine> quittanceMensuelleSousLines = new ArrayList<>();
 }
 
 relationship ManyToOne {
-    QuittanceMensuelleImpotLine{parentQuittanceMensuelleImpotLine(id)} to QuittanceMensuelleImpot,
-    QuittanceMensuelleImpotLine{impotMensuel(id required)} to ImpotMensuel
+    QuittanceMensuelleLine{parentQuittanceMensuelleLine(id)} to QuittanceMensuelle,
+    QuittanceMensuelleLine{impotMensuel(id required)} to ImpotMensuel
 }
 relationship OneToMany{
-     QuittanceMensuelleImpotLine{quittanceMensuelleImpotSousLines(id)} to QuittanceMensuelleImpotSousLine,
-     QuittanceMensuelleImpotLine{childQuittanceMensuelleImpotLines(id)} to QuittanceMensuelleImpotLine 
+     QuittanceMensuelleLine{quittanceMensuelleSousLines(id)} to QuittanceMensuelleSousLine,
+     QuittanceMensuelleLine{childQuittanceMensuelleLines(id)} to QuittanceMensuelleLine
 }
 
-dto QuittanceMensuelleImpotLine with mapstruct
-service QuittanceMensuelleImpotLine with serviceClass
-paginate QuittanceMensuelleImpotLine with pagination
+dto QuittanceMensuelleLine with mapstruct
+service QuittanceMensuelleLine with serviceClass
+paginate QuittanceMensuelleLine with pagination
 
 
 /**
 * Quittance Mensuelle Impot Sous Line
 */
 
-entity QuittanceMensuelleImpotSousLine {
+entity QuittanceMensuelleSousLine {
 	id Long required,
     montantBase BigDecimal,
     montantTotal BigDecimal
 }
 
 relationship ManyToOne {
-    QuittanceMensuelleImpotSousLine{quittanceMensuelleImpotLine(id required)} to QuittanceMensuelleImpotLine,
-    QuittanceMensuelleImpotSousLine{impotMensuelLine(id required)} to ImpotMensuelLine
+    QuittanceMensuelleSousLine{quittanceMensuelleLine(id required)} to QuittanceMensuelleLine,
+    QuittanceMensuelleSousLine{impotMensuelLine(id required)} to ImpotMensuelLine
 }
 
-dto QuittanceMensuelleImpotSousLine with mapstruct
-service QuittanceMensuelleImpotSousLine with serviceClass
-paginate QuittanceMensuelleImpotSousLine with pagination
+dto QuittanceMensuelleSousLine with mapstruct
+service QuittanceMensuelleSousLine with serviceClass
+paginate QuittanceMensuelleSousLine with pagination
 
 /**
 * Declaration Annuelle

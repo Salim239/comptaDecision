@@ -7,7 +7,7 @@ import { IActivite } from 'app/shared/model/activite.model';
     selector: 'jhi-activite-detail',
     templateUrl: './activite-detail.component.html'
 })
-export class ActiviteDetailComponent implements OnInit {
+export class ActiviteLigneComponent implements OnInit {
     activite: IActivite;
 
     constructor(protected activatedRoute: ActivatedRoute) {}

@@ -64,7 +64,7 @@ public class DeclarationAnnuelleDTO implements Serializable {
 
     private List<BusinessAlertDTO> businessAlerts = new ArrayList<>();
 
-    List<DeclarationAnnuelleDetailDTO> declarationAnnuelleDetails = new ArrayList<>();
+    List<DeclarationAnnuelleLigneDTO> declarationAnnuelleLignes = new ArrayList<>();
 
     public TypeDeclaration getTypeDeclaration() {
         return typeDeclaration;
@@ -187,12 +187,12 @@ public class DeclarationAnnuelleDTO implements Serializable {
         this.id = id;
     }
 
-    public List<DeclarationAnnuelleDetailDTO> getDeclarationAnnuelleDetails() {
-        return declarationAnnuelleDetails;
+    public List<DeclarationAnnuelleLigneDTO> getDeclarationAnnuelleLignes() {
+        return declarationAnnuelleLignes;
     }
 
-    public void setDeclarationAnnuelleDetails(List<DeclarationAnnuelleDetailDTO> declarationAnnuelleDetails) {
-        this.declarationAnnuelleDetails = declarationAnnuelleDetails;
+    public void setDeclarationAnnuelleLignes(List<DeclarationAnnuelleLigneDTO> declarationAnnuelleLignes) {
+        this.declarationAnnuelleLignes = declarationAnnuelleLignes;
     }
 
     public BigDecimal getMontantApPayesCalc() {

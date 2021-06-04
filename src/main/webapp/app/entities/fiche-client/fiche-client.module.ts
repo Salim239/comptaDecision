@@ -6,7 +6,7 @@ import { JhiLanguageHelper } from 'app/core';
 import { ComptaDecisionSharedModule } from 'app/shared';
 import {
     FicheClientComponent,
-    FicheClientDetailComponent,
+    FicheClientLigneComponent,
     FicheClientUpdateComponent,
     FicheClientDeletePopupComponent,
     FicheClientDeleteDialogComponent,
@@ -20,7 +20,7 @@ const ENTITY_STATES = [...ficheClientRoute, ...ficheClientPopupRoute];
     imports: [ComptaDecisionSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         FicheClientComponent,
-        FicheClientDetailComponent,
+        FicheClientLigneComponent,
         FicheClientUpdateComponent,
         FicheClientDeleteDialogComponent,
         FicheClientDeletePopupComponent

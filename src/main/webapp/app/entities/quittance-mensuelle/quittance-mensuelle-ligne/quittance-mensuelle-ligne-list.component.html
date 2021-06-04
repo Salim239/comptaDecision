@@ -1,0 +1,71 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">
+            <label  class="form-control-label"
+                    jhiTranslate="comptaDecisionApp.quittanceImpotMensuelSousLigne.libelle" for="field_quittanceMensuelleSousLigneLibelle">Type Impôt</label>
+        </th>
+        <th scope="col">
+            <label  class="form-control-label"
+                    jhiTranslate="comptaDecisionApp.quittanceImpotMensuelSousLigne.montantBase" for="field_quittanceMensuelleSousLigneMontantBase">Base</label>
+        </th>
+        <th scope="col">
+            <label  class="form-control-label"
+                    jhiTranslate="comptaDecisionApp.quittanceImpotMensuelSousLigne.taux" for="field_quittanceMensuelleSousLigneValeur">Impôt</label>
+        </th>
+        <th scope="col">
+            <label  class="form-control-label"
+                    jhiTranslate="comptaDecisionApp.quittanceImpotMensuelSousLigne.montantTotal" for="field_quittanceMensuelleSousLigneMontantTotal">Total</label>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let quittanceMensuelleSousLigne of quittanceMensuelleLigne.quittanceMensuelleSousLignes | orderBy: 'impotMensuelLigneTriOrdre';let indexSousLigne=index">
+        <td>
+            <div class="form-group">
+                <input [disabled]="true" type="text" class="form-control"
+                       name="quittanceMensuelleLigne[{{indexLigne}}].quittanceMensuelleSousLignes[{{indexSousLigne}}].quittanceMensuelleSousLigneLibelle"
+                       id="field_quittanceMensuelleSousLigneLibelle"
+                       [(ngModel)]="quittanceMensuelleSousLigne.impotMensuelLigneLibelle"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-group"  style="width: 160px">
+                <input jhiDigitOnly [decimal]="true"
+                       (change)="onChangeMontantBase()" type="text" class="form-control numeric"
+                       name="quittanceMensuelleLigne[{{indexLigne}}].quittanceMensuelleSousLignes[{{indexSousLigne}}].quittanceMensuelleSousLigneMontantBase"
+                       id="field_quittanceMensuelleSousLigneMontantBase"
+                       [(ngModel)]="quittanceMensuelleSousLigne.montantBase"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-group input-group">
+
+                <input [hidden]="!isTaux(quittanceMensuelleSousLigne.impotMensuelLigneTypeValeur) && !isMontantForfaitaire(quittanceMensuelleSousLigne)"
+                       [disabled]="!quittanceMensuelleSousLigne.impotMensuelLigneValeurModifiable" type="text"
+                       class="form-control numeric"
+                       name="quittanceMensuelleLigne[{{indexLigne}}].quittanceMensuelleSousLignes[{{indexSousLigne}}].quittanceMensuelleSousLigneValeur"
+                       id="field_quittanceMensuelleSousLigneValeur"
+                       [ngModel]="quittanceMensuelleSousLigne.impotMensuelLigneValeur | number: isTaux(quittanceMensuelleSousLigne.impotMensuelLigneTypeValeur) ? '': '1.3-3'"
+                       (ngModelChange)="quittanceMensuelleSousLigne.impotMensuelLigneValeur=$event"/>
+                <div [hidden]="!isTaux(quittanceMensuelleSousLigne.impotMensuelLigneTypeValeur)" class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">%</span>
+                </div>
+
+                <input [hidden]="isTaux(quittanceMensuelleSousLigne.impotMensuelLigneTypeValeur) || isMontantForfaitaire(quittanceMensuelleSousLigne)"
+                       value="N/A" [disabled]="true" type="text" class="form-control numeric"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <input type="text" jhiDigitOnly [decimal]="true" class="form-control numeric"
+                       name="quittanceMensuelleLigne[{{indexLigne}}].quittanceMensuelleSousLignes[{{indexSousLigne}}].quittanceMensuelleSousLigneMontantTotal"
+                       id="field_quittanceMensuelleSousLigneMontantTotal"
+                       [(ngModel)]="quittanceMensuelleSousLigne.montantTotal"
+                       [disabled]="!quittanceMensuelleSousLigne.impotMensuelLigneValeurModifiable"
+                       (change)="onChangeMontantTotal()"/>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

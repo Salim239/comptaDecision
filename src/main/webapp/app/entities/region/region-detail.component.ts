@@ -7,7 +7,7 @@ import { IRegion } from 'app/shared/model/region.model';
     selector: 'jhi-region-detail',
     templateUrl: './region-detail.component.html'
 })
-export class RegionDetailComponent implements OnInit {
+export class RegionLigneComponent implements OnInit {
     region: IRegion;
 
     constructor(protected activatedRoute: ActivatedRoute) {}

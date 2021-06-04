@@ -4,8 +4,8 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IImpotAnnuel } from 'app/shared/model/impot-annuel.model';
 import { ImpotAnnuelService } from './impot-annuel.service';
-import { IImpotMensuelDetail, TypeValeur } from 'app/shared/model/impot-mensuel-detail.model';
-import { IImpotAnnuelDetail, ImpotAnnuelDetail } from 'app/shared/model/impot-annuel-detail.model';
+import { IImpotMensuelLigne, TypeValeur } from 'app/shared/model/impot-mensuel-ligne.model';
+import { IImpotAnnuelLigne, ImpotAnnuelLigne } from 'app/shared/model/impot-annuel-ligne.model';
 
 @Component({
     selector: 'jhi-impot-annuel-update',
@@ -13,8 +13,8 @@ import { IImpotAnnuelDetail, ImpotAnnuelDetail } from 'app/shared/model/impot-an
 })
 export class ImpotAnnuelUpdateComponent implements OnInit {
     impotAnnuel: IImpotAnnuel;
-    impotAnnuelDetailNew: IImpotAnnuelDetail;
-    impotMensuelDetails: IImpotMensuelDetail[];
+    impotAnnuelLigneNew: IImpotAnnuelLigne;
+    impotMensuelLignes: IImpotMensuelLigne[];
     impotAnnuelEnfants: IImpotAnnuel[];
     isSaving: boolean;
 
@@ -22,11 +22,11 @@ export class ImpotAnnuelUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ impotAnnuel, impotMensuelDetails, impotAnnuelEnfants }) => {
+        this.activatedRoute.data.subscribe(({ impotAnnuel, impotMensuelLignes, impotAnnuelEnfants }) => {
             this.impotAnnuel = impotAnnuel;
-            this.impotMensuelDetails = impotMensuelDetails;
+            this.impotMensuelLignes = impotMensuelLignes;
             this.impotAnnuelEnfants = impotAnnuelEnfants;
-            this.impotAnnuelDetailNew = this.newImpotAnnuelDetail();
+            this.impotAnnuelLigneNew = this.newImpotAnnuelLigne();
         });
     }
 
@@ -56,7 +56,7 @@ export class ImpotAnnuelUpdateComponent implements OnInit {
         this.isSaving = false;
     }
 
-    formatImpotMensuelDetailLibelle(impotMensueldetail: IImpotMensuelDetail) {
+    formatImpotMensuelLigneLibelle(impotMensueldetail: IImpotMensuelLigne) {
         let libelle = impotMensueldetail.libelle;
         if (impotMensueldetail.typeValeur === TypeValeur.TAUX) {
             libelle = libelle + ' (' + impotMensueldetail.valeur + '%)';
@@ -66,8 +66,8 @@ export class ImpotAnnuelUpdateComponent implements OnInit {
         return libelle;
     }
 
-    newImpotAnnuelDetail() {
-        return new ImpotAnnuelDetail(
+    newImpotAnnuelLigne() {
+        return new ImpotAnnuelLigne(
             undefined,
             this.impotAnnuel.id,
             this.impotAnnuel.libelle,
@@ -79,16 +79,16 @@ export class ImpotAnnuelUpdateComponent implements OnInit {
         );
     }
 
-    addImpotAnnuelDetail(impotAnnuelDetailNew: IImpotAnnuelDetail) {
-        this.impotAnnuel.impotAnnuelDetails.push(impotAnnuelDetailNew);
-        this.impotAnnuelDetailNew = this.newImpotAnnuelDetail();
+    addImpotAnnuelLigne(impotAnnuelLigneNew: IImpotAnnuelLigne) {
+        this.impotAnnuel.impotAnnuelLignes.push(impotAnnuelLigneNew);
+        this.impotAnnuelLigneNew = this.newImpotAnnuelLigne();
     }
 
-    deleteImpotAnnuelDetail(impotAnnuelDetailIndex) {
-        this.impotAnnuel.impotAnnuelDetails.splice(impotAnnuelDetailIndex, 1);
+    deleteImpotAnnuelLigne(impotAnnuelLigneIndex) {
+        this.impotAnnuel.impotAnnuelLignes.splice(impotAnnuelLigneIndex, 1);
     }
 
-    isValidImpotAnnuelDetail(impotAnnuelDetail) {
-        return impotAnnuelDetail && impotAnnuelDetail.impotMensuelDetailId && impotAnnuelDetail.coefficient;
+    isValidImpotAnnuelLigne(impotAnnuelLigne) {
+        return impotAnnuelLigne && impotAnnuelLigne.impotMensuelLigneId && impotAnnuelLigne.coefficient;
     }
 }

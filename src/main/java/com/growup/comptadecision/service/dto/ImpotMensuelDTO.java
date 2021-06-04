@@ -48,7 +48,7 @@ public class ImpotMensuelDTO implements Serializable {
      */
     private Float coefficientMontant = 1f;
 
-    private List<ImpotMensuelDetailDTO> impotMensuelDetails = new ArrayList<>();
+    private List<ImpotMensuelLigneDTO> impotMensuelLignes = new ArrayList<>();
 
     private List<ImpotMensuelDTO> childImpotMensuels = new ArrayList<>();
 
@@ -150,12 +150,12 @@ public class ImpotMensuelDTO implements Serializable {
         this.parentImpotMensuelLibelle = parentImpotMensuelLibelle;
     }
 
-    public List<ImpotMensuelDetailDTO> getImpotMensuelDetails() {
-        return impotMensuelDetails;
+    public List<ImpotMensuelLigneDTO> getImpotMensuelLignes() {
+        return impotMensuelLignes;
     }
 
-    public void setImpotMensuelDetails(List<ImpotMensuelDetailDTO> impotMensuelDetails) {
-        this.impotMensuelDetails = impotMensuelDetails;
+    public void setImpotMensuelLignes(List<ImpotMensuelLigneDTO> impotMensuelLignes) {
+        this.impotMensuelLignes = impotMensuelLignes;
     }
 
     public BigDecimal getMontant() {

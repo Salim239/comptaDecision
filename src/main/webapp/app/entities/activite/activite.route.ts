@@ -7,7 +7,7 @@ import { filter, map } from 'rxjs/operators';
 import { Activite } from 'app/shared/model/activite.model';
 import { ActiviteService } from './activite.service';
 import { ActiviteComponent } from './activite.component';
-import { ActiviteDetailComponent } from './activite-detail.component';
+import { ActiviteLigneComponent } from './activite-detail.component';
 import { ActiviteUpdateComponent } from './activite-update.component';
 import { ActiviteDeletePopupComponent } from './activite-delete-dialog.component';
 import { IActivite } from 'app/shared/model/activite.model';
@@ -40,7 +40,7 @@ export const activiteRoute: Routes = [
     },
     {
         path: ':id/view',
-        component: ActiviteDetailComponent,
+        component: ActiviteLigneComponent,
         resolve: {
             activite: ActiviteResolve
         },
