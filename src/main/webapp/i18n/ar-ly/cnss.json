@@ -39,7 +39,8 @@
             "tauxCnssAutre": "Taux Cnss Autre",
             "montantCnssNormal": "Montant Cnss Normal",
             "montantCnssKarama": "Montant Cnss Karma",
-            "montantCnssAutre": "Montant Cnss Autre"
+            "montantCnssAutre": "Montant Cnss Autre",
+            "montantPenalite": "Montant Pénalité"
         }
     }
 }

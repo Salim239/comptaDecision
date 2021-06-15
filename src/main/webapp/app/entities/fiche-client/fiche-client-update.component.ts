@@ -1,24 +1,24 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { FicheClient, IFicheClient } from 'app/shared/model/fiche-client.model';
-import { FicheClientService } from './fiche-client.service';
-import { ISecteurActivite } from 'app/shared/model/secteur-activite.model';
-import { SecteurActiviteService } from 'app/entities/secteur-activite';
-import { IActivite } from 'app/shared/model/activite.model';
-import { ActiviteService } from 'app/entities/activite';
-import { IRegion } from 'app/shared/model/region.model';
-import { RegionService } from 'app/entities/region';
-import { IVille } from 'app/shared/model/ville.model';
-import { VilleService } from 'app/entities/ville';
-import { CentreAdministratifService } from 'app/entities/centre-administratif';
-import { ICentreAdministratif, TypeCentreAdministratif } from 'app/shared/model/centre-administratif.model';
+import {Component, ElementRef, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {JhiAlertService, JhiDataUtils} from 'ng-jhipster';
+import {IFicheClient} from 'app/shared/model/fiche-client.model';
+import {FicheClientService} from './fiche-client.service';
+import {ISecteurActivite} from 'app/shared/model/secteur-activite.model';
+import {SecteurActiviteService} from 'app/entities/secteur-activite';
+import {IActivite} from 'app/shared/model/activite.model';
+import {ActiviteService} from 'app/entities/activite';
+import {IRegion} from 'app/shared/model/region.model';
+import {RegionService} from 'app/entities/region';
+import {IVille} from 'app/shared/model/ville.model';
+import {VilleService} from 'app/entities/ville';
+import {CentreAdministratifService} from 'app/entities/centre-administratif';
+import {ICentreAdministratif, TypeCentreAdministratif} from 'app/shared/model/centre-administratif.model';
 import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
-import { ICategorieCnssGerant } from 'app/shared/model/categorie-cnss-gerant.model';
-import { CategorieCnssGerantService } from 'app/entities/categorie-cnss-gerant';
+import {ICategorieCnssGerant} from 'app/shared/model/categorie-cnss-gerant.model';
+import {CategorieCnssGerantService} from 'app/entities/categorie-cnss-gerant';
 
 @Component({
     selector: 'jhi-fiche-client-update',
@@ -241,13 +241,31 @@ export class FicheClientUpdateComponent implements OnInit {
 
     formatDecimalFields() {
         if (this.ficheClient.tauxCnssAccident) {
-            this.ficheClient.tauxCnssAccident = ComptaDecisionUtils.parseCurrency(this.ficheClient.tauxCnssAccident);
+            this.ficheClient.tauxCnssAccident = ComptaDecisionUtils.formatCurrency(this.ficheClient.tauxCnssAccident);
+        }
+        if (this.ficheClient.tauxCnssKarama) {
+            this.ficheClient.tauxCnssKarama = ComptaDecisionUtils.formatCurrency(this.ficheClient.tauxCnssKarama);
+        }
+        if (this.ficheClient.tauxCnssNormal) {
+            this.ficheClient.tauxCnssNormal = ComptaDecisionUtils.formatCurrency(this.ficheClient.tauxCnssNormal);
+        }
+        if (this.ficheClient.montantFraisCabinet) {
+            this.ficheClient.montantFraisCabinet = ComptaDecisionUtils.formatCurrency(this.ficheClient.montantFraisCabinet);
         }
     }
 
     parseDecimalFields() {
         if (this.ficheClient.tauxCnssAccident) {
             this.ficheClient.tauxCnssAccident = ComptaDecisionUtils.parseCurrency(this.ficheClient.tauxCnssAccident);
+        }
+        if (this.ficheClient.tauxCnssKarama) {
+            this.ficheClient.tauxCnssKarama = ComptaDecisionUtils.parseCurrency(this.ficheClient.tauxCnssKarama);
+        }
+        if (this.ficheClient.tauxCnssNormal) {
+            this.ficheClient.tauxCnssNormal = ComptaDecisionUtils.parseCurrency(this.ficheClient.tauxCnssNormal);
+        }
+        if (this.ficheClient.montantFraisCabinet) {
+            this.ficheClient.montantFraisCabinet = ComptaDecisionUtils.parseCurrency(this.ficheClient.montantFraisCabinet);
         }
     }
 }

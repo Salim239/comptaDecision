@@ -1,0 +1,90 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="comptaDecisionApp.ligneCaisse.home.title">Ligne Caisses</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-ligne-caisse" [routerLink]="['/ligne-caisse/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="comptaDecisionApp.ligneCaisse.home.createLabel">
+            Create new Ligne Caisse
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="ligneCaisses">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="typeOperation"><span jhiTranslate="comptaDecisionApp.ligneCaisse.typeOperation">Type Operation</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="libelle"><span jhiTranslate="comptaDecisionApp.ligneCaisse.libelle">Libelle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantOperation"><span jhiTranslate="comptaDecisionApp.ligneCaisse.montantOperation">Montant Operation</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="quittanceMensuelleId"><span jhiTranslate="comptaDecisionApp.ligneCaisse.quittanceMensuelle">Quittance Mensuelle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="declarationAnnuelleId"><span jhiTranslate="comptaDecisionApp.ligneCaisse.declarationAnnuelle">Declaration Annuelle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cnssId"><span jhiTranslate="comptaDecisionApp.ligneCaisse.cnss">Cnss</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="caisseId"><span jhiTranslate="comptaDecisionApp.ligneCaisse.caisse">Caisse</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ligneCaisse of ligneCaisses ;trackBy: trackId">
+                <td><a [routerLink]="['/ligne-caisse', ligneCaisse.id, 'view' ]">{{ligneCaisse.id}}</a></td>
+                <td>{{ligneCaisse.typeOperation}}</td>
+                <td>{{ligneCaisse.libelle}}</td>
+                <td>{{ligneCaisse.montantOperation}}</td>
+                <td>
+                    <div *ngIf="ligneCaisse.quittanceMensuelleId">
+                        <a [routerLink]="['../quittance-mensuelle', ligneCaisse.quittanceMensuelleId , 'view' ]" >{{ligneCaisse.quittanceMensuelleId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="ligneCaisse.declarationAnnuelleId">
+                        <a [routerLink]="['../declaration-annuelle', ligneCaisse.declarationAnnuelleId , 'view' ]" >{{ligneCaisse.declarationAnnuelleId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="ligneCaisse.cnssId">
+                        <a [routerLink]="['../cnss', ligneCaisse.cnssId , 'view' ]" >{{ligneCaisse.cnssId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="ligneCaisse.caisseId">
+                        <a [routerLink]="['../caisse', ligneCaisse.caisseId , 'view' ]" >{{ligneCaisse.caisseId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/ligne-caisse', ligneCaisse.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/ligne-caisse', ligneCaisse.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'ligne-caisse', { outlets: { popup: ligneCaisse.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="ligneCaisses && ligneCaisses.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

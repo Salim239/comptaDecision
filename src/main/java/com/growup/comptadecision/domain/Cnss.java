@@ -64,6 +64,9 @@ public class Cnss extends AbstractAuditingEntity {
     @Column(name = "montant_salaire_brut_karama")
     private BigDecimal montantSalaireBrutKarama;
 
+    @Column(name = "montant_penalite")
+    private BigDecimal montantPenalite = BigDecimal.ZERO;
+
     @Column(name = "taux_cnss_normal")
     private BigDecimal tauxCnssNormal;
 
@@ -272,5 +275,18 @@ public class Cnss extends AbstractAuditingEntity {
 
     public void setMontantTotalSalaireBrut(BigDecimal montantTotalSalaireBrut) {
         this.montantTotalSalaireBrut = montantTotalSalaireBrut;
+    }
+
+    public BigDecimal getMontantPenalite() {
+        return montantPenalite;
+    }
+
+    public void setMontantPenalite(BigDecimal montantPenalite) {
+        this.montantPenalite = montantPenalite;
+    }
+
+    public Cnss montantPenalite(BigDecimal montantPenalite) {
+        this.montantPenalite = montantPenalite;
+        return this;
     }
 }

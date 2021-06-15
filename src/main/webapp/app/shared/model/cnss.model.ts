@@ -1,5 +1,5 @@
-import { Moment } from 'moment';
-import { BusinessAlert } from 'app/shared/model/business-alert.model';
+import {Moment} from 'moment';
+import {BusinessAlert} from 'app/shared/model/business-alert.model';
 
 export const enum TypeCnss {
     CNSS_GENERALE = 'CNSS_GENERALE',
@@ -38,6 +38,7 @@ export interface ICnss {
     montantCnssKarama?: number;
     montantTotalCnss?: number;
     montantTotalSalaireBrut?: number;
+    montantPenalite?: number;
     businessAlerts?: BusinessAlert[];
 }
 
@@ -69,6 +70,9 @@ export class Cnss implements ICnss {
         public montantTotalSalaireBrut?: number,
         public totalTauxCnssNormal?: number,
         public totalTauxCnssKarama?: number,
+        public montantPenalite?: number,
         public businessAlerts?: BusinessAlert[]
-    ) {}
+    ) {
+        this.montantPenalite = 0;
+    }
 }

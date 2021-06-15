@@ -1,0 +1,30 @@
+{
+    "comptaDecisionApp": {
+        "ligneCaisse": {
+            "home": {
+                "title": "Ligne Caisses",
+                "createLabel": "Create a new Ligne Caisse",
+                "createOrEditLabel": "Create or edit a Ligne Caisse"
+            },
+            "created": "A new Ligne Caisse is created with identifier {{ param }}",
+            "updated": "A Ligne Caisse is updated with identifier {{ param }}",
+            "deleted": "A Ligne Caisse is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Ligne Caisse {{ id }}?"
+            },
+            "detail": {
+                "title": "Ligne Caisse"
+            },
+            "typeOperation": "Type Operation",
+            "libelle": "Libelle",
+            "montantOperation": "Montant Operation",
+            "quittanceMensuelle": "Quittance Mensuelle",
+            "declarationAnnuelle": "Declaration Annuelle",
+            "cnss": "Cnss",
+            "caisse": "Caisse",
+            "help": {
+                "typeOperation": "typeOperation 1 si Encaissement -1 si decaissement"
+            }
+        }
+    }
+}

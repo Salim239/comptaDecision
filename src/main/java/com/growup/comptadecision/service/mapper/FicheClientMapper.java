@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 /**
  * Mapper for the entity FicheClient and its DTO FicheClientDTO.
  */
-@Mapper(componentModel = "spring", uses = {CategorieCnssGerantMapper.class, CentreAdministratifMapper.class, SecteurActiviteMapper.class, ActiviteMapper.class, RegionMapper.class, VilleMapper.class , ImpotMensuelClientMapper.class})
+@Mapper(componentModel = "spring", uses = {CategorieCnssGerantMapper.class, CentreAdministratifMapper.class, SecteurActiviteMapper.class, ActiviteMapper.class, RegionMapper.class, VilleMapper.class , ImpotMensuelClientMapper.class, CabinetComptableMapper.class})
 public interface FicheClientMapper extends EntityMapper<FicheClientDTO, FicheClient> {
 
     @Mapping(source = "activite1.id", target = "activite1Id")
@@ -30,6 +30,7 @@ public interface FicheClientMapper extends EntityMapper<FicheClientDTO, FicheCli
     @Mapping(source = "ville.libelle", target = "villeLibelle")
     @Mapping(source = "categorieCnssGerant.libelle", target = "categorieCnssGerantLibelle")
     @Mapping(source = "categorieCnssGerant.id", target = "categorieCnssGerantId")
+    @Mapping(source = "cabinetComptable.code", target = "cabinetComptableCode")
     @Mapping(target = "tauxCnssAccident", expression = "java(ficheClient.getTauxCnssAccident() != null ? ficheClient.getTauxCnssAccident()/100 : null)")
     FicheClientDTO toDto(FicheClient ficheClient);
 
@@ -42,6 +43,7 @@ public interface FicheClientMapper extends EntityMapper<FicheClientDTO, FicheCli
     @Mapping(source = "regionId", target = "region")
     @Mapping(source = "villeId", target = "ville")
     @Mapping(source = "categorieCnssGerantId", target = "categorieCnssGerant")
+    @Mapping(source = "cabinetComptableCode", target = "cabinetComptable")
     @Mapping(target = "tauxCnssAccident", expression = "java(ficheClientDTO.getTauxCnssAccident() != null ? ficheClientDTO.getTauxCnssAccident() * 100 : null)")
     @Mapping(target = "impotMensuelClients", expression = "java(" +
             "ficheClientDTO.getImpotMensuelClients().stream().map(impotMensuelClientDto ->  {" +

@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="applicationUserFicheClient">
+            <h2><span jhiTranslate="comptaDecisionApp.applicationUserFicheClient.detail.title">Application User Fiche Client</span> {{applicationUserFicheClient.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.applicationUserFicheClient.ficheClient">Fiche Client</span></dt>
+                <dd>
+                    <div *ngIf="applicationUserFicheClient.ficheClientId">
+                        <a [routerLink]="['/fiche-client', applicationUserFicheClient.ficheClientId, 'view']">{{applicationUserFicheClient.ficheClientDesignation}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.applicationUserFicheClient.applicationUser">Application User</span></dt>
+                <dd>
+                    <div *ngIf="applicationUserFicheClient.applicationUserId">
+                        <a [routerLink]="['/application-user', applicationUserFicheClient.applicationUserId, 'view']">{{applicationUserFicheClient.applicationUserId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/application-user-fiche-client', applicationUserFicheClient.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

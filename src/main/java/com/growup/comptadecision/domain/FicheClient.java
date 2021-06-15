@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,12 +51,12 @@ public class FicheClient extends AbstractAuditingEntity {
     @Column(name = "designation", nullable = false)
     private String designation;
 
-    @Lob
-    @Column(name = "logo")
-    private byte[] logo;
-
-    @Column(name = "logo_content_type")
-    private String logoContentType;
+//    @Lob
+//    @Column(name = "logo")
+//    private byte[] logo;
+//
+//    @Column(name = "logo_content_type")
+//    private String logoContentType;
 
     @NotNull
     @Column(name = "adresse", nullable = false)
@@ -97,20 +97,151 @@ public class FicheClient extends AbstractAuditingEntity {
 
     @JoinColumn(name = "administration_cnss_id")
     @ManyToOne
-    CentreAdministratif administrationCnss;
+    private CentreAdministratif administrationCnss;
 
     @JoinColumn(name = "administration_fiscale_id")
     @ManyToOne
-    CentreAdministratif administrationFiscale;
+    private CentreAdministratif administrationFiscale;
 
 
     @JoinColumn(name = "administration_impot_id")
     @ManyToOne
-    CentreAdministratif administrationImpot;
+    private CentreAdministratif administrationImpot;
 
     @JoinColumn(name = "categorie_cnss_gerant_id")
     @ManyToOne
-    CategorieCnssGerant categorieCnssGerant;
+    private CategorieCnssGerant categorieCnssGerant;
+
+    @Enumerated
+    @Column(name = "code_tva")
+    private CodeTVA codeTva;
+
+    @Column(name = "registre_commerce")
+    private String registreCommerce;
+
+    @Column(name = "date_creation")
+    private LocalDate dateCreation;
+
+    @Column(name = "cnss_employeur")
+    private String cnssEmployeur;
+
+    @Column(name = "cnss_gerant")
+    private String cnssGerant;
+
+    @ManyToOne
+    @JoinColumn(name = "activite1_id")
+    private Activite activite1;
+
+    @ManyToOne
+    @JoinColumn(name = "activite2_id")
+    private Activite activite2;
+
+    @ManyToOne
+    @JoinColumn(name = "activite3_id")
+    private Activite activite3;
+
+    @ManyToOne
+    @JsonIgnoreProperties("secteur_activite1_id")
+    private SecteurActivite secteurActivite1;
+
+    @ManyToOne
+    @JsonIgnoreProperties("secteur_activite2_id")
+    private SecteurActivite secteurActivite2;
+
+    @ManyToOne
+    @JsonIgnoreProperties("secteur_activite3_id")
+    private SecteurActivite secteurActivite3;
+
+    @ManyToOne
+    private Region region;
+
+    @ManyToOne
+    private Ville ville;
+
+    @Column(name = "montant_frais_cabinet")
+    private BigDecimal montantFraisCabinet;
+
+    @Column(name = "monbre_mois_frais_cabinet")
+    private Integer nombreMoisFraisCabinet;
+
+    @OneToMany(mappedBy = "ficheClient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ImpotMensuelClient> impotMensuelClients = new ArrayList<>();
+
+    @Column(name = "lieu_naissance_gerant")
+    private String lieuNaissanceGerant;
+
+    @Column(name = "lieu_delivrance_cin_gerant")
+    private String lieuDelivranceCINGerant;
+
+
+    @Column(name = "prenom_gerant")
+    private String prenomGerant;
+
+    @Column(name = "nom_gerant")
+    private String nomGerant;
+
+    @Column(name = "date_naissance_gerant")
+    private LocalDate dateNaissanceGerant;
+
+    @Column(name = "cin_gerant")
+    private String cinGerant;
+
+    @Column(name = "date_delivrance_cin_gerant")
+    private LocalDate dateDelivranceCINGerant;
+
+    @Column(name = "adresse_gerant")
+    private String adresseGerant;
+
+    @Column(name = "telephone_gerant1")
+    private String telephoneGerant1;
+
+    @Column(name = "telephone_gerant2")
+    private String telephoneGerant2;
+
+    @Column(name = "email_gerant")
+    private String emailGerant;
+
+//    @Lob
+//    @Column(name = "fichier_patente")
+//    private byte[] fichierPatente;
+//
+//    @Column(name = "fichier_patente_content_type")
+//    private String fichierPatenteContentType;
+
+//    @Lob
+//    @Column(name = "copie_cin_gerant")
+//    private byte[] copieCINGerant;
+//
+//    @Column(name = "copie_cin_gerant_content_type")
+//    private String copieCINGerantContentType;
+
+    @Column(name = "telephone2")
+    private String telephone2;
+
+    @Column(name = "telephone3")
+    private String telephone3;
+
+    @Column(name = "email2")
+    private String email2;
+
+    @Column(name = "email3")
+    private String email3;
+
+    @Column(name = "taux_cnss_normal")
+    private BigDecimal tauxCnssNormal;
+
+    @Column(name = "taux_cnss_karama")
+    private BigDecimal tauxCnssKarama;
+
+    @Column(name = "etiquettes")
+    private String etiquettes;
+
+    /**
+     * Comptable du client
+     */
+    @ManyToOne
+    @JsonIgnoreProperties("clients")
+    private CabinetComptable cabinetComptable;
 
 
     public String getNumeroEtablissementSecondaire() {
@@ -145,64 +276,6 @@ public class FicheClient extends AbstractAuditingEntity {
         this.codeTva = codeTva;
     }
 
-    /**
-     * Utilisé dans le matricule
-     */
-    @Enumerated
-    @Column(name = "code_tva")
-    private CodeTVA codeTva;
-
-    @Column(name = "registre_commerce")
-    private String registreCommerce;
-
-    @Column(name = "date_creation")
-    private LocalDate dateCreation;
-
-    @Column(name = "cnss_employeur")
-    private String cnssEmployeur;
-
-    @Column(name = "cnss_gerant")
-    private String cnssGerant;
-
-    @Lob
-    @Column(name = "fichier_patente")
-    private byte[] fichierPatente;
-
-    @Column(name = "fichier_patente_content_type")
-    private String fichierPatenteContentType;
-
-    @ManyToOne
-    @JoinColumn(name = "activite1_id")
-    private Activite activite1;
-
-    @ManyToOne
-    @JoinColumn(name = "activite2_id")
-    private Activite activite2;
-
-    @ManyToOne
-    @JoinColumn(name = "activite3_id")
-    private Activite activite3;
-
-    @ManyToOne
-    @JsonIgnoreProperties("secteur_activite1_id")
-    private SecteurActivite secteurActivite1;
-
-    @ManyToOne
-    @JsonIgnoreProperties("secteur_activite2_id")
-    private SecteurActivite secteurActivite2;
-
-    @ManyToOne
-    @JsonIgnoreProperties("secteur_activite3_id")
-    private SecteurActivite secteurActivite3;
-
-    @ManyToOne
-    private Region region;
-
-    @ManyToOne
-    private Ville ville;
-
-    @OneToMany(mappedBy = "ficheClient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ImpotMensuelClient> impotMensuelClients = new ArrayList<>();
 
     public Activite getActivite1() {
         return activite1;
@@ -311,18 +384,18 @@ public class FicheClient extends AbstractAuditingEntity {
         this.designation = designation;
     }
 
-    public byte[] getLogo() {
-        return logo;
-    }
-
-    public FicheClient logo(byte[] logo) {
-        this.logo = logo;
-        return this;
-    }
-
-    public void setLogo(byte[] logo) {
-        this.logo = logo;
-    }
+//    public byte[] getLogo() {
+//        return logo;
+//    }
+//
+//    public FicheClient logo(byte[] logo) {
+//        this.logo = logo;
+//        return this;
+//    }
+//
+//    public void setLogo(byte[] logo) {
+//        this.logo = logo;
+//    }
 
     public void addImpotMensuelClient(ImpotMensuelClient impotMensuelClient) {
         impotMensuelClients.add(impotMensuelClient);
@@ -334,27 +407,27 @@ public class FicheClient extends AbstractAuditingEntity {
         impotMensuelClient.setFicheClient(null);
     }
 
-    public String getLogoContentType() {
-        return logoContentType;
-    }
-
-    public FicheClient logoContentType(String logoContentType) {
-        this.logoContentType = logoContentType;
-        return this;
-    }
-
-    public void setLogoContentType(String logoContentType) {
-        this.logoContentType = logoContentType;
-    }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public FicheClient adresse(String adresse) {
-        this.adresse = adresse;
-        return this;
-    }
+//    public String getLogoContentType() {
+//        return logoContentType;
+//    }
+//
+//    public FicheClient logoContentType(String logoContentType) {
+//        this.logoContentType = logoContentType;
+//        return this;
+//    }
+//
+//    public void setLogoContentType(String logoContentType) {
+//        this.logoContentType = logoContentType;
+//    }
+//
+//    public String getAdresse() {
+//        return adresse;
+//    }
+//
+//    public FicheClient adresse(String adresse) {
+//        this.adresse = adresse;
+//        return this;
+//    }
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
@@ -477,31 +550,31 @@ public class FicheClient extends AbstractAuditingEntity {
         this.cnssGerant = cnssGerant;
     }
 
-    public byte[] getFichierPatente() {
-        return fichierPatente;
-    }
-
-    public FicheClient fichierPatente(byte[] fichierPatente) {
-        this.fichierPatente = fichierPatente;
-        return this;
-    }
-
-    public void setFichierPatente(byte[] fichierPatente) {
-        this.fichierPatente = fichierPatente;
-    }
-
-    public String getFichierPatenteContentType() {
-        return fichierPatenteContentType;
-    }
-
-    public FicheClient fichierPatenteContentType(String fichierPatenteContentType) {
-        this.fichierPatenteContentType = fichierPatenteContentType;
-        return this;
-    }
-
-    public void setFichierPatenteContentType(String fichierPatenteContentType) {
-        this.fichierPatenteContentType = fichierPatenteContentType;
-    }
+//    public byte[] getFichierPatente() {
+//        return fichierPatente;
+//    }
+//
+//    public FicheClient fichierPatente(byte[] fichierPatente) {
+//        this.fichierPatente = fichierPatente;
+//        return this;
+//    }
+//
+//    public void setFichierPatente(byte[] fichierPatente) {
+//        this.fichierPatente = fichierPatente;
+//    }
+//
+//    public String getFichierPatenteContentType() {
+//        return fichierPatenteContentType;
+//    }
+//
+//    public FicheClient fichierPatenteContentType(String fichierPatenteContentType) {
+//        this.fichierPatenteContentType = fichierPatenteContentType;
+//        return this;
+//    }
+//
+//    public void setFichierPatenteContentType(String fichierPatenteContentType) {
+//        this.fichierPatenteContentType = fichierPatenteContentType;
+//    }
 
     public List<ImpotMensuelClient> getImpotMensuelClients() {
         return impotMensuelClients;
@@ -545,5 +618,256 @@ public class FicheClient extends AbstractAuditingEntity {
 
     public void setCategorieCnssGerant(CategorieCnssGerant categorieCnssGerant) {
         this.categorieCnssGerant = categorieCnssGerant;
+    }
+
+    public String getPrenomGerant() {
+        return prenomGerant;
+    }
+
+    public void setPrenomGerant(String prenomGerant) {
+        this.prenomGerant = prenomGerant;
+    }
+
+    public String getNomGerant() {
+        return nomGerant;
+    }
+
+    public void setNomGerant(String nomGerant) {
+        this.nomGerant = nomGerant;
+    }
+
+    public LocalDate getDateNaissanceGerant() {
+        return dateNaissanceGerant;
+    }
+
+    public void setDateNaissanceGerant(LocalDate dateNaissanceGerant) {
+        this.dateNaissanceGerant = dateNaissanceGerant;
+    }
+
+    public String getCinGerant() {
+        return cinGerant;
+    }
+
+    public void setCinGerant(String cinGerant) {
+        this.cinGerant = cinGerant;
+    }
+
+    public LocalDate getDateDelivranceCINGerant() {
+        return dateDelivranceCINGerant;
+    }
+
+    public void setDateDelivranceCINGerant(LocalDate dateDelivranceCINGerant) {
+        this.dateDelivranceCINGerant = dateDelivranceCINGerant;
+    }
+
+    public String getAdresseGerant() {
+        return adresseGerant;
+    }
+
+    public void setAdresseGerant(String adresseGerant) {
+        this.adresseGerant = adresseGerant;
+    }
+
+    public String getTelephoneGerant1() {
+        return telephoneGerant1;
+    }
+
+    public void setTelephoneGerant1(String telephoneGerant1) {
+        this.telephoneGerant1 = telephoneGerant1;
+    }
+
+    public String getTelephoneGerant2() {
+        return telephoneGerant2;
+    }
+
+    public void setTelephoneGerant2(String telephoneGerant2) {
+        this.telephoneGerant2 = telephoneGerant2;
+    }
+
+    public String getEmailGerant() {
+        return emailGerant;
+    }
+
+    public void setEmailGerant(String emailGerant) {
+        this.emailGerant = emailGerant;
+    }
+
+//    public FicheClient copieCINGerant(byte[] copieCINGerant) {
+//        this.copieCINGerant = copieCINGerant;
+//        return this;
+//    }
+
+    @Override
+    public String toString() {
+        return "FicheClient{" +
+            "id=" + id +
+            ", categorieClient=" + categorieClient +
+            ", designation='" + designation + '\'' +
+            ", adresse='" + adresse + '\'' +
+            ", codePostal='" + codePostal + '\'' +
+            ", telephone='" + telephone + '\'' +
+            ", fax='" + fax + '\'' +
+            ", email='" + email + '\'' +
+            ", matriculeFiscale='" + matriculeFiscale + '\'' +
+            ", numeroEtablissementSecondaire='" + numeroEtablissementSecondaire + '\'' +
+            ", categorieActivite=" + categorieActivite +
+            ", tauxCnssAccident=" + tauxCnssAccident +
+            ", administrationCnss=" + administrationCnss +
+            ", administrationFiscale=" + administrationFiscale +
+            ", administrationImpot=" + administrationImpot +
+            ", categorieCnssGerant=" + categorieCnssGerant +
+            ", codeTva=" + codeTva +
+            ", registreCommerce='" + registreCommerce + '\'' +
+            ", dateCreation=" + dateCreation +
+            ", cnssEmployeur='" + cnssEmployeur + '\'' +
+            ", cnssGerant='" + cnssGerant + '\'' +
+            ", activite1=" + activite1 +
+            ", activite2=" + activite2 +
+            ", activite3=" + activite3 +
+            ", secteurActivite1=" + secteurActivite1 +
+            ", secteurActivite2=" + secteurActivite2 +
+            ", secteurActivite3=" + secteurActivite3 +
+            ", region=" + region +
+            ", ville=" + ville +
+            ", montantFraisCabinet=" + montantFraisCabinet +
+            ", nombreMoisFraisCabinet=" + nombreMoisFraisCabinet +
+            ", impotMensuelClients=" + impotMensuelClients +
+            ", lieuNaissanceGerant='" + lieuNaissanceGerant + '\'' +
+            ", lieuDelivranceCINGerant='" + lieuDelivranceCINGerant + '\'' +
+            ", prenomGerant='" + prenomGerant + '\'' +
+            ", nomGerant='" + nomGerant + '\'' +
+            ", dateNaissanceGerant=" + dateNaissanceGerant +
+            ", cinGerant='" + cinGerant + '\'' +
+            ", dateDelivranceCINGerant=" + dateDelivranceCINGerant +
+            ", adresseGerant='" + adresseGerant + '\'' +
+            ", telephoneGerant1='" + telephoneGerant1 + '\'' +
+            ", telephoneGerant2='" + telephoneGerant2 + '\'' +
+            ", emailGerant='" + emailGerant + '\'' +
+            ", telephone2='" + telephone2 + '\'' +
+            ", telephone3='" + telephone3 + '\'' +
+            ", email2='" + email2 + '\'' +
+            ", email3='" + email3 + '\'' +
+            ", tauxCnssNormal=" + tauxCnssNormal +
+            ", tauxCnssKarama=" + tauxCnssKarama +
+            ", etiquettes='" + etiquettes + '\'' +
+            ", cabinetComptable=" + cabinetComptable +
+            '}';
+    }
+
+//    public FicheClient copieCINGerantContentType(String copieCINGerantContentType) {
+//        this.copieCINGerantContentType = copieCINGerantContentType;
+//        return this;
+//    }
+//
+//    public byte[] getCopieCINGerant() {
+//        return copieCINGerant;
+//    }
+//
+//    public void setCopieCINGerant(byte[] copieCINGerant) {
+//        this.copieCINGerant = copieCINGerant;
+//    }
+//
+//    public String getCopieCINGerantContentType() {
+//        return copieCINGerantContentType;
+//    }
+//
+//    public void setCopieCINGerantContentType(String copieCINGerantContentType) {
+//        this.copieCINGerantContentType = copieCINGerantContentType;
+//    }
+
+    public String getTelephone2() {
+        return telephone2;
+    }
+
+    public void setTelephone2(String telephone2) {
+        this.telephone2 = telephone2;
+    }
+
+    public String getTelephone3() {
+        return telephone3;
+    }
+
+    public void setTelephone3(String telephone3) {
+        this.telephone3 = telephone3;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public void setEmail2(String email2) {
+        this.email2 = email2;
+    }
+
+    public String getEmail3() {
+        return email3;
+    }
+
+    public void setEmail3(String email3) {
+        this.email3 = email3;
+    }
+
+    public CabinetComptable getCabinetComptable() {
+        return cabinetComptable;
+    }
+
+    public void setCabinetComptable(CabinetComptable cabinetComptable) {
+        this.cabinetComptable = cabinetComptable;
+    }
+
+    public BigDecimal getTauxCnssNormal() {
+        return tauxCnssNormal;
+    }
+
+    public void setTauxCnssNormal(BigDecimal tauxCnssNormal) {
+        this.tauxCnssNormal = tauxCnssNormal;
+    }
+
+    public BigDecimal getTauxCnssKarama() {
+        return tauxCnssKarama;
+    }
+
+    public void setTauxCnssKarama(BigDecimal tauxCnssKarama) {
+        this.tauxCnssKarama = tauxCnssKarama;
+    }
+
+    public String getEtiquettes() {
+        return etiquettes;
+    }
+
+    public void setEtiquettes(String etiquettes) {
+        this.etiquettes = etiquettes;
+    }
+
+    public BigDecimal getMontantFraisCabinet() {
+        return montantFraisCabinet;
+    }
+
+    public void setMontantFraisCabinet(BigDecimal montantFraisCabinet) {
+        this.montantFraisCabinet = montantFraisCabinet;
+    }
+
+    public Integer getNombreMoisFraisCabinet() {
+        return nombreMoisFraisCabinet;
+    }
+
+    public void setNombreMoisFraisCabinet(Integer nombreMoisFraisCabinet) {
+        this.nombreMoisFraisCabinet = nombreMoisFraisCabinet;
+    }
+
+    public String getLieuNaissanceGerant() {
+        return lieuNaissanceGerant;
+    }
+
+    public void setLieuNaissanceGerant(String lieuNaissanceGerant) {
+        this.lieuNaissanceGerant = lieuNaissanceGerant;
+    }
+
+    public String getLieuDelivranceCINGerant() {
+        return lieuDelivranceCINGerant;
+    }
+
+    public void setLieuDelivranceCINGerant(String lieuDelivranceCINGerant) {
+        this.lieuDelivranceCINGerant = lieuDelivranceCINGerant;
     }
 }

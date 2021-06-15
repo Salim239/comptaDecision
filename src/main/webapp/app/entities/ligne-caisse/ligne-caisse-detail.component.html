@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="ligneCaisse">
+            <h2><span jhiTranslate="comptaDecisionApp.ligneCaisse.detail.title">Ligne Caisse</span> {{ligneCaisse.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.ligneCaisse.typeOperation" [ngbTooltip]="'comptaDecisionApp.ligneCaisse.help.typeOperation' | translate">Type Operation</span></dt>
+                <dd>
+                    <span>{{ligneCaisse.typeOperation}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ligneCaisse.libelle">Libelle</span></dt>
+                <dd>
+                    <span>{{ligneCaisse.libelle}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ligneCaisse.montantOperation">Montant Operation</span></dt>
+                <dd>
+                    <span>{{ligneCaisse.montantOperation}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ligneCaisse.quittanceMensuelle">Quittance Mensuelle</span></dt>
+                <dd>
+                    <div *ngIf="ligneCaisse.quittanceMensuelleId">
+                        <a [routerLink]="['/quittance-mensuelle', ligneCaisse.quittanceMensuelleId, 'view']">{{ligneCaisse.quittanceMensuelleId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ligneCaisse.declarationAnnuelle">Declaration Annuelle</span></dt>
+                <dd>
+                    <div *ngIf="ligneCaisse.declarationAnnuelleId">
+                        <a [routerLink]="['/declaration-annuelle', ligneCaisse.declarationAnnuelleId, 'view']">{{ligneCaisse.declarationAnnuelleId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ligneCaisse.cnss">Cnss</span></dt>
+                <dd>
+                    <div *ngIf="ligneCaisse.cnssId">
+                        <a [routerLink]="['/cnss', ligneCaisse.cnssId, 'view']">{{ligneCaisse.cnssId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ligneCaisse.caisse">Caisse</span></dt>
+                <dd>
+                    <div *ngIf="ligneCaisse.caisseId">
+                        <a [routerLink]="['/caisse', ligneCaisse.caisseId, 'view']">{{ligneCaisse.caisseId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/ligne-caisse', ligneCaisse.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

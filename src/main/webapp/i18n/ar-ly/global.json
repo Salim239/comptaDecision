@@ -14,6 +14,11 @@
                 "acompteProvisionnel": "Acompte Provisionnel",
                 "declarationAnnuelle": "Declaration Annuelle",
                 "declarationEmployeurAnnuelle": "Declaration Employeur Annuelle",
+                "cabinetComptable": "Cabinet Comptable",
+                "caisse": "Caisse",
+                "ligneCaisse": "Ligne Caisse",
+                "applicationUser": "Application User",
+                "applicationUserFicheClient": "Application User Fiche Client",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "configuration": {

@@ -51,6 +51,7 @@ public class CnssDTO  extends BusinessAlertDTO {
     private BigDecimal tauxCnssKaramaAccident;
     private BigDecimal totalTauxCnssNormal;
     private BigDecimal totalTauxCnssKarama;
+    private BigDecimal montantPenalite = BigDecimal.ZERO;
     private BigDecimal montantCnssNormal;
     private BigDecimal montantCnssKarama;
     private BigDecimal montantTotalCnss;

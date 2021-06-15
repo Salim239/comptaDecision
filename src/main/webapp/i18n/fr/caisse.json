@@ -1,0 +1,25 @@
+{
+    "comptaDecisionApp": {
+        "caisse": {
+            "home": {
+                "title": "Caisses",
+                "createLabel": "Create a new Caisse",
+                "createOrEditLabel": "Create or edit a Caisse"
+            },
+            "created": "A new Caisse is created with identifier {{ param }}",
+            "updated": "A Caisse is updated with identifier {{ param }}",
+            "deleted": "A Caisse is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Caisse {{ id }}?"
+            },
+            "detail": {
+                "title": "Caisse"
+            },
+            "montantTotal": "Montant Total",
+            "montantReport": "Montant Report",
+            "cloturee": "Cloturee",
+            "ligneCaisse": "Ligne Caisse",
+            "ficheClient": "Fiche Client"
+        }
+    }
+}

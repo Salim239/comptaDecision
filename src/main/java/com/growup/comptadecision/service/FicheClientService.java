@@ -28,7 +28,9 @@ import java.util.stream.Collectors;
 public class FicheClientService {
 
     //todo ajouter dans fichier properties
-    private static final Double TAUX_CNSS_ACCIDENT_PAR_DEFAUT = 0.05;
+    private static final Double TAUX_CNSS_ACCIDENT_PAR_DEFAUT = 0.5;
+    private static final Double TAUX_CNSS_NORMAL_PAR_DEFAUT = 25.75;
+    private static final Double TAUX_CNSS_KARAMA_PAR_DEFAUT = 0.5;
 
     private final Logger log = LoggerFactory.getLogger(FicheClientService.class);
 
@@ -119,6 +121,8 @@ public class FicheClientService {
         });
         ficheClientDTO.setImpotMensuelClients(impotMensuelClientDTOs);
         ficheClientDTO.setTauxCnssAccident(TAUX_CNSS_ACCIDENT_PAR_DEFAUT);
+        ficheClientDTO.setTauxCnssNormal(TAUX_CNSS_NORMAL_PAR_DEFAUT);
+        ficheClientDTO.setTauxCnssKarama(TAUX_CNSS_KARAMA_PAR_DEFAUT);
         return ficheClientDTO;
     }
 

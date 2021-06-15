@@ -1,0 +1,24 @@
+{
+    "comptaDecisionApp": {
+        "cabinetComptable": {
+            "home": {
+                "title": "Cabinet Comptables",
+                "createLabel": "Create a new Cabinet Comptable",
+                "createOrEditLabel": "Create or edit a Cabinet Comptable"
+            },
+            "created": "A new Cabinet Comptable is created with identifier {{ param }}",
+            "updated": "A Cabinet Comptable is updated with identifier {{ param }}",
+            "deleted": "A Cabinet Comptable is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Cabinet Comptable {{ id }}?"
+            },
+            "detail": {
+                "title": "Cabinet Comptable"
+            },
+            "code": "Code",
+            "nombreLicense": "Nombre License",
+            "ficheClientCabinet": "Fiche Client Cabinet",
+            "client": "Client"
+        }
+    }
+}

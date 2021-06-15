@@ -8,10 +8,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Lob;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +33,14 @@ public class FicheClientDTO implements Serializable {
     @NotNull
     private String designation;
 
-    @Lob
-    private byte[] logo;
+//    @Lob
+//    private byte[] logo;
 
     private String logoContentType;
     @NotNull
     private String adresse;
+
+    private String email;
 
     @NotNull
     private String codePostal;
@@ -46,8 +48,6 @@ public class FicheClientDTO implements Serializable {
     private String telephone;
 
     private String fax;
-
-    private String email;
 
     @NotNull
     private String matriculeFiscale;
@@ -64,8 +64,8 @@ public class FicheClientDTO implements Serializable {
 
     private String categorieCnssGerantLibelle;
 
-    @Lob
-    private byte[] fichierPatente;
+//    @Lob
+//    private byte[] fichierPatente;
 
     private String fichierPatenteContentType;
 
@@ -124,6 +124,55 @@ public class FicheClientDTO implements Serializable {
     private CentreAdministratifDTO administrationFiscale;
 
     private CentreAdministratifDTO administrationImpot;
+
+    private String prenomGerant;
+
+    private String nomGerant;
+
+    private LocalDate dateNaissanceGerant;
+
+
+    private String lieuNaissanceGerant;
+
+    private String lieuDelivranceCINGerant;
+
+    private String cinGerant;
+
+    private LocalDate dateDelivranceCINGerant;
+
+    private String adresseGerant;
+
+    private String telephoneGerant1;
+
+    private String telephoneGerant2;
+
+    private String emailGerant;
+
+//    @Lob
+//    private byte[] copieCINGerant;
+
+    private String copieCINGerantContentType;
+
+    private String telephone2;
+
+    private String telephone3;
+
+    private String email2;
+
+    private String email3;
+
+    private Long cabinetComptableCode;
+
+    private Double tauxCnssNormal;
+
+    private Double tauxCnssKarama;
+
+    private String etiquettes;
+
+    private BigDecimal montantFraisCabinet;
+
+    private Integer nombreMoisFraisCabinet;
+
 
     public void setTauxCnssAccident(Double tauxCnssAccident) {
         this.tauxCnssAccident = tauxCnssAccident;
@@ -195,13 +244,13 @@ public class FicheClientDTO implements Serializable {
         this.designation = designation;
     }
 
-    public byte[] getLogo() {
-        return logo;
-    }
-
-    public void setLogo(byte[] logo) {
-        this.logo = logo;
-    }
+//    public byte[] getLogo() {
+//        return logo;
+//    }
+//
+//    public void setLogo(byte[] logo) {
+//        this.logo = logo;
+//    }
 
     public String getLogoContentType() {
         return logoContentType;
@@ -291,13 +340,13 @@ public class FicheClientDTO implements Serializable {
         this.cnssGerant = cnssGerant;
     }
 
-    public byte[] getFichierPatente() {
-        return fichierPatente;
-    }
-
-    public void setFichierPatente(byte[] fichierPatente) {
-        this.fichierPatente = fichierPatente;
-    }
+//    public byte[] getFichierPatente() {
+//        return fichierPatente;
+//    }
+//
+//    public void setFichierPatente(byte[] fichierPatente) {
+//        this.fichierPatente = fichierPatente;
+//    }
 
     public String getFichierPatenteContentType() {
         return fichierPatenteContentType;
@@ -469,5 +518,258 @@ public class FicheClientDTO implements Serializable {
 
     public Double getTauxCnssAccident() {
         return tauxCnssAccident;
+    }
+
+    public String getPrenomGerant() {
+        return prenomGerant;
+    }
+
+    public void setPrenomGerant(String prenomGerant) {
+        this.prenomGerant = prenomGerant;
+    }
+
+    public String getNomGerant() {
+        return nomGerant;
+    }
+
+    public void setNomGerant(String nomGerant) {
+        this.nomGerant = nomGerant;
+    }
+
+    public LocalDate getDateNaissanceGerant() {
+        return dateNaissanceGerant;
+    }
+
+    public void setDateNaissanceGerant(LocalDate dateNaissanceGerant) {
+        this.dateNaissanceGerant = dateNaissanceGerant;
+    }
+
+    public String getCinGerant() {
+        return cinGerant;
+    }
+
+    public void setCinGerant(String cinGerant) {
+        this.cinGerant = cinGerant;
+    }
+
+    public LocalDate getDateDelivranceCINGerant() {
+        return dateDelivranceCINGerant;
+    }
+
+    public void setDateDelivranceCINGerant(LocalDate dateDelivranceCINGerant) {
+        this.dateDelivranceCINGerant = dateDelivranceCINGerant;
+    }
+
+    public String getAdresseGerant() {
+        return adresseGerant;
+    }
+
+    public void setAdresseGerant(String adresseGerant) {
+        this.adresseGerant = adresseGerant;
+    }
+
+    public String getTelephoneGerant1() {
+        return telephoneGerant1;
+    }
+
+    public void setTelephoneGerant1(String telephoneGerant1) {
+        this.telephoneGerant1 = telephoneGerant1;
+    }
+
+    public String getTelephoneGerant2() {
+        return telephoneGerant2;
+    }
+
+    public void setTelephoneGerant2(String telephoneGerant2) {
+        this.telephoneGerant2 = telephoneGerant2;
+    }
+
+    public String getEmailGerant() {
+        return emailGerant;
+    }
+
+    public void setEmailGerant(String emailGerant) {
+        this.emailGerant = emailGerant;
+    }
+
+//    public byte[] getCopieCINGerant() {
+//        return copieCINGerant;
+//    }
+
+    @Override
+    public String toString() {
+        return "FicheClientDTO{" +
+            "id=" + id +
+            ", categorieClient=" + categorieClient +
+            ", designation='" + designation + '\'' +
+            ", logoContentType='" + logoContentType + '\'' +
+            ", adresse='" + adresse + '\'' +
+            ", email='" + email + '\'' +
+            ", codePostal='" + codePostal + '\'' +
+            ", telephone='" + telephone + '\'' +
+            ", fax='" + fax + '\'' +
+            ", matriculeFiscale='" + matriculeFiscale + '\'' +
+            ", registreCommerce='" + registreCommerce + '\'' +
+            ", dateCreation=" + dateCreation +
+            ", cnssEmployeur='" + cnssEmployeur + '\'' +
+            ", cnssGerant='" + cnssGerant + '\'' +
+            ", categorieCnssGerantId=" + categorieCnssGerantId +
+            ", categorieCnssGerantLibelle='" + categorieCnssGerantLibelle + '\'' +
+            ", fichierPatenteContentType='" + fichierPatenteContentType + '\'' +
+            ", secteurActivite1Id=" + secteurActivite1Id +
+            ", secteurActivite1Libelle='" + secteurActivite1Libelle + '\'' +
+            ", secteurActivite2Id=" + secteurActivite2Id +
+            ", secteurActivite2Libelle='" + secteurActivite2Libelle + '\'' +
+            ", secteurActivite3Id=" + secteurActivite3Id +
+            ", secteurActivite3Libelle='" + secteurActivite3Libelle + '\'' +
+            ", activite1Id=" + activite1Id +
+            ", activite1Libelle='" + activite1Libelle + '\'' +
+            ", activite2Id=" + activite2Id +
+            ", activite2Libelle='" + activite2Libelle + '\'' +
+            ", activite3Id=" + activite3Id +
+            ", activite3Libelle='" + activite3Libelle + '\'' +
+            ", regionId=" + regionId +
+            ", regionLibelle='" + regionLibelle + '\'' +
+            ", villeId=" + villeId +
+            ", villeLibelle='" + villeLibelle + '\'' +
+            ", numeroEtablissementSecondaire='" + numeroEtablissementSecondaire + '\'' +
+            ", categorieActivite=" + categorieActivite +
+            ", codeTva=" + codeTva +
+            ", tauxCnssAccident=" + tauxCnssAccident +
+            ", administrationCnss=" + administrationCnss +
+            ", administrationFiscale=" + administrationFiscale +
+            ", administrationImpot=" + administrationImpot +
+            ", prenomGerant='" + prenomGerant + '\'' +
+            ", nomGerant='" + nomGerant + '\'' +
+            ", dateNaissanceGerant=" + dateNaissanceGerant +
+            ", lieuNaissanceGerant='" + lieuNaissanceGerant + '\'' +
+            ", lieuDelivranceCINGerant='" + lieuDelivranceCINGerant + '\'' +
+            ", cinGerant='" + cinGerant + '\'' +
+            ", dateDelivranceCINGerant=" + dateDelivranceCINGerant +
+            ", adresseGerant='" + adresseGerant + '\'' +
+            ", telephoneGerant1='" + telephoneGerant1 + '\'' +
+            ", telephoneGerant2='" + telephoneGerant2 + '\'' +
+            ", emailGerant='" + emailGerant + '\'' +
+            ", copieCINGerantContentType='" + copieCINGerantContentType + '\'' +
+            ", telephone2='" + telephone2 + '\'' +
+            ", telephone3='" + telephone3 + '\'' +
+            ", email2='" + email2 + '\'' +
+            ", email3='" + email3 + '\'' +
+            ", cabinetComptableCode=" + cabinetComptableCode +
+            ", tauxCnssNormal=" + tauxCnssNormal +
+            ", tauxCnssKarama=" + tauxCnssKarama +
+            ", etiquettes='" + etiquettes + '\'' +
+            ", montantFraisCabinet=" + montantFraisCabinet +
+            ", nombreMoisFraisCabinet=" + nombreMoisFraisCabinet +
+            ", impotMensuelClients=" + impotMensuelClients +
+            '}';
+    }
+
+//    public void setCopieCINGerant(byte[] copieCINGerant) {
+//        this.copieCINGerant = copieCINGerant;
+//    }
+
+    public String getCopieCINGerantContentType() {
+        return copieCINGerantContentType;
+    }
+
+    public void setCopieCINGerantContentType(String copieCINGerantContentType) {
+        this.copieCINGerantContentType = copieCINGerantContentType;
+    }
+
+    public String getTelephone2() {
+        return telephone2;
+    }
+
+    public void setTelephone2(String telephone2) {
+        this.telephone2 = telephone2;
+    }
+
+    public String getTelephone3() {
+        return telephone3;
+    }
+
+    public void setTelephone3(String telephone3) {
+        this.telephone3 = telephone3;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public void setEmail2(String email2) {
+        this.email2 = email2;
+    }
+
+    public String getEmail3() {
+        return email3;
+    }
+
+    public void setEmail3(String email3) {
+        this.email3 = email3;
+    }
+
+    public Long getCabinetComptableCode() {
+        return cabinetComptableCode;
+    }
+
+    public void setCabinetComptableCode(Long cabinetComptableCode) {
+        this.cabinetComptableCode = cabinetComptableCode;
+    }
+
+    public Double getTauxCnssNormal() {
+        return tauxCnssNormal;
+    }
+
+    public void setTauxCnssNormal(Double tauxCnssNormal) {
+        this.tauxCnssNormal = tauxCnssNormal;
+    }
+
+    public Double getTauxCnssKarama() {
+        return tauxCnssKarama;
+    }
+
+    public void setTauxCnssKarama(Double tauxCnssKarama) {
+        this.tauxCnssKarama = tauxCnssKarama;
+    }
+
+    public String getEtiquettes() {
+        return etiquettes;
+    }
+
+    public void setEtiquettes(String etiquettes) {
+        this.etiquettes = etiquettes;
+    }
+
+    public String getLieuNaissanceGerant() {
+        return lieuNaissanceGerant;
+    }
+
+    public void setLieuNaissanceGerant(String lieuNaissanceGerant) {
+        this.lieuNaissanceGerant = lieuNaissanceGerant;
+    }
+
+    public String getLieuDelivranceCINGerant() {
+        return lieuDelivranceCINGerant;
+    }
+
+    public void setLieuDelivranceCINGerant(String lieuDelivranceCINGerant) {
+        this.lieuDelivranceCINGerant = lieuDelivranceCINGerant;
+    }
+
+    public BigDecimal getMontantFraisCabinet() {
+        return montantFraisCabinet;
+    }
+
+    public void setMontantFraisCabinet(BigDecimal montantFraisCabinet) {
+        this.montantFraisCabinet = montantFraisCabinet;
+    }
+
+    public Integer getNombreMoisFraisCabinet() {
+        return nombreMoisFraisCabinet;
+    }
+
+    public void setNombreMoisFraisCabinet(Integer nombreMoisFraisCabinet) {
+        this.nombreMoisFraisCabinet = nombreMoisFraisCabinet;
     }
 }

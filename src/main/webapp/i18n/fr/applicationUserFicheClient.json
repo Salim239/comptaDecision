@@ -1,0 +1,22 @@
+{
+    "comptaDecisionApp": {
+        "applicationUserFicheClient": {
+            "home": {
+                "title": "Application User Fiche Clients",
+                "createLabel": "Create a new Application User Fiche Client",
+                "createOrEditLabel": "Create or edit a Application User Fiche Client"
+            },
+            "created": "A new Application User Fiche Client is created with identifier {{ param }}",
+            "updated": "A Application User Fiche Client is updated with identifier {{ param }}",
+            "deleted": "A Application User Fiche Client is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Application User Fiche Client {{ id }}?"
+            },
+            "detail": {
+                "title": "Application User Fiche Client"
+            },
+            "ficheClient": "Fiche Client",
+            "applicationUser": "Application User"
+        }
+    }
+}

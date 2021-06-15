@@ -111,33 +111,27 @@
                         </td>
                     </tr>
                     <tr>
+                    <tr>
                         <th>
                             <label class="form-control-label"
-                                   jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutKarama"
-                                   for="field_montantSalaireBrutKarama">Montant Salaire Brut Karama</label>
+                                   jhiTranslate="comptaDecisionApp.cnss.montantPenalite"
+                                   for="field_montantPenalite">Montant Pénalité</label>
                         </th>
                         <td>
                             <div class="input-group mb-3">
-                            <input jhiDigitOnly [decimal]="true" class="form-control numeric"
-                                   name="totalTauxCnssKarama" id="field_totalTauxCnssKarama"
-                                   [(ngModel)]="cnss.totalTauxCnssKarama" [disabled]="true"/>
+                                <input jhiDigitOnly [decimal]="true" class="form-control numeric" value="N/A"/>
                             <div class="input-group-append">
                                 <span class="input-group-text">%</span>
                             </div>
                             </div>
                         </td>
                         <td>
-                            <input jhiDigitOnly [decimal]="true" class="form-control numeric"
-                                   name="montantSalaireBrutKarama" id="field_montantSalaireBrutKarama"
-                                   [(ngModel)]="cnss.montantSalaireBrutKarama" (change)="calculerMontant()"/>
+                            <input jhiDigitOnly [decimal]="true" class="form-control numeric" value="N/A"/>
                         </td>
                         <td>
-                            <input jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantCnssKarama"
-                                   id="field_montantCnssKarama"
-                                   [(ngModel)]="cnss.montantCnssKarama" [disabled]="true"/>
-                            <small class="form-text text-info">
-                                Taux appliqué: {{cnss.totalTauxCnssKarama}}%
-                            </small>
+                            <input jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantPenalite"
+                                   id="field_montantPenalite"
+                                   [(ngModel)]="cnss.montantPenalite"/>
                         </td>
                     </tr>
                     <tr>

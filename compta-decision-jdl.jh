@@ -1,10 +1,26 @@
+//application {
+//  config {
+//    baseName comptaDecision
+//    applicationType monolith
+//	cacheProvider hazelcast
+//	clientTheme cosmo
+//	clientThemeVariant	primary
+//	databaseType sql
+//	prodDatabaseType postgresql
+//	languages [fr, ar]
+//	packageName	com.growup.comptadecision
+//	testFrameworks [cucumber]
+//  }
+//  entities *
+//}
+
 enum TypeCentreAdministratif {
-    administration_cnss, administration_fiscale, administration_impot
+    ADMINISTRATION_CNSS, ADMINISTRATION_FISCALE, ADMINISTRATION_IMPOT
 }
 
 enum CategorieActivite {
-	M, 
-	P, 
+	M,
+	P,
 	C
 }
 
@@ -41,7 +57,7 @@ enum CodeAlert {
 }
 
 enum TypeAlert {
-    error, warning, info, succss
+    ERROR, WARNIG, INFO, SUCCESS
 }
 
 enum CategorieClient {
@@ -60,34 +76,17 @@ enum TypeValeur {
 * Region
 */
 
-entity Comptable {
-	id Long required,
-	code String required unique,
-	libelle String required,
-    description String
-}
-
-
-/**
-* Region
-*/
-
 entity Region {
-	id Long required,
 	code String required,
 	libelle String required,
     description String
 }
-
-dto Region with mapstruct
-service Region with serviceClass
 
 /**
 * Ville
 */
 
 entity Ville {
-	id Long required,
 	code String required,
     codePostal String,
 	libelle String required,
@@ -95,18 +94,14 @@ entity Ville {
 }
 
 relationship ManyToOne {
-	Ville{region(id required)} to Region
+	Ville{region(libelle) required} to Region
 }
-
-dto Ville with mapstruct
-service Ville with serviceClass
 
 /**
 * Centre Adminiqtratif
 */
 
 entity CentreAdministratif {
-	id Long required,
 	libelle String required,
     description String
 	type TypeCentreAdministratif required,
@@ -123,69 +118,107 @@ entity CentreAdministratif {
     codePostal String required
 }
 relationship ManyToOne {
-	CentreAdministratif{ville(id required)} to Ville required,
-	CentreAdministratif{region(id required)} to Region required
+	CentreAdministratif{ville(libelle) required} to Ville,
+	CentreAdministratif{region(libelle) required} to Region
 }
-dto CentreAdministratif with mapstruct
-service CentreAdministratif with serviceClass
 
 /**
 * Activite
 */
 
 entity Activite {
-	id Long required,
 	code String required,
 	libelle String required,
     description String
-    secteurActivite SecteurActivite required
 }
 relationship ManyToOne {
-	Activite{SecteurActivite(id required)} to SecteurActivite required
+	Activite{SecteurActivite(libelle) required} to SecteurActivite
 }
-dto Activite with mapstruct
-service Activite with serviceClass
 
 /**
 * Impot Mensuel
 */
 
 entity ImpotMensuel {
-	id Long required,
 	code String required,
     libelle String required,
     description String,
     parent Boolean , //default false,
     child Boolean , //default false,
     appliquerReportMontant Boolean , //default false,
-    coefficientMontant Folat , //default 1f,
+    coefficientMontant Float , //default 1f,
     //private List<ImpotMensuelLigne> impotMensuelLignes = new ArrayList<>();
     //private List<ImpotMensuel> childImpotMensuels = new ArrayList<>();
 }
-relationship ManyToOne {
-	ImpotMensuel{parentImpotMensuel(id)} to ImpotMensuel
-}
+//relationship ManyToOne {
+//	ImpotMensuel{parentImpotMensuel(id)} to ImpotMensuel
+//}
+
 relationship OneToMany{
-     ImpotMensuel{impotMensuelLignes(id)} to ImpotMensuelLigne,
-     ImpotMensuel{childImpotMensuels(id)} to ImpotMensuel	 
+     ImpotMensuel{impotMensuelLigne} to ImpotMensuelLigne{impotMensuel},
+     ImpotMensuel{childImpotMensuel} to ImpotMensuel{parentImpotMensuel}
 }
 
-dto ImpotMensuel with mapstruct
-service ImpotMensuel with serviceClass
+/**
+* Application User
+**/
+
+entity ApplicationUser {
+  matricule String,
+  poste String required,
+  dateEmbauche String
+}
+relationship ManyToOne {
+  ApplicationUser{cabinetComptable(code)} to CabinetComptable
+}
+
+relationship OneToOne {
+  FicheClient{internalUser(id)} to User
+}
+
+/**
+* Chaque utilisateur est en charge d une luste définie de clients
+*/
+//relationship ManyToMany {
+//  ApplicationUser{id} to FicheClient
+//}
+
+/**
+* Chaque Utilisateur peut avoir une limitation d'accès
+* à une liste définie de clients de son cabinet comptable
+**/
+
+entity ApplicationUserFicheClient {
+
+}
+
+relationship ManyToOne {
+  ApplicationUserFicheClient{ficheClient(designation) required} to FicheClient
+  ApplicationUserFicheClient{applicationUser(id) required} to ApplicationUser
+}
 
 /**
 * Fiche Client
 */
 
 entity FicheClient {
-	id Long required,
 	categorieClient CategorieClient required,
     designation String required,
-    logo ImageBlob,
-    copieCIN ImageBlob,
+	prenomGerant String,
+	nomGerant String,
+	dateNaissanceGerant LocalDate,
+	copieCIN ImageBlob,
+	adresseGerant String,
+	telephoneGerant1 String,
+	telephoneGerant2 String,
+	emailGerant String,
+    cinGerant String,
+    dateDelivranceCINGerant LocalDate,
+    copieCINGerant ImageBlob,
 	copiePatente ImageBlob,
+	logo ImageBlob,
 	copieRC ImageBlob,
-    cinGerant pattern(/^\d{5,}$/) ,
+    cinGerant String,
     dateDelivranceCINGerant LocalDate,
     adresse String required,
     codePostal String required,
@@ -197,43 +230,62 @@ entity FicheClient {
     email2 String,
     email3 String,
     matriculeFiscale String required,
-    registreCommerce String,  
+    registreCommerce String,
     dateCreation LocalDate,
     cnssEmployeur String,
     cnssGerant String,
     fichierPatente Blob	,
 	categorieActivite CategorieActivite required,
-	codeTva CodeTVA required,		
+	codeTVA CodeTVA required,
     numeroEtablissementSecondaire String , //default "000",
     tauxCnssAccident Double required,
-    fichierPatenteContentType String required,
     //private List<ImpotMensuelClient> impotMensuelClients = new ArrayList<>();
 }
 relationship ManyToOne {
 	FicheClient{centreAdministratif(libelle)} to CentreAdministratif,
-    FicheClient{activite1(libelle required)} to Activite,
+    FicheClient{activite1(libelle) required} to Activite,
     FicheClient{activite2(libelle)} to Activite,
     FicheClient{activite3(libelle)} to Activite,
-    FicheClient{secteurActivite1(libelle required)} to SecteurActivite,
+    FicheClient{secteurActivite1(libelle) required} to SecteurActivite,
     FicheClient{secteurActivite2(libelle)} to SecteurActivite,
     FicheClient{secteurActivite3(libelle)} to SecteurActivite,
-    FicheClient{region(libelle required)} to Region,
-    FicheClient{ville(libelle required)} to Ville,
-    FicheClient{categorieCnssGerant(libelle required)} to CategorieCnssGerant
+    FicheClient{region(libelle) required} to Region,
+    FicheClient{ville(libelle) required} to Ville,
+    FicheClient{categorieCnssGerant(libelle) required} to CategorieCnssGerant
+    //createdBy
+    //lastModifiedBy
+    //createdDate
+    //lastModifiedBy
+    //administrationCnssId
+    //administrationFiscaleId
+    //administrationImpotId
+    //cabinet_comptable_id
+    //code_categorie
+    //email
+    //email2
+    //lieu_delivrance_cin_gerant
+    //lieu_naissance_gerant
+    //monbre_mois_frais_cabinet
+    //taux_cnss_karama
+    //taux_cnss_normal
+    //telephone
+    //telephone_2
+    //telephone2
+    //telephone3
+    //telephone_gerant1
+    //telephone_gerant2
+
+
 }
 relationship OneToMany{
-     FicheClient{impotMensuelClients(id)} to ImpotMensuelClient 
+     FicheClient{impotMensuelClient} to ImpotMensuelClient{ficheClient}
 }
-dto FicheClient with mapstruct
-service FicheClient with serviceClass
-paginate FicheClient with pagination
 
 /**
 * CNSS
 */
 
 entity Cnss {
-	id Long required,
 	annee Integer required,
     trimestre Integer required,
     date LocalDate,
@@ -241,10 +293,10 @@ entity Cnss {
 	montantSalaireBrutNormal BigDecimal,
     montantSalaireBrutKarama BigDecimal,
 	typeCnss TypeCnss required,
-    typeDeclaration TypeDeclarationCnss required defaut TypeDeclarationCnss.DECLARATION_INITIALE,   
+    typeDeclaration TypeDeclarationCnss required //default TypeDeclarationCnss.DECLARATION_INITIALE,
     tauxCnssNormal BigDecimal,
     tauxCnssKarama BigDecimal,
-    tauxCnssNormalAccident BigDecimal,    
+    tauxCnssNormalAccident BigDecimal,
     tauxCnssKaramaAccident BigDecimal,
     montantCnssNormal BigDecimal,
     montantCnssKarama BigDecimal,
@@ -252,62 +304,49 @@ entity Cnss {
     montantTotalSalaireBrut BigDecimal
 }
 relationship ManyToOne {
-    Cnss{ficheClient(id required)} to FicheClient,
+    Cnss{ficheClient(designation) required} to FicheClient,
 }
-dto Cnss with mapstruct
-service Cnss with serviceClass
-paginate Cnss with pagination
 
 /**
 * Impot Mensuel Client
 */
 
 entity ImpotMensuelClient {
-	id Long required,
 	mois Integer required,
 	applicable Boolean , //default true
 }
 relationship ManyToOne {
-    ImpotMensuelClient{ficheClient(id required)} to FicheClient,
-    ImpotMensuelClient{impotMensuel(id required)} to ImpotMensuel,
+    //ImpotMensuelClient{ficheClient(designation) required} to FicheClient,
+    ImpotMensuelClient{impotMensuel(id) required} to ImpotMensuel,
 }
-dto ImpotMensuelClient with mapstruct
-service ImpotMensuelClient with serviceClass
-paginate ImpotMensuelClient with pagination
 
 /**
 * Quittance Mensuelle Impot
 */
 
 entity QuittanceMensuelle {
-	id Long required,
     annee Integer required,
 	mois Integer required,
     numeroQuittance String,
     datePaiement LocalDate,
-    montantTotal BigDecimal,	
-    typeDeclaration TypeDeclaration , //default TypeDeclaration.DECLARATION_INITIALE required,	
+    montantTotal BigDecimal,
+    typeDeclaration TypeDeclaration , //default TypeDeclaration.DECLARATION_INITIALE required,
     statut StatutDeclaration required  , //default StatutDeclaration.BROUILLON,
-    //private List<QuittanceMensuelleLine> quittanceMensuelleLines = new ArrayList<>();
+    //private List<QuittanceMensuelleLigne> quittanceMensuelleLignes = new ArrayList<>();
 }
 relationship ManyToOne {
-    QuittanceMensuelle{ficheClient(id required)} to FicheClient,
+    QuittanceMensuelle{ficheClient(designation) required} to FicheClient,
     QuittanceMensuelle{parentQuittance(id)} to QuittanceMensuelle,
 }
 relationship OneToMany{
-     QuittanceMensuelle{quittanceMensuelleLines(id)} to QuittanceMensuelleLine
+     QuittanceMensuelle{quittanceMensuelleLigne} to QuittanceMensuelleLigne
 }
 
-dto QuittanceMensuelle with mapstruct
-service QuittanceMensuelle with serviceClass
-paginate QuittanceMensuelle with pagination
-
 /**
-* Quittance Mensuelle Impot Line
+* Quittance Mensuelle Impot Ligne
 */
 
-entity QuittanceMensuelleLine {
-	id Long required,
+entity QuittanceMensuelleLigne {
     montantTotal BigDecimal,
     code String,
     libelle String,
@@ -317,49 +356,39 @@ entity QuittanceMensuelleLine {
     appliquerReportMontant Boolean , //default Boolean.FALSE,
     montantReport BigDecimal , //default BigDecimal.ZERO,
     coefficientMontant Float , //default 1f
-	//private List<QuittanceMensuelleLine> childQuittanceMensuelleLines = new ArrayList<>();
-    //private List<QuittanceMensuelleSousLine> quittanceMensuelleSousLines = new ArrayList<>();
+	//private List<QuittanceMensuelleLigne> childQuittanceMensuelleLignes = new ArrayList<>();
+    //private List<QuittanceMensuelleSousLigne> quittanceMensuelleSousLignes = new ArrayList<>();
 }
 
 relationship ManyToOne {
-    QuittanceMensuelleLine{parentQuittanceMensuelleLine(id)} to QuittanceMensuelle,
-    QuittanceMensuelleLine{impotMensuel(id required)} to ImpotMensuel
+    //QuittanceMensuelleLigne{quittanceMensuelleLigne(id)} to QuittanceMensuelle,
+	QuittanceMensuelleLigne{parentQuittanceMensuelleLigne(id)} to QuittanceMensuelleLigne,
+    QuittanceMensuelleLigne{impotMensuel(id) required} to ImpotMensuel
 }
 relationship OneToMany{
-     QuittanceMensuelleLine{quittanceMensuelleSousLines(id)} to QuittanceMensuelleSousLine,
-     QuittanceMensuelleLine{childQuittanceMensuelleLines(id)} to QuittanceMensuelleLine
+     QuittanceMensuelleLigne{quittanceMensuelleSousLigne} to QuittanceMensuelleSousLigne{quittanceMensuelleLigne},
+//     QuittanceMensuelleLigne{childQuittanceMensuelleLigne} to QuittanceMensuelleLigne{parentQuittanceMensuelleLigne}
 }
 
-dto QuittanceMensuelleLine with mapstruct
-service QuittanceMensuelleLine with serviceClass
-paginate QuittanceMensuelleLine with pagination
-
-
 /**
-* Quittance Mensuelle Impot Sous Line
+* Quittance Mensuelle Impot Sous Ligne
 */
 
-entity QuittanceMensuelleSousLine {
-	id Long required,
+entity QuittanceMensuelleSousLigne {
     montantBase BigDecimal,
     montantTotal BigDecimal
 }
 
 relationship ManyToOne {
-    QuittanceMensuelleSousLine{quittanceMensuelleLine(id required)} to QuittanceMensuelleLine,
-    QuittanceMensuelleSousLine{impotMensuelLine(id required)} to ImpotMensuelLine
+    //QuittanceMensuelleSousLigne{quittanceMensuelleLigne required} to QuittanceMensuelleLigne,
+    QuittanceMensuelleSousLigne{impotMensuelLigne(id) required} to ImpotMensuelLigne
 }
-
-dto QuittanceMensuelleSousLine with mapstruct
-service QuittanceMensuelleSousLine with serviceClass
-paginate QuittanceMensuelleSousLine with pagination
 
 /**
 * Declaration Annuelle
 */
 
 entity DeclarationAnnuelle {
-	id Long required,
 	annee Integer required,
     datePaiement LocalDate,
     numeroQuittance String,
@@ -378,19 +407,14 @@ entity DeclarationAnnuelle {
 }
 
 relationship ManyToOne {
-    DeclarationAnnuelle{ficheClient(id required)} to FicheClient,
+    DeclarationAnnuelle{ficheClient(designation) required} to FicheClient,
 }
-
-dto DeclarationAnnuelle with mapstruct
-service DeclarationAnnuelle with serviceClass
-paginate DeclarationAnnuelle with pagination
 
 /**
 * Declaration Employeur Annuelle
 */
 
 entity DeclarationEmployeurAnnuelle {
-	id Long required,
 	annee Integer required,
 	montantAnnexe1 BigDecimal,
     montantAnnexe2 BigDecimal,
@@ -407,34 +431,26 @@ entity DeclarationEmployeurAnnuelle {
 }
 
 relationship ManyToOne {
-    DeclarationEmployeurAnnuelle{ficheClient(id required)} to FicheClient,
+    DeclarationEmployeurAnnuelle{ficheClient(designation) required} to FicheClient,
 }
 
-dto DeclarationEmployeurAnnuelle with mapstruct
-service DeclarationEmployeurAnnuelle with serviceClass
-paginate DeclarationEmployeurAnnuelle with pagination
 
 /**
 * Categorie Cnss Gerant
 */
 
 entity CategorieCnssGerant {
-	id Long required,
     code String required,
-    String libelle code String required,
-    String description code String,
-    montantCotisationCnss BigDecimal
+    libelle String required,
+    description String,
+    montantCotisationCnss BigDecimal required
 }
-dto CategorieCnssGerant with mapstruct
-service CategorieCnssGerant with serviceClass
-paginate CategorieCnssGerant with pagination
 
 /**
 * Decalration Annuelle
 */
 
 entity DeclarationAnnuelle {
-	id Long required,
     typeDeclaration TypeDeclaration , //default TypeDeclaration.DECLARATION_INITIALE required,
     annee Integer required,
     datePaiement LocalDate,
@@ -445,26 +461,21 @@ entity DeclarationAnnuelle {
     montantReportAnterieur  BigDecimal , //default BigDecimal.ZERO,
     montantNet  BigDecimal , //default BigDecimal.ZERO,
     statut StatutDeclaration required  , //default StatutDeclaration.BROUILLON,
-    //private List<DecalrationAnnuelleLine> declarationAnnuelleLines = new ArrayList<>();
+    //private List<DecalrationAnnuelleLigne> declarationAnnuelleLignes = new ArrayList<>();
 }
 relationship ManyToOne {
-    DeclarationAnnuelle{ficheClient(id required)} to FicheClient
+    DeclarationAnnuelle{ficheClient(designation) required} to FicheClient
 }
 
 relationship OneToMany{
-     DeclarationAnnuelle{declarationAnnuelleLines(id)} to DecalrationAnnuelleLine
+     DeclarationAnnuelle{declarationAnnuelleLigne} to DecalrationAnnuelleLigne{declarationAnnuelle}
 }
 
-dto DeclarationAnnuelle with mapstruct
-service DeclarationAnnuelle with serviceClass
-paginate DeclarationAnnuelle with pagination
-
 /**
-* Decalration Annuelle Line
+* Decalration Annuelle Ligne
 */
 
-entity DecalrationAnnuelleLine {
-	id Long required,
+entity DecalrationAnnuelleLigne {
     code String required,
     triOrdre Integer,
     calcule Boolean,
@@ -474,19 +485,15 @@ entity DecalrationAnnuelleLine {
     description String
 }
 relationship ManyToOne {
-    DecalrationAnnuelleLine{impotAnnuel(id required)} to ImpotAnnuel,
-    DecalrationAnnuelleLine{declarationAnnuelle(id required)} to DeclarationAnnuelle,
+    DecalrationAnnuelleLigne{impotAnnuel(id) required} to ImpotAnnuel,
+    //DecalrationAnnuelleLigne{declarationAnnuelle(id) required} to DeclarationAnnuelle,
 }
-dto DecalrationAnnuelleLine with mapstruct
-service DecalrationAnnuelleLine with serviceClass
-paginate DecalrationAnnuelleLine with pagination
 
 /**
 * Acompte Provisionnel
 */
 
 entity AcompteProvisionnel {
-	id Long required,
 	annee Integer required,
     numero Integer required,
     date LocalDate,
@@ -501,79 +508,118 @@ entity AcompteProvisionnel {
     statut StatutDeclaration required  , //default StatutDeclaration.BROUILLON,
 }
 relationship ManyToOne {
-    AcompteProvisionnel{ficheClient(id required)} to FicheClient
+    AcompteProvisionnel{ficheClient(designation) required} to FicheClient
 }
-dto AcompteProvisionnel with mapstruct
-service AcompteProvisionnel with serviceClass
-paginate AcompteProvisionnel with pagination
 
 /**
 * ImpotAnnuel
 */
 
 entity ImpotAnnuel {
-	id Long required,
     code String required,
     libelle String required,
     description String,
     calcule Boolean , //default false,
     triOrdre Integer,
-    //private List<ImpotAnnuelLine> impotAnnuelLines = new ArrayList<>();
+    //private List<ImpotAnnuelLigne> impotAnnuelLignes = new ArrayList<>();
 }
 relationship OneToMany{
-     ImpotAnnuel{impotAnnuelLines(id required)} to ImpotAnnuelLine
+     ImpotAnnuel{impotAnnuelLigne required} to ImpotAnnuelLigne{impotAnnuel}
 }
 
-dto ImpotAnnuel with mapstruct
-service ImpotAnnuel with serviceClass
-paginate ImpotAnnuel with pagination
-
 /**
-* ImpotAnnuelLine
+* ImpotAnnuelLigne
 */
-entity ImpotAnnuelLine {
-	id Long required,
+entity ImpotAnnuelLigne {
     coefficient Float required , //default 1f
 }
 relationship ManyToOne {
-    ImpotAnnuelLine{impotAnnuel(id required)} to ImpotAnnuel,
-    ImpotAnnuelLine{impotMensuelLine(id required)} to ImpotMensuelLine
+    //ImpotAnnuelLigne{impotAnnuel(id) required} to ImpotAnnuel,
+    ImpotAnnuelLigne{impotMensuel(id) required} to ImpotMensuel
 }
-dto ImpotAnnuelLine with mapstruct
-service ImpotAnnuelLine with serviceClass
-paginate ImpotAnnuelLine with pagination
 
 /**
-* ImpotMensuelLine
+* ImpotMensuelLigne
 */
 
-entity ImpotMensuelLine {
-	id Long required,
+entity ImpotMensuelLigne {
     code String required,
 	libelle String required,
-	description description,
+	description String,
     triOrdre Integer,
     valeur Float,
     typeValeur TypeValeur required , //default TypeValeur.TAUX,
     valeurModifiable Boolean , //default false
 }
-relationship ManyToOne {
-    ImpotMensuelLine{impotMensuel(id required)} to ImpotMensuel
-}
-dto ImpotMensuelLine with mapstruct
-service ImpotMensuelLine with serviceClass
-paginate ImpotMensuelLine with pagination
+//relationship ManyToOne {
+//    ImpotMensuelLigne{impotMensuel(id) required} to ImpotMensuel
+//}
+
 
 /**
 * Secteur activite
 */
 
 entity SecteurActivite {
-	id Long required,
     code String required,
     libelle String required,
     description String
 }
-dto SecteurActivite with mapstruct
-service SecteurActivite with serviceClass
-paginate SecteurActivite with pagination
+
+/**
+* Cabinet Comptable
+*/
+entity CabinetComptable {
+	code String required,
+	nombreLicense Integer,
+}
+
+relationship OneToOne {
+  /** s'il s'agit de la fichie client du cabinet comptable lui même */
+  CabinetComptable{ficheClientCabinet(id)} to FicheClient{clientTypeComptableInfo}
+}
+
+relationship OneToMany {
+  /** list des clients du cabinet comptable */
+  CabinetComptable{client} to FicheClient{cabinetComptable}
+}
+
+/**
+* Caisse client
+*/
+
+entity Caisse {
+    montantTotal BigDecimal,
+    montantReport BigDecimal,
+    cloturee Boolean
+}
+
+relationship OneToMany {
+  Caisse{ligneCaisse} to LigneCaisse{caisse}
+}
+
+relationship ManyToOne {
+  Caisse{ficheClient(designation) required} to FicheClient
+}
+
+
+/**
+* Ligne caisse
+*/
+
+entity LigneCaisse {
+	/** typeOperation 1 si Encaissement -1 si decaissement */
+    typeOperation Integer required,
+    libelle String required,
+    montantOperation BigDecimal
+}
+
+relationship ManyToOne {
+  LigneCaisse{quittanceMensuelle(id)} to QuittanceMensuelle,
+  LigneCaisse{declarationAnnuelle(id)} to DeclarationAnnuelle,
+  LigneCaisse{cnss(id)} to Cnss,
+}
+
+dto * with mapstruct
+service * with serviceClass
+paginate * with pagination

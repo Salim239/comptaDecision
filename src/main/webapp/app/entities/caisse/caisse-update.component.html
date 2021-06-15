@@ -1,0 +1,52 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-caisse-heading" jhiTranslate="comptaDecisionApp.caisse.home.createOrEditLabel">Create or edit a Caisse</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!caisse.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="caisse.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.caisse.montantTotal" for="field_montantTotal">Montant Total</label>
+                    <input type="number" class="form-control" name="montantTotal" id="field_montantTotal"
+                        [(ngModel)]="caisse.montantTotal" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.caisse.montantReport" for="field_montantReport">Montant Report</label>
+                    <input type="number" class="form-control" name="montantReport" id="field_montantReport"
+                        [(ngModel)]="caisse.montantReport" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.caisse.cloturee" for="field_cloturee">Cloturee</label>
+                    <input type="checkbox" class="form-control" name="cloturee" id="field_cloturee"
+                        [(ngModel)]="caisse.cloturee" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.caisse.ficheClient" for="field_ficheClient">Fiche Client</label>
+                    <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="caisse.ficheClientId"  required>
+                        <option *ngIf="!editForm.value.ficheClient" [ngValue]="null" selected></option>
+                        <option [ngValue]="ficheClientOption.id" *ngFor="let ficheClientOption of ficheclients; trackBy: trackFicheClientById">{{ficheClientOption.designation}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.ficheClient?.dirty && editForm.controls.ficheClient?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.ficheClient?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

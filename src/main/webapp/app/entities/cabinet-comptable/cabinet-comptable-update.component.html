@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-cabinet-comptable-heading" jhiTranslate="comptaDecisionApp.cabinetComptable.home.createOrEditLabel">Create or edit a Cabinet Comptable</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!cabinetComptable.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="cabinetComptable.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cabinetComptable.code" for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                        [(ngModel)]="cabinetComptable.code" required/>
+                    <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cabinetComptable.nombreLicense" for="field_nombreLicense">Nombre License</label>
+                    <input type="number" class="form-control" name="nombreLicense" id="field_nombreLicense"
+                        [(ngModel)]="cabinetComptable.nombreLicense" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.cabinetComptable.ficheClientCabinet" for="field_ficheClientCabinet">Fiche Client Cabinet</label>
+                    <select class="form-control" id="field_ficheClientCabinet" name="ficheClientCabinet" [(ngModel)]="cabinetComptable.ficheClientCabinetId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="ficheClientOption.id" *ngFor="let ficheClientOption of ficheclientcabinets; trackBy: trackFicheClientById">{{ficheClientOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

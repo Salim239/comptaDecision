@@ -1,5 +1,5 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
     imports: [
@@ -68,6 +68,27 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'acompte-provisionnel',
                 loadChildren: './acompte-provisionnel/acompte-provisionnel.module#ComptaDecisionAcompteProvisionnelModule'
+            },
+            {
+                path: 'application-user',
+                loadChildren: './application-user/application-user.module#ComptaDecisionApplicationUserModule'
+            },
+            {
+                path: 'application-user-fiche-client',
+                loadChildren:
+                    './application-user-fiche-client/application-user-fiche-client.module#ComptaDecisionApplicationUserFicheClientModule'
+            },
+            {
+                path: 'cabinet-comptable',
+                loadChildren: './cabinet-comptable/cabinet-comptable.module#ComptaDecisionCabinetComptableModule'
+            },
+            {
+                path: 'caisse',
+                loadChildren: './caisse/caisse.module#ComptaDecisionCaisseModule'
+            },
+            {
+                path: 'ligne-caisse',
+                loadChildren: './ligne-caisse/ligne-caisse.module#ComptaDecisionLigneCaisseModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

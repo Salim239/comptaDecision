@@ -1,0 +1,52 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-application-user-heading" jhiTranslate="comptaDecisionApp.applicationUser.home.createOrEditLabel">Create or edit a Application User</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!applicationUser.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="applicationUser.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.applicationUser.matricule" for="field_matricule">Matricule</label>
+                    <input type="text" class="form-control" name="matricule" id="field_matricule"
+                        [(ngModel)]="applicationUser.matricule" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.applicationUser.poste" for="field_poste">Poste</label>
+                    <input type="text" class="form-control" name="poste" id="field_poste"
+                        [(ngModel)]="applicationUser.poste" required/>
+                    <div [hidden]="!(editForm.controls.poste?.dirty && editForm.controls.poste?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.poste?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.applicationUser.dateEmbauche" for="field_dateEmbauche">Date Embauche</label>
+                    <input type="text" class="form-control" name="dateEmbauche" id="field_dateEmbauche"
+                        [(ngModel)]="applicationUser.dateEmbauche" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.applicationUser.cabinetComptable" for="field_cabinetComptable">Cabinet Comptable</label>
+                    <select class="form-control" id="field_cabinetComptable" name="cabinetComptable" [(ngModel)]="applicationUser.cabinetComptableId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cabinetComptableOption.id" *ngFor="let cabinetComptableOption of cabinetcomptables; trackBy: trackCabinetComptableById">{{cabinetComptableOption.code}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
