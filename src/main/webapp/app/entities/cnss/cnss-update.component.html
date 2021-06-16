@@ -62,13 +62,35 @@
                     de la déclaration</h3>
                 <br>
                 <div *ngIf="isTypeCnssGerant" class="form-group row">
+                    <label jhiTranslate="comptaDecisionApp.cnss.montantCnssGerant"
+                           class="col-sm-2 col-form-label"
+                           for="field_categorieCnssGerantMontant">Montant Cnss Gerant</label>
+                    <div class="col-sm-10">
+                    <input [disabled]="true" jhiDigitOnly [decimal]="true" class="form-control numeric"
+                           id="field_categorieCnssGerantMontant"
+                           name="categorieCnssGerantMontant"
+                           [(ngModel)]="cnss.categorieCnssGerantMontant"/>
+                    </div>
+                </div>
+                <div *ngIf="isTypeCnssGerant" class="form-group row">
+                    <label jhiTranslate="comptaDecisionApp.cnss.montantPenalite"
+                           class="col-sm-2 col-form-label"
+                           for="field_montantPenaliteGerant">Pénalité</label>
+                    <div class="col-sm-10">
+                        <input jhiDigitOnly [decimal]="true" class="form-control numeric"
+                               name="montantPenalite" id="field_montantPenaliteGerant"
+                               [(ngModel)]="cnss.montantPenalite" (change)="calculerMontant()"/>
+                    </div>
+                </div>
+
+                <div *ngIf="isTypeCnssGerant" class="form-group row">
                     <label jhiTranslate="comptaDecisionApp.cnssGerant.montantTotal"
                            class="col-sm-2 col-form-label"
                            for="field_montantTotalCnssGerant">Montant total</label>
                     <div class="col-sm-10">
-                    <input [disabled]="true" jhiDigitOnly [decimal]="true" class="form-control numeric"
-                           name="montantTotalCnss" id="field_montantTotalCnssGerant"
-                           [(ngModel)]="cnss.montantTotalCnss"/>
+                        <input [disabled]="true" jhiDigitOnly [decimal]="true" class="form-control numeric"
+                               name="montantTotalCnss" id="field_montantTotalCnssGerant"
+                               [(ngModel)]="cnss.montantTotalCnss"/>
                     </div>
                 </div>
 
@@ -76,7 +98,8 @@
                     <tbody>
                     <tr>
                         <th></th>
-                        <th>Taux</th>
+                        <th>Taux CNSS</th>
+                        <th>Taux Accident</th>
                         <th>Salaire</th>
                         <th>Cnss</th>
                     </tr>
@@ -89,11 +112,21 @@
                         <td>
                             <div class="input-group mb-3">
                             <input [disabled]="true" jhiDigitOnly [decimal]="true" class="form-control numeric"
-                                   name="totalTauxCnssNormal" id="totalTauxCnssNormal_field"
-                                   [(ngModel)]="cnss.totalTauxCnssNormal"/>
+                                   name="tauxCnssNormal" id="tauxCnssNormal_field"
+                                   [(ngModel)]="cnss.tauxCnssNormal"/>
                             <div class="input-group-append">
                                 <span class="input-group-text">%</span>
                             </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group mb-3">
+                                <input [disabled]="true" jhiDigitOnly [decimal]="true" class="form-control numeric"
+                                       name="tauxCnssNormalAccident" id="tauxCnssNormalAccident_field"
+                                       [(ngModel)]="cnss.tauxCnssNormalAccident"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -106,32 +139,62 @@
                                    name="montantCnssNormal" id="field_montantCnssNormal"
                                    [(ngModel)]="cnss.montantCnssNormal" [disabled]="true"/>
                             <small class="form-text text-info">
-                                                            Taux appliqué: {{cnss.totalTauxCnssNormal}}%
+                                Taux appliqué: {{cnss.totalTauxCnssNormal}}%
                             </small>
                         </td>
                     </tr>
                     <tr>
-                    <tr>
                         <th>
                             <label class="form-control-label"
-                                   jhiTranslate="comptaDecisionApp.cnss.montantPenalite"
-                                   for="field_montantPenalite">Montant Pénalité</label>
+                                   jhiTranslate="comptaDecisionApp.cnss.montantSalaireBrutKarama"
+                                   for="field_montantSalaireBrutKarama">Montant Salaire Brut Karama</label>
                         </th>
                         <td>
                             <div class="input-group mb-3">
-                                <input jhiDigitOnly [decimal]="true" class="form-control numeric" value="N/A"/>
-                            <div class="input-group-append">
-                                <span class="input-group-text">%</span>
-                            </div>
+                                <input jhiDigitOnly [decimal]="true" class="form-control numeric"
+                                       name="totalTauxCnssKarama" id="field_totalTauxCnssKarama"
+                                       [(ngModel)]="cnss.tauxCnssKarama" [disabled]="true"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
                             </div>
                         </td>
                         <td>
-                            <input jhiDigitOnly [decimal]="true" class="form-control numeric" value="N/A"/>
+                            <div class="input-group mb-3">
+                                <input [disabled]="true" jhiDigitOnly [decimal]="true" class="form-control numeric"
+                                       name="tauxCnssKaramaAccident" id="tauxCnssKaramaAccident_field"
+                                       [(ngModel)]="cnss.tauxCnssKaramaAccident"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
                         </td>
                         <td>
-                            <input jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantPenalite"
-                                   id="field_montantPenalite"
-                                   [(ngModel)]="cnss.montantPenalite"/>
+                            <input jhiDigitOnly [decimal]="true" class="form-control numeric"
+                                   name="montantSalaireBrutKarama" id="field_montantSalaireBrutKarama"
+                                   [(ngModel)]="cnss.montantSalaireBrutKarama" (change)="calculerMontant()"/>
+                        </td>
+                        <td>
+                            <input jhiDigitOnly [decimal]="true" class="form-control numeric" name="montantCnssKarama"
+                                   id="field_montantCnssKarama"
+                                   [(ngModel)]="cnss.montantCnssKarama" [disabled]="true"/>
+                            <small class="form-text text-info">
+                                Taux appliqué: {{cnss.totalTauxCnssKarama}}%
+                            </small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.montantPenalite"
+                                   for="field_montantPenalite">Montant pénalite</label>
+                        </th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <input jhiDigitOnly [decimal]="true" class="form-control numeric"
+                                   name="montantPenalite"
+                                   [(ngModel)]="cnss.montantPenalite" (change)="calculerMontant()"/>
                         </td>
                     </tr>
                     <tr>
@@ -139,6 +202,7 @@
                             <label class="form-control-label" jhiTranslate="comptaDecisionApp.cnss.montantTotal"
                                    for="field_montantTotalCnss">Montant total</label>
                         </th>
+                        <td></td>
                         <td></td>
                         <td><input [disabled]="true" jhiDigitOnly [decimal]="true" class="form-control numeric"
                                    name="montantTotalSalaireBrut" id="field_montantTotalSalaireBrut"

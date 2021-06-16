@@ -27,6 +27,7 @@
             "montantSalaireBrutNormal": "Montant Salaire Brut Normal",
             "montantSalaireBrutKarama": "Montant Salaire Brut Karama",
             "montantSalaireBrutAutre": "Montant Salaire Brut Autre",
+            "montantCnssGerant": "Montant CNSS gérant",
             "montantTotal": "Montant total",
             "cnss": "Cnss",
             "ficheClient": "Fiche Client",
@@ -37,10 +38,10 @@
             "tauxCnssKarama": "Taux CNSS Karma",
             "tauxCnssAccident": "Taux Cnss Accident",
             "tauxCnssAutre": "Taux Cnss Autre",
-            "montantCnssNormal": "Montant Cnss Normal",
-            "montantCnssKarama": "Montant Cnss Karma",
-            "montantCnssAutre": "Montant Cnss Autre",
-            "montantPenalite": "Montant Pénalité"
+            "montantCnssNormal": "Cnss Normal",
+            "montantCnssKarama": "Cnss Karma",
+            "montantCnssAutre": "Cnss Autre",
+            "montantPenalite": "Pénalité"
         }
     }
 }

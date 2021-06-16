@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {JhiAlertService} from 'ng-jhipster';
-import {ICnss, TypeCnss} from 'app/shared/model/cnss.model';
-import {CnssService} from './cnss.service';
-import {IFicheClient} from 'app/shared/model/fiche-client.model';
-import {FicheClientService} from 'app/entities/fiche-client';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { JhiAlertService } from 'ng-jhipster';
+import { ICnss, TypeCnss } from 'app/shared/model/cnss.model';
+import { CnssService } from './cnss.service';
+import { IFicheClient } from 'app/shared/model/fiche-client.model';
+import { FicheClientService } from 'app/entities/fiche-client';
 import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
 
 @Component({
@@ -48,8 +48,10 @@ export class CnssUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.calculerMontant();
         this.parseMontants();
-        this.cnss.montantTotalSalaireBrut = this.cnss.montantSalaireBrutKarama + this.cnss.montantSalaireBrutNormal + this.cnss.montantPenalite;
+        this.cnss.montantTotalSalaireBrut =
+            this.cnss.montantSalaireBrutKarama + this.cnss.montantSalaireBrutNormal + this.cnss.montantPenalite;
         if (this.cnss.id) {
             this.subscribeToSaveResponse(this.cnssService.update(this.cnss));
         } else {
@@ -84,6 +86,7 @@ export class CnssUpdateComponent implements OnInit {
         this.cnss.totalTauxCnssNormal = ComptaDecisionUtils.parseCurrency(this.cnss.totalTauxCnssNormal);
         this.cnss.totalTauxCnssKarama = ComptaDecisionUtils.parseCurrency(this.cnss.totalTauxCnssKarama);
         this.cnss.montantPenalite = ComptaDecisionUtils.parseCurrency(this.cnss.montantPenalite);
+        this.cnss.categorieCnssGerantMontant = ComptaDecisionUtils.parseCurrency(this.cnss.categorieCnssGerantMontant);
     }
 
     formatMontants() {
@@ -96,14 +99,20 @@ export class CnssUpdateComponent implements OnInit {
         this.cnss.totalTauxCnssNormal = ComptaDecisionUtils.formatCurrency(this.cnss.totalTauxCnssNormal);
         this.cnss.totalTauxCnssKarama = ComptaDecisionUtils.formatCurrency(this.cnss.totalTauxCnssKarama);
         this.cnss.montantPenalite = ComptaDecisionUtils.formatCurrency(this.cnss.montantPenalite);
+        this.cnss.categorieCnssGerantMontant = ComptaDecisionUtils.formatCurrency(this.cnss.categorieCnssGerantMontant);
     }
 
     calculerMontant() {
         this.parseMontants();
-        this.cnss.montantCnssNormal = this.cnss.montantSalaireBrutNormal * (this.cnss.totalTauxCnssNormal / 100);
-        this.cnss.montantCnssKarama = this.cnss.montantSalaireBrutKarama * (this.cnss.totalTauxCnssKarama / 100);
-        this.cnss.montantTotalCnss = this.cnss.montantCnssNormal + this.cnss.montantCnssKarama;
-        this.cnss.montantTotalSalaireBrut = this.cnss.montantSalaireBrutKarama + this.cnss.montantSalaireBrutNormal + this.cnss.montantPenalite;
+        if (!this.isTypeCnssGerant) {
+            this.cnss.montantCnssNormal = this.cnss.montantSalaireBrutNormal * (this.cnss.totalTauxCnssNormal / 100);
+            this.cnss.montantCnssKarama = this.cnss.montantSalaireBrutKarama * (this.cnss.totalTauxCnssKarama / 100);
+            this.cnss.montantTotalCnss = this.cnss.montantCnssNormal + this.cnss.montantCnssKarama + this.cnss.montantPenalite;
+            this.cnss.montantTotalSalaireBrut =
+                this.cnss.montantSalaireBrutKarama + this.cnss.montantSalaireBrutNormal + this.cnss.montantPenalite;
+        } else {
+            this.cnss.montantTotalCnss = this.cnss.categorieCnssGerantMontant + this.cnss.montantPenalite;
+        }
         this.formatMontants();
     }
 }

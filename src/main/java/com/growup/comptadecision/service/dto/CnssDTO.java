@@ -56,6 +56,41 @@ public class CnssDTO  extends BusinessAlertDTO {
     private BigDecimal montantCnssKarama;
     private BigDecimal montantTotalCnss;
     private BigDecimal montantTotalSalaireBrut;
+    private String categorieCnssGerantCode;
+    private String categorieCnssGerantLibelle;
+    private BigDecimal categorieCnssGerantMontant;
+
+    public BigDecimal getCategorieCnssGerantMontant() {
+        return categorieCnssGerantMontant;
+    }
+
+    public void setCategorieCnssGerantMontant(BigDecimal categorieCnssGerantMontant) {
+        this.categorieCnssGerantMontant = categorieCnssGerantMontant;
+    }
+
+    public String getCategorieCnssGerantCode() {
+        return categorieCnssGerantCode;
+    }
+
+    public void setCategorieCnssGerantCode(String categorieCnssGerantCode) {
+        this.categorieCnssGerantCode = categorieCnssGerantCode;
+    }
+
+    public String getCategorieCnssGerantLibelle() {
+        return categorieCnssGerantLibelle;
+    }
+
+    public void setCategorieCnssGerantLibelle(String categorieCnssGerantLibelle) {
+        this.categorieCnssGerantLibelle = categorieCnssGerantLibelle;
+    }
+
+    public BigDecimal getMontantPenalite() {
+        return montantPenalite;
+    }
+
+    public void setMontantPenalite(BigDecimal montantPenalite) {
+        this.montantPenalite = montantPenalite;
+    }
 
     public BigDecimal getTotalTauxCnssNormal() {
         return this.tauxCnssNormal != null ? this.tauxCnssNormal.add(tauxCnssNormalAccident) : null;

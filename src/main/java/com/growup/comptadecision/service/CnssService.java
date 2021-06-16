@@ -38,9 +38,8 @@ public class CnssService {
 
     //TODO place in configuration table or application.yml
     static final BigDecimal TAUX_CNSS_NORMAL = new BigDecimal(25.75);
-    static final BigDecimal TAUX_CNSS_ACCIDENT_NORMAL = new BigDecimal(0.05);
+    static final BigDecimal TAUX_CNSS_ACCIDENT = new BigDecimal(0.05);
     static final BigDecimal TAUX_CNSS_KARAMA = new BigDecimal(0.005);
-    static final BigDecimal TAUX_CNSS_KARAMA_ACCIDENT = new BigDecimal(0.05);
 
 
     public CnssService(CnssRepository cnssRepository, FicheClientRepository ficheClientRepository, CnssMapper cnssMapper) {
@@ -131,23 +130,21 @@ public class CnssService {
         cnss.setTrimestre(trimestre);
         cnss.setTypeCnss(typeCnss);
         if (cnss.getTypeCnss() == TypeCnss.CNSS_GENERALE) {
-            cnss.setTauxCnssNormal(TAUX_CNSS_NORMAL);
-            cnss.setTauxCnssNormalAccident(ficheClient.getTauxCnssAccident() == null ? TAUX_CNSS_ACCIDENT_NORMAL : new BigDecimal(ficheClient.getTauxCnssAccident()));
-            cnss.setTauxCnssKarama(TAUX_CNSS_KARAMA);
-            cnss.setTauxCnssKaramaAccident(TAUX_CNSS_KARAMA_ACCIDENT);
+            cnss.setTauxCnssNormal(ficheClient.getTauxCnssNormal() == null? TAUX_CNSS_NORMAL : ficheClient.getTauxCnssNormal());
+            cnss.setTauxCnssKarama(ficheClient.getTauxCnssNormal() == null? TAUX_CNSS_KARAMA : ficheClient.getTauxCnssKarama());
+            cnss.setTauxCnssNormalAccident(ficheClient.getTauxCnssAccident() == null ? TAUX_CNSS_ACCIDENT : new BigDecimal(ficheClient.getTauxCnssAccident()));
+            cnss.setTauxCnssKaramaAccident(ficheClient.getTauxCnssAccident() == null ? TAUX_CNSS_ACCIDENT : new BigDecimal(ficheClient.getTauxCnssAccident()));
         }
         CnssDTO cnssDTO = cnssMapper.toDto(cnss);
         if (cnss.getTypeCnss() == TypeCnss.CNSS_GENERALE) {
             cnssDTO.setTotalTauxCnssNormal(cnss.getTauxCnssNormal().add(cnss.getTauxCnssNormalAccident()));
             cnssDTO.setTotalTauxCnssKarama(cnss.getTauxCnssKarama().add(cnss.getTauxCnssKaramaAccident()));
-        } else {
-            cnssDTO.setMontantTotalCnss(ficheClient.getCategorieCnssGerant().getMontantCotisationCnss());
         }
         return cnssDTO;
     }
 
     public CnssDTO init(Long ficheClientId, Integer annee, TypeCnss typeCnss, TypeDeclarationCnss typeDeclaration, Integer trimestre) {
-        log.debug("Request to init new Cnss type %s for year {} client id {} and trimestre {}", typeCnss.toString(), annee, ficheClientId,  trimestre);
+        log.debug("Request to init new Cnss type {} for year {} client id {} and trimestre {}", typeCnss.toString(), annee, ficheClientId,  trimestre);
         FicheClient ficheClient = ficheClientRepository.findById(ficheClientId).orElseThrow(() -> new RuntimeException(String.format("FicheClient not found with id %s", ficheClientId)));
         validateCreationForm(ficheClient, typeCnss, annee, typeDeclaration, trimestre);
         return getEmptyCnss(ficheClient, typeCnss, annee, typeDeclaration, trimestre);

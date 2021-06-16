@@ -11,18 +11,20 @@ import java.math.BigDecimal;
 /**
  * Mapper for the entity Cnss and its DTO CnssDTO.
  */
-@Mapper(componentModel = "spring", uses = {FicheClientMapper.class})
+@Mapper(componentModel = "spring", uses = {FicheClientMapper.class, CategorieCnssGerantMapper.class})
 public interface CnssMapper extends EntityMapper<CnssDTO, Cnss> {
 
     default BigDecimal sumMontants(CnssDTO cnssDTO) {
 
+        BigDecimal montantPenalite = cnssDTO.getMontantPenalite() != null ? cnssDTO.getMontantPenalite() : BigDecimal.ZERO;
+
         if (cnssDTO.getTypeCnss() == TypeCnss.CNSS_EMPLOYEUR) {
-            return cnssDTO.getMontantTotalCnss();
+            return cnssDTO.getCategorieCnssGerantMontant().add(montantPenalite);
         } else {
-            BigDecimal tauxCnss = cnssDTO.getTauxCnssNormalAccident().add(cnssDTO.getTauxCnssNormal());
-            BigDecimal tauxCnssKarama = cnssDTO.getTauxCnssKarama().add(cnssDTO.getTauxCnssKarama());
-            return cnssDTO.getMontantSalaireBrutNormal().multiply(tauxCnss)
-                .add(cnssDTO.getMontantSalaireBrutKarama().multiply(tauxCnssKarama));
+            BigDecimal tauxCnss = cnssDTO.getTauxCnssNormalAccident().add(cnssDTO.getTauxCnssNormal()).divide(new BigDecimal(100));
+            BigDecimal tauxCnssKarama = cnssDTO.getTauxCnssNormalAccident().add(cnssDTO.getTauxCnssKarama()).divide(new BigDecimal(100));
+            return (cnssDTO.getMontantSalaireBrutNormal().multiply(tauxCnss))
+                .add(cnssDTO.getMontantSalaireBrutKarama().multiply(tauxCnssKarama)).add(montantPenalite);
         }
     }
 
@@ -33,6 +35,9 @@ public interface CnssMapper extends EntityMapper<CnssDTO, Cnss> {
     @Mapping(source = "ficheClient.dateCreation", target = "ficheClientDateCreation")
     @Mapping(source = "ficheClient.cnssGerant", target = "ficheClientCnssGerant")
     @Mapping(source = "ficheClient.cnssEmployeur", target = "ficheClientCnssEmployeur")
+    @Mapping(source = "ficheClient.categorieCnssGerant.code", target = "categorieCnssGerantCode")
+    @Mapping(source = "ficheClient.categorieCnssGerant.libelle", target = "categorieCnssGerantLibelle")
+    @Mapping(source = "ficheClient.categorieCnssGerant.montantCotisationCnss", target = "categorieCnssGerantMontant")
     CnssDTO toDto(Cnss cnss);
 
     @Mapping(source = "ficheClientId", target = "ficheClient")
