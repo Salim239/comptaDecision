@@ -93,7 +93,7 @@
                                for="field_categorieActivite">Catégorie Activité</label>
                         <ng-select id="field_categorieActivite" name="categorieActivite"
                                    [(ngModel)]="ficheClient.categorieActivite" required
-                                   [items]="['M', 'P', 'C']">
+                                   [items]="['M', 'P', 'C', 'E']">
                         </ng-select>
                         <div
                             [hidden]="!(editForm.controls.categorieActivite?.dirty && editForm.controls.categorieActivite?.invalid)">
@@ -147,6 +147,20 @@
                                 [icon]="'calendar-alt'"></fa-icon></button>
                         </span>
                         </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label jhiTranslate="comptaDecisionApp.ficheClient.etiquettes"
+                               for="field_etiquettes">Etiquettes</label>
+                        <input type="text" class="form-control" name="etiquettes"
+                               id="field_etiquettes" maxlength="255"
+                               [(ngModel)]="ficheClient.etiquettes"/>
+                        <small class="form-text text-info"
+                               jhiTranslate="comptaDecisionApp.ficheClient.etiquettesInfoMsg">
+                            Séparer les étiquettes avec ;
+                        </small>
                     </div>
                 </div>
 
@@ -474,9 +488,9 @@
                         <div class="input-group mb-3">
                             <input jhiDigitOnly [decimal]="true" type="text"
                                    name="tauxCnssNormal" id="field_tauxCnssNormal"
-                                   class="form-control numeric" placeholder="Recipient's username"
+                                   class="form-control numeric" 
                                    [(ngModel)]="ficheClient.tauxCnssNormal" (change)="formatDecimalFields()"
-                                   aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                   aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text">%</span>
                             </div>
@@ -489,7 +503,7 @@
                         <div class="input-group mb-3">
                             <input jhiDigitOnly [decimal]="true" type="text"
                                    name="tauxCnssKarama" id="field_tauxCnssKarama"
-                                   class="form-control numeric" placeholder="Recipient's username"
+                                   class="form-control numeric" 
                                    [(ngModel)]="ficheClient.tauxCnssKarama" (change)="formatDecimalFields()"
                                    aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">
@@ -504,7 +518,7 @@
                         <div class="input-group mb-3">
                             <input jhiDigitOnly [decimal]="true" type="text"
                                    name="tauxCnssNormalAccident" id="field_tauxCnssAccident"
-                                   class="form-control numeric" placeholder="Recipient's username"
+                                   class="form-control numeric" 
                                    [(ngModel)]="ficheClient.tauxCnssAccident" (change)="formatDecimalFields()"
                                    aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">

@@ -870,4 +870,8 @@ public class FicheClient extends AbstractAuditingEntity {
     public void setLieuDelivranceCINGerant(String lieuDelivranceCINGerant) {
         this.lieuDelivranceCINGerant = lieuDelivranceCINGerant;
     }
+
+    public String getAdresse() {
+        return adresse;
+    }
 }

@@ -66,6 +66,7 @@
             "tauxCnssKarama": "Taux CNSS Karama",
             "tauxCnssNormal": "Taux CNSS Normal",
             "etiquettes": "Etiquette(s)",
+            "etiquettesInfoMsg": "Il est possible d'ajouter plusieures étiquettes en les séparant avec ;",
             "montantFraisCabinet": "Montant frais cabinet par mois",
             "nombreMoisFraisCabinet": "Fréquence paiement frais (en nombre de mois)"
         }
