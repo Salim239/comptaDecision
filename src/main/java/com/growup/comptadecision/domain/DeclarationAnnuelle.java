@@ -73,6 +73,9 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
     @Column(name = "montant_net")
     private BigDecimal montantNet = BigDecimal.ZERO;
 
+    @Column(name = "montant_penalite")
+    private BigDecimal montantPenalite = BigDecimal.ZERO;
+
 
     @Column(name = "statut")
     @Enumerated(EnumType.STRING)
@@ -83,6 +86,34 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
 
     @ManyToOne
     private FicheClient ficheClient;
+
+    @Override
+    public String toString() {
+        return "DeclarationAnnuelle{" +
+            "id=" + id +
+            ", typeDeclaration=" + typeDeclaration +
+            ", annee=" + annee +
+            ", datePaiement=" + datePaiement +
+            ", numeroQuittance='" + numeroQuittance + '\'' +
+            ", montantImpotAnnuel=" + montantImpotAnnuel +
+            ", montantApPayes=" + montantApPayes +
+            ", montantRetenueSource=" + montantRetenueSource +
+            ", montantReportAnterieur=" + montantReportAnterieur +
+            ", montantNet=" + montantNet +
+            ", montantPenalite=" + montantPenalite +
+            ", statut=" + statut +
+            ", declarationAnnuelleLignes=" + declarationAnnuelleLignes +
+            ", ficheClient=" + ficheClient +
+            '}';
+    }
+
+    public BigDecimal getMontantPenalite() {
+        return montantPenalite;
+    }
+
+    public void setMontantPenalite(BigDecimal montantPenalite) {
+        this.montantPenalite = montantPenalite;
+    }
 
     public Long getId() {
         return id;

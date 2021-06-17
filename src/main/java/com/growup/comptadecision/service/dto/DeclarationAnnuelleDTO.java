@@ -52,6 +52,8 @@ public class DeclarationAnnuelleDTO implements Serializable {
 
     private BigDecimal montantNet;
 
+    private BigDecimal montantPenalite;
+
     private LocalDate ficheClientDateCreation;
 
     private Long ficheClientId;
@@ -68,6 +70,14 @@ public class DeclarationAnnuelleDTO implements Serializable {
 
     public TypeDeclaration getTypeDeclaration() {
         return typeDeclaration;
+    }
+
+    public BigDecimal getMontantPenalite() {
+        return montantPenalite;
+    }
+
+    public void setMontantPenalite(BigDecimal montantPenalite) {
+        this.montantPenalite = montantPenalite;
     }
 
     public void setTypeDeclaration(TypeDeclaration typeDeclaration) {

@@ -2,63 +2,63 @@
     <div class="form-group mb-2">
         <label for="field_ficheClient" jhiTranslate="comptaDecisionApp.form.inputLabel.ficheClient">Fiche Client</label><span
             style="color: red">*</span>&nbsp;&nbsp;&nbsp;
-        <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="selectedFicheClientId"
-                (change)="updateAnneeMois()">
-            <option [ngValue]=""></option>
-            <option [ngValue]="ficheClientOption.id"
-                    *ngFor="let ficheClientOption of ficheClients; ">{{ficheClientOption.designation}}</option>
-        </select>
+        <ng-select id="field_ficheClient" name="ficheClient" [(ngModel)]="selectedFicheClientId"
+                (change)="updateAnneeMois()" [clearable]="false">
+            <ng-option value=""></ng-option>
+            <ng-option [value]="ficheClientOption.id"
+                    *ngFor="let ficheClientOption of ficheClients; ">{{ficheClientOption.designation}}</ng-option>
+        </ng-select>
     </div>
     <div class="form-group mx-sm-3 mb-2" [hidden]="hideTypeDeclaration">
         <label for="field_typeDeclaration" jhiTranslate="comptaDecisionApp.form.inputLabel.typeDeclaration">Type
             déclaration</label><span style="color: red">*</span>&nbsp;&nbsp;&nbsp;
-        <select required class="form-control" name="typeDeclaration" [(ngModel)]="selectedTypeDeclaration"
+        <ng-select [clearable]="false" required name="typeDeclaration" [(ngModel)]="selectedTypeDeclaration"
                 id="field_typeDeclaration">
-            <option [ngValue]="typeDeclarationOption" *ngFor="let typeDeclarationOption of typeDeclarationList;">
+            <ng-option [value]="typeDeclarationOption" *ngFor="let typeDeclarationOption of typeDeclarationList;">
                 {{'comptaDecisionApp.typeDeclaration.' + typeDeclarationOption | translate}}
-            </option>
-        </select>
+            </ng-option>
+        </ng-select>
     </div>
     <div class="form-group mx-sm-3 mb-2" [hidden]="hideTypeDeclarationCnss">
         <label for="field_typeDeclarationCnss" jhiTranslate="comptaDecisionApp.form.inputLabel.typeDeclaration">Type
             déclaration</label><span style="color: red">*</span>&nbsp;&nbsp;&nbsp;
-        <select required class="form-control" name="typeDeclaration" [(ngModel)]="selectedTypeDeclarationCnss"
+        <ng-select [clearable]="false" required name="typeDeclaration" [(ngModel)]="selectedTypeDeclarationCnss"
                 id="field_typeDeclarationCnss">
-            <option [ngValue]="typeDeclarationOption" *ngFor="let typeDeclarationOption of typeDeclarationCnssList;">
+            <ng-option [value]="typeDeclarationOption" *ngFor="let typeDeclarationOption of typeDeclarationCnssList;">
                 {{'comptaDecisionApp.typeDeclarationCnss.' + typeDeclarationOption | translate}}
-            </option>
-        </select>
+            </ng-option>
+        </ng-select>
     </div>
     <div class="form-group mx-sm-3 mb-2">
         <label for="field_annee" jhiTranslate="comptaDecisionApp.form.inputLabel.annee">Annee</label><span
             style="color: red">*</span>&nbsp;&nbsp;&nbsp;
-        <select required class="form-control" name="annee" [(ngModel)]="selectedAnnee" id="field_annee">
-            <option [ngValue]="anneeOption" *ngFor="let anneeOption of anneeList;">{{anneeOption}}</option>
-        </select>
+        <ng-select [clearable]="false" required name="annee" [(ngModel)]="selectedAnnee" id="field_annee">
+            <ng-option [value]="anneeOption" *ngFor="let anneeOption of anneeList;">{{anneeOption}}</ng-option>
+        </ng-select>
     </div>
     <div class="form-group mx-sm-3 mb-2" [hidden]="hideMois">
         <label for="field_mois" jhiTranslate="comptaDecisionApp.form.inputLabel.mois">Mois</label><span
             style="color: red">*</span>&nbsp;&nbsp;&nbsp;
-        <select required class="form-control" name="mois" [(ngModel)]="selectedMois" id="field_mois">
-            <option [ngValue]="moisOption"
-                    *ngFor="let moisOption of moisList;">{{'comptaDecisionApp.form.optionSelect.mois.' + moisOption | translate}}</option>
-        </select>
+        <ng-select [clearable]="false" required name="mois" [(ngModel)]="selectedMois" id="field_mois">
+            <ng-option [value]="moisOption"
+                    *ngFor="let moisOption of moisList;">{{'comptaDecisionApp.form.optionSelect.mois.' + moisOption | translate}}</ng-option>
+        </ng-select>
     </div>
     <div class="form-group mx-sm-3 mb-2" [hidden]="hideTrimestre">
         <label for="field_trimestre" jhiTranslate="comptaDecisionApp.form.inputLabel.trimestre">Trimestre</label><span
             style="color: red">*</span>&nbsp;&nbsp;&nbsp;
-        <select required class="form-control" name="trimestre" [(ngModel)]="selectedTrimestre" id="field_trimestre">
-            <option [ngValue]="trimestreOption"
-                    *ngFor="let trimestreOption of trimestreList;">{{'comptaDecisionApp.form.optionSelect.trimestre.' + trimestreOption | translate}}</option>
-        </select>
+        <ng-select [clearable]="false" required name="trimestre" [(ngModel)]="selectedTrimestre" id="field_trimestre">
+            <ng-option [value]="trimestreOption"
+                    *ngFor="let trimestreOption of trimestreList;">{{'comptaDecisionApp.form.optionSelect.trimestre.' + trimestreOption | translate}}</ng-option>
+        </ng-select>
     </div>
     <div class="form-group mx-sm-3 mb-2" [hidden]="hildeNumeroAcompte">
         <label for="field_numeroAcompte" jhiTranslate="comptaDecisionApp.form.inputLabel.numeroAcompte">Numéro</label><span
             style="color: red">*</span>&nbsp;&nbsp;&nbsp;
-        <select required class="form-control" name="numeroAcompte" [(ngModel)]="selectedNumeroAcompte" id="field_numeroAcompte">
-            <option [ngValue]="numeroAcompteOption"
-                    *ngFor="let numeroAcompteOption of numeroAcompteList;">{{'comptaDecisionApp.form.optionSelect.numeroAcompte.' + numeroAcompteOption | translate}}</option>
-        </select>
+        <ng-select [clearable]="false" required name="numeroAcompte" [(ngModel)]="selectedNumeroAcompte" id="field_numeroAcompte">
+            <ng-option [value]="numeroAcompteOption"
+                    *ngFor="let numeroAcompteOption of numeroAcompteList;">{{'comptaDecisionApp.form.optionSelect.numeroAcompte.' + numeroAcompteOption | translate}}</ng-option>
+        </ng-select>
     </div>
     <button type="submit" class="btn btn-primary mb-2" [disabled]="editForm.form.invalid"><span
             jhiTranslate="entity.action.add">Créer</span></button>

@@ -78,23 +78,25 @@ export class NewEntryComponent implements OnInit {
     }
 
     updateAnneeMois() {
-        this.ficheClientService
-            .find(this.selectedFicheClientId)
-            .pipe(
-                filter((mayBeOk: HttpResponse<IFicheClient>) => mayBeOk.ok),
-                map((response: HttpResponse<IFicheClient>) => response.body)
-            )
-            .subscribe(
-                (res: IFicheClient) => {
-                    const ficheClient = res;
-                    // this.moisList = [1,2,3,4,5,6,7,8,9,10,11,12];
-                    this.anneeList = ComptaDecisionUtils.getPreviousYears(moment(ficheClient.dateCreation).year());
-                    this.selectedFicheClientId = ficheClient.id;
-                    this.selectedAnnee = this.anneeList[0];
-                    // this.selectedMois = this.moisList[0];
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        if (this.selectedFicheClientId) {
+            this.ficheClientService
+                .find(this.selectedFicheClientId)
+                .pipe(
+                    filter((mayBeOk: HttpResponse<IFicheClient>) => mayBeOk.ok),
+                    map((response: HttpResponse<IFicheClient>) => response.body)
+                )
+                .subscribe(
+                    (res: IFicheClient) => {
+                        const ficheClient = res;
+                        // this.moisList = [1,2,3,4,5,6,7,8,9,10,11,12];
+                        this.anneeList = ComptaDecisionUtils.getPreviousYears(moment(ficheClient.dateCreation).year());
+                        this.selectedFicheClientId = ficheClient.id;
+                        this.selectedAnnee = this.anneeList[0];
+                        // this.selectedMois = this.moisList[0];
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+        }
     }
 
     submit() {

@@ -160,6 +160,20 @@
                     </tr>
                     <tr>
                         <th>
+                            <label jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantPenalite"
+                                   for="field_montantPenalite">Montant pénalité</label>
+                        </th>
+                        <td>
+                            <input jhiDigitOnly decimal="true" class="form-control numeric"
+                                   name="montantPenalite" id="field_montantPenalite"
+                                   [(ngModel)]="declarationAnnuelle.montantPenalite" (change)="calculerMontants()"/>
+                        </td>
+                        <td>
+                            <input [disabled]="true" class="form-control numeric" value="N/A"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             <label jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantNet"
                                    class="col-sm-4 col-form-label"
                                    for="field_montantNet">Report Antérieur</label>

@@ -27,6 +27,7 @@ export interface IDeclarationAnnuelle {
     montantRetenueSource?: number;
     montantReportAnterieur?: number;
     montantReportAnterieurCalc?: number;
+    montantPenalite?: number;
     montantNet?: number;
     ficheClientId?: number;
     ficheClientDesignation?: string;
@@ -51,6 +52,7 @@ export class DeclarationAnnuelle implements IDeclarationAnnuelle {
         public montantRetenueSource?: number,
         public montantReportAnterieur?: number,
         public montantReportAnterieurCalc?: number,
+        public montantPenalite?: number,
         public montantNet?: number,
         public ficheClientId?: number,
         public ficheClientDesignation?: string,

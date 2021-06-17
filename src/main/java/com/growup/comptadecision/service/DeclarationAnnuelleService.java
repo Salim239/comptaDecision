@@ -242,8 +242,9 @@ public class DeclarationAnnuelleService {
 
     private BigDecimal calculerMontantNet(DeclarationAnnuelle declarationAnnuelle) {
         return declarationAnnuelle.getMontantImpotAnnuel()
-            .add(declarationAnnuelle.getMontantRetenueSource())
+            .subtract(declarationAnnuelle.getMontantRetenueSource())
             .subtract(declarationAnnuelle.getMontantApPayes())
+            .subtract(declarationAnnuelle.getMontantPenalite())
             .subtract(declarationAnnuelle.getMontantReportAnterieur())
             ;
     }

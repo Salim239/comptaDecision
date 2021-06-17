@@ -25,7 +25,8 @@
             "montantRetenueSource": "RS",
             "montantReportAnterieur": "Report Antérieur",
             "montantNet": "Net à Payer",
-            "ficheClient": "Fiche Client"
+            "ficheClient": "Fiche Client",
+            "montantPenalite": "Montant pénalité"
         }
     }
 }

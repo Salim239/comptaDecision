@@ -42,6 +42,7 @@ export class DeclarationAnnuelleUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.calculerMontants();
         this.parseDeclarationAnnuelle();
         if (this.declarationAnnuelle.id) {
             this.subscribeToSaveResponse(this.declarationAnnuelleService.update(this.declarationAnnuelle));
@@ -97,9 +98,10 @@ export class DeclarationAnnuelleUpdateComponent implements OnInit {
     calculerMontants() {
         this.parseMontants();
         this.declarationAnnuelle.montantNet =
-            this.declarationAnnuelle.montantImpotAnnuel +
+            this.declarationAnnuelle.montantImpotAnnuel -
             this.declarationAnnuelle.montantRetenueSource -
             this.declarationAnnuelle.montantApPayes -
+            this.declarationAnnuelle.montantPenalite -
             this.declarationAnnuelle.montantReportAnterieur;
         this.formatMontants();
     }
@@ -111,6 +113,7 @@ export class DeclarationAnnuelleUpdateComponent implements OnInit {
             this.declarationAnnuelle.montantReportAnterieur
         );
         this.declarationAnnuelle.montantRetenueSource = ComptaDecisionUtils.parseCurrency(this.declarationAnnuelle.montantRetenueSource);
+        this.declarationAnnuelle.montantPenalite = ComptaDecisionUtils.parseCurrency(this.declarationAnnuelle.montantPenalite);
         this.declarationAnnuelle.montantNet = ComptaDecisionUtils.parseCurrency(this.declarationAnnuelle.montantNet);
     }
 
@@ -120,6 +123,7 @@ export class DeclarationAnnuelleUpdateComponent implements OnInit {
         this.declarationAnnuelle.montantReportAnterieur = ComptaDecisionUtils.formatCurrency(
             this.declarationAnnuelle.montantReportAnterieur
         );
+        this.declarationAnnuelle.montantPenalite = ComptaDecisionUtils.formatCurrency(this.declarationAnnuelle.montantPenalite);
         this.declarationAnnuelle.montantRetenueSource = ComptaDecisionUtils.formatCurrency(this.declarationAnnuelle.montantRetenueSource);
         this.declarationAnnuelle.montantNet = ComptaDecisionUtils.formatCurrency(this.declarationAnnuelle.montantNet);
     }

@@ -2,30 +2,31 @@
     "comptaDecisionApp": {
         "declarationAnnuelle": {
             "home": {
-                "title": "Declaration Annuelles",
+                "title": "Déclarations Annuelles",
                 "tableTitle": "Saisie des montants de la déclaration",
-                "createLabel": "Create a new Declaration Annuelle",
-                "createOrEditLabel": "Create or edit a Declaration Annuelle"
+                "createLabel": "Créer une nouvelle Déclaration Annuelle",
+                "createOrEditLabel": "Créer ou éditer une Déclaration Annuelle"
             },
-            "created": "A new Declaration Annuelle is created with identifier {{ param }}",
-            "updated": "A Declaration Annuelle is updated with identifier {{ param }}",
-            "deleted": "A Declaration Annuelle is deleted with identifier {{ param }}",
+            "created": "Une nouvelle Déclaration Annuelle a été créée avec l'identifiant {{ param }}",
+            "updated": "La Déclaration Annuelle avec l'identifiant {{ param }} a été mise à jour",
+            "deleted": "La Déclaration Annuelle avec l'identifiant {{ param }} a été supprimée",
             "delete": {
-                "question": "Are you sure you want to delete Declaration Annuelle {{ id }}?"
+                "question": "Etes-vous certain de vouloir supprimer La Déclaration Annuelle {{ id }} ?"
             },
             "detail": {
-                "title": "Declaration Annuelle"
+                "title": "Déclaration Annuelle"
             },
             "typeDeclaration": "Type déclaration",
-            "annee": "Annee",
+            "annee": "Année",
             "datePaiement": "Date Paiement",
-            "numeroQuittance": "Numéro",
-            "ficheClient": "Fiche Client",
+            "numeroQuittance": "Numéro Quittance",
             "montantImpotAnnuel": "Impôt Annuel",
             "montantApPayes": "Acomptes Réellement payés",
             "montantRetenueSource": "RS",
             "montantReportAnterieur": "Report Antérieur",
-            "montantNet": "Net à Payer"
+            "montantNet": "Net à Payer",
+            "ficheClient": "Fiche Client",
+            "montantPenalite": "Montant pénalité"
         }
     }
 }
