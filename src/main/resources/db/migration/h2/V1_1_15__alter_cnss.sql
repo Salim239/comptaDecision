@@ -2,49 +2,68 @@ ALTER TABLE public.cnss
     ADD CONSTRAINT pk_cnss PRIMARY KEY (id);
 -- cabinet comptable
 create table public.cabinet_comptable(
-                                         id                      bigint       not null        constraint pk_cabinet_comptable            primary key,
+                                         id                      bigint       not null,
                                          code                    varchar(255) not null,
                                          nombre_license          integer,
-                                         fiche_client_cabinet_id bigint        constraint ux_cabinet_comptable_fiche_client_cabinet_id            unique
-                                             constraint fk_cabinet_comptable_fiche_client_cabinet_id            references fiche_client
+                                         fiche_client_cabinet_id bigint
 );
+
+ALTER TABLE public.cabinet_comptable    ADD CONSTRAINT pk_cabinet_comptable PRIMARY KEY (id);
+ALTER TABLE public.cabinet_comptable    ADD CONSTRAINT fk_cabinet_comptable_fiche_client_cabinet_id FOREIGN KEY (fiche_client_cabinet_id)REFERENCES  public.fiche_client(id);
 
 -- application user
 create table public.application_user(
-                                        id                   bigint       not null        constraint pk_application_user primary key,
+                                        id                   bigint       not null,
                                         matricule            varchar(255),
                                         poste                varchar(255) not null,
                                         date_embauche        varchar(255),
-                                        cabinet_comptable_id bigint constraint fk_application_user_cabinet_comptable_id references cabinet_comptable
+                                        cabinet_comptable_id bigint
 );
+
+ALTER TABLE public.application_user    ADD CONSTRAINT pk_application_user PRIMARY KEY (id);
+ALTER TABLE public.application_user    ADD CONSTRAINT fk_application_user_cabinet_comptable_id FOREIGN KEY (cabinet_comptable_id)REFERENCES  public.cabinet_comptable(id);
 
 -- application_user_fiche_client
 create table public.application_user_fiche_client(
-                                                     id                  bigint not null       constraint pk_application_user_fiche_client            primary key,
-                                                     fiche_client_id     bigint not null       constraint fk_application_user_fiche_client_fiche_client_id            references public.fiche_client,
-                                                     application_user_id bigint not null        constraint fk_application_user_fiche_client_application_user_id            references application_user
+                                                     id                  bigint not null,
+                                                     fiche_client_id     bigint not null,
+                                                     application_user_id bigint not null
 );
+
+ALTER TABLE public.application_user_fiche_client    ADD CONSTRAINT pk_application_user_fiche_client PRIMARY KEY (id);
+ALTER TABLE public.application_user_fiche_client    ADD CONSTRAINT fk_application_user_fiche_client_fiche_client_id FOREIGN KEY (fiche_client_id)REFERENCES  public.fiche_client(id);
+ALTER TABLE public.application_user_fiche_client    ADD CONSTRAINT fk_application_user_fiche_client_application_user_id FOREIGN KEY (application_user_id)REFERENCES  public.application_user(id);
 
 -- Caisse
 create table public.caisse(
-                              id              bigint not null        constraint pk_caisse            primary key,
+                              id              bigint not null,
                               montant_total   numeric(10, 2),
                               montant_report  numeric(10, 2),
                               cloturee        boolean,
-                              fiche_client_id bigint not null        constraint  fk_caisse_fiche_client_id              references fiche_client
+                              fiche_client_id bigint not null
 );
+
+ALTER TABLE public.caisse    ADD CONSTRAINT pk_caisse PRIMARY KEY (id);
+ALTER TABLE public.caisse    ADD CONSTRAINT fk_caisse_fiche_client_id FOREIGN KEY (fiche_client_id)REFERENCES  public.fiche_client(id);
+
 
 -- ligne caisse
 create table public.ligne_caisse(
-                                    id                      bigint       not null        constraint pk_ligne_caisse            primary key,
+                                    id                      bigint       not null,
                                     type_operation          integer      not null,
                                     libelle                 varchar(255) not null,
                                     montant_operation       numeric(10, 2),
-                                    quittance_mensuelle_id  bigint        constraint fk_ligne_caisse_quittance_mensuelle_id            references quittance_mensuelle,
-                                    declaration_annuelle_id bigint        constraint fk_ligne_caisse_declaration_annuelle_id           references declaration_annuelle,
-                                    cnss_id                 bigint        constraint fk_ligne_caisse_cnss_id            references cnss,
-                                    caisse_id               bigint        constraint fk_ligne_caisse_caisse_id            references caisse
+                                    quittance_mensuelle_id  bigint,
+                                    declaration_annuelle_id bigint,
+                                    cnss_id                 bigint,
+                                    caisse_id               bigint,
 );
+
+ALTER TABLE public.ligne_caisse    ADD CONSTRAINT pk_ligne_caisse PRIMARY KEY (id);
+ALTER TABLE public.ligne_caisse    ADD CONSTRAINT fk_ligne_caisse_quittance_mensuelle_id FOREIGN KEY (quittance_mensuelle_id)REFERENCES  public.quittance_mensuelle(id);
+ALTER TABLE public.ligne_caisse    ADD CONSTRAINT fk_ligne_caisse_declaration_annuelle_id FOREIGN KEY (declaration_annuelle_id)REFERENCES  public.declaration_annuelle(id);
+ALTER TABLE public.ligne_caisse    ADD CONSTRAINT fk_ligne_caisse_cnss_id FOREIGN KEY (cnss_id)REFERENCES  public.cnss(id);
+ALTER TABLE public.ligne_caisse    ADD CONSTRAINT fk_ligne_caisse_caisse_id FOREIGN KEY (caisse_id)REFERENCES  public.caisse(id);
 
 -- cnss
 alter table public.cnss add column montant_penalite numeric(10,2) default 0;
