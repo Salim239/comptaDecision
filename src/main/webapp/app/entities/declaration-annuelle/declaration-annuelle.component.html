@@ -22,6 +22,7 @@
             <th jhiSortBy="montantApPayes"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantApPayes">Montant AP Payés</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="montantRetenueSource"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantRetenueSource">RS</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="montantReportAnterieur"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantReportAnterieur">Report Antérieur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantPenalite"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantPenalite">Montant pénalité</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="montantNet"><span jhiTranslate="comptaDecisionApp.declarationAnnuelle.montantNet">Montant Net</span> <fa-icon [icon]="'sort'"></fa-icon></th>
            <th></th>
             </tr>
@@ -42,6 +43,7 @@
                 <td>{{declarationAnnuelle.montantApPayes | number:'1.3-3'}}</td>
                 <td>{{declarationAnnuelle.montantRetenueSource | number:'1.3-3'}}</td>
                 <td>{{declarationAnnuelle.montantReportAnterieur | number:'1.3-3'}}</td>
+                <td>{{declarationAnnuelle.montantPenalite | number:'1.3-3'}}</td>
                 <td>{{declarationAnnuelle.montantNet | number:'1.3-3'}}</td>
 
                 <td class="text-right">
