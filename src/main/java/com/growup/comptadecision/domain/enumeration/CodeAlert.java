@@ -15,7 +15,10 @@ public enum CodeAlert {
     //Acompte
     WARNING_ACOMPTE_PRECEDENTE_INEXISTANTE("Il n'existe pas d'acompte en %s avec le numéro précédent à celle ci (numéro %)"),
     WARNING_ACOMPTE_PRECEDENTE_NON_VALIDE("L'acompte précédente de %s numéro %s n'a pas encore été validée (numéro et date paiement non renseignés)"),
-    WARNING_ACOMPTE_INITIALE_NON_VALIDE("L'acompte initiale associé à cette rectification n'a pas encore été validée (numéro et date paiement non renseignés)");
+    WARNING_ACOMPTE_INITIALE_NON_VALIDE("L'acompte initiale associé à cette rectification n'a pas encore été validée (numéro et date paiement non renseignés)"),
+    WARNING_ACOMPTE_MONTANT_BASE_CALC_NOT_FOUND("Le montant base n'a pas pu être calculé car la déclaration annuelle de l'année précédent n'existe pas"),
+    WARNING_ACOMPTE_REPORT_ANTERIEUR_BY_DA_CALC_NOT_FOUND("Le report antérieur n'a pas pu être calculé car la déclaration annuelle de l'année précédent n'existe pas"),
+    WARNING_ACOMPTE_REPORT_ANTERIEUR_BY_AP_CALC_NOT_FOUND("Le report antérieur n'a pas pu être calculé car l'acompte previsionnelle anterieure n'a pas été créé");
 
     // declaring private variable for getting values
     private String defaultMessage;

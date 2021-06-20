@@ -4,6 +4,7 @@
             <h2 id="jhi-acompte-provisionnel-heading" jhiTranslate="comptaDecisionApp.acompteProvisionnel.home.createOrEditLabel">Create or edit a Acompte Provisionnel</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
+
                 <input type="text" class="form-control" id="id" name="id"
                        [(ngModel)]="acompteProvisionnel.id" [hidden]="true" />
                 <div class="form-row">
@@ -74,6 +75,7 @@
                 <h3 jhiTranslate="comptaDecisionApp.declarationAnnuelle.home.tableTitle">Saisie des montants
                     de la déclaration</h3>
                 <br>
+                <jhi-business-alert [businessAlerts]="acompteProvisionnel.businessAlerts"></jhi-business-alert>
                 <table class="table table-hover">
                     <tbody>
                     <tr>
@@ -87,7 +89,7 @@
                             'has-warning' : acompteProvisionnel.montantBase == acompteProvisionnel.montantBaseCalc,
                             'form-control numeric': true
                             }"/>
-                            <small class="form-text info">
+                            <small class="float-md-right form-text text-info" *ngIf="!!acompteProvisionnel.montantBaseCalc !== undefined">
                                 Le montant base calculé est de {{acompteProvisionnel.montantBaseCalc}}
                             </small></td>
                     </tr>
@@ -103,11 +105,9 @@
                                    for="field_montantReportAnterieur">Montant Report Anterieur</label>
                         </th>
                         <td><input jhiDigitOnly [decimal]="true" name="montantReportAnterieur" id="field_montantReportAnterieur"
-                                   [(ngModel)]="acompteProvisionnel.montantReportAnterieur"
-                                   [ngClass]="{ 'form-control numeric': true,
-                            'has-sucess' : acompteProvisionnel.montantReportAnterieur !== acompteProvisionnel.montantReportAnterieur,
-                            'has-warning' : acompteProvisionnel.montantReportAnterieur == acompteProvisionnel.montantReportAnterieur }"/>
-                            <small class="form-text info">
+                                   [(ngModel)]="acompteProvisionnel.montantReportAnterieur" (change)="calculerMontants()"
+                                   class="form-control numeric"/>
+                            <small class="float-md-right form-text text-info" *ngIf="acompteProvisionnel.montantReportAnterieurCalc !== undefined">
                                 Le montant report intérieur calculé est de {{acompteProvisionnel.montantReportAnterieurCalc}}
                             </small>
                         </td>

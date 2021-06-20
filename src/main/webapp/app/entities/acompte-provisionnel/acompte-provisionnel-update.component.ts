@@ -35,6 +35,7 @@ export class AcompteProvisionnelUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ acompteProvisionnel, ficheClients }) => {
             this.acompteProvisionnel = acompteProvisionnel;
             this.formatMontants();
+            this.calculerMontants();
         });
         this.ficheClientService
             .query()
@@ -96,10 +97,19 @@ export class AcompteProvisionnelUpdateComponent implements OnInit {
             this.acompteProvisionnel.montantAcompteProvisionnel
         );
         this.acompteProvisionnel.montantRetenueSource = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantRetenueSource);
+        if (this.acompteProvisionnel.montantBaseCalc !== undefined) {
+            this.acompteProvisionnel.montantBaseCalc = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantBaseCalc);
+        }
+        if (this.acompteProvisionnel.montantReportAnterieurCalc !== undefined) {
+            this.acompteProvisionnel.montantReportAnterieurCalc = ComptaDecisionUtils.parseCurrency(
+                this.acompteProvisionnel.montantReportAnterieurCalc
+            );
+        }
     }
 
     formatMontants() {
         this.acompteProvisionnel.montantBase = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantBase);
+
         this.acompteProvisionnel.montantNet = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantNet);
         this.acompteProvisionnel.montantReportAnterieur = ComptaDecisionUtils.formatCurrency(
             this.acompteProvisionnel.montantReportAnterieur
@@ -108,5 +118,14 @@ export class AcompteProvisionnelUpdateComponent implements OnInit {
             this.acompteProvisionnel.montantAcompteProvisionnel
         );
         this.acompteProvisionnel.montantRetenueSource = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantRetenueSource);
+
+        if (this.acompteProvisionnel.montantBaseCalc !== undefined) {
+            this.acompteProvisionnel.montantBaseCalc = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantBaseCalc);
+        }
+        if (this.acompteProvisionnel.montantReportAnterieurCalc !== undefined) {
+            this.acompteProvisionnel.montantReportAnterieurCalc = ComptaDecisionUtils.formatCurrency(
+                this.acompteProvisionnel.montantReportAnterieurCalc
+            );
+        }
     }
 }

@@ -37,7 +37,7 @@ public class AcompteProvisionnelDTO implements Serializable {
     private String numeroQuittance;
 
     private BigDecimal montantBase;
-    private BigDecimal montantBaseCal;
+    private BigDecimal montantBaseCalc;
 
     private BigDecimal montantAcompteProvisionnel;
 
@@ -52,7 +52,7 @@ public class AcompteProvisionnelDTO implements Serializable {
 
     private StatutDeclaration statut;
 
-    private List<BusinessAlertDTO>businessAlertDTOs = new ArrayList<>();
+    private List<BusinessAlertDTO> businessAlerts = new ArrayList<>();
 
 
     private Long ficheClientId;
@@ -197,20 +197,29 @@ public class AcompteProvisionnelDTO implements Serializable {
         this.statut = statut;
     }
 
-    public List<BusinessAlertDTO> getBusinessAlertDTOs() {
-        return businessAlertDTOs;
+    public List<BusinessAlertDTO> getBusinessAlerts() {
+        return businessAlerts;
     }
 
-    public void setBusinessAlertDTOs(List<BusinessAlertDTO> businessAlertDTOs) {
-        this.businessAlertDTOs = businessAlertDTOs;
+    public void setBusinessAlerts(List<BusinessAlertDTO> businessAlerts) {
+        this.businessAlerts = businessAlerts;
     }
 
-    public BigDecimal getMontantBaseCal() {
-        return montantBaseCal;
+    public void addBusinessAlertDTO(BusinessAlertDTO businessAlertDTO) {
+
+        if (this.businessAlerts == null) {
+            this.businessAlerts = new ArrayList<>();
+        }
+            this.businessAlerts.add(businessAlertDTO);
+
     }
 
-    public void setMontantBaseCal(BigDecimal montantBaseCal) {
-        this.montantBaseCal = montantBaseCal;
+    public BigDecimal getMontantBaseCalc() {
+        return montantBaseCalc;
+    }
+
+    public void setMontantBaseCalc(BigDecimal montantBaseCalc) {
+        this.montantBaseCalc = montantBaseCalc;
     }
 
     public BigDecimal getMontantReportAnterieurCalc() {

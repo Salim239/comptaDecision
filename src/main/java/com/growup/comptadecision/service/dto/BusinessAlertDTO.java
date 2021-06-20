@@ -23,6 +23,12 @@ public class BusinessAlertDTO implements Serializable {
         this.code = code;
     }
 
+    public BusinessAlertDTO(TypeAlert type, CodeAlert code, Map<String, Object> params) {
+        this.type = type;
+        this.code = code;
+        this.params = params ;
+    }
+
     public TypeAlert getType() {
         return type;
     }

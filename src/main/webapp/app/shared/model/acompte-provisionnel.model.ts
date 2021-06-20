@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { BusinessAlert } from 'app/shared/model/business-alert.model';
 
 export const enum TypeDeclaration {
     DECLARATION_INITIALE = 'DECLARATION_INITIALE',
@@ -32,6 +33,7 @@ export interface IAcompteProvisionnel {
     ficheClientDateCreation?: Moment;
     type?: TypeDeclaration;
     statut?: StatutDeclaration;
+    businessAlerts?: BusinessAlert[];
 }
 
 export class AcompteProvisionnel implements IAcompteProvisionnel {
@@ -54,6 +56,7 @@ export class AcompteProvisionnel implements IAcompteProvisionnel {
         public ficheClientRegistreCommerce?: string,
         public ficheClientDateCreation?: Moment,
         public type?: TypeDeclaration,
-        public statut?: StatutDeclaration
+        public statut?: StatutDeclaration,
+        public businessAlerts?: BusinessAlert[]
     ) {}
 }

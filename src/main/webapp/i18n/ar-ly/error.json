@@ -29,7 +29,7 @@
             "acompteRectificativeExistante": "Il existe déjà un acompte rectificatif avec ce numéro. Editer le ou créer un acompte avec un autre numéro!"
         },
         "declaration": {
-            "declarationRectificativeSansDeclarationInitiale": "Cette déclaration rectificative ne possède pas de déclaration initiale associée",
+            "declarationRectificativeSansdeclarationInitiale": "Cette déclaration rectificative ne possède pas de déclaration initiale associée",
             "anneeNonValide": "Annee non valide",
             "declarationPrecedenteNonValide": "La déclaration de l'année précédente n'est pas validée! Valider la en saisissant son numéro et la date de paiement pour continuer!",
             "declarationInitialeExistante": "Il existe déjà une déclaration initiale pour cette annee. Editer la ou créer une déclaration pour une autre année!",
