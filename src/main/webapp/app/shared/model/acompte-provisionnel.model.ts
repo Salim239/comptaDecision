@@ -25,6 +25,7 @@ export interface IAcompteProvisionnel {
     montantReportAnterieur?: number;
     montantReportAnterieurCalc?: number;
     montantRetenueSource?: number;
+    montantPenalite?: number;
     montantNet?: number;
     ficheClientId?: number;
     ficheClientDesignation?: string;
@@ -43,6 +44,7 @@ export class AcompteProvisionnel implements IAcompteProvisionnel {
         public numero?: number,
         public date?: Moment,
         public numeroQuittance?: string,
+        montantPenalite?: number,
         public montantBase?: number,
         public montantBaseCalc?: number,
         public montantAcompteProvisionnel?: number,

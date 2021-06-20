@@ -120,6 +120,13 @@
                                    [(ngModel)]="acompteProvisionnel.montantRetenueSource" (change)="calculerMontants()"/></td>
                     </tr>
                     <tr>
+                        <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantPenalite"
+                                   for="field_montantPenalite">Montant penalite</label>
+                        </th>
+                        <td><input jhiDigitOnly [decimal]="true" class="numeric form-control" name="montantPenalite" id="field_montantPenalite"
+                                   [(ngModel)]="acompteProvisionnel.montantPenalite" (change)="calculerMontants()"/></td>
+                    </tr>
+                    <tr>
                         <th><label class="form-control-label" jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantNet"
                                    for="field_montantNet">Montant Net</label>
                         </th>

@@ -69,6 +69,7 @@ public class AcompteProvisionnelService {
         //acompteProvisionnel.setMontantReportAnterieur(initMontantAnterieur(acompteProvisionnel.getFicheClient(), acompteProvisionnel.getAnnee(), acompteProvisionnel.getNumero()));
         acompteProvisionnel.setMontantNet(acompteProvisionnel.getMontantAcompteProvisionnel()
             .subtract(acompteProvisionnel.getMontantReportAnterieur())
+            .subtract(acompteProvisionnel.getMontantPenalite())
             .subtract(acompteProvisionnel.getMontantRetenueSource())
         );
         StatutDeclaration statut = updateStatut(acompteProvisionnel);

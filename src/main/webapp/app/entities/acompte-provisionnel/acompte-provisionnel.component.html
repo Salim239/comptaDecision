@@ -21,6 +21,7 @@
             <th jhiSortBy="montantAcompteProvisionnel"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantAcompteProvisionnel">Montant Acompte Provisionnel</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="montantReportAnterieur"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantReportAnterieur">Montant Report Anterieur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="montantRetenueSource"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantRetenueSource">Montant Retenue Source</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantPenalite"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantPenalite">Montant Penalite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="montantNet"><span jhiTranslate="comptaDecisionApp.acompteProvisionnel.montantNet">Montant Net</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -41,6 +42,7 @@
                 <td>{{acompteProvisionnel.montantAcompteProvisionnel | number:'1.3-3'}}</td>
                 <td>{{acompteProvisionnel.montantReportAnterieur | number:'1.3-3'}}</td>
                 <td>{{acompteProvisionnel.montantRetenueSource | number:'1.3-3'}}</td>
+                <td>{{acompteProvisionnel.montantPenalite | number:'1.3-3'}}</td>
                 <td>{{acompteProvisionnel.montantNet | number:'1.3-3'}}</td>
 
                 <td class="text-right">

@@ -83,11 +83,13 @@ export class AcompteProvisionnelUpdateComponent implements OnInit {
         this.acompteProvisionnel.montantNet =
             this.acompteProvisionnel.montantAcompteProvisionnel -
             this.acompteProvisionnel.montantReportAnterieur -
+            this.acompteProvisionnel.montantPenalite -
             this.acompteProvisionnel.montantRetenueSource;
         this.formatMontants();
     }
 
     parseMontants() {
+        this.acompteProvisionnel.montantPenalite = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantPenalite);
         this.acompteProvisionnel.montantBase = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantBase);
         this.acompteProvisionnel.montantNet = ComptaDecisionUtils.parseCurrency(this.acompteProvisionnel.montantNet);
         this.acompteProvisionnel.montantReportAnterieur = ComptaDecisionUtils.parseCurrency(
@@ -108,6 +110,7 @@ export class AcompteProvisionnelUpdateComponent implements OnInit {
     }
 
     formatMontants() {
+        this.acompteProvisionnel.montantPenalite = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantPenalite);
         this.acompteProvisionnel.montantBase = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantBase);
 
         this.acompteProvisionnel.montantNet = ComptaDecisionUtils.formatCurrency(this.acompteProvisionnel.montantNet);

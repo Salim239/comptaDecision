@@ -51,6 +51,7 @@ public class AcompteProvisionnelDTO implements Serializable {
     private TypeDeclaration type;
 
     private StatutDeclaration statut;
+    private BigDecimal montantPenalite = BigDecimal.ZERO;
 
     private List<BusinessAlertDTO> businessAlerts = new ArrayList<>();
 
@@ -228,5 +229,13 @@ public class AcompteProvisionnelDTO implements Serializable {
 
     public void setMontantReportAnterieurCalc(BigDecimal montantReportAnterieurCalc) {
         this.montantReportAnterieurCalc = montantReportAnterieurCalc;
+    }
+
+    public BigDecimal getMontantPenalite() {
+        return montantPenalite;
+    }
+
+    public void setMontantPenalite(BigDecimal montantPenalite) {
+        this.montantPenalite = montantPenalite;
     }
 }

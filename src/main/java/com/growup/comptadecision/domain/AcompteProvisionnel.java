@@ -64,6 +64,9 @@ public class AcompteProvisionnel extends AbstractAuditingEntity {
     @Column(name = "montant_net", precision = 20, scale = 6)
     private BigDecimal montantNet;
 
+    @Column(name = "montant_penalite", precision = 20, scale = 6)
+    private BigDecimal montantPenalite = BigDecimal.ZERO;
+
     @ManyToOne
     @JsonIgnoreProperties("acompteProvisionnels")
     private FicheClient ficheClient;
@@ -231,5 +234,13 @@ public class AcompteProvisionnel extends AbstractAuditingEntity {
 
     public void setType(TypeDeclaration type) {
         this.type = type;
+    }
+
+    public BigDecimal getMontantPenalite() {
+        return montantPenalite;
+    }
+
+    public void setMontantPenalite(BigDecimal montantPenalite) {
+        this.montantPenalite = montantPenalite;
     }
 }
