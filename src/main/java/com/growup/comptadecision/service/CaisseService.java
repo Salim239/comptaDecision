@@ -1,6 +1,7 @@
 package com.growup.comptadecision.service;
 
 import com.growup.comptadecision.domain.Caisse;
+import com.growup.comptadecision.domain.FicheClient;
 import com.growup.comptadecision.repository.CaisseRepository;
 import com.growup.comptadecision.service.dto.CaisseDTO;
 import com.growup.comptadecision.service.mapper.CaisseMapper;
@@ -79,5 +80,18 @@ public class CaisseService {
     public void delete(Long id) {
         log.debug("Request to delete Caisse : {}", id);
         caisseRepository.deleteById(id);
+    }
+
+    public CaisseDTO createIfNotExists(FicheClient ficheClient) {
+        log.info("Request to find or create new caisse for ficeclientId {}", ficheClient);
+        Optional<Caisse> caisseOptional = caisseRepository.findByClientId(ficheClient.getId());
+        if (!caisseOptional.isPresent()) {
+            Caisse caisse = new Caisse();
+            caisse.setFicheClient(ficheClient);
+            caisse = caisseRepository.save(caisse);
+            return caisseMapper.toDto(caisse);
+        } else {
+            return caisseMapper.toDto(caisseOptional.get());
+        }
     }
 }

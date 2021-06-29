@@ -19,6 +19,7 @@
                 "ligneCaisse": "Ligne Caisse",
                 "applicationUser": "Application User",
                 "applicationUserFicheClient": "Application User Fiche Client",
+                "paiement": "Paiements",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "configuration": {

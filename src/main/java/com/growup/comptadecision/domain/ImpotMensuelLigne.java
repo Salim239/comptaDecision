@@ -1,6 +1,7 @@
 package com.growup.comptadecision.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.growup.comptadecision.domain.enumeration.TypeValeur;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.Instant;
 
 /**
  * A Region.
@@ -61,6 +63,14 @@ public class ImpotMensuelLigne extends AbstractAuditingEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("impotMensuelLignes")
     private ImpotMensuel impotMensuel;
+
+    @Column(name = "date_debut")
+    @JsonIgnore
+    private Instant dateDebut;
+
+    @Column(name = "date_fin")
+    @JsonIgnore
+    private Instant dateFin;
 
     public Long getId() {
         return id;
@@ -134,5 +144,19 @@ public class ImpotMensuelLigne extends AbstractAuditingEntity {
         this.impotMensuel = impotMensuel;
     }
 
+    public Instant getDateDebut() {
+        return dateDebut;
+    }
 
+    public void setDateDebut(Instant dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public Instant getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Instant dateFin) {
+        this.dateFin = dateFin;
+    }
 }

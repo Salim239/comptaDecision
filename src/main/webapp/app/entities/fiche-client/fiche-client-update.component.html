@@ -164,55 +164,55 @@
                     </div>
                 </div>
 
-<!--                <div class="form-row">-->
-<!--                    <label jhiTranslate="comptaDecisionApp.ficheClient.logo" for="field_logo">Logo</label>-->
-<!--                    &nbsp;&nbsp;-->
-<!--                    <div>-->
-<!--                        <img [src]="'data:' + ficheClient.logoContentType + ';base64,' + ficheClient.logo"-->
-<!--                             style="max-height: 100px;" *ngIf="ficheClient.logo" alt="ficheClient image"/>-->
-<!--                        <div *ngIf="ficheClient.logo" class="form-text text-danger clearfix">-->
-<!--                            <span class="pull-left">{{ficheClient.logoContentType}}-->
-<!--                                , {{byteSize(ficheClient.logo)}}</span>-->
-<!--                            <button type="button" (click)="clearInputImage('logo', 'logoContentType', 'fileImage')"-->
-<!--                                    class="btn btn-secondary btn-xs pull-right">-->
-<!--                                <fa-icon [icon]="'times'"></fa-icon>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                        <input type="file" id="file_logo" (change)="setFileData($event, ficheClient, 'logo', true)"-->
-<!--                               accept="image/*" jhiTranslate="entity.action.addimage"/>-->
-<!--                    </div>-->
-<!--                    <input type="hidden" class="form-control" name="logo" id="field_logo"-->
-<!--                           [(ngModel)]="ficheClient.logo"/>-->
-<!--                    <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType"-->
-<!--                           [(ngModel)]="ficheClient.logoContentType"/>-->
-<!--                </div>-->
-<!--                <br>-->
-<!--                <div class="form-row">-->
-<!--                    <label jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente" for="field_fichierPatente">Fichier-->
-<!--                        Patente</label>&nbsp;&nbsp;-->
-<!--                    <div>-->
-<!--                        <div *ngIf="ficheClient.fichierPatente" class="form-text text-danger clearfix">-->
-<!--                            <a class="pull-left"-->
-<!--                               (click)="openFile(ficheClient.fichierPatenteContentType, ficheClient.fichierPatente)"-->
-<!--                               jhiTranslate="entity.action.open">open</a><br>-->
-<!--                            <span class="pull-left">{{ficheClient.fichierPatenteContentType}}-->
-<!--                                , {{byteSize(ficheClient.fichierPatente)}}</span>-->
-<!--                            <button type="button"-->
-<!--                                    (click)="ficheClient.fichierPatente=null;ficheClient.fichierPatenteContentType=null;"-->
-<!--                                    class="btn btn-secondary btn-xs pull-right">-->
-<!--                                <fa-icon [icon]="'times'"></fa-icon>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                        <input type="file" id="file_fichierPatente"-->
-<!--                               (change)="setFileData($event, ficheClient, 'fichierPatente', false)"-->
-<!--                               jhiTranslate="entity.action.addblob"/>-->
-<!--                    </div>-->
-<!--                    <input type="hidden" class="form-control" name="fichierPatente" id="field_fichierPatente"-->
-<!--                           [(ngModel)]="ficheClient.fichierPatente"/>-->
-<!--                    <input type="hidden" class="form-control" name="fichierPatenteContentType"-->
-<!--                           id="field_fichierPatenteContentType"-->
-<!--                           [(ngModel)]="ficheClient.fichierPatenteContentType"/>-->
-<!--                </div>-->
+                <div class="form-row">
+                    <label jhiTranslate="comptaDecisionApp.ficheClient.logo" for="field_logo">Logo</label>
+                    &nbsp;&nbsp;
+                    <div>
+                        <img [src]="'data:' + ficheClient.logoContentType + ';base64,' + ficheClient.logo"
+                             style="max-height: 100px;" *ngIf="ficheClient.logo" alt="ficheClient image"/>
+                        <div *ngIf="ficheClient.logo" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{ficheClient.logoContentType}}
+                                , {{byteSize(ficheClient.logo)}}</span>
+                            <button type="button" (click)="clearInputImage('logo', 'logoContentType', 'fileImage')"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_logo" (change)="setFileData($event, ficheClient, 'logo', true)"
+                               accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="logo" id="field_logo"
+                           [(ngModel)]="ficheClient.logo"/>
+                    <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType"
+                           [(ngModel)]="ficheClient.logoContentType"/>
+                </div>
+                <br>
+                <div class="form-row">
+                    <label jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente" for="field_fichierPatente">Fichier
+                        Patente</label>&nbsp;&nbsp;
+                    <div>
+                        <div *ngIf="ficheClient.fichierPatente" class="form-text text-danger clearfix">
+                            <a class="pull-left"
+                               (click)="openFile(ficheClient.fichierPatenteContentType, ficheClient.fichierPatente)"
+                               jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{ficheClient.fichierPatenteContentType}}
+                                , {{byteSize(ficheClient.fichierPatente)}}</span>
+                            <button type="button"
+                                    (click)="ficheClient.fichierPatente=null;ficheClient.fichierPatenteContentType=null;"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_fichierPatente"
+                               (change)="setFileData($event, ficheClient, 'fichierPatente', false)"
+                               jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="fichierPatente" id="field_fichierPatente"
+                           [(ngModel)]="ficheClient.fichierPatente"/>
+                    <input type="hidden" class="form-control" name="fichierPatenteContentType"
+                           id="field_fichierPatenteContentType"
+                           [(ngModel)]="ficheClient.fichierPatenteContentType"/>
+                </div>
 
                 <h6>Adresse</h6>
                 <hr>
@@ -432,25 +432,25 @@
                         <input type="text" class="form-control" name="lieuDelivranceCinGerant" id="field_lieuDelivranceCinGerant"
                                [(ngModel)]="ficheClient.lieuDelivranceCinGerant"/>
                     </div>
-<!--                    <div class="form-group col-md-6">-->
-<!--                        <div class="form-group">-->
-<!--                            <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.copieCINGerant" for="field_copieCINGerant">Copie CIN Gerant</label>-->
-<!--                            <div>-->
-<!--                                <img [src]="'data:' + ficheClient.copieCINGerantContentType + ';base64,' + ficheClient.copieCINGerant" style="max-height: 100px;" *ngIf="ficheClient.copieCINGerant" alt="ficheClient image"/>-->
-<!--                                <div *ngIf="ficheClient.copieCINGerant" class="form-text text-danger clearfix">-->
-<!--                                    <span class="pull-left">{{ficheClient.copieCINGerantContentType}}, {{byteSize(ficheClient.copieCINGerant)}}</span>-->
-<!--                                    <button type="button" (click)="clearInputImage('copieCINGerant', 'copieCINGerantContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">-->
-<!--                                        <fa-icon [icon]="'times'"></fa-icon>-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                                <input type="file" id="file_copieCINGerant" (change)="setFileData($event, ficheClient, 'copieCINGerant', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>-->
-<!--                            </div>-->
-<!--                            <input type="hidden" class="form-control" name="copieCINGerant" id="field_copieCINGerant"-->
-<!--                                   [(ngModel)]="ficheClient.copieCINGerant" />-->
-<!--                            <input type="hidden" class="form-control" name="copieCINGerantContentType" id="field_copieCINGerantContentType"-->
-<!--                                   [(ngModel)]="ficheClient.copieCINGerantContentType" />-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div class="form-group col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="comptaDecisionApp.ficheClient.copieCINGerant" for="field_copieCINGerant">Copie CIN Gerant</label>
+                            <div>
+                                <img [src]="'data:' + ficheClient.copieCINGerantContentType + ';base64,' + ficheClient.copieCINGerant" style="max-height: 100px;" *ngIf="ficheClient.copieCINGerant" alt="ficheClient image"/>
+                                <div *ngIf="ficheClient.copieCINGerant" class="form-text text-danger clearfix">
+                                    <span class="pull-left">{{ficheClient.copieCINGerantContentType}}, {{byteSize(ficheClient.copieCINGerant)}}</span>
+                                    <button type="button" (click)="clearInputImage('copieCINGerant', 'copieCINGerantContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                    </button>
+                                </div>
+                                <input type="file" id="file_copieCINGerant" (change)="setFileData($event, ficheClient, 'copieCINGerant', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                            </div>
+                            <input type="hidden" class="form-control" name="copieCINGerant" id="field_copieCINGerant"
+                                   [(ngModel)]="ficheClient.copieCINGerant" />
+                            <input type="hidden" class="form-control" name="copieCINGerantContentType" id="field_copieCINGerantContentType"
+                                   [(ngModel)]="ficheClient.copieCINGerantContentType" />
+                        </div>
+                    </div>
                 </div>
 
                 <h6>Configuration CNSS</h6>

@@ -23,7 +23,9 @@
             "typeValeurTaux": "Taux",
             "typeValeurMontant": "Montant",
             "valeurModifiable": "Modif.?",
-            "description": "Description"
+            "description": "Description",
+            "dateDebut": "Date début",
+            "dateFin": "Date fin"
         }
     }
 }

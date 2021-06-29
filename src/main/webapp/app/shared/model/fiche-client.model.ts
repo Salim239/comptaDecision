@@ -1,6 +1,6 @@
-import {Moment} from 'moment';
-import {IImpotMensuelClient} from 'app/shared/model/impot-mensuel-client.model';
-import {CentreAdministratif} from 'app/shared/model/centre-administratif.model';
+import { Moment } from 'moment';
+import { IImpotMensuelClient } from 'app/shared/model/impot-mensuel-client.model';
+import { CentreAdministratif } from 'app/shared/model/centre-administratif.model';
 
 export const enum CategorieClient {
     PERSONNE_PHYSIQUE = 'PERSONNE_PHYSIQUE',
@@ -24,8 +24,8 @@ export interface IFicheClient {
     id?: number;
     categorieClient?: CategorieClient;
     designation?: string;
-    // logoContentType?: string;
-    // logo?: any;
+    logoContentType?: string;
+    logo?: any;
     adresse?: string;
     codePostal?: string;
     telephone?: string;
@@ -39,8 +39,8 @@ export interface IFicheClient {
     dateCreation?: Moment;
     cnssEmployeur?: string;
     cnssGerant?: string;
-    // fichierPatenteContentType?: string;
-    // fichierPatente?: any;
+    fichierPatenteContentType?: string;
+    fichierPatente?: any;
     regionId?: number;
     regionLibelle?: string;
     villeId?: number;
@@ -80,13 +80,13 @@ export interface IFicheClient {
     email2?: string;
     email3?: string;
     cabinetComptableCode?: number;
-    // copieCINGerant?: any;
-    // copieCINGerantContentType?: string;
+    copieCINGerant?: any;
+    copieCINGerantContentType?: string;
     tauxCnssNormal?: number;
     tauxCnssKarama?: number;
     etiquettes?: string;
     montantFraisCabinet?: number;
-    nombreMoisFraisCabinet?: number
+    nombreMoisFraisCabinet?: number;
 }
 
 export class FicheClient implements IFicheClient {
@@ -94,8 +94,8 @@ export class FicheClient implements IFicheClient {
         public id?: number,
         public categorieClient?: CategorieClient,
         public designation?: string,
-        // public logoContentType?: string,
-        // public logo?: any,
+        public logoContentType?: string,
+        public logo?: any,
         public adresse?: string,
         public codePostal?: string,
         public telephone?: string,
@@ -111,8 +111,8 @@ export class FicheClient implements IFicheClient {
         public cnssGerant?: string,
         public categorieCnssGerantId?: number,
         public categorieCnssGerantLibelle?: string,
-        // public fichierPatenteContentType?: string,
-        // public fichierPatente?: any,
+        public fichierPatenteContentType?: string,
+        public fichierPatente?: any,
         public regionId?: number,
         public regionLibelle?: string,
         public villeId?: number,

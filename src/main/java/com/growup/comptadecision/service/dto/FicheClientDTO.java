@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.Lob;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -33,8 +34,8 @@ public class FicheClientDTO implements Serializable {
     @NotNull
     private String designation;
 
-//    @Lob
-//    private byte[] logo;
+    @Lob
+    private byte[] logo;
 
     private String logoContentType;
     @NotNull
@@ -64,8 +65,8 @@ public class FicheClientDTO implements Serializable {
 
     private String categorieCnssGerantLibelle;
 
-//    @Lob
-//    private byte[] fichierPatente;
+    @Lob
+    private byte[] fichierPatente;
 
     private String fichierPatenteContentType;
 
@@ -148,8 +149,8 @@ public class FicheClientDTO implements Serializable {
 
     private String emailGerant;
 
-//    @Lob
-//    private byte[] copieCINGerant;
+    @Lob
+    private byte[] copieCINGerant;
 
     private String copieCINGerantContentType;
 
@@ -244,13 +245,13 @@ public class FicheClientDTO implements Serializable {
         this.designation = designation;
     }
 
-//    public byte[] getLogo() {
-//        return logo;
-//    }
-//
-//    public void setLogo(byte[] logo) {
-//        this.logo = logo;
-//    }
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
+    }
 
     public String getLogoContentType() {
         return logoContentType;
@@ -340,13 +341,13 @@ public class FicheClientDTO implements Serializable {
         this.cnssGerant = cnssGerant;
     }
 
-//    public byte[] getFichierPatente() {
-//        return fichierPatente;
-//    }
-//
-//    public void setFichierPatente(byte[] fichierPatente) {
-//        this.fichierPatente = fichierPatente;
-//    }
+    public byte[] getFichierPatente() {
+        return fichierPatente;
+    }
+
+    public void setFichierPatente(byte[] fichierPatente) {
+        this.fichierPatente = fichierPatente;
+    }
 
     public String getFichierPatenteContentType() {
         return fichierPatenteContentType;
@@ -592,9 +593,9 @@ public class FicheClientDTO implements Serializable {
         this.emailGerant = emailGerant;
     }
 
-//    public byte[] getCopieCINGerant() {
-//        return copieCINGerant;
-//    }
+    public byte[] getCopieCINGerant() {
+        return copieCINGerant;
+    }
 
     @Override
     public String toString() {
@@ -665,9 +666,9 @@ public class FicheClientDTO implements Serializable {
             '}';
     }
 
-//    public void setCopieCINGerant(byte[] copieCINGerant) {
-//        this.copieCINGerant = copieCINGerant;
-//    }
+    public void setCopieCINGerant(byte[] copieCINGerant) {
+        this.copieCINGerant = copieCINGerant;
+    }
 
     public String getCopieCINGerantContentType() {
         return copieCINGerantContentType;

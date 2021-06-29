@@ -12,6 +12,8 @@ export interface IImpotMensuelLigne {
     valeurModifiable?: boolean;
     valeur?: number;
     description?: string;
+    dateDebut?: Date;
+    dateFin?: Date;
 }
 
 export class ImpotMensuelLigne implements IImpotMensuelLigne {
@@ -23,7 +25,9 @@ export class ImpotMensuelLigne implements IImpotMensuelLigne {
         public typeValeur?: TypeValeur,
         public valeurModifiable?: boolean,
         public valeur?: number,
-        public description?: string
+        public description?: string,
+        public dateDebut?: Date,
+        public dateFin?: Date
     ) {
         this.valeurModifiable = false;
         this.typeValeur = TypeValeur.TAUX;

@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @ToString
-public class DecalrationAnnuelleLigne extends AbstractAuditingEntity {
+public class DeclarationAnnuelleLigne extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
     

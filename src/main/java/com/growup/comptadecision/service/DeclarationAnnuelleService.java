@@ -181,9 +181,9 @@ public class DeclarationAnnuelleService {
     private void initDeclarationAnnuelLignes(DeclarationAnnuelle declarationAnnuelle) {
 
         List<ImpotAnnuel> impotAnnuels = impotAnnuelRepository.findAll();
-        List<DecalrationAnnuelleLigne> declarationAnnuelleLignes = impotAnnuels.stream()
+        List<DeclarationAnnuelleLigne> declarationAnnuelleLignes = impotAnnuels.stream()
                 .map(impotAnnuel -> {
-                    DecalrationAnnuelleLigne declarationAnnuelleLigne = new DecalrationAnnuelleLigne();
+                    DeclarationAnnuelleLigne declarationAnnuelleLigne = new DeclarationAnnuelleLigne();
                     declarationAnnuelleLigne.setCode(impotAnnuel.getCode());
                     declarationAnnuelleLigne.setDescription(impotAnnuel.getDescription());
                     declarationAnnuelleLigne.setLibelle(impotAnnuel.getLibelle());

@@ -69,6 +69,12 @@
                             <span jhiTranslate="global.menu.entities.declarationEmployeurAnnuelle">Declaration Employeur Annuelle</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="paiement" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.paiement">Paiement</span>
+                        </a>
+                    </li>
 <!--                    <li>-->
 <!--                        <a class="dropdown-item" routerLink="application-user" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">-->
 <!--                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>-->

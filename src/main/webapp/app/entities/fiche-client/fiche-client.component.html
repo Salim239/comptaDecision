@@ -17,7 +17,7 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="categorieClient"><span jhiTranslate="comptaDecisionApp.ficheClient.categorieClient">Categorie Client</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="designation"><span jhiTranslate="comptaDecisionApp.ficheClient.designation">Designation</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <!--<th jhiSortBy="logo"><span jhiTranslate="comptaDecisionApp.ficheClient.logo">Logo</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="logo"><span jhiTranslate="comptaDecisionApp.ficheClient.logo">Logo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
 <!--            <th jhiSortBy="adresse"><span jhiTranslate="comptaDecisionApp.ficheClient.adresse">Adresse</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
                 <!--<th jhiSortBy="regionLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.region">Region</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
                 <th jhiSortBy="villeLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.ville">Ville</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -31,7 +31,7 @@
             <!--<th jhiSortBy="dateCreation"><span jhiTranslate="comptaDecisionApp.ficheClient.dateCreation">Date Creation</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
 <!--            <th jhiSortBy="cnssEmployeur"><span jhiTranslate="comptaDecisionApp.ficheClient.cnssEmployeur">Cnss Employeur</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
 <!--            <th jhiSortBy="cnssGerant"><span jhiTranslate="comptaDecisionApp.ficheClient.cnssGerant">Cnss Gerant</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
-            <!--<th jhiSortBy="fichierPatente"><span jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente">Fichier Patente</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="fichierPatente"><span jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente">Fichier Patente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="secteurActiviteLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.secteurActivite1">Secteur Activite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
 <!--            <th jhiSortBy="activiteLibelle"><span jhiTranslate="comptaDecisionApp.ficheClient.activite1">Activite</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <th></th>
@@ -42,18 +42,18 @@
                 <td><a [routerLink]="['/fiche-client', ficheClient.id, 'view' ]">{{ficheClient.id}}</a></td>
                 <td jhiTranslate="{{'comptaDecisionApp.CategorieClient.' + ficheClient.categorieClient}}">{{ficheClient.categorieClient}}</td>
                 <td>{{ficheClient.designation}}</td>
-                <!--<td>-->
-                    <!--<a *ngIf="ficheClient.logo" (click)="openFile(ficheClient.logoContentType, ficheClient.logo)">-->
-                        <!--<img [src]="'data:' + ficheClient.logoContentType + ';base64,' + ficheClient.logo" style="max-height: 30px;" alt="ficheClient image"/>-->
-                    <!--</a>-->
-                    <!--<span *ngIf="ficheClient.logo">{{ficheClient.logoContentType}}, {{byteSize(ficheClient.logo)}}</span>-->
-                <!--</td>-->
-<!--                <td>{{ficheClient.adresse}}</td>-->
-                <!--<td>-->
-                    <!--<div *ngIf="ficheClient.regionId">-->
-                        <!--<a [routerLink]="['../region', ficheClient.regionId , 'view' ]" >{{ficheClient.regionLibelle}}</a>-->
-                    <!--</div>-->
-                <!--</td>-->
+                <td>
+                    <a *ngIf="ficheClient.logo" (click)="openFile(ficheClient.logoContentType, ficheClient.logo)">
+                        <img [src]="'data:' + ficheClient.logoContentType + ';base64,' + ficheClient.logo" style="max-height: 30px;" alt="ficheClient image"/>
+                    </a>
+                    <span *ngIf="ficheClient.logo">{{ficheClient.logoContentType}}, {{byteSize(ficheClient.logo)}}</span>
+                </td>
+                <td>{{ficheClient.adresse}}</td>
+                <td>
+                    <div *ngIf="ficheClient.regionId">
+                        <a [routerLink]="['../region', ficheClient.regionId , 'view' ]" >{{ficheClient.regionLibelle}}</a>
+                    </div>
+                </td>
                 <td>
                     <div *ngIf="ficheClient.villeId">
                         <a [routerLink]="['../ville', ficheClient.villeId , 'view' ]" >{{ficheClient.villeLibelle}}</a>
@@ -68,10 +68,10 @@
 <!--                &lt;!&ndash;<td>{{ficheClient.dateCreation | date:'mediumDate'}}</td>&ndash;&gt;-->
 <!--                <td>{{ficheClient.cnssEmployeur}}</td>-->
 <!--                <td>{{ficheClient.cnssGerant}}</td>-->
-                <!--<td>-->
-                    <!--<a *ngIf="ficheClient.fichierPatente" (click)="openFile(ficheClient.fichierPatenteContentType, ficheClient.fichierPatente)" jhiTranslate="entity.action.open">open</a>-->
-                    <!--<span *ngIf="ficheClient.fichierPatente">{{ficheClient.fichierPatenteContentType}}, {{byteSize(ficheClient.fichierPatente)}}</span>-->
-                <!--</td>-->
+                <td>
+                    <a *ngIf="ficheClient.fichierPatente" (click)="openFile(ficheClient.fichierPatenteContentType, ficheClient.fichierPatente)" jhiTranslate="entity.action.open">open</a>
+                    <span *ngIf="ficheClient.fichierPatente">{{ficheClient.fichierPatenteContentType}}, {{byteSize(ficheClient.fichierPatente)}}</span>
+                </td>
                 <td>
                     <div *ngIf="ficheClient.secteurActivite1Id">
                         <a [routerLink]="['../secteur-activite', ficheClient.secteurActivite1Id , 'view' ]" >{{ficheClient.secteurActivite1Libelle}}</a>
@@ -82,7 +82,7 @@
 <!--                        <a [routerLink]="['../activite', ficheClient.activite1Id , 'view' ]" >{{ficheClient.activite1Libelle}}</a>-->
 <!--                    </div>-->
 <!--                </td>-->
-
+c
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

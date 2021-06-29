@@ -82,7 +82,7 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
     private StatutDeclaration statut = StatutDeclaration.BROUILLON;
 
     @OneToMany(mappedBy = "declarationAnnuelle", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DecalrationAnnuelleLigne> declarationAnnuelleLignes = new ArrayList<>();
+    private List<DeclarationAnnuelleLigne> declarationAnnuelleLignes = new ArrayList<>();
 
     @ManyToOne
     private FicheClient ficheClient;
@@ -211,11 +211,11 @@ public class DeclarationAnnuelle extends AbstractAuditingEntity {
         this.ficheClient = ficheClient;
     }
 
-    public List<DecalrationAnnuelleLigne> getDeclarationAnnuelleLignes() {
+    public List<DeclarationAnnuelleLigne> getDeclarationAnnuelleLignes() {
         return declarationAnnuelleLignes;
     }
 
-    public void setDeclarationAnnuelleLignes(List<DecalrationAnnuelleLigne> declarationAnnuelleLignes) {
+    public void setDeclarationAnnuelleLignes(List<DeclarationAnnuelleLigne> declarationAnnuelleLignes) {
         this.declarationAnnuelleLignes = declarationAnnuelleLignes;
     }
 }

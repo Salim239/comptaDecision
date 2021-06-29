@@ -1,0 +1,114 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="comptaDecisionApp.paiement.home.title">Paiements</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-paiement" [routerLink]="['/paiement/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="comptaDecisionApp.paiement.home.createLabel">
+            Create new Paiement
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="paiements">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="libelle"><span jhiTranslate="comptaDecisionApp.paiement.libelle">Libelle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modePaiement"><span jhiTranslate="comptaDecisionApp.paiement.modePaiement">Mode Painement</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="numeroPreuvePaiement"><span jhiTranslate="comptaDecisionApp.paiement.numeroPreuvePaiement">Numero Preuve Paient</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="datePaiement"><span jhiTranslate="comptaDecisionApp.paiement.datePaiement">Date Paiement</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantPaye"><span jhiTranslate="comptaDecisionApp.paiement.montantPaye">Montant Paye</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montantDu"><span jhiTranslate="comptaDecisionApp.paiement.montantDu">Montant Du</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="ligneCaisseId"><span jhiTranslate="comptaDecisionApp.paiement.ligneCaisse">Ligne Caisse</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="ficheClientId"><span jhiTranslate="comptaDecisionApp.paiement.ficheClient">Fiche Client</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cnssId"><span jhiTranslate="comptaDecisionApp.paiement.cnss">Cnss</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="quittanceMensuelleId"><span jhiTranslate="comptaDecisionApp.paiement.quittanceMensuelle">Quittance Mensuelle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="declarationAnnuelleId"><span jhiTranslate="comptaDecisionApp.paiement.declarationAnnuelle">Declaration Annuelle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="declarationEmployeurAnnuelleId"><span jhiTranslate="comptaDecisionApp.paiement.declarationEmployeurAnnuelle">Declaration Employeur Annuelle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="acompteProvisionnelId"><span jhiTranslate="comptaDecisionApp.paiement.acompteProvisionnel">Acompte Provisionnel</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let paiement of paiements ;trackBy: trackId">
+                <td><a [routerLink]="['/paiement', paiement.id, 'view' ]">{{paiement.id}}</a></td>
+                <td>{{paiement.libelle}}</td>
+                <td jhiTranslate="{{'comptaDecisionApp.ModePaiement.' + paiement.modePaiement}}">{{paiement.modePaiement}}</td>
+                <td>{{paiement.numeroPreuvePaiement}}</td>
+                <td>{{paiement.datePaiement | date:'mediumDate'}}</td>
+                <td>{{paiement.montantPaye}}</td>
+                <td>{{paiement.montantDu}}</td>
+                <td>
+                    <div *ngIf="paiement.ligneCaisseId">
+                        <a [routerLink]="['../ligne-caisse', paiement.ligneCaisseId , 'view' ]" >{{paiement.ligneCaisseId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="paiement.ficheClientId">
+                        <a [routerLink]="['../fiche-client', paiement.ficheClientId , 'view' ]" >{{paiement.ficheClientId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="paiement.cnssId">
+                        <a [routerLink]="['../cnss', paiement.cnssId , 'view' ]" >{{paiement.cnssId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="paiement.quittanceMensuelleId">
+                        <a [routerLink]="['../quittance-mensuelle', paiement.quittanceMensuelleId , 'view' ]" >{{paiement.quittanceMensuelleId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="paiement.declarationAnnuelleId">
+                        <a [routerLink]="['../declaration-annuelle', paiement.declarationAnnuelleId , 'view' ]" >{{paiement.declarationAnnuelleId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="paiement.declarationEmployeurAnnuelleId">
+                        <a [routerLink]="['../declaration-employeur-annuelle', paiement.declarationEmployeurAnnuelleId , 'view' ]" >{{paiement.declarationEmployeurAnnuelleId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="paiement.acompteProvisionnelId">
+                        <a [routerLink]="['../acompte-provisionnel', paiement.acompteProvisionnelId , 'view' ]" >{{paiement.acompteProvisionnelId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/paiement', paiement.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/paiement', paiement.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'paiement', { outlets: { popup: paiement.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="paiements && paiements.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

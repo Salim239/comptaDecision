@@ -13,15 +13,15 @@
                 <dd>
                     <span>{{ficheClient.designation}}</span>
                 </dd>
-                <!--<dt><span jhiTranslate="comptaDecisionApp.ficheClient.logo">Logo</span></dt>-->
-                <!--<dd>-->
-                    <!--<div *ngIf="ficheClient.logo">-->
-                        <!--<a (click)="openFile(ficheClient.logoContentType, ficheClient.logo)">-->
-                            <!--<img [src]="'data:' + ficheClient.logoContentType + ';base64,' + ficheClient.logo" style="max-width: 100%;" alt="ficheClient image"/>-->
-                        <!--</a>-->
-                        <!--{{ficheClient.logoContentType}}, {{byteSize(ficheClient.logo)}}-->
-                    <!--</div>-->
-                <!--</dd>-->
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.logo">Logo</span></dt>
+                <dd>
+                    <div *ngIf="ficheClient.logo">
+                        <a (click)="openFile(ficheClient.logoContentType, ficheClient.logo)">
+                            <img [src]="'data:' + ficheClient.logoContentType + ';base64,' + ficheClient.logo" style="max-width: 100%;" alt="ficheClient image"/>
+                        </a>
+                        {{ficheClient.logoContentType}}, {{byteSize(ficheClient.logo)}}
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="comptaDecisionApp.ficheClient.adresse">Adresse</span></dt>
                 <dd>
                     <span>{{ficheClient.adresse}}</span> {{ficheClient.regionLibelle}}, {{ficheClient.codePostal}} {{ficheClient.villeLibelle}}
@@ -72,13 +72,26 @@
                 <dd>
                     <span>{{ficheClient.cnssGerant}}</span>
                 </dd>
-                <!--<dt><span jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente">Fichier Patente</span></dt>-->
-                <!--<dd>-->
-                    <!--<div *ngIf="ficheClient.fichierPatente">-->
-                        <!--<a (click)="openFile(ficheClient.fichierPatenteContentType, ficheClient.fichierPatente)" jhiTranslate="entity.action.open">open</a>-->
-                        <!--{{ficheClient.fichierPatenteContentType}}, {{byteSize(ficheClient.fichierPatente)}}-->
-                    <!--</div>-->
-                <!--</dd>-->
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.fichierPatente">Fichier Patente</span></dt>
+                <dd>
+                    <div *ngIf="ficheClient.fichierPatente">
+                        <a (click)="openFile(ficheClient.fichierPatenteContentType, ficheClient.fichierPatente)" jhiTranslate="entity.action.open">open</a>
+                        {{ficheClient.fichierPatenteContentType}}, {{byteSize(ficheClient.fichierPatente)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.secteurActivite1">Secteur Activite</span></dt>
+                <dd>
+                    <span>
+                        {{ficheClient.secteurActivite1Libelle}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.ficheClient.copieCINGerant">CIN Gérant</span></dt>
+                <dd>
+                    <div *ngIf="ficheClient.copieCINGerant">
+                        <a (click)="openFile(ficheClient.copieCINGerantContentType, ficheClient.copieCINGerant)" jhiTranslate="entity.action.open">open</a>
+                        {{ficheClient.copieCINGerantContentType}}, {{byteSize(ficheClient.copieCINGerant)}}
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="comptaDecisionApp.ficheClient.secteurActivite1">Secteur Activite</span></dt>
                 <dd>
                     <span>

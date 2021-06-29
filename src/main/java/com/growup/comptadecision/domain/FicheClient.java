@@ -51,12 +51,12 @@ public class FicheClient extends AbstractAuditingEntity {
     @Column(name = "designation", nullable = false)
     private String designation;
 
-//    @Lob
-//    @Column(name = "logo")
-//    private byte[] logo;
-//
-//    @Column(name = "logo_content_type")
-//    private String logoContentType;
+    @Lob
+    @Column(name = "logo")
+    private byte[] logo;
+
+    @Column(name = "logo_content_type")
+    private String logoContentType;
 
     @NotNull
     @Column(name = "adresse", nullable = false)
@@ -201,19 +201,19 @@ public class FicheClient extends AbstractAuditingEntity {
     @Column(name = "email_gerant")
     private String emailGerant;
 
-//    @Lob
-//    @Column(name = "fichier_patente")
-//    private byte[] fichierPatente;
-//
-//    @Column(name = "fichier_patente_content_type")
-//    private String fichierPatenteContentType;
+    @Lob
+    @Column(name = "fichier_patente")
+    private byte[] fichierPatente;
 
-//    @Lob
-//    @Column(name = "copie_cin_gerant")
-//    private byte[] copieCINGerant;
-//
-//    @Column(name = "copie_cin_gerant_content_type")
-//    private String copieCINGerantContentType;
+    @Column(name = "fichier_patente_content_type")
+    private String fichierPatenteContentType;
+
+    @Lob
+    @Column(name = "copie_cin_gerant")
+    private byte[] copieCINGerant;
+
+    @Column(name = "copie_cin_gerant_content_type")
+    private String copieCINGerantContentType;
 
     @Column(name = "telephone2")
     private String telephone2;
@@ -384,18 +384,18 @@ public class FicheClient extends AbstractAuditingEntity {
         this.designation = designation;
     }
 
-//    public byte[] getLogo() {
-//        return logo;
-//    }
-//
-//    public FicheClient logo(byte[] logo) {
-//        this.logo = logo;
-//        return this;
-//    }
-//
-//    public void setLogo(byte[] logo) {
-//        this.logo = logo;
-//    }
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public FicheClient logo(byte[] logo) {
+        this.logo = logo;
+        return this;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
+    }
 
     public void addImpotMensuelClient(ImpotMensuelClient impotMensuelClient) {
         impotMensuelClients.add(impotMensuelClient);
@@ -407,27 +407,23 @@ public class FicheClient extends AbstractAuditingEntity {
         impotMensuelClient.setFicheClient(null);
     }
 
-//    public String getLogoContentType() {
-//        return logoContentType;
-//    }
-//
-//    public FicheClient logoContentType(String logoContentType) {
-//        this.logoContentType = logoContentType;
-//        return this;
-//    }
-//
-//    public void setLogoContentType(String logoContentType) {
-//        this.logoContentType = logoContentType;
-//    }
-//
-//    public String getAdresse() {
-//        return adresse;
-//    }
-//
-//    public FicheClient adresse(String adresse) {
-//        this.adresse = adresse;
-//        return this;
-//    }
+    public String getLogoContentType() {
+        return logoContentType;
+    }
+
+    public FicheClient logoContentType(String logoContentType) {
+        this.logoContentType = logoContentType;
+        return this;
+    }
+
+    public void setLogoContentType(String logoContentType) {
+        this.logoContentType = logoContentType;
+    }
+
+    public FicheClient adresse(String adresse) {
+        this.adresse = adresse;
+        return this;
+    }
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
@@ -550,31 +546,31 @@ public class FicheClient extends AbstractAuditingEntity {
         this.cnssGerant = cnssGerant;
     }
 
-//    public byte[] getFichierPatente() {
-//        return fichierPatente;
-//    }
-//
-//    public FicheClient fichierPatente(byte[] fichierPatente) {
-//        this.fichierPatente = fichierPatente;
-//        return this;
-//    }
-//
-//    public void setFichierPatente(byte[] fichierPatente) {
-//        this.fichierPatente = fichierPatente;
-//    }
-//
-//    public String getFichierPatenteContentType() {
-//        return fichierPatenteContentType;
-//    }
-//
-//    public FicheClient fichierPatenteContentType(String fichierPatenteContentType) {
-//        this.fichierPatenteContentType = fichierPatenteContentType;
-//        return this;
-//    }
-//
-//    public void setFichierPatenteContentType(String fichierPatenteContentType) {
-//        this.fichierPatenteContentType = fichierPatenteContentType;
-//    }
+    public byte[] getFichierPatente() {
+        return fichierPatente;
+    }
+
+    public FicheClient fichierPatente(byte[] fichierPatente) {
+        this.fichierPatente = fichierPatente;
+        return this;
+    }
+
+    public void setFichierPatente(byte[] fichierPatente) {
+        this.fichierPatente = fichierPatente;
+    }
+
+    public String getFichierPatenteContentType() {
+        return fichierPatenteContentType;
+    }
+
+    public FicheClient fichierPatenteContentType(String fichierPatenteContentType) {
+        this.fichierPatenteContentType = fichierPatenteContentType;
+        return this;
+    }
+
+    public void setFichierPatenteContentType(String fichierPatenteContentType) {
+        this.fichierPatenteContentType = fichierPatenteContentType;
+    }
 
     public List<ImpotMensuelClient> getImpotMensuelClients() {
         return impotMensuelClients;
@@ -692,10 +688,10 @@ public class FicheClient extends AbstractAuditingEntity {
         this.emailGerant = emailGerant;
     }
 
-//    public FicheClient copieCINGerant(byte[] copieCINGerant) {
-//        this.copieCINGerant = copieCINGerant;
-//        return this;
-//    }
+    public FicheClient copieCINGerant(byte[] copieCINGerant) {
+        this.copieCINGerant = copieCINGerant;
+        return this;
+    }
 
     @Override
     public String toString() {
@@ -754,26 +750,26 @@ public class FicheClient extends AbstractAuditingEntity {
             '}';
     }
 
-//    public FicheClient copieCINGerantContentType(String copieCINGerantContentType) {
-//        this.copieCINGerantContentType = copieCINGerantContentType;
-//        return this;
-//    }
-//
-//    public byte[] getCopieCINGerant() {
-//        return copieCINGerant;
-//    }
-//
-//    public void setCopieCINGerant(byte[] copieCINGerant) {
-//        this.copieCINGerant = copieCINGerant;
-//    }
-//
-//    public String getCopieCINGerantContentType() {
-//        return copieCINGerantContentType;
-//    }
-//
-//    public void setCopieCINGerantContentType(String copieCINGerantContentType) {
-//        this.copieCINGerantContentType = copieCINGerantContentType;
-//    }
+    public FicheClient copieCINGerantContentType(String copieCINGerantContentType) {
+        this.copieCINGerantContentType = copieCINGerantContentType;
+        return this;
+    }
+
+    public byte[] getCopieCINGerant() {
+        return copieCINGerant;
+    }
+
+    public void setCopieCINGerant(byte[] copieCINGerant) {
+        this.copieCINGerant = copieCINGerant;
+    }
+
+    public String getCopieCINGerantContentType() {
+        return copieCINGerantContentType;
+    }
+
+    public void setCopieCINGerantContentType(String copieCINGerantContentType) {
+        this.copieCINGerantContentType = copieCINGerantContentType;
+    }
 
     public String getTelephone2() {
         return telephone2;

@@ -7,7 +7,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * Application User
@@ -15,7 +14,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "application_user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ApplicationUser implements Serializable {
+public class ApplicationUser extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
 

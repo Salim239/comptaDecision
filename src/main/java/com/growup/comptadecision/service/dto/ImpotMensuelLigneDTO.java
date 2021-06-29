@@ -9,6 +9,7 @@ import lombok.ToString;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.io.Serializable;
+import java.time.Instant;
 
 /**
  * A DTO for the ImpotMensuel entity.
@@ -39,6 +40,10 @@ public class ImpotMensuelLigneDTO implements Serializable {
     private String libelle;
 
     private String description;
+
+    private Instant dateDebut;
+
+    private Instant dateFin;
 
 
     public Long getId() {
@@ -103,5 +108,21 @@ public class ImpotMensuelLigneDTO implements Serializable {
 
     public void setValeurModifiable(Boolean valeurModifiable) {
         this.valeurModifiable = valeurModifiable;
+    }
+
+    public Instant getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Instant dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public Instant getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Instant dateFin) {
+        this.dateFin = dateFin;
     }
 }

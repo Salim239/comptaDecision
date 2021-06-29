@@ -8,7 +8,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +19,7 @@ import java.util.Set;
 @Entity
 @Table(name = "caisse")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Caisse implements Serializable {
+public class Caisse extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,6 +45,10 @@ public class Caisse implements Serializable {
     @NotNull
     @JsonIgnoreProperties("caisses")
     private FicheClient ficheClient;
+
+    public Boolean getCloturee() {
+        return cloturee;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {

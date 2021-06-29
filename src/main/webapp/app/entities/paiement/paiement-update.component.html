@@ -1,0 +1,156 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-paiement-heading" jhiTranslate="comptaDecisionApp.paiement.home.createOrEditLabel">Create or edit a Paiement</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!paiement.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="paiement.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.libelle" for="field_libelle">Libelle</label>
+                    <input type="text" class="form-control" name="libelle" id="field_libelle"
+                        [(ngModel)]="paiement.libelle" required/>
+                    <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.libelle?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.modePaiement" for="field_modePaiement" [ngbTooltip]="'comptaDecisionApp.paiement.help.modePaiement' | translate">Mode Painement</label>
+                    <select class="form-control" name="modePaiement" [(ngModel)]="paiement.modePaiement" id="field_modePaiement"  required>
+                        <option value="CHEQUE">{{'comptaDecisionApp.ModePaiement.CHEQUE' | translate}}</option>
+                        <option value="VIREMENT">{{'comptaDecisionApp.ModePaiement.VIREMENT' | translate}}</option>
+                        <option value="CAISSE">{{'comptaDecisionApp.ModePaiement.CAISSE' | translate}}</option>
+                        <option value="ESPECE">{{'comptaDecisionApp.ModePaiement.ESPECE' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.modePaiement?.dirty && editForm.controls.modePaiement?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.modePaiement?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.numeroPreuvePaiement" for="field_numeroPreuvePaiement" [ngbTooltip]="'comptaDecisionApp.paiement.help.numeroPreuvePaiement' | translate">Numero Preuve Paient</label>
+                    <input type="text" class="form-control" name="numeroPreuvePaiement" id="field_numeroPreuvePaiement"
+                        [(ngModel)]="paiement.numeroPreuvePaiement" required/>
+                    <div [hidden]="!(editForm.controls.numeroPreuvePaiement?.dirty && editForm.controls.numeroPreuvePaiement?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.numeroPreuvePaiement?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.datePaiement" for="field_datePaiement" [ngbTooltip]="'comptaDecisionApp.paiement.help.datePaiement' | translate">Date Paiement</label>
+                    <div class="input-group">
+                        <input id="field_datePaiement" type="text" class="form-control" name="datePaiement" ngbDatepicker  #datePaiementDp="ngbDatepicker" [(ngModel)]="paiement.datePaiement"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="datePaiementDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.datePaiement?.dirty && editForm.controls.datePaiement?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.datePaiement?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.montantPaye" for="field_montantPaye">Montant Paye</label>
+                    <input type="number" class="form-control" name="montantPaye" id="field_montantPaye"
+                        [(ngModel)]="paiement.montantPaye" required/>
+                    <div [hidden]="!(editForm.controls.montantPaye?.dirty && editForm.controls.montantPaye?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.montantPaye?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.montantPaye?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.montantDu" for="field_montantDu">Montant Du</label>
+                    <input type="number" class="form-control" name="montantDu" id="field_montantDu"
+                        [(ngModel)]="paiement.montantDu" required/>
+                    <div [hidden]="!(editForm.controls.montantDu?.dirty && editForm.controls.montantDu?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.montantDu?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.montantDu?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.ligneCaisse" for="field_ligneCaisse">Ligne Caisse</label>
+                    <select class="form-control" id="field_ligneCaisse" name="ligneCaisse" [(ngModel)]="paiement.ligneCaisseId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="ligneCaisseOption.id" *ngFor="let ligneCaisseOption of lignecaisses; trackBy: trackLigneCaisseById">{{ligneCaisseOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.ficheClient" for="field_ficheClient">Fiche Client</label>
+                    <select class="form-control" id="field_ficheClient" name="ficheClient" [(ngModel)]="paiement.ficheClientId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="ficheClientOption.id" *ngFor="let ficheClientOption of ficheclients; trackBy: trackFicheClientById">{{ficheClientOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.cnss" for="field_cnss">Cnss</label>
+                    <select class="form-control" id="field_cnss" name="cnss" [(ngModel)]="paiement.cnssId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cnssOption.id" *ngFor="let cnssOption of cnsses; trackBy: trackCnssById">{{cnssOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.quittanceMensuelle" for="field_quittanceMensuelle">Quittance Mensuelle</label>
+                    <select class="form-control" id="field_quittanceMensuelle" name="quittanceMensuelle" [(ngModel)]="paiement.quittanceMensuelleId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="quittanceMensuelleOption.id" *ngFor="let quittanceMensuelleOption of quittancemensuelles; trackBy: trackQuittanceMensuelleById">{{quittanceMensuelleOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.declarationAnnuelle" for="field_declarationAnnuelle">Declaration Annuelle</label>
+                    <select class="form-control" id="field_declarationAnnuelle" name="declarationAnnuelle" [(ngModel)]="paiement.declarationAnnuelleId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="declarationAnnuelleOption.id" *ngFor="let declarationAnnuelleOption of declarationannuelles; trackBy: trackDeclarationAnnuelleById">{{declarationAnnuelleOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.declarationEmployeurAnnuelle" for="field_declarationEmployeurAnnuelle">Declaration Employeur Annuelle</label>
+                    <select class="form-control" id="field_declarationEmployeurAnnuelle" name="declarationEmployeurAnnuelle" [(ngModel)]="paiement.declarationEmployeurAnnuelleId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="declarationEmployeurAnnuelleOption.id" *ngFor="let declarationEmployeurAnnuelleOption of declarationemployeurannuelles; trackBy: trackDeclarationEmployeurAnnuelleById">{{declarationEmployeurAnnuelleOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.paiement.acompteProvisionnel" for="field_acompteProvisionnel">Acompte Provisionnel</label>
+                    <select class="form-control" id="field_acompteProvisionnel" name="acompteProvisionnel" [(ngModel)]="paiement.acompteProvisionnelId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="acompteProvisionnelOption.id" *ngFor="let acompteProvisionnelOption of acompteprovisionnels; trackBy: trackAcompteProvisionnelById">{{acompteProvisionnelOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

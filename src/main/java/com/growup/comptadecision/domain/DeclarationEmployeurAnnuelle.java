@@ -36,40 +36,40 @@ public class DeclarationEmployeurAnnuelle extends AbstractAuditingEntity {
     @Column(name = "annee", nullable = false)
     private Integer annee;
 
-    @Column(name = "montant_annexe_1", precision = 10, scale = 2)
+    @Column(name = "montant_annexe_1")
     private BigDecimal montantAnnexe1;
 
-    @Column(name = "montant_annexe_2", precision = 10, scale = 2)
+    @Column(name = "montant_annexe_2")
     private BigDecimal montantAnnexe2;
 
-    @Column(name = "montant_annexe_3", precision = 10, scale = 2)
+    @Column(name = "montant_annexe_3")
     private BigDecimal montantAnnexe3;
 
-    @Column(name = "montant_annexe_4", precision = 10, scale = 2)
+    @Column(name = "montant_annexe_4")
     private BigDecimal montantAnnexe4;
 
-    @Column(name = "montant_annexe_5", precision = 10, scale = 2)
+    @Column(name = "montant_annexe_5")
     private BigDecimal montantAnnexe5;
 
-    @Column(name = "montant_annexe_6", precision = 10, scale = 2)
+    @Column(name = "montant_annexe_6")
     private BigDecimal montantAnnexe6;
 
-    @Column(name = "montant_annexe_7", precision = 10, scale = 2)
+    @Column(name = "montant_annexe_7")
     private BigDecimal montantAnnexe7;
 
-    @Column(name = "montant_annexe_8", precision = 10, scale = 2)
+    @Column(name = "montant_annexe_8")
     private BigDecimal montantAnnexe8;
 
-    @Column(name = "montant_annexe_9", precision = 10, scale = 2)
+    @Column(name = "montant_annexe_9")
     private BigDecimal montantAnnexe9;
 
-    @Column(name = "montant_annexe_10", precision = 10, scale = 2)
+    @Column(name = "montant_annexe_10")
     private BigDecimal montantAnnexe10;
 
-    @Column(name = "montant_annexe_11", precision = 10, scale = 2)
+    @Column(name = "montant_annexe_11")
     private BigDecimal montantAnnexe11;
 
-    @Column(name = "montant_annexe_12", precision = 10, scale = 2)
+    @Column(name = "montant_annexe_12")
     private BigDecimal montantAnnexe12;
 
     @ManyToOne

@@ -28,7 +28,7 @@ public interface DeclarationAnnuelleMapper extends EntityMapper<DeclarationAnnue
     @Mapping(target = "declarationAnnuelleLignes", expression = "java(" +
             "declarationAnnuelleDTO.getDeclarationAnnuelleLignes().stream().map(" +
             "declarationAnnuelleLigneDTO -> {" +
-            "com.growup.comptadecision.domain.DecalrationAnnuelleLigne declarationAnnuelleLigne = " +
+            "com.growup.comptadecision.domain.DeclarationAnnuelleLigne declarationAnnuelleLigne = " +
             "declarationAnnuelleLigneMapper.toEntity(declarationAnnuelleLigneDTO);" +
             "declarationAnnuelleLigne.setDeclarationAnnuelle(declarationAnnuelle);" +
             "return declarationAnnuelleLigne;})" +

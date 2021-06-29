@@ -2,6 +2,7 @@ package com.growup.comptadecision.repository;
 
 import com.growup.comptadecision.domain.ApplicationUser;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 
@@ -10,6 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ApplicationUserRepository extends JpaRepository<ApplicationUser, Long> {
+public interface ApplicationUserRepository extends JpaSpecificationExecutor<ApplicationUser>, JpaRepository<ApplicationUser, Long> {
 
 }

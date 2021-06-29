@@ -1,0 +1,89 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="paiement">
+            <h2><span jhiTranslate="comptaDecisionApp.paiement.detail.title">Paiement</span> {{paiement.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.libelle">Libelle</span></dt>
+                <dd>
+                    <span>{{paiement.libelle}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.modePaiement" [ngbTooltip]="'comptaDecisionApp.paiement.help.modePaiement' | translate">Mode Painement</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'comptaDecisionApp.ModePaiement.' + paiement.modePaiement}}">{{paiement.modePaiement}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.numeroPreuvePaiement" [ngbTooltip]="'comptaDecisionApp.paiement.help.numeroPreuvePaiement' | translate">Numero Preuve Paient</span></dt>
+                <dd>
+                    <span>{{paiement.numeroPreuvePaiement}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.datePaiement" [ngbTooltip]="'comptaDecisionApp.paiement.help.datePaiement' | translate">Date Paiement</span></dt>
+                <dd>
+                    <span>{{paiement.datePaiement}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.montantPaye">Montant Paye</span></dt>
+                <dd>
+                    <span>{{paiement.montantPaye}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.montantDu">Montant Du</span></dt>
+                <dd>
+                    <span>{{paiement.montantDu}}</span>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.ligneCaisse">Ligne Caisse</span></dt>
+                <dd>
+                    <div *ngIf="paiement.ligneCaisseId">
+                        <a [routerLink]="['/ligne-caisse', paiement.ligneCaisseId, 'view']">{{paiement.ligneCaisseId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.ficheClient">Fiche Client</span></dt>
+                <dd>
+                    <div *ngIf="paiement.ficheClientId">
+                        <a [routerLink]="['/fiche-client', paiement.ficheClientId, 'view']">{{paiement.ficheClientId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.cnss">Cnss</span></dt>
+                <dd>
+                    <div *ngIf="paiement.cnssId">
+                        <a [routerLink]="['/cnss', paiement.cnssId, 'view']">{{paiement.cnssId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.quittanceMensuelle">Quittance Mensuelle</span></dt>
+                <dd>
+                    <div *ngIf="paiement.quittanceMensuelleId">
+                        <a [routerLink]="['/quittance-mensuelle', paiement.quittanceMensuelleId, 'view']">{{paiement.quittanceMensuelleId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.declarationAnnuelle">Declaration Annuelle</span></dt>
+                <dd>
+                    <div *ngIf="paiement.declarationAnnuelleId">
+                        <a [routerLink]="['/declaration-annuelle', paiement.declarationAnnuelleId, 'view']">{{paiement.declarationAnnuelleId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.declarationEmployeurAnnuelle">Declaration Employeur Annuelle</span></dt>
+                <dd>
+                    <div *ngIf="paiement.declarationEmployeurAnnuelleId">
+                        <a [routerLink]="['/declaration-employeur-annuelle', paiement.declarationEmployeurAnnuelleId, 'view']">{{paiement.declarationEmployeurAnnuelleId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="comptaDecisionApp.paiement.acompteProvisionnel">Acompte Provisionnel</span></dt>
+                <dd>
+                    <div *ngIf="paiement.acompteProvisionnelId">
+                        <a [routerLink]="['/acompte-provisionnel', paiement.acompteProvisionnelId, 'view']">{{paiement.acompteProvisionnelId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/paiement', paiement.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

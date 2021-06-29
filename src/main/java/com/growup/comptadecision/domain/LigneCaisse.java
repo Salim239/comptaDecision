@@ -59,6 +59,9 @@ public class LigneCaisse implements Serializable {
     @JsonIgnoreProperties("ligneCaisses")
     private Caisse caisse;
 
+    @ManyToOne
+    private Paiement paiement;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -66,6 +69,14 @@ public class LigneCaisse implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Paiement getPaiement() {
+        return paiement;
+    }
+
+    public void setPaiement(Paiement paiement) {
+        this.paiement = paiement;
     }
 
     public Integer getTypeOperation() {

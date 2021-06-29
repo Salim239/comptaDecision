@@ -38,11 +38,14 @@ public class FicheClientService {
 
     private final ImpotMensuelService impotMensuelService;
 
+    private final CaisseService caisseService;
+
     private final FicheClientMapper ficheClientMapper;
 
-    public FicheClientService(FicheClientRepository ficheClientRepository, ImpotMensuelService impotMensuelService, FicheClientMapper ficheClientMapper) {
+    public FicheClientService(FicheClientRepository ficheClientRepository, ImpotMensuelService impotMensuelService, CaisseService caisseService, FicheClientMapper ficheClientMapper) {
         this.ficheClientRepository = ficheClientRepository;
         this.impotMensuelService = impotMensuelService;
+        this.caisseService = caisseService;
         this.ficheClientMapper = ficheClientMapper;
     }
 
@@ -137,6 +140,7 @@ public class FicheClientService {
         updateImpotMensuelClientChildren(ficheClientDTO);
         FicheClient ficheClient = ficheClientMapper.toEntity(ficheClientDTO);
         ficheClient = ficheClientRepository.save(ficheClient);
+
         return ficheClientMapper.toDto(ficheClient);
     }
 

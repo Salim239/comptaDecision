@@ -1,5 +1,6 @@
 package com.growup.comptadecision.config;
 
+import com.growup.comptadecision.domain.DeclarationAnnuelleLigne;
 import com.growup.comptadecision.domain.QuittanceMensuelle;
 import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.config.jcache.BeanClassLoaderAwareJCacheRegionFactory;
@@ -60,7 +61,7 @@ public class CacheConfiguration {
             cm.createCache(com.growup.comptadecision.domain.ImpotAnnuelLigne.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.DeclarationAnnuelle.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.DeclarationAnnuelle.class.getName() + ".declarationAnnuelleLignes", jcacheConfiguration);
-            cm.createCache(com.growup.comptadecision.domain.DecalrationAnnuelleLigne.class.getName(), jcacheConfiguration);
+            cm.createCache(DeclarationAnnuelleLigne.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.DeclarationEmployeurAnnuelle.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.AcompteProvisionnel.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.QuittanceMensuelleSousLigne.class.getName(), jcacheConfiguration);
@@ -72,6 +73,7 @@ public class CacheConfiguration {
             cm.createCache(com.growup.comptadecision.domain.CabinetComptable.class.getName() + ".clients", jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.ApplicationUser.class.getName(), jcacheConfiguration);
             cm.createCache(com.growup.comptadecision.domain.ApplicationUserFicheClient.class.getName(), jcacheConfiguration);
+            cm.createCache(com.growup.comptadecision.domain.Paiement.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

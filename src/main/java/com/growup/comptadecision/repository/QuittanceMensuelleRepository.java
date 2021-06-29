@@ -5,6 +5,7 @@ import com.growup.comptadecision.domain.enumeration.TypeDeclaration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,7 @@ import java.util.Optional;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface QuittanceMensuelleRepository extends JpaRepository<QuittanceMensuelle, Long> {
+public interface QuittanceMensuelleRepository extends JpaSpecificationExecutor<QuittanceMensuelle>, JpaRepository<QuittanceMensuelle, Long> {
 
     Page<QuittanceMensuelle> findAllByCreatedBy(String creator, Pageable pageable);
 

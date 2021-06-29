@@ -26,6 +26,14 @@
               jhiTranslate="comptaDecisionApp.impotMensuelLigne.valeurModifiable" for="field_impotMensuelLigneTypeValeur">Modif.?</label>
     </th>
     <th scope="col">
+        <label  class="form-control-label"
+                jhiTranslate="comptaDecisionApp.impotMensuelLigne.dateDebut" for="field_dateDebut">Date début</label>
+    </th>
+  <th scope="col">
+      <label  class="form-control-label"
+              jhiTranslate="comptaDecisionApp.impotMensuelLigne.dateFin" for="field_dateFin">Date fin</label>
+  </th>
+      <th scope="col">
       Actions
     </th>
   </tr>
@@ -72,6 +80,32 @@
                id="field_impotMensuelLigneValeurModifiable"
                [(ngModel)]="impotMensuelLigneNew.valeurModifiable"/>
     </td>
+      <td>
+          <div class="input-group">
+              <input id="field_dateDebut" required type="text" class="form-control"
+                     name="dateDebut"
+                     ngbDatepicker #dateDebutDp="ngbDatepicker"
+                     [(ngModel)]="impotMensuelLigneNew.dateDebut"
+              />
+              <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateDebutDp.toggle()"><fa-icon
+                                [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+          </div>
+      </td>
+      <td>
+          <div class="input-group">
+              <input id="field_dateFin" required type="text" class="form-control"
+                     name="dateFin"
+                     ngbDatepicker #dateFinDp="ngbDatepicker"
+                     [(ngModel)]="impotMensuelLigneNew.dateFin"
+              />
+              <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateFinDp.toggle()"><fa-icon
+                                [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+          </div>
+      </td>
     <td>
       <button [title]="'entity.action.add'" type="button" id="add-impotMensuelLigne" [disabled]="!isValidImpotMensuelLigne(impotMensuelLigneNew)" class="btn btn-primary" (click)="addImpotMensuelLigne(impotMensuelLigneNew)">
         <fa-icon [icon]="'plus'"></fa-icon>
@@ -101,6 +135,12 @@
     <td>
       {{impotMensuelLigne.valeurModifiable}}
     </td>
+      <td>
+          {{impotMensuelLigne.dateDebut}}
+      </td>
+      <td>
+          {{impotMensuelLigne.dateFin}}
+      </td>
     <td>
       <button [title]="'entity.action.edit'" type="button" class="btn btn-warning" (click)="editImpotMensuelLigne(impotMensuelLigne, i)">
         <fa-icon [icon]="'pencil-alt'"></fa-icon>

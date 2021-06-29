@@ -6,7 +6,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "cabinet_comptable")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class CabinetComptable implements Serializable {
+public class CabinetComptable extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -2,6 +2,7 @@ package com.growup.comptadecision.repository;
 
 import com.growup.comptadecision.domain.CabinetComptable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 
@@ -10,6 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CabinetComptableRepository extends JpaRepository<CabinetComptable, Long> {
+public interface CabinetComptableRepository extends JpaSpecificationExecutor<CabinetComptable>, JpaRepository<CabinetComptable, Long> {
 
 }

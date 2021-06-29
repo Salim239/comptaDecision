@@ -461,21 +461,21 @@ entity DeclarationAnnuelle {
     montantReportAnterieur  BigDecimal , //default BigDecimal.ZERO,
     montantNet  BigDecimal , //default BigDecimal.ZERO,
     statut StatutDeclaration required  , //default StatutDeclaration.BROUILLON,
-    //private List<DecalrationAnnuelleLigne> declarationAnnuelleLignes = new ArrayList<>();
+    //private List<DeclarationAnnuelleLigne> declarationAnnuelleLignes = new ArrayList<>();
 }
 relationship ManyToOne {
     DeclarationAnnuelle{ficheClient(designation) required} to FicheClient
 }
 
 relationship OneToMany{
-     DeclarationAnnuelle{declarationAnnuelleLigne} to DecalrationAnnuelleLigne{declarationAnnuelle}
+     DeclarationAnnuelle{declarationAnnuelleLigne} to DeclarationAnnuelleLigne{declarationAnnuelle}
 }
 
 /**
 * Decalration Annuelle Ligne
 */
 
-entity DecalrationAnnuelleLigne {
+entity DeclarationAnnuelleLigne {
     code String required,
     triOrdre Integer,
     calcule Boolean,
@@ -485,8 +485,8 @@ entity DecalrationAnnuelleLigne {
     description String
 }
 relationship ManyToOne {
-    DecalrationAnnuelleLigne{impotAnnuel(id) required} to ImpotAnnuel,
-    //DecalrationAnnuelleLigne{declarationAnnuelle(id) required} to DeclarationAnnuelle,
+    DeclarationAnnuelleLigne{impotAnnuel(id) required} to ImpotAnnuel,
+    //DeclarationAnnuelleLigne{declarationAnnuelle(id) required} to DeclarationAnnuelle,
 }
 
 /**

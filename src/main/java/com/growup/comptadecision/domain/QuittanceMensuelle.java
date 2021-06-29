@@ -68,7 +68,7 @@ public class QuittanceMensuelle extends AbstractAuditingEntity {
     @Column(name = "date_paiement")
     private LocalDate datePaiement;
 
-    @Column(name = "montant_total", precision = 10, scale = 2)
+    @Column(name = "montant_total")
     private BigDecimal montantTotal;
 
     @ManyToOne

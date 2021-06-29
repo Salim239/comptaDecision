@@ -19,7 +19,8 @@
                 "caisse": "Caisse",
                 "ligneCaisse": "Ligne Caisse",
                 "applicationUser": "Application User",
-                "applicationUserFicheClient": "Application User Fiche Client"
+                "applicationUserFicheClient": "Application User Fiche Client",
+                "paiement": "Paiements"
             },
             "configuration": {
                 "main": "Paramétrage",

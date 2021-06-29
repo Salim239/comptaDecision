@@ -1,0 +1,2 @@
+delete from public.impot_mensuel_ligne where code = 'FODEC';
+INSERT INTO public.impot_mensuel_ligne (id, code, tri_ordre, valeur, libelle, description, impot_mensuel_id, created_by, created_date, last_modified_by, last_modified_date, type_valeur, valeur_modifiable) VALUES (2651, 'FODEC', 1, 1.000, 'FODEC', null, 7059, 'admin', '2021-06-21 13:20:12.598000', 'admin', '2021-06-21 13:20:12.598000', 'TAUX', false);

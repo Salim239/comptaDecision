@@ -1,10 +1,10 @@
 package com.growup.comptadecision.repository;
 
 import com.growup.comptadecision.domain.CategorieCnssGerant;
-import com.growup.comptadecision.domain.Region;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CategorieCnssGerantRepository extends JpaRepository<CategorieCnssGerant, Long> {
+public interface CategorieCnssGerantRepository extends JpaSpecificationExecutor<CategorieCnssGerant>, JpaRepository<CategorieCnssGerant, Long> {
 
     Page<CategorieCnssGerant> findAllByCreatedBy(String creator, Pageable pageable);
 
