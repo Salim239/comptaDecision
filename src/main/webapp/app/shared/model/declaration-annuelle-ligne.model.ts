@@ -5,6 +5,7 @@ export interface IDeclarationAnnuelleLigne {
     calcule?: boolean;
     montant?: number;
     montantCalcule?: number;
+    montantNegatifAccepte?: boolean;
     libelle?: string;
     description?: string;
     impotAnnuelId?: number;
@@ -20,6 +21,7 @@ export class DeclarationAnnuelleLigne implements IDeclarationAnnuelleLigne {
         public montant?: number,
         public montantCalcule?: number,
         public libelle?: string,
+        public montantNegatifAccepte?: boolean,
         public description?: string,
         public impotAnnuelId?: number,
         public declarationAnnuelleId?: number

@@ -28,6 +28,15 @@ public class DeclarationAnnuelleLigneDTO implements Serializable {
     private String description;
     private Long impotAnnuelId;
     private Long declarationAnnuelleId;
+    private Boolean montantNegatifAccepte = Boolean.FALSE;
+
+    public Boolean getMontantNegatifAccepte() {
+        return montantNegatifAccepte;
+    }
+
+    public void setMontantNegatifAccepte(Boolean montantNegatifAccepte) {
+        this.montantNegatifAccepte = montantNegatifAccepte;
+    }
 
     public Long getId() {
         return id;

@@ -35,16 +35,20 @@ spring:
         serialization:
             indent-output: true
     datasource:
-        type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/compta-decision
-        username: postgres
-        password: postgres
-        hikari:
-            poolName: Hikari
-            auto-commit: false
+        driverClassName: org.h2.Driver
+        url: jdbc:h2:file:/c:/data/compta-decision
+        #        url: jdbc:h2:file:/c:/compta-decision2
+        #        url: jdbc:h2:mem:compta-decision2
+        username: sa
+        password: sa
+    h2:
+        console:
+            enabled: true
     jpa:
-        database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
-        database: POSTGRESQL
+        #        database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
+        #        database: POSTGRESQL
+        database-platform: org.hibernate.dialect.H2Dialect
+        database: h2
         show-sql: true
         properties:
             hibernate.id.new_generator_mappings: true
@@ -54,20 +58,21 @@ spring:
             hibernate.generate_statistics: true
             hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.BeanClassLoaderAwareJCacheRegionFactory
     mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+        host: mail32.lwspanel.com
+        port: 587
+        username: contact@godeals.pro
+        password: Ahmed@@@239
     messages:
         cache-duration: PT1S # 1 second, see the ISO 8601 standard
     thymeleaf:
         cache: false
     flyway:
-        url: jdbc:postgresql://localhost:5432/compta-decision
+        url: jdbc:h2:file:/c:/data/compta-decision
         schemas: public
-        user: "postgres"
-        password: "postgres"
-        locations: classpath:/db/migration/postgres
+        user: "sa"
+        password: "sa"
+        locations: classpath:/db/migration/h2
+
 server:
     port: 8080
 
@@ -101,8 +106,8 @@ jhipster:
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: comptaDecision@localhost
-        base-url: http://127.0.0.1:8080
+        from: contact@godeals.pro
+        base-url: http://127.0.0.1:9000
     metrics:
         logs: # Reports metrics in the logs
             enabled: false

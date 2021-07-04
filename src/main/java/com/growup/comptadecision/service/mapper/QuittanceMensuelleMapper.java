@@ -21,6 +21,10 @@ public interface QuittanceMensuelleMapper extends EntityMapper<QuittanceMensuell
                .map(QuittanceMensuelleLigne::getMontantTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    default BigDecimal calculerMontantTotal(QuittanceMensuelle quittanceMensuelle) {
+        return quittanceMensuelle.getMontantPenalite().add(quittanceMensuelle.getMontantTaxes());
+    }
+
     @Mapping(source = "ficheClient.id", target = "ficheClientId")
     @Mapping(source = "ficheClient.designation", target = "ficheClientDesignation")
     @Mapping(source = "ficheClient.matriculeFiscale", target = "ficheClientMatriculeFiscale")
@@ -36,7 +40,8 @@ public interface QuittanceMensuelleMapper extends EntityMapper<QuittanceMensuell
             "quittanceMensuelleLigne.setQuittanceMensuelle(quittanceMensuelle);" +
             "return quittanceMensuelleLigne;})" +
             ".collect(java.util.stream.Collectors.toList()))")
-    @Mapping(target = "montantTotal", expression = "java(this.sum(quittanceMensuelle))", dependsOn = {"quittanceMensuelleLignes"})
+    @Mapping(target = "montantPenalite", expression = "java(this.sum(quittanceMensuelle))", dependsOn = {"quittanceMensuelleLignes"})
+    @Mapping(target = "montantTotal", expression = "java(this.calculerMontantTotal(quittanceMensuelle))")
     QuittanceMensuelle toEntity(QuittanceMensuelleDTO quittanceMensuelleDTO);
 
     default QuittanceMensuelle fromId(Long id) {

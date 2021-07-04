@@ -19,7 +19,8 @@
             "libelle": "Libelle",
             "description": "Description",
             "calcule": "Calculé?",
-            "triOrdre": "Ordre de tri"
+            "triOrdre": "Ordre de tri",
+            "montantNegatifAccepte": "Montant négatif accepté?"
         }
     }
 }

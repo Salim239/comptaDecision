@@ -71,6 +71,14 @@ public class QuittanceMensuelle extends AbstractAuditingEntity {
     @Column(name = "montant_total")
     private BigDecimal montantTotal;
 
+    @Column(name = "montant_taxes")
+    private BigDecimal montantTaxes;
+
+
+    @Column(name = "montant_penalite")
+    private BigDecimal montantPenalite = BigDecimal.ZERO;
+
+
     @ManyToOne
     @JoinColumn(name = "parent_quittance_id")
     private QuittanceMensuelle parentQuittance;
@@ -150,6 +158,22 @@ public class QuittanceMensuelle extends AbstractAuditingEntity {
     public QuittanceMensuelle montantTotal(BigDecimal montantTotal) {
         this.montantTotal = montantTotal;
         return this;
+    }
+
+    public BigDecimal getMontantTaxes() {
+        return montantTaxes;
+    }
+
+    public void setMontantTaxes(BigDecimal montantTaxes) {
+        this.montantTaxes = montantTaxes;
+    }
+
+    public BigDecimal getMontantPenalite() {
+        return montantPenalite;
+    }
+
+    public void setMontantPenalite(BigDecimal montantPenalite) {
+        this.montantPenalite = montantPenalite;
     }
 
     public void setMontantTotal(BigDecimal montantTotal) {

@@ -7,6 +7,7 @@ export interface IImpotAnnuel {
     description?: string;
     calcule?: boolean;
     triOrdre?: number;
+    montantNegatifAccepte?: boolean;
     impotAnnuelLignes?: IImpotAnnuelLigne[];
 }
 
@@ -18,6 +19,9 @@ export class ImpotAnnuel implements IImpotAnnuel {
         public description?: string,
         public calcule?: boolean,
         public triOrdre?: number,
+        public montantNegatifAccepte?: boolean,
         public impotAnnuelLignes?: IImpotAnnuelLigne[]
-    ) {}
+    ) {
+        this.montantNegatifAccepte = false;
+    }
 }

@@ -17,6 +17,7 @@
                 <th><span jhiTranslate="global.field.id">ID</span></th>
                 <th><span jhiTranslate="comptaDecisionApp.impotAnnuel.code">Code</span></th>
                 <th><span jhiTranslate="comptaDecisionApp.impotAnnuel.libelle">Libelle</span></th>
+                <th><span jhiTranslate="comptaDecisionApp.impotAnnuel.montantNegatifAccepte">Peut être négatif?</span></th>
                 <th><span jhiTranslate="comptaDecisionApp.impotAnnuel.calcule">Calculé?</span></th>
                 <th><span jhiTranslate="comptaDecisionApp.impotAnnuel.triOrdre">Ordre de tri?</span></th>
                 <th><span jhiTranslate="comptaDecisionApp.impotAnnuel.description">Description</span></th>
@@ -28,6 +29,7 @@
                 <td><a [routerLink]="['/impot-annuel', impotAnnuel.id, 'view' ]">{{impotAnnuel.id}}</a></td>
                 <td>{{impotAnnuel.code}}</td>
                 <td>{{impotAnnuel.libelle}}</td>
+                <td>{{impotAnnuel.montantNegatifAccepte}}</td>
                 <td>{{impotAnnuel.calcule}}</td>
                 <td>{{impotAnnuel.triOrdre}}</td>
                 <td>{{impotAnnuel.description}}</td>

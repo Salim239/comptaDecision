@@ -1,10 +1,11 @@
-import {Directive, ElementRef, HostListener, Input} from '@angular/core';
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
     selector: '[jhiDigitOnly]'
 })
 export class DigitOnlyDirective {
     private decimalCounter = 0;
+    private negativeCounter = 0;
     private navigationKeys = [
         'Backspace',
         'Delete',
@@ -19,9 +20,11 @@ export class DigitOnlyDirective {
         'Copy',
         'Paste'
     ];
-    @Input() decimal ? = false;
-    @Input() decimalSeparator ? = '.';
+    @Input() negativeAmountAccepted? = false;
+    @Input() decimal? = false;
+    @Input() decimalSeparator? = '.'; //we replace automatically , by .
     inputElement: HTMLInputElement;
+    startOperator: string = '';
 
     constructor(public el: ElementRef) {
         this.inputElement = el.nativeElement;
@@ -39,7 +42,9 @@ export class DigitOnlyDirective {
             (e.key === 'c' && e.metaKey === true) || // Allow: Cmd+C (Mac)
             (e.key === 'v' && e.metaKey === true) || // Allow: Cmd+V (Mac)
             (e.key === 'x' && e.metaKey === true) || // Allow: Cmd+X (Mac)
-            (this.decimal && (e.key === this.decimalSeparator) && this.decimalCounter < 1) // Allow: only one decimal point
+            (this.negativeAmountAccepted && e.key === '-') || // Allow: Cmd+X (Mac)
+            (this.decimal && e.key === this.decimalSeparator && this.decimalCounter < 1) || // Allow: only one decimal point
+            (this.decimal && e.key === ',' && this.decimalCounter < 1) // Allow: only one decimal point
         ) {
             // let it happen, don't do anything
             return;
@@ -52,10 +57,16 @@ export class DigitOnlyDirective {
 
     @HostListener('keyup', ['$event'])
     onKeyUp(e: KeyboardEvent) {
-        if (!this.decimal) {
+        if (!this.decimal && !this.negativeAmountAccepted) {
             return;
         } else {
-            this.decimalCounter = this.el.nativeElement.value.split(this.decimalSeparator).length - 1;
+            if (this.decimal) {
+                this.el.nativeElement.value = this.el.nativeElement.value.replace(',', '.');
+                this.decimalCounter = this.el.nativeElement.value.split(this.decimalSeparator).length - 1;
+            }
+            if (this.negativeAmountAccepted) {
+                this.negativeCounter = this.el.nativeElement.value.split('-').length - 1;
+            }
         }
     }
 
@@ -84,16 +95,19 @@ export class DigitOnlyDirective {
     }
 
     private sanatizeInput(input: string): string {
-        let result = '';
-        if (this.decimal && this.isValidDecimal(input)) {
-            const regex = new RegExp(`[^0-9${this.decimalSeparator}]`, 'g');
-            result = input.replace(regex, '');
-        } else {
-            result = input.replace(/[^0-9]/g, '');
-        }
+        //start operator
+        const startOperator = this.negativeAmountAccepted ? '\\-' : '';
+
+        const regex =
+            this.decimal && this.isValidDecimal(input)
+                ? new RegExp(`[^${startOperator}(0-9)${this.decimalSeparator}]`, 'g')
+                : new RegExp(`[^${startOperator}(0-9)]`, 'g');
+
+        let result = input.replace(regex, '');
 
         const maxLength = this.inputElement.maxLength;
-        if (maxLength > 0) { // the input element has maxLength limit
+        if (maxLength > 0) {
+            // the input element has maxLength limit
             const allowedLength = maxLength - this.inputElement.value.length;
             result = allowedLength > 0 ? result.substring(0, allowedLength) : '';
         }

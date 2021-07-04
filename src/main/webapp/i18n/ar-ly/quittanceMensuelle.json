@@ -21,9 +21,11 @@
             "typeDeclaration": "Type déclaration",
             "numeroQuittance": "Numéro",
             "datePaiement": "Date Paiement",
-            "montantTotal": "Montant Paye",
+            "montantTotal": "Montant à payer",
             "ficheClient": "Fiche Client",
-            "montantReport": "Montant report"
+            "montantReport": "Montant report",
+            "montantTaxes": "Montant des taxes",
+            "montantPenalite": "Montant pénalité"
         }
     }
 }

@@ -2,27 +2,30 @@
     "comptaDecisionApp": {
         "quittanceMensuelle": {
             "home": {
-                "title": "Quittances Impots",
-                "createLabel": "Créer un nouveau Quittance Mensuelle Impot",
-                "createOrEditLabel": "Créer ou éditer un Quittance Mensuelle Impot"
+                "title": "Quittance Mensuelle Impots",
+                "createLabel": "Create a new Quittance Mensuelle Impot",
+                "createOrEditLabel": "Create or edit a Quittance Mensuelle Impot"
             },
-            "created": "Un nouveau Quittance Mensuelle Impot a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Quittance Mensuelle Impot avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Quittance Mensuelle Impot avec l'identifiant {{ param }} a été supprimé",
+            "created": "A new Quittance Mensuelle Impot is created with identifier {{ param }}",
+            "updated": "A Quittance Mensuelle Impot is updated with identifier {{ param }}",
+            "deleted": "A Quittance Mensuelle Impot is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Quittance Mensuelle Impot {{ id }} ?"
+                "question": "Are you sure you want to delete Quittance Mensuelle Impot {{ id }}?"
             },
             "detail": {
                 "title": "Quittance Mensuelle Impot"
             },
             "annee": "Annee",
             "mois": "Mois",
+            "trimestre": "Trimestre",
             "typeDeclaration": "Type déclaration",
             "numeroQuittance": "Numéro",
             "datePaiement": "Date Paiement",
-            "montantTotal": "Montant Paye",
+            "montantTotal": "Montant à payer",
             "ficheClient": "Fiche Client",
-            "montantReport": "Montant report"
+            "montantReport": "Montant report",
+            "montantTaxes": "Montant des taxes",
+            "montantPenalite": "Montant pénalité"
         }
     }
 }

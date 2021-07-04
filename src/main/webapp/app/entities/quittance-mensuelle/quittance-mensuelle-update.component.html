@@ -91,6 +91,25 @@
                     </div>
                 </div>
 
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label
+                            jhiTranslate="comptaDecisionApp.quittanceMensuelle.montantTaxes"
+                            for="field_montantTaxes">Montant taxes</label>
+                        <input type="text" class="form-control" name="montantTaxes" id="field_montantTaxes"
+                               [readOnly]="true"
+                               [(ngModel)]="quittanceMensuelle.montantTaxes" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label
+                            jhiTranslate="comptaDecisionApp.quittanceMensuelle.montantPenalite"
+                            for="field_montantPenalite">Montant pénalité</label>
+                        <input type="text" class="form-control" name="montantPenalite" id="field_montantPenalite"
+                               [(ngModel)]="quittanceMensuelle.montantPenalite" (click)="calculerMontants($event)"/>
+                    </div>
+                </div>
+
+
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -116,6 +135,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="form-row">
                     <label jhiTranslate="comptaDecisionApp.quittanceMensuelle.montantTotal"
                            for="field_montantTotal">Montant Paye</label>

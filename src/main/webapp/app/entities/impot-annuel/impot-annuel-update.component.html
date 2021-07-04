@@ -50,6 +50,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotAnnuel.calcule" for="field_calcule">Montant calculé?</label>
+                    <input id="field_calcule" name="calcule" type="checkbox" [(ngModel)]="impotAnnuel.calcule">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotAnnuel.montantNegatifAccepte" for="field_montantNegatifAccepte">Montant peut être négatif?</label>
+                    <input id="field_montantNegatifAccepte" name="montantNegatifAccepte" type="checkbox" [(ngModel)]="impotAnnuel.montantNegatifAccepte">
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="comptaDecisionApp.impotAnnuel.description"
                            for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"

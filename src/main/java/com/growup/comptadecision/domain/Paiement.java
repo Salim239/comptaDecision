@@ -8,7 +8,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -19,7 +18,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "paiement")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Paiement implements Serializable {
+public class Paiement extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
     

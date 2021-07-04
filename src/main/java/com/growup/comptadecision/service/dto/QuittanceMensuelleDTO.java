@@ -56,6 +56,10 @@ public class QuittanceMensuelleDTO {
 
     private Float valeurImpot;
 
+    private BigDecimal montantTaxes;
+
+    private BigDecimal montantPenalite = BigDecimal.ZERO;
+
     private List<QuittanceMensuelleLigneDTO> quittanceMensuelleLignes = new ArrayList<QuittanceMensuelleLigneDTO>();
 
     private List<BusinessAlertDTO> businessAlerts = new ArrayList<>();
@@ -208,5 +212,21 @@ public class QuittanceMensuelleDTO {
         if (businessAlerts != null) {
             this.businessAlerts.addAll(businessAlerts);
         }
+    }
+
+    public BigDecimal getMontantTaxes() {
+        return montantTaxes;
+    }
+
+    public void setMontantTaxes(BigDecimal montantTaxes) {
+        this.montantTaxes = montantTaxes;
+    }
+
+    public BigDecimal getMontantPenalite() {
+        return montantPenalite;
+    }
+
+    public void setMontantPenalite(BigDecimal montantPenalite) {
+        this.montantPenalite = montantPenalite;
     }
 }

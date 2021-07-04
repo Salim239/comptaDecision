@@ -14,6 +14,7 @@ public interface DeclarationAnnuelleLigneMapper extends EntityMapper<Declaration
 
     @Mapping(source = "impotAnnuel.id", target = "impotAnnuelId")
     @Mapping(source = "declarationAnnuelle.id", target = "declarationAnnuelleId")
+    @Mapping(source = "impotAnnuel.montantNegatifAccepte", target = "montantNegatifAccepte")
     DeclarationAnnuelleLigneDTO toDto(DeclarationAnnuelleLigne declarationAnnuelleLigne);
 
     @Mapping(source = "impotAnnuelId", target = "impotAnnuel.id")

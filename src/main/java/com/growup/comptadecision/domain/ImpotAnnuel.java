@@ -54,8 +54,24 @@ public class ImpotAnnuel extends AbstractAuditingEntity {
     @Column(name = "tri_ordre")
     private Integer triOrdre;
 
+    /**
+     * Si oui le montant peut etre negatif
+     */
+    @Column(name = "montant_negatif_accepte")
+    private Boolean montantNegatifAccepte = Boolean.FALSE;
+
+
+
     @OneToMany(mappedBy = "impotAnnuel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImpotAnnuelLigne> impotAnnuelLignes = new ArrayList<>();
+
+    public Boolean getMontantNegatifAccepte() {
+        return montantNegatifAccepte;
+    }
+
+    public void setMontantNegatifAccepte(Boolean montantNegatifAccepte) {
+        this.montantNegatifAccepte = montantNegatifAccepte;
+    }
 
     public Long getId() {
         return id;

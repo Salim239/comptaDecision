@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import {DATE_FORMAT} from 'app/shared/constants/input.constants';
-import {filter, map} from 'rxjs/operators';
-import {SERVER_API_URL} from 'app/app.constants';
-import {createRequestOption} from 'app/shared';
-import {IQuittanceMensuelle, QuittanceMensuelle} from 'app/shared/model/quittance-mensuelle.model';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { filter, map } from 'rxjs/operators';
+import { SERVER_API_URL } from 'app/app.constants';
+import { createRequestOption } from 'app/shared';
+import { IQuittanceMensuelle, QuittanceMensuelle } from 'app/shared/model/quittance-mensuelle.model';
 import ComptaDecisionUtils from 'app/shared/util/compta-decision-utils';
 import * as _ from 'lodash';
-import {IQuittanceMensuelleLigne} from 'app/shared/model/quittance-mensuelle-ligne.model';
-import {IQuittanceMensuelleSousLigne} from 'app/shared/model/quittance-mensuelle-sous-ligne.model';
+import { IQuittanceMensuelleLigne } from 'app/shared/model/quittance-mensuelle-ligne.model';
+import { IQuittanceMensuelleSousLigne } from 'app/shared/model/quittance-mensuelle-sous-ligne.model';
 
 type EntityResponseType = HttpResponse<IQuittanceMensuelle>;
 type EntityArrayResponseType = HttpResponse<IQuittanceMensuelle[]>;
@@ -120,6 +120,8 @@ export class QuittanceMensuelleService {
         const that = this;
         target.id = source.id;
         target.montantTotal = source.montantTotal;
+        target.montantPenalite = source.montantPenalite;
+        target.montantTaxes = source.montantTaxes;
         _.each(target.quittanceMensuelleLignes, function(quittanceLigne) {
             const quittanceLigneRes = _.find(source.quittanceMensuelleLignes, function(detail) {
                 return detail.code === quittanceLigne.code;
@@ -190,7 +192,10 @@ export class QuittanceMensuelleService {
                 that.parseMontantsLigne(childQuittanceMensuelleLigne);
             });
         });
-        quittanceMensuelle.montantTotal = ComptaDecisionUtils.parseCurrency(quittanceMensuelle.montantTotal);
+        quittanceMensuelle.montantPenalite = ComptaDecisionUtils.parseCurrency(quittanceMensuelle.montantPenalite);
+        quittanceMensuelle.montantTaxes = ComptaDecisionUtils.parseCurrency(quittanceMensuelle.montantTaxes);
+        quittanceMensuelle.montantTotal = quittanceMensuelle.montantTaxes + quittanceMensuelle.montantPenalite;
+
         return quittanceMensuelle;
     }
 
@@ -203,6 +208,8 @@ export class QuittanceMensuelleService {
             });
         });
         quittanceMensuelle.montantTotal = ComptaDecisionUtils.formatCurrency(quittanceMensuelle.montantTotal);
+        quittanceMensuelle.montantPenalite = ComptaDecisionUtils.formatCurrency(quittanceMensuelle.montantPenalite);
+        quittanceMensuelle.montantTaxes = ComptaDecisionUtils.formatCurrency(quittanceMensuelle.montantTaxes);
         return quittanceMensuelle;
     }
 }

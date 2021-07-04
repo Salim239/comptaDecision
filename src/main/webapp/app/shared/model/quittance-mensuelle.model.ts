@@ -23,6 +23,8 @@ export interface IQuittanceMensuelle {
     numeroQuittance?: string;
     datePaiement?: Moment;
     montantTotal?: number;
+    montantTaxes?: number;
+    montantPenalite?: number;
     ficheClientId?: number;
     ficheClientDesignation?: string;
     ficheClientMatriculeFiscale?: string;
@@ -42,6 +44,8 @@ export class QuittanceMensuelle implements IQuittanceMensuelle {
         public numeroQuittance?: string,
         public datePaiement?: Moment,
         public montantTotal?: number,
+        public montantTaxes?: number,
+        public montantPenalite?: number,
         public ficheClientId?: number,
         public ficheClientDesignation?: string,
         public ficheClientMatriculeFiscale?: string,
@@ -50,5 +54,7 @@ export class QuittanceMensuelle implements IQuittanceMensuelle {
         public quittanceMensuelleLignes?: IQuittanceMensuelleLigne[],
         public parentQuittanceId?: number,
         public businessAlerts?: BusinessAlert[]
-    ) {}
+    ) {
+        this.montantPenalite = 0;
+    }
 }

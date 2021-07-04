@@ -78,7 +78,7 @@
                         <th><label
                             for="field_declarationAnnuelleLigneMontant">{{declarationAnnuelleLigne.libelle}}</label>
                         </th>
-                        <td><input jhiDigitOnly decimal="true"
+                        <td><input jhiDigitOnly decimal="true" [negativeAmountAccepted]="declarationAnnuelleLigne.montantNegatifAccepte"
                                    [ngClass]="{
                                    'has-sucess' : declarationAnnuelleLigne.montantCalcule !== declarationAnnuelleLigne.montant,
                                    'has-warning' : declarationAnnuelleLigne.montantCalcule == declarationAnnuelleLigne.montant,
@@ -122,7 +122,7 @@
                             <input [disabled]="true" class="form-control numeric"
                                    name="field_declarationAnnuelle.montantApPayesCalc"
                                    id="field_declarationAnnuelleLigneMontantCalculeCalc"
-                                   [ngModel]="declarationAnnuelle.montantApPayesCalc"
+                                   [ngModel]="declarationAnnuelle.montantApPayesCalc | number:'1.3-3'"
                                    (ngModelChange)="declarationAnnuelle.montantApPayesCalc=$event"/>
                         </td>
                     </tr>
@@ -154,7 +154,7 @@
                             <input [disabled]="true" class="form-control numeric"
                                    name="montantReportAnterieurCalc"
                                    id="montantReportAnterieurCalc"
-                                   [ngModel]="declarationAnnuelle.montantReportAnterieurCalc"
+                                   [ngModel]="declarationAnnuelle.montantReportAnterieurCalc | number:'1.3-3'"
                                    (ngModelChange)="declarationAnnuelle.montantReportAnterieurCalc=$event"/>
                         </td>
                     </tr>
@@ -169,7 +169,7 @@
                                    [(ngModel)]="declarationAnnuelle.montantPenalite" (change)="calculerMontants()"/>
                         </td>
                         <td>
-                            <input [disabled]="true" class="form-control numeric" value="N/A"/>
+                            <input [disabled]="true" class="form-control numeric" value="NC"/>
                         </td>
                     </tr>
                     <tr>

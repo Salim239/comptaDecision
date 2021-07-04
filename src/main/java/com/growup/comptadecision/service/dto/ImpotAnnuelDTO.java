@@ -33,6 +33,8 @@ public class ImpotAnnuelDTO implements Serializable {
 
     private Boolean calcule = Boolean.FALSE;
 
+    private Boolean montantNegatifAccepte = Boolean.FALSE;
+
     @NotNull
     private Integer triOrdre;
 
@@ -94,5 +96,11 @@ public class ImpotAnnuelDTO implements Serializable {
         this.triOrdre = triOrdre;
     }
 
+    public Boolean getMontantNegatifAccepte() {
+        return montantNegatifAccepte;
+    }
 
+    public void setMontantNegatifAccepte(Boolean montantNegatifAccepte) {
+        this.montantNegatifAccepte = montantNegatifAccepte;
+    }
 }
